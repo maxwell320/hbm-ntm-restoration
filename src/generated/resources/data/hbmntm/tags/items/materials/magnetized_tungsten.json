@@ -2,7 +2,7 @@
   "values": [
     "hbmntm:ingot_magnetized_tungsten",
     "hbmntm:powder_magnetized_tungsten",
-    "hbmntm:wire_fine_magnetized_tungsten",
-    "hbmntm:wire_dense_magnetized_tungsten"
+    "hbmntm:wire_magnetized_tungsten",
+    "hbmntm:coil_magnetized_tungsten"
   ]
 }

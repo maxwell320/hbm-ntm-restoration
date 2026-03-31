@@ -1,15 +1,15 @@
 {
   "values": [
     "hbmntm:wire_fine_carbon",
-    "hbmntm:wire_fine_gold",
-    "hbmntm:wire_fine_copper",
-    "hbmntm:wire_fine_red_copper",
-    "hbmntm:wire_fine_advanced_alloy",
-    "hbmntm:wire_fine_tungsten",
-    "hbmntm:wire_fine_aluminium",
+    "hbmntm:wire_gold",
+    "hbmntm:wire_copper",
+    "hbmntm:wire_red_copper",
+    "hbmntm:wire_advanced_alloy",
+    "hbmntm:wire_tungsten",
+    "hbmntm:wire_aluminium",
     "hbmntm:wire_fine_steel",
-    "hbmntm:wire_fine_magnetized_tungsten",
-    "hbmntm:wire_fine_schrabidium",
+    "hbmntm:wire_magnetized_tungsten",
+    "hbmntm:wire_schrabidium",
     "hbmntm:wire_fine_zirconium"
   ]
 }

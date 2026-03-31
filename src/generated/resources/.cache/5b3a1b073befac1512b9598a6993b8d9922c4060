@@ -1,4 +1,4 @@
-// 1.20.1	2026-03-31T22:41:10.8062513	Item Models: hbmntm
+// 1.20.1	2026-03-31T23:14:53.1135082	Item Models: hbmntm
 5af477fae0ee316daeface1cde9128dc4f6e626c assets/hbmntm/models/item/ball_resin.json
 eca0ce1be9a8cdc468645ed5f33746d4234c91ad assets/hbmntm/models/item/barrel_heavy_cdalloy.json
 eca0ce1be9a8cdc468645ed5f33746d4234c91ad assets/hbmntm/models/item/barrel_heavy_desh.json
@@ -81,6 +81,10 @@ eca0ce1be9a8cdc468645ed5f33746d4234c91ad assets/hbmntm/models/item/barrel_heavy_
 5a2a3137b0e718a50b2c6c1515b71c9d9233a469 assets/hbmntm/models/item/bolt_steel.json
 5a2a3137b0e718a50b2c6c1515b71c9d9233a469 assets/hbmntm/models/item/bolt_tungsten.json
 5af477fae0ee316daeface1cde9128dc4f6e626c assets/hbmntm/models/item/cinnebar.json
+df044d7e2a265987e24a523d3fe97a6efb259a53 assets/hbmntm/models/item/coil_advanced_alloy.json
+df044d7e2a265987e24a523d3fe97a6efb259a53 assets/hbmntm/models/item/coil_copper.json
+df044d7e2a265987e24a523d3fe97a6efb259a53 assets/hbmntm/models/item/coil_gold.json
+df044d7e2a265987e24a523d3fe97a6efb259a53 assets/hbmntm/models/item/coil_magnetized_tungsten.json
 c64ed609ece68994ce23dd2809145040bce13579 assets/hbmntm/models/item/crystal_aluminium.json
 c64ed609ece68994ce23dd2809145040bce13579 assets/hbmntm/models/item/crystal_beryllium.json
 c64ed609ece68994ce23dd2809145040bce13579 assets/hbmntm/models/item/crystal_cinnebar.json
@@ -209,7 +213,6 @@ e6885ed5496c11f28296dedb86482ccdc77686ce assets/hbmntm/models/item/ntmpipe_coppe
 e6885ed5496c11f28296dedb86482ccdc77686ce assets/hbmntm/models/item/ntmpipe_dura_steel.json
 e6885ed5496c11f28296dedb86482ccdc77686ce assets/hbmntm/models/item/ntmpipe_iron.json
 e6885ed5496c11f28296dedb86482ccdc77686ce assets/hbmntm/models/item/ntmpipe_rubber.json
-e6885ed5496c11f28296dedb86482ccdc77686ce assets/hbmntm/models/item/ntmpipe_steel.json
 e8f2c9d07112191f81aacbb40fcf61b0b3ca583e assets/hbmntm/models/item/nugget_actinium.json
 e8f2c9d07112191f81aacbb40fcf61b0b3ca583e assets/hbmntm/models/item/nugget_arsenic.json
 e8f2c9d07112191f81aacbb40fcf61b0b3ca583e assets/hbmntm/models/item/nugget_au198.json
@@ -245,10 +248,12 @@ e8f2c9d07112191f81aacbb40fcf61b0b3ca583e assets/hbmntm/models/item/nugget_u235.j
 e8f2c9d07112191f81aacbb40fcf61b0b3ca583e assets/hbmntm/models/item/nugget_u238.json
 e8f2c9d07112191f81aacbb40fcf61b0b3ca583e assets/hbmntm/models/item/nugget_uranium.json
 e8f2c9d07112191f81aacbb40fcf61b0b3ca583e assets/hbmntm/models/item/nugget_zirconium.json
+e6885ed5496c11f28296dedb86482ccdc77686ce assets/hbmntm/models/item/pipes_steel.json
 9186aec3aa11a45a2b24103e84126c200f2ac5c2 assets/hbmntm/models/item/plate_advanced_alloy.json
 9186aec3aa11a45a2b24103e84126c200f2ac5c2 assets/hbmntm/models/item/plate_aluminium.json
 9186aec3aa11a45a2b24103e84126c200f2ac5c2 assets/hbmntm/models/item/plate_combine_steel.json
 9186aec3aa11a45a2b24103e84126c200f2ac5c2 assets/hbmntm/models/item/plate_copper.json
+7ccdd143defb54cfa4036b3b0fefb58c51ee5048 assets/hbmntm/models/item/plate_desh.json
 9186aec3aa11a45a2b24103e84126c200f2ac5c2 assets/hbmntm/models/item/plate_dura_steel.json
 9186aec3aa11a45a2b24103e84126c200f2ac5c2 assets/hbmntm/models/item/plate_gold.json
 9186aec3aa11a45a2b24103e84126c200f2ac5c2 assets/hbmntm/models/item/plate_gunmetal.json
@@ -277,7 +282,6 @@ d2c9091593298510a2eefa07b65f9a765b5ae185 assets/hbmntm/models/item/plate_sextupl
 7ccdd143defb54cfa4036b3b0fefb58c51ee5048 assets/hbmntm/models/item/plate_triple_cdalloy.json
 7ccdd143defb54cfa4036b3b0fefb58c51ee5048 assets/hbmntm/models/item/plate_triple_combine_steel.json
 7ccdd143defb54cfa4036b3b0fefb58c51ee5048 assets/hbmntm/models/item/plate_triple_copper.json
-7ccdd143defb54cfa4036b3b0fefb58c51ee5048 assets/hbmntm/models/item/plate_triple_desh.json
 7ccdd143defb54cfa4036b3b0fefb58c51ee5048 assets/hbmntm/models/item/plate_triple_dura_steel.json
 7ccdd143defb54cfa4036b3b0fefb58c51ee5048 assets/hbmntm/models/item/plate_triple_ferrouranium.json
 7ccdd143defb54cfa4036b3b0fefb58c51ee5048 assets/hbmntm/models/item/plate_triple_gold.json
@@ -411,12 +415,11 @@ c8d8b03f3cd7ab50987c4556bf26983a379b17db assets/hbmntm/models/item/receiver_ligh
 744fcbaebd95fae62e2d4cbe57af5eecf8d92c98 assets/hbmntm/models/item/stock_saturnite.json
 744fcbaebd95fae62e2d4cbe57af5eecf8d92c98 assets/hbmntm/models/item/stock_weaponsteel.json
 c6deebadfc028d6d62f45fc649e6c7dd033f5af5 assets/hbmntm/models/item/sulfur.json
-df044d7e2a265987e24a523d3fe97a6efb259a53 assets/hbmntm/models/item/wire_dense_advanced_alloy.json
+f18029efdb36a6bdf1764fe6dbb36fdf459f753f assets/hbmntm/models/item/wire_advanced_alloy.json
+f18029efdb36a6bdf1764fe6dbb36fdf459f753f assets/hbmntm/models/item/wire_aluminium.json
+f18029efdb36a6bdf1764fe6dbb36fdf459f753f assets/hbmntm/models/item/wire_copper.json
 df044d7e2a265987e24a523d3fe97a6efb259a53 assets/hbmntm/models/item/wire_dense_bscco.json
-df044d7e2a265987e24a523d3fe97a6efb259a53 assets/hbmntm/models/item/wire_dense_copper.json
 df044d7e2a265987e24a523d3fe97a6efb259a53 assets/hbmntm/models/item/wire_dense_dineutronium.json
-df044d7e2a265987e24a523d3fe97a6efb259a53 assets/hbmntm/models/item/wire_dense_gold.json
-df044d7e2a265987e24a523d3fe97a6efb259a53 assets/hbmntm/models/item/wire_dense_magnetized_tungsten.json
 df044d7e2a265987e24a523d3fe97a6efb259a53 assets/hbmntm/models/item/wire_dense_neodymium.json
 df044d7e2a265987e24a523d3fe97a6efb259a53 assets/hbmntm/models/item/wire_dense_niobium.json
 df044d7e2a265987e24a523d3fe97a6efb259a53 assets/hbmntm/models/item/wire_dense_red_copper.json
@@ -425,14 +428,11 @@ df044d7e2a265987e24a523d3fe97a6efb259a53 assets/hbmntm/models/item/wire_dense_sc
 df044d7e2a265987e24a523d3fe97a6efb259a53 assets/hbmntm/models/item/wire_dense_starmetal.json
 df044d7e2a265987e24a523d3fe97a6efb259a53 assets/hbmntm/models/item/wire_dense_titanium.json
 df044d7e2a265987e24a523d3fe97a6efb259a53 assets/hbmntm/models/item/wire_dense_tungsten.json
-f18029efdb36a6bdf1764fe6dbb36fdf459f753f assets/hbmntm/models/item/wire_fine_advanced_alloy.json
-f18029efdb36a6bdf1764fe6dbb36fdf459f753f assets/hbmntm/models/item/wire_fine_aluminium.json
 f18029efdb36a6bdf1764fe6dbb36fdf459f753f assets/hbmntm/models/item/wire_fine_carbon.json
-f18029efdb36a6bdf1764fe6dbb36fdf459f753f assets/hbmntm/models/item/wire_fine_copper.json
-f18029efdb36a6bdf1764fe6dbb36fdf459f753f assets/hbmntm/models/item/wire_fine_gold.json
-f18029efdb36a6bdf1764fe6dbb36fdf459f753f assets/hbmntm/models/item/wire_fine_magnetized_tungsten.json
-f18029efdb36a6bdf1764fe6dbb36fdf459f753f assets/hbmntm/models/item/wire_fine_red_copper.json
-f18029efdb36a6bdf1764fe6dbb36fdf459f753f assets/hbmntm/models/item/wire_fine_schrabidium.json
 f18029efdb36a6bdf1764fe6dbb36fdf459f753f assets/hbmntm/models/item/wire_fine_steel.json
-f18029efdb36a6bdf1764fe6dbb36fdf459f753f assets/hbmntm/models/item/wire_fine_tungsten.json
 f18029efdb36a6bdf1764fe6dbb36fdf459f753f assets/hbmntm/models/item/wire_fine_zirconium.json
+f18029efdb36a6bdf1764fe6dbb36fdf459f753f assets/hbmntm/models/item/wire_gold.json
+f18029efdb36a6bdf1764fe6dbb36fdf459f753f assets/hbmntm/models/item/wire_magnetized_tungsten.json
+f18029efdb36a6bdf1764fe6dbb36fdf459f753f assets/hbmntm/models/item/wire_red_copper.json
+f18029efdb36a6bdf1764fe6dbb36fdf459f753f assets/hbmntm/models/item/wire_schrabidium.json
+f18029efdb36a6bdf1764fe6dbb36fdf459f753f assets/hbmntm/models/item/wire_tungsten.json
