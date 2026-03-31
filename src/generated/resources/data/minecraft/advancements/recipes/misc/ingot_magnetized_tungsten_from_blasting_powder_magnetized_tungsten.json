@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_powder_magnetized_tungsten": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "hbmntm:powder_magnetized_tungsten"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:ingot_magnetized_tungsten_from_blasting_powder_magnetized_tungsten"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_powder_magnetized_tungsten",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:ingot_magnetized_tungsten_from_blasting_powder_magnetized_tungsten"
+    ]
+  },
+  "sends_telemetry_event": false
+}

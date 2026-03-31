@@ -6,6 +6,9 @@
     "hbmntm:wire_dense_red_copper",
     "hbmntm:wire_dense_advanced_alloy",
     "hbmntm:wire_dense_tungsten",
+    "hbmntm:wire_dense_bscco",
+    "hbmntm:wire_dense_magnetized_tungsten",
+    "hbmntm:wire_dense_starmetal",
     "hbmntm:wire_dense_schrabidium",
     "hbmntm:wire_dense_schrabidate",
     "hbmntm:wire_dense_niobium"

@@ -3,6 +3,11 @@
     "hbmntm:receiver_light_steel",
     "hbmntm:receiver_light_tcalloy",
     "hbmntm:receiver_light_cdalloy",
+    "hbmntm:receiver_light_bismuth_bronze",
+    "hbmntm:receiver_light_arsenic_bronze",
+    "hbmntm:receiver_light_gunmetal",
+    "hbmntm:receiver_light_weaponsteel",
+    "hbmntm:receiver_light_saturnite",
     "hbmntm:receiver_light_dura_steel",
     "hbmntm:receiver_light_desh"
   ]

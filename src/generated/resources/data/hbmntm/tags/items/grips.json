@@ -1,6 +1,9 @@
 {
   "values": [
     "hbmntm:grip_steel",
+    "hbmntm:grip_gunmetal",
+    "hbmntm:grip_weaponsteel",
+    "hbmntm:grip_saturnite",
     "hbmntm:grip_dura_steel",
     "hbmntm:grip_desh"
   ]

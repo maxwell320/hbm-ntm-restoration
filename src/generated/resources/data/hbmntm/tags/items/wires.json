@@ -8,6 +8,7 @@
     "hbmntm:wire_fine_tungsten",
     "hbmntm:wire_fine_aluminium",
     "hbmntm:wire_fine_steel",
+    "hbmntm:wire_fine_magnetized_tungsten",
     "hbmntm:wire_fine_schrabidium"
   ]
 }

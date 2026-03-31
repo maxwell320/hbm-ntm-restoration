@@ -3,6 +3,8 @@
     "hbmntm:shell_titanium",
     "hbmntm:shell_copper",
     "hbmntm:shell_aluminium",
-    "hbmntm:shell_steel"
+    "hbmntm:shell_steel",
+    "hbmntm:shell_weaponsteel",
+    "hbmntm:shell_saturnite"
   ]
 }

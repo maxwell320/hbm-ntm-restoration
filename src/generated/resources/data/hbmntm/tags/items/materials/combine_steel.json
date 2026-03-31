@@ -1,0 +1,9 @@
+{
+  "values": [
+    "hbmntm:ingot_combine_steel",
+    "hbmntm:powder_combine_steel",
+    "hbmntm:plate_combine_steel",
+    "hbmntm:plate_triple_combine_steel",
+    "hbmntm:plate_sextuple_combine_steel"
+  ]
+}

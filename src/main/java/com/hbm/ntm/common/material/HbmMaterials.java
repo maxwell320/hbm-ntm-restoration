@@ -51,6 +51,18 @@ public final class HbmMaterials {
     public static final HbmMaterialDefinition TCALLOY = HbmMaterialDefinition.of("tcalloy", "TC Alloy", HbmMaterialShape.INGOT, HbmMaterialShape.DUST, HbmMaterialShape.CAST_PLATE, HbmMaterialShape.WELDED_PLATE, HbmMaterialShape.LIGHT_BARREL, HbmMaterialShape.HEAVY_BARREL, HbmMaterialShape.LIGHT_RECEIVER, HbmMaterialShape.HEAVY_RECEIVER)
         .withItemId(HbmMaterialShape.DUST, "powder_tcalloy");
     public static final HbmMaterialDefinition CDALLOY = HbmMaterialDefinition.of("cdalloy", "CD Alloy", HbmMaterialShape.INGOT, HbmMaterialShape.CAST_PLATE, HbmMaterialShape.WELDED_PLATE, HbmMaterialShape.LIGHT_BARREL, HbmMaterialShape.HEAVY_BARREL, HbmMaterialShape.LIGHT_RECEIVER, HbmMaterialShape.HEAVY_RECEIVER);
+    public static final HbmMaterialDefinition BISMUTH_BRONZE = HbmMaterialDefinition.of("bismuth_bronze", "Bismuth Bronze", HbmMaterialShape.INGOT, HbmMaterialShape.CAST_PLATE, HbmMaterialShape.LIGHT_BARREL, HbmMaterialShape.LIGHT_RECEIVER, HbmMaterialShape.HEAVY_RECEIVER);
+    public static final HbmMaterialDefinition ARSENIC_BRONZE = HbmMaterialDefinition.of("arsenic_bronze", "Arsenic Bronze", HbmMaterialShape.INGOT, HbmMaterialShape.CAST_PLATE, HbmMaterialShape.LIGHT_BARREL, HbmMaterialShape.LIGHT_RECEIVER, HbmMaterialShape.HEAVY_RECEIVER);
+    public static final HbmMaterialDefinition BSCCO = HbmMaterialDefinition.of("bscco", "BSCCO", HbmMaterialShape.INGOT, HbmMaterialShape.DENSE_WIRE);
+    public static final HbmMaterialDefinition MAGNETIZED_TUNGSTEN = HbmMaterialDefinition.of("magnetized_tungsten", "Magnetized Tungsten", HbmMaterialShape.INGOT, HbmMaterialShape.DUST, HbmMaterialShape.WIRE, HbmMaterialShape.DENSE_WIRE)
+        .withItemId(HbmMaterialShape.DUST, "powder_magnetized_tungsten");
+    public static final HbmMaterialDefinition COMBINE_STEEL = HbmMaterialDefinition.of("combine_steel", "Combine Steel", HbmMaterialShape.INGOT, HbmMaterialShape.DUST, HbmMaterialShape.PLATE, HbmMaterialShape.CAST_PLATE, HbmMaterialShape.WELDED_PLATE)
+        .withItemId(HbmMaterialShape.DUST, "powder_combine_steel");
+    public static final HbmMaterialDefinition STARMETAL = HbmMaterialDefinition.of("starmetal", "Starmetal", HbmMaterialShape.INGOT, HbmMaterialShape.DUST, HbmMaterialShape.DENSE_WIRE, HbmMaterialShape.CAST_PLATE);
+    public static final HbmMaterialDefinition FERRORANIUM = HbmMaterialDefinition.of("ferrouranium", "Ferrouranium", HbmMaterialShape.INGOT, HbmMaterialShape.CAST_PLATE, HbmMaterialShape.HEAVY_BARREL, HbmMaterialShape.HEAVY_RECEIVER);
+    public static final HbmMaterialDefinition GUNMETAL = HbmMaterialDefinition.of("gunmetal", "Gunmetal", HbmMaterialShape.INGOT, HbmMaterialShape.PLATE, HbmMaterialShape.LIGHT_BARREL, HbmMaterialShape.HEAVY_BARREL, HbmMaterialShape.LIGHT_RECEIVER, HbmMaterialShape.HEAVY_RECEIVER, HbmMaterialShape.MECHANISM, HbmMaterialShape.STOCK, HbmMaterialShape.GRIP);
+    public static final HbmMaterialDefinition WEAPONSTEEL = HbmMaterialDefinition.of("weaponsteel", "Weapon Steel", HbmMaterialShape.INGOT, HbmMaterialShape.PLATE, HbmMaterialShape.CAST_PLATE, HbmMaterialShape.SHELL, HbmMaterialShape.LIGHT_BARREL, HbmMaterialShape.HEAVY_BARREL, HbmMaterialShape.LIGHT_RECEIVER, HbmMaterialShape.HEAVY_RECEIVER, HbmMaterialShape.MECHANISM, HbmMaterialShape.STOCK, HbmMaterialShape.GRIP);
+    public static final HbmMaterialDefinition SATURNITE = HbmMaterialDefinition.of("saturnite", "Saturnite", HbmMaterialShape.INGOT, HbmMaterialShape.PLATE, HbmMaterialShape.CAST_PLATE, HbmMaterialShape.SHELL, HbmMaterialShape.LIGHT_BARREL, HbmMaterialShape.HEAVY_BARREL, HbmMaterialShape.LIGHT_RECEIVER, HbmMaterialShape.HEAVY_RECEIVER, HbmMaterialShape.MECHANISM, HbmMaterialShape.STOCK, HbmMaterialShape.GRIP);
     public static final HbmMaterialDefinition SCHRABIDIUM = HbmMaterialDefinition.of("schrabidium", "Schrabidium", HbmMaterialShape.INGOT, HbmMaterialShape.NUGGET, HbmMaterialShape.WIRE, HbmMaterialShape.BILLET, HbmMaterialShape.DUST, HbmMaterialShape.DENSE_WIRE, HbmMaterialShape.PLATE, HbmMaterialShape.CAST_PLATE)
         .withItemId(HbmMaterialShape.DUST, "powder_schrabidium");
     public static final HbmMaterialDefinition SOLINIUM = HbmMaterialDefinition.of("solinium", "Solinium", HbmMaterialShape.INGOT, HbmMaterialShape.NUGGET, HbmMaterialShape.BILLET);
@@ -110,6 +122,16 @@ public final class HbmMaterials {
         STEEL,
         TCALLOY,
         CDALLOY,
+        BISMUTH_BRONZE,
+        ARSENIC_BRONZE,
+        BSCCO,
+        MAGNETIZED_TUNGSTEN,
+        COMBINE_STEEL,
+        STARMETAL,
+        FERRORANIUM,
+        GUNMETAL,
+        WEAPONSTEEL,
+        SATURNITE,
         SCHRABIDIUM,
         SOLINIUM,
         SCHRABIDATE,

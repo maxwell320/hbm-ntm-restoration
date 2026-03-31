@@ -2,6 +2,12 @@
   "values": [
     "hbmntm:receiver_heavy_tcalloy",
     "hbmntm:receiver_heavy_cdalloy",
+    "hbmntm:receiver_heavy_bismuth_bronze",
+    "hbmntm:receiver_heavy_arsenic_bronze",
+    "hbmntm:receiver_heavy_ferrouranium",
+    "hbmntm:receiver_heavy_gunmetal",
+    "hbmntm:receiver_heavy_weaponsteel",
+    "hbmntm:receiver_heavy_saturnite",
     "hbmntm:receiver_heavy_dura_steel"
   ]
 }

@@ -1,0 +1,15 @@
+{
+  "values": [
+    "hbmntm:ingot_weaponsteel",
+    "hbmntm:plate_weaponsteel",
+    "hbmntm:plate_triple_weaponsteel",
+    "hbmntm:shell_weaponsteel",
+    "hbmntm:barrel_light_weaponsteel",
+    "hbmntm:barrel_heavy_weaponsteel",
+    "hbmntm:receiver_light_weaponsteel",
+    "hbmntm:receiver_heavy_weaponsteel",
+    "hbmntm:gun_mechanism_weaponsteel",
+    "hbmntm:stock_weaponsteel",
+    "hbmntm:grip_weaponsteel"
+  ]
+}

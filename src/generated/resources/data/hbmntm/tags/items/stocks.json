@@ -1,5 +1,8 @@
 {
   "values": [
+    "hbmntm:stock_gunmetal",
+    "hbmntm:stock_weaponsteel",
+    "hbmntm:stock_saturnite",
     "hbmntm:stock_desh"
   ]
 }
