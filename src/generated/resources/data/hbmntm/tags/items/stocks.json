@@ -3,6 +3,10 @@
     "hbmntm:stock_gunmetal",
     "hbmntm:stock_weaponsteel",
     "hbmntm:stock_saturnite",
+    "hbmntm:stock_polymer",
+    "hbmntm:stock_bakelite",
+    "hbmntm:stock_pc",
+    "hbmntm:stock_pvc",
     "hbmntm:stock_desh"
   ]
 }

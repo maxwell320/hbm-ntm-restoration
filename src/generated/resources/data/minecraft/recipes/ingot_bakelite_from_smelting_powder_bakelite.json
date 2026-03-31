@@ -3,9 +3,9 @@
   "category": "misc",
   "cookingtime": 200,
   "experience": 0.1,
-  "group": "starmetal",
+  "group": "bakelite",
   "ingredient": {
-    "item": "hbmntm:dust_starmetal"
+    "item": "hbmntm:powder_bakelite"
   },
-  "result": "hbmntm:ingot_starmetal"
+  "result": "hbmntm:ingot_bakelite"
 }

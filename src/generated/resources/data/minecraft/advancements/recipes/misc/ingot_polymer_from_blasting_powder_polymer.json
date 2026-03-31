@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_dust_starmetal": {
+    "has_powder_polymer": {
       "conditions": {
         "items": [
           {
             "items": [
-              "hbmntm:dust_starmetal"
+              "hbmntm:powder_polymer"
             ]
           }
         ]
@@ -15,20 +15,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:ingot_starmetal_from_blasting_dust_starmetal"
+        "recipe": "minecraft:ingot_polymer_from_blasting_powder_polymer"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_dust_starmetal",
+      "has_powder_polymer",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:ingot_starmetal_from_blasting_dust_starmetal"
+      "minecraft:ingot_polymer_from_blasting_powder_polymer"
     ]
   },
   "sends_telemetry_event": false

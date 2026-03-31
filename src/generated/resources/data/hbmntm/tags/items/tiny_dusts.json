@@ -1,9 +1,17 @@
 {
   "values": [
     "hbmntm:powder_lithium_tiny",
+    "hbmntm:powder_actinium_tiny",
+    "hbmntm:powder_sr90_tiny",
+    "hbmntm:powder_i131_tiny",
+    "hbmntm:powder_xe135_tiny",
+    "hbmntm:powder_cs137_tiny",
+    "hbmntm:powder_steel_tiny",
     "hbmntm:powder_boron_tiny",
     "hbmntm:powder_lanthanium_tiny",
     "hbmntm:powder_neodymium_tiny",
+    "hbmntm:powder_niobium_tiny",
+    "hbmntm:powder_cobalt_tiny",
     "hbmntm:powder_cerium_tiny"
   ]
 }

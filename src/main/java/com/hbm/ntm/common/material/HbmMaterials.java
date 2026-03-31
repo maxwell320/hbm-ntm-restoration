@@ -40,8 +40,23 @@ public final class HbmMaterials {
     public static final HbmMaterialDefinition TECHNETIUM = HbmMaterialDefinition.of("technetium", "Technetium", HbmMaterialShape.FRAGMENT, HbmMaterialShape.INGOT, HbmMaterialShape.NUGGET, HbmMaterialShape.BILLET);
     public static final HbmMaterialDefinition RA226 = HbmMaterialDefinition.of("ra226", "Ra-226", HbmMaterialShape.FRAGMENT, HbmMaterialShape.INGOT, HbmMaterialShape.NUGGET, HbmMaterialShape.BILLET, HbmMaterialShape.DUST)
         .withItemId(HbmMaterialShape.DUST, "powder_ra226");
-    public static final HbmMaterialDefinition ACTINIUM = HbmMaterialDefinition.of("actinium", "Actinium", HbmMaterialShape.INGOT, HbmMaterialShape.NUGGET, HbmMaterialShape.BILLET, HbmMaterialShape.DUST)
+    public static final HbmMaterialDefinition ACTINIUM = HbmMaterialDefinition.of("actinium", "Actinium", HbmMaterialShape.INGOT, HbmMaterialShape.NUGGET, HbmMaterialShape.BILLET, HbmMaterialShape.DUST_TINY, HbmMaterialShape.DUST)
+        .withItemId(HbmMaterialShape.DUST_TINY, "powder_actinium_tiny")
         .withItemId(HbmMaterialShape.DUST, "powder_actinium");
+    public static final HbmMaterialDefinition SR90 = HbmMaterialDefinition.of("sr90", "Sr-90", HbmMaterialShape.INGOT, HbmMaterialShape.NUGGET, HbmMaterialShape.BILLET, HbmMaterialShape.DUST_TINY, HbmMaterialShape.DUST)
+        .withItemId(HbmMaterialShape.DUST_TINY, "powder_sr90_tiny")
+        .withItemId(HbmMaterialShape.DUST, "powder_sr90");
+    public static final HbmMaterialDefinition I131 = HbmMaterialDefinition.of("i131", "I-131", HbmMaterialShape.DUST_TINY, HbmMaterialShape.DUST)
+        .withItemId(HbmMaterialShape.DUST_TINY, "powder_i131_tiny")
+        .withItemId(HbmMaterialShape.DUST, "powder_i131");
+    public static final HbmMaterialDefinition XE135 = HbmMaterialDefinition.of("xe135", "Xe-135", HbmMaterialShape.DUST_TINY, HbmMaterialShape.DUST)
+        .withItemId(HbmMaterialShape.DUST_TINY, "powder_xe135_tiny")
+        .withItemId(HbmMaterialShape.DUST, "powder_xe135");
+    public static final HbmMaterialDefinition CS137 = HbmMaterialDefinition.of("cs137", "Cs-137", HbmMaterialShape.DUST_TINY, HbmMaterialShape.DUST)
+        .withItemId(HbmMaterialShape.DUST_TINY, "powder_cs137_tiny")
+        .withItemId(HbmMaterialShape.DUST, "powder_cs137");
+    public static final HbmMaterialDefinition AT209 = HbmMaterialDefinition.of("at209", "At-209", HbmMaterialShape.DUST)
+        .withItemId(HbmMaterialShape.DUST, "powder_at209");
     public static final HbmMaterialDefinition CO60 = HbmMaterialDefinition.of("co60", "Co-60", HbmMaterialShape.INGOT, HbmMaterialShape.NUGGET, HbmMaterialShape.BILLET, HbmMaterialShape.DUST)
         .withItemId(HbmMaterialShape.DUST, "powder_co60");
     public static final HbmMaterialDefinition AU198 = HbmMaterialDefinition.of("au198", "Au-198", HbmMaterialShape.INGOT, HbmMaterialShape.NUGGET, HbmMaterialShape.BILLET, HbmMaterialShape.DUST)
@@ -59,7 +74,8 @@ public final class HbmMaterials {
         .withItemId(HbmMaterialShape.DUST, "powder_tungsten");
     public static final HbmMaterialDefinition ALUMINIUM = HbmMaterialDefinition.of("aluminium", "Aluminium", HbmMaterialShape.FRAGMENT, HbmMaterialShape.INGOT, HbmMaterialShape.DUST, HbmMaterialShape.WIRE, HbmMaterialShape.PLATE, HbmMaterialShape.CAST_PLATE, HbmMaterialShape.WELDED_PLATE, HbmMaterialShape.SHELL, HbmMaterialShape.PIPE)
         .withItemId(HbmMaterialShape.DUST, "powder_aluminium");
-    public static final HbmMaterialDefinition STEEL = HbmMaterialDefinition.of("steel", "Steel", HbmMaterialShape.INGOT, HbmMaterialShape.DUST, HbmMaterialShape.WIRE, HbmMaterialShape.BOLT, HbmMaterialShape.PLATE, HbmMaterialShape.CAST_PLATE, HbmMaterialShape.WELDED_PLATE, HbmMaterialShape.SHELL, HbmMaterialShape.PIPE, HbmMaterialShape.LIGHT_BARREL, HbmMaterialShape.HEAVY_BARREL, HbmMaterialShape.LIGHT_RECEIVER, HbmMaterialShape.GRIP)
+    public static final HbmMaterialDefinition STEEL = HbmMaterialDefinition.of("steel", "Steel", HbmMaterialShape.INGOT, HbmMaterialShape.DUST_TINY, HbmMaterialShape.DUST, HbmMaterialShape.WIRE, HbmMaterialShape.BOLT, HbmMaterialShape.PLATE, HbmMaterialShape.CAST_PLATE, HbmMaterialShape.WELDED_PLATE, HbmMaterialShape.SHELL, HbmMaterialShape.PIPE, HbmMaterialShape.LIGHT_BARREL, HbmMaterialShape.HEAVY_BARREL, HbmMaterialShape.LIGHT_RECEIVER, HbmMaterialShape.GRIP)
+        .withItemId(HbmMaterialShape.DUST_TINY, "powder_steel_tiny")
         .withItemId(HbmMaterialShape.DUST, "powder_steel");
     public static final HbmMaterialDefinition TCALLOY = HbmMaterialDefinition.of("tcalloy", "TC Alloy", HbmMaterialShape.INGOT, HbmMaterialShape.DUST, HbmMaterialShape.CAST_PLATE, HbmMaterialShape.WELDED_PLATE, HbmMaterialShape.LIGHT_BARREL, HbmMaterialShape.HEAVY_BARREL, HbmMaterialShape.LIGHT_RECEIVER, HbmMaterialShape.HEAVY_RECEIVER)
         .withItemId(HbmMaterialShape.DUST, "powder_tcalloy");
@@ -71,7 +87,8 @@ public final class HbmMaterials {
         .withItemId(HbmMaterialShape.DUST, "powder_magnetized_tungsten");
     public static final HbmMaterialDefinition COMBINE_STEEL = HbmMaterialDefinition.of("combine_steel", "Combine Steel", HbmMaterialShape.INGOT, HbmMaterialShape.DUST, HbmMaterialShape.PLATE, HbmMaterialShape.CAST_PLATE, HbmMaterialShape.WELDED_PLATE)
         .withItemId(HbmMaterialShape.DUST, "powder_combine_steel");
-    public static final HbmMaterialDefinition STARMETAL = HbmMaterialDefinition.of("starmetal", "Starmetal", HbmMaterialShape.INGOT, HbmMaterialShape.DUST, HbmMaterialShape.DENSE_WIRE, HbmMaterialShape.CAST_PLATE);
+    public static final HbmMaterialDefinition STARMETAL = HbmMaterialDefinition.of("starmetal", "Starmetal", HbmMaterialShape.INGOT, HbmMaterialShape.DUST, HbmMaterialShape.DENSE_WIRE, HbmMaterialShape.CAST_PLATE)
+        .withItemId(HbmMaterialShape.DUST, "powder_starmetal");
     public static final HbmMaterialDefinition FERRORANIUM = HbmMaterialDefinition.of("ferrouranium", "Ferrouranium", HbmMaterialShape.INGOT, HbmMaterialShape.CAST_PLATE, HbmMaterialShape.HEAVY_BARREL, HbmMaterialShape.HEAVY_RECEIVER);
     public static final HbmMaterialDefinition GUNMETAL = HbmMaterialDefinition.of("gunmetal", "Gunmetal", HbmMaterialShape.INGOT, HbmMaterialShape.PLATE, HbmMaterialShape.LIGHT_BARREL, HbmMaterialShape.HEAVY_BARREL, HbmMaterialShape.LIGHT_RECEIVER, HbmMaterialShape.HEAVY_RECEIVER, HbmMaterialShape.MECHANISM, HbmMaterialShape.STOCK, HbmMaterialShape.GRIP);
     public static final HbmMaterialDefinition WEAPONSTEEL = HbmMaterialDefinition.of("weaponsteel", "Weapon Steel", HbmMaterialShape.INGOT, HbmMaterialShape.PLATE, HbmMaterialShape.CAST_PLATE, HbmMaterialShape.SHELL, HbmMaterialShape.LIGHT_BARREL, HbmMaterialShape.HEAVY_BARREL, HbmMaterialShape.LIGHT_RECEIVER, HbmMaterialShape.HEAVY_RECEIVER, HbmMaterialShape.MECHANISM, HbmMaterialShape.STOCK, HbmMaterialShape.GRIP);
@@ -92,7 +109,8 @@ public final class HbmMaterials {
         .withItemId(HbmMaterialShape.DUST, "powder_boron");
     public static final HbmMaterialDefinition BORAX = HbmMaterialDefinition.of("borax", "Borax", HbmMaterialShape.DUST)
         .withItemId(HbmMaterialShape.DUST, "powder_borax");
-    public static final HbmMaterialDefinition TANTALIUM = HbmMaterialDefinition.of("tantalium", "Tantalium", HbmMaterialShape.FRAGMENT, HbmMaterialShape.INGOT, HbmMaterialShape.NUGGET, HbmMaterialShape.DUST)
+    public static final HbmMaterialDefinition TANTALIUM = HbmMaterialDefinition.of("tantalium", "Tantalium", HbmMaterialShape.FRAGMENT, HbmMaterialShape.INGOT, HbmMaterialShape.NUGGET, HbmMaterialShape.GEM, HbmMaterialShape.DUST)
+        .withItemId(HbmMaterialShape.GEM, "gem_tantalium")
         .withItemId(HbmMaterialShape.DUST, "powder_tantalium");
     public static final HbmMaterialDefinition LANTHANIUM = HbmMaterialDefinition.of("lanthanium", "Lanthanium", HbmMaterialShape.FRAGMENT, HbmMaterialShape.INGOT, HbmMaterialShape.DUST_TINY, HbmMaterialShape.DUST)
         .withItemId(HbmMaterialShape.DUST_TINY, "powder_lanthanium_tiny")
@@ -100,13 +118,15 @@ public final class HbmMaterials {
     public static final HbmMaterialDefinition NEODYMIUM = HbmMaterialDefinition.of("neodymium", "Neodymium", HbmMaterialShape.FRAGMENT, HbmMaterialShape.DUST_TINY, HbmMaterialShape.DUST, HbmMaterialShape.DENSE_WIRE)
         .withItemId(HbmMaterialShape.DUST_TINY, "powder_neodymium_tiny")
         .withItemId(HbmMaterialShape.DUST, "powder_neodymium");
-    public static final HbmMaterialDefinition NIOBIUM = HbmMaterialDefinition.of("niobium", "Niobium", HbmMaterialShape.FRAGMENT, HbmMaterialShape.INGOT, HbmMaterialShape.NUGGET, HbmMaterialShape.DUST, HbmMaterialShape.DENSE_WIRE)
+    public static final HbmMaterialDefinition NIOBIUM = HbmMaterialDefinition.of("niobium", "Niobium", HbmMaterialShape.FRAGMENT, HbmMaterialShape.INGOT, HbmMaterialShape.NUGGET, HbmMaterialShape.DUST_TINY, HbmMaterialShape.DUST, HbmMaterialShape.DENSE_WIRE)
+        .withItemId(HbmMaterialShape.DUST_TINY, "powder_niobium_tiny")
         .withItemId(HbmMaterialShape.DUST, "powder_niobium");
     public static final HbmMaterialDefinition BERYLLIUM = HbmMaterialDefinition.of("beryllium", "Beryllium", HbmMaterialShape.FRAGMENT, HbmMaterialShape.INGOT, HbmMaterialShape.NUGGET, HbmMaterialShape.BILLET, HbmMaterialShape.DUST)
         .withItemId(HbmMaterialShape.DUST, "powder_beryllium");
     public static final HbmMaterialDefinition EMERALD = HbmMaterialDefinition.of("emerald", "Emerald", HbmMaterialShape.FRAGMENT, HbmMaterialShape.DUST)
         .withItemId(HbmMaterialShape.DUST, "powder_emerald");
-    public static final HbmMaterialDefinition COBALT = HbmMaterialDefinition.of("cobalt", "Cobalt", HbmMaterialShape.FRAGMENT, HbmMaterialShape.INGOT, HbmMaterialShape.NUGGET, HbmMaterialShape.BILLET, HbmMaterialShape.DUST)
+    public static final HbmMaterialDefinition COBALT = HbmMaterialDefinition.of("cobalt", "Cobalt", HbmMaterialShape.FRAGMENT, HbmMaterialShape.INGOT, HbmMaterialShape.NUGGET, HbmMaterialShape.BILLET, HbmMaterialShape.DUST_TINY, HbmMaterialShape.DUST)
+        .withItemId(HbmMaterialShape.DUST_TINY, "powder_cobalt_tiny")
         .withItemId(HbmMaterialShape.DUST, "powder_cobalt");
     public static final HbmMaterialDefinition SODIUM = HbmMaterialDefinition.of("sodium", "Sodium", HbmMaterialShape.DUST)
         .withItemId(HbmMaterialShape.DUST, "powder_sodium");
@@ -156,6 +176,21 @@ public final class HbmMaterials {
     public static final HbmMaterialDefinition ZIRCONIUM = HbmMaterialDefinition.of("zirconium", "Zirconium", HbmMaterialShape.FRAGMENT, HbmMaterialShape.INGOT, HbmMaterialShape.NUGGET, HbmMaterialShape.WIRE, HbmMaterialShape.BILLET, HbmMaterialShape.DUST, HbmMaterialShape.CAST_PLATE, HbmMaterialShape.WELDED_PLATE)
         .withItemId(HbmMaterialShape.DUST, "powder_zirconium");
     public static final HbmMaterialDefinition SILICON = HbmMaterialDefinition.of("silicon", "Silicon", HbmMaterialShape.INGOT, HbmMaterialShape.NUGGET, HbmMaterialShape.BILLET);
+    public static final HbmMaterialDefinition POLYMER = HbmMaterialDefinition.of("polymer", "Polymer", HbmMaterialShape.INGOT, HbmMaterialShape.DUST, HbmMaterialShape.PLATE, HbmMaterialShape.STOCK, HbmMaterialShape.GRIP)
+        .withItemId(HbmMaterialShape.DUST, "powder_polymer")
+        .withItemId(HbmMaterialShape.PLATE, "plate_polymer");
+    public static final HbmMaterialDefinition BAKELITE = HbmMaterialDefinition.of("bakelite", "Bakelite", HbmMaterialShape.INGOT, HbmMaterialShape.DUST, HbmMaterialShape.STOCK, HbmMaterialShape.GRIP)
+        .withItemId(HbmMaterialShape.DUST, "powder_bakelite");
+    public static final HbmMaterialDefinition LATEX = HbmMaterialDefinition.of("latex", "Latex", HbmMaterialShape.GEM, HbmMaterialShape.INGOT)
+        .withItemId(HbmMaterialShape.GEM, "ball_resin")
+        .withItemDisplayName(HbmMaterialShape.GEM, "Resin Ball")
+        .withItemId(HbmMaterialShape.INGOT, "ingot_biorubber")
+        .withItemDisplayName(HbmMaterialShape.INGOT, "Biorubber");
+    public static final HbmMaterialDefinition RUBBER = HbmMaterialDefinition.of("rubber", "Rubber", HbmMaterialShape.INGOT, HbmMaterialShape.PIPE, HbmMaterialShape.GRIP);
+    public static final HbmMaterialDefinition PC = HbmMaterialDefinition.of("pc", "PC", HbmMaterialShape.INGOT, HbmMaterialShape.STOCK, HbmMaterialShape.GRIP)
+        .withItemId(HbmMaterialShape.INGOT, "ingot_pc");
+    public static final HbmMaterialDefinition PVC = HbmMaterialDefinition.of("pvc", "PVC", HbmMaterialShape.INGOT, HbmMaterialShape.STOCK, HbmMaterialShape.GRIP)
+        .withItemId(HbmMaterialShape.INGOT, "ingot_pvc");
     public static final HbmMaterialDefinition FIBERGLASS = HbmMaterialDefinition.of("fiberglass", "Fiberglass", HbmMaterialShape.INGOT)
         .withItemId(HbmMaterialShape.INGOT, "ingot_fiberglass");
     public static final HbmMaterialDefinition ASBESTOS = HbmMaterialDefinition.of("asbestos", "Asbestos", HbmMaterialShape.INGOT, HbmMaterialShape.DUST)
@@ -198,6 +233,11 @@ public final class HbmMaterials {
         TECHNETIUM,
         RA226,
         ACTINIUM,
+        SR90,
+        I131,
+        XE135,
+        CS137,
+        AT209,
         CO60,
         AU198,
         PB209,
@@ -256,6 +296,12 @@ public final class HbmMaterials {
         CERIUM,
         ZIRCONIUM,
         SILICON,
+        POLYMER,
+        BAKELITE,
+        LATEX,
+        RUBBER,
+        PC,
+        PVC,
         FIBERGLASS,
         ASBESTOS,
         OSMIRIDIUM,

@@ -3,9 +3,9 @@
   "category": "misc",
   "cookingtime": 100,
   "experience": 0.1,
-  "group": "starmetal",
+  "group": "sr90",
   "ingredient": {
-    "item": "hbmntm:dust_starmetal"
+    "item": "hbmntm:powder_sr90"
   },
-  "result": "hbmntm:ingot_starmetal"
+  "result": "hbmntm:ingot_sr90"
 }

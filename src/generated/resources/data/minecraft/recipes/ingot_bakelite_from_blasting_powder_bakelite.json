@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.1,
+  "group": "bakelite",
+  "ingredient": {
+    "item": "hbmntm:powder_bakelite"
+  },
+  "result": "hbmntm:ingot_bakelite"
+}
