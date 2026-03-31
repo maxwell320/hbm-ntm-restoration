@@ -12,8 +12,8 @@ public enum HbmMaterialShape {
     DENSE_WIRE("wire_dense", "Dense Wire", "dense_wires", "item/redstone"),
     BOLT("bolt", "Bolt", "bolts", "item/iron_nugget"),
     PLATE("plate", "Plate", "plates", "item/paper"),
-    CAST_PLATE("plate_triple", "Cast Plate", "cast_plates", "item/map"),
-    WELDED_PLATE("plate_sextuple", "Welded Plate", "welded_plates", "item/book"),
+    CAST_PLATE("plate_triple", "Cast Plate", "cast_plates", "item/map", "Cast %s Plate"),
+    WELDED_PLATE("plate_sextuple", "Welded Plate", "welded_plates", "item/book", "Welded %s Plate"),
     SHELL("shell", "Shell", "shells", "item/rabbit_hide"),
     PIPE("ntmpipe", "Pipe", "pipes", "item/copper_ingot"),
     BILLET("billet", "Billet", "billets", "item/brick"),
@@ -29,12 +29,18 @@ public enum HbmMaterialShape {
     private final String displaySuffix;
     private final String tagFolder;
     private final String defaultTexturePath;
+    private final String translationFormat;
 
     HbmMaterialShape(final String registryPrefix, final String displaySuffix, final String tagFolder, final String defaultTexturePath) {
+        this(registryPrefix, displaySuffix, tagFolder, defaultTexturePath, "%s " + displaySuffix);
+    }
+
+    HbmMaterialShape(final String registryPrefix, final String displaySuffix, final String tagFolder, final String defaultTexturePath, final String translationFormat) {
         this.registryPrefix = registryPrefix;
         this.displaySuffix = displaySuffix;
         this.tagFolder = tagFolder;
         this.defaultTexturePath = defaultTexturePath;
+        this.translationFormat = translationFormat;
     }
 
     public String registryPrefix() {
@@ -43,6 +49,10 @@ public enum HbmMaterialShape {
 
     public String displaySuffix() {
         return this.displaySuffix;
+    }
+
+    public String formatDisplayName(final String materialDisplayName) {
+        return this.translationFormat.formatted(materialDisplayName);
     }
 
     public String tagFolder() {

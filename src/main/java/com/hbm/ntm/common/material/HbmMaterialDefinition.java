@@ -36,6 +36,6 @@ public record HbmMaterialDefinition(String id, String displayName, List<HbmMater
     }
 
     public String itemTranslation(final HbmMaterialShape shape) {
-        return this.itemDisplayNames.getOrDefault(shape, this.displayName + " " + shape.displaySuffix());
+        return this.itemDisplayNames.getOrDefault(shape, shape.formatDisplayName(this.displayName));
     }
 }
