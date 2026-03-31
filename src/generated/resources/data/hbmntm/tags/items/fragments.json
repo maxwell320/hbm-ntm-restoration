@@ -2,6 +2,7 @@
   "values": [
     "hbmntm:bedrockorefragment_iron",
     "hbmntm:bedrockorefragment_gold",
+    "hbmntm:bedrockorefragment_lithium",
     "hbmntm:bedrockorefragment_uranium",
     "hbmntm:bedrockorefragment_u238",
     "hbmntm:bedrockorefragment_th232",
@@ -12,10 +13,23 @@
     "hbmntm:bedrockorefragment_copper",
     "hbmntm:bedrockorefragment_tungsten",
     "hbmntm:bedrockorefragment_aluminium",
+    "hbmntm:bedrockorefragment_boron",
     "hbmntm:bedrockorefragment_tantalium",
+    "hbmntm:bedrockorefragment_lanthanium",
+    "hbmntm:bedrockorefragment_neodymium",
     "hbmntm:bedrockorefragment_niobium",
     "hbmntm:bedrockorefragment_beryllium",
+    "hbmntm:bedrockorefragment_emerald",
     "hbmntm:bedrockorefragment_cobalt",
+    "hbmntm:bedrockorefragment_sulfur",
+    "hbmntm:bedrockorefragment_kno",
+    "hbmntm:bedrockorefragment_fluorite",
+    "hbmntm:bedrockorefragment_red_phosphorus",
+    "hbmntm:bedrockorefragment_sodalite",
+    "hbmntm:bedrockorefragment_chlorocalcite",
+    "hbmntm:bedrockorefragment_molysite",
+    "hbmntm:bedrockorefragment_cinnabar",
+    "hbmntm:bedrockorefragment_cerium",
     "hbmntm:bedrockorefragment_zirconium"
   ]
 }

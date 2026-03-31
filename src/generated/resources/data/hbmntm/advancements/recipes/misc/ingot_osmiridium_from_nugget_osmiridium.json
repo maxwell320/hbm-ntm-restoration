@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_nugget_osmiridium": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "hbmntm:nugget_osmiridium"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "hbmntm:ingot_osmiridium_from_nugget_osmiridium"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_nugget_osmiridium",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "hbmntm:ingot_osmiridium_from_nugget_osmiridium"
+    ]
+  },
+  "sends_telemetry_event": false
+}

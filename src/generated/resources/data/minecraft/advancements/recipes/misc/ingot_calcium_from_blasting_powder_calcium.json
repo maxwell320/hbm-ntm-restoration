@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_powder_calcium": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "hbmntm:powder_calcium"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:ingot_calcium_from_blasting_powder_calcium"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_powder_calcium",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:ingot_calcium_from_blasting_powder_calcium"
+    ]
+  },
+  "sends_telemetry_event": false
+}
