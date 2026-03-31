@@ -1,6 +1,7 @@
-// 1.20.1	2026-03-31T18:29:48.7947034	HBM Item Tags
+// 1.20.1	2026-03-31T18:32:45.8488287	HBM Item Tags
 5e5245f92e4f2eed9c0fbe3d93f0366e27a4530c data/forge/tags/items/billets/actinium.json
 65d1d0138232e9f49b85fcdf4a585711b8c1d528 data/forge/tags/items/billets/au198.json
+1ab902dad59d64ed93bbe859502ea9611c92bb19 data/forge/tags/items/billets/australium.json
 1ed5aa494fc0e2101d01be5d430859837e56f2bf data/forge/tags/items/billets/beryllium.json
 4f8bd0a2af0877bf0680ab609aebe2398a537ef9 data/forge/tags/items/billets/bismuth.json
 896714251903e5bae2ee26ab064a3392b210848c data/forge/tags/items/billets/co60.json
@@ -23,6 +24,7 @@ c155f2eec2284e4d41e2201bde32ad779f0491e1 data/forge/tags/items/billets/schrabidi
 0e7df76f1639e3e258a3083e98920ead87e5f956 data/forge/tags/items/billets/u235.json
 e1cad104a422dc9390d4558f791ecf69d6bfbd5b data/forge/tags/items/billets/u238.json
 0de025b337e63f6f7205ca7f4572cc81f8bca27e data/forge/tags/items/billets/uranium.json
+942f86833e162fb66eb45efc6bc8d91d7a0dd0a7 data/forge/tags/items/billets/zirconium.json
 91bc2a2b13a956975d4ca55d4f1875ca12b69098 data/forge/tags/items/bolts/dura_steel.json
 917a5ccfac0bb58b7f57dfdd10c3b9be038ea5ed data/forge/tags/items/bolts/steel.json
 50f4dcf0f59834dade6ee6f41c1db2b01333343d data/forge/tags/items/bolts/tungsten.json
@@ -47,9 +49,11 @@ ff4c56b3e561dc13f1534ce36ffc6dcde905dd70 data/forge/tags/items/cast_plates/steel
 f0129d253a0a0aba0331be096779d1e7474af754 data/forge/tags/items/cast_plates/titanium.json
 3123ed1795462a83e9a3ea18698b8822558a6385 data/forge/tags/items/cast_plates/tungsten.json
 20b1690a76d46ac1dfa2fd543788637f44bb48a2 data/forge/tags/items/cast_plates/weaponsteel.json
+56e211005c9f64446f552514c7707fd3abdde6ba data/forge/tags/items/cast_plates/zirconium.json
 445d299bd5e97b73ea025963c1cde4179dcf4e99 data/forge/tags/items/dense_wires/advanced_alloy.json
 cf28b0a2c5876ec76fa8c5bf8e1578a5ab1f3b0a data/forge/tags/items/dense_wires/bscco.json
 3af25f5e8b7f27dc232bf7719be4631c1d13ecf1 data/forge/tags/items/dense_wires/copper.json
+a9c38d1700158756926d781773e132e647b6d02c data/forge/tags/items/dense_wires/dineutronium.json
 4b05d05e4a89a1d5b0fc29f7aa3ea5d678d68af7 data/forge/tags/items/dense_wires/gold.json
 e4fc626e0f216a66e56f56f0820bf41192aa98a6 data/forge/tags/items/dense_wires/magnetized_tungsten.json
 4739a1f6e114b3692cc0eecdc7b0d153e5fb25c9 data/forge/tags/items/dense_wires/niobium.json
@@ -63,6 +67,7 @@ c40ef920e623ce3df8013577c8b095e55e01e50d data/forge/tags/items/dusts/actinium.js
 ba4c2d818c958f3960e55089a21d93dc92b49134 data/forge/tags/items/dusts/advanced_alloy.json
 8f3517c5ce9894cfa635e38c41712fbf6870e2e3 data/forge/tags/items/dusts/aluminium.json
 5a7da8688b08115214ff32577dfd7ce4a1eb7642 data/forge/tags/items/dusts/au198.json
+35f0f982aef48d3bcdf94ef997c4faa95e85c936 data/forge/tags/items/dusts/australium.json
 53079656e8aad73f978b62d811ecb3289d1e8ce4 data/forge/tags/items/dusts/beryllium.json
 c72b72102cc38e71729a7511bf5875c371da6f98 data/forge/tags/items/dusts/bismuth.json
 66ffec8403a9e0da792cefb77d95efafba6a1bfb data/forge/tags/items/dusts/co60.json
@@ -93,6 +98,7 @@ e6c5bf12b92307b123dab1bb9fedede1d0f9560b data/forge/tags/items/dusts/tcalloy.jso
 3780f92ef454344ec740d12a4cb830079eed75a7 data/forge/tags/items/dusts/titanium.json
 527058e848bab2a136048a2c6762fa7bbd202017 data/forge/tags/items/dusts/tungsten.json
 9eba03bc3a313e264e5a9da8e2ebeadec5450680 data/forge/tags/items/dusts/uranium.json
+79db59409a0404aedfc82ff40555941cd5bc69b0 data/forge/tags/items/dusts/zirconium.json
 634b92b6cc765c92ac0316648ee1696f7450d8db data/forge/tags/items/fragments/aluminium.json
 e0d9850a5b6d43dd8896f2e0162e058b9c3e0f3c data/forge/tags/items/fragments/beryllium.json
 9e14eb3010cccfc907e14c6f21387e4cfd210344 data/forge/tags/items/fragments/cobalt.json
@@ -109,6 +115,7 @@ d07d7904857fffeb47d779ec1b3be934661f1e9c data/forge/tags/items/fragments/poloniu
 c318e61dfb0d9440e95f229d206d59c1088bbda6 data/forge/tags/items/fragments/tungsten.json
 eff7a9473b5304ba9ce67a70736ec17ac4109a3f data/forge/tags/items/fragments/u238.json
 bc60f95dfddcd49dd0bdab71646c859e64b39361 data/forge/tags/items/fragments/uranium.json
+dee421af70a4ec9fe3454357e5051dbb3f26ecf1 data/forge/tags/items/fragments/zirconium.json
 018e4e72b65f4a08ef9f50ecd440bd1e53f18e4f data/forge/tags/items/grips/desh.json
 96dcc2055d0837559dc535e9a990c0a2d19c6b3f data/forge/tags/items/grips/dura_steel.json
 204c5cef9c8a3fed0e3ecf85b2745b6d24044fc5 data/forge/tags/items/grips/gunmetal.json
@@ -139,6 +146,7 @@ cb89c36c841df517917c244f076a163ef7774995 data/forge/tags/items/ingots/advanced_a
 eefb9592ba23f76c8368294a3445f497d3a515a3 data/forge/tags/items/ingots/arsenic.json
 670023b28b8042388eba21a69002f23fbf280a44 data/forge/tags/items/ingots/arsenic_bronze.json
 7580736c183ded874ede3e275b47a74371613e5a data/forge/tags/items/ingots/au198.json
+dde69e649b4378513042801d2fd69f651caac3e7 data/forge/tags/items/ingots/australium.json
 303a6400def3b66e3609630a789b8015b05ea811 data/forge/tags/items/ingots/beryllium.json
 3ad5c040e1461287bfb6cce156554eb222ecc9d5 data/forge/tags/items/ingots/bismuth.json
 d8d13863f1e61247ea7a93e267dd90be381c0c84 data/forge/tags/items/ingots/bismuth_bronze.json
@@ -185,6 +193,7 @@ e9502ccb15b372bd2252dc9d9ea422738e246af9 data/forge/tags/items/ingots/tungsten.j
 2e26dd4c5f02b720ef8ca56890ee1ed847ebc962 data/forge/tags/items/ingots/u238.json
 d69d6cd0bd7d10dd4dcd8ee3bd7dd8b3fbe01324 data/forge/tags/items/ingots/uranium.json
 8f105d9dda70444c91102da485f18d59d9c95cd5 data/forge/tags/items/ingots/weaponsteel.json
+74643c2cf511656da1e757b599764b85eeeb98ef data/forge/tags/items/ingots/zirconium.json
 d933ccc5add5080c50433edd36989f6bb58fc2d5 data/forge/tags/items/light_barrels/arsenic_bronze.json
 f44a19568dc961aaee2011f43a83356e112f6dcc data/forge/tags/items/light_barrels/bismuth_bronze.json
 f896e8ad7d0304b3b9b67e55432a79d2388bf1ce data/forge/tags/items/light_barrels/cdalloy.json
@@ -211,6 +220,7 @@ fefdba2ae53f02349269dc0b5cdf95514f3e6404 data/forge/tags/items/mechanisms/weapon
 3a304e0331d81ee04224ea7fa577278ed4ed54de data/forge/tags/items/nuggets/actinium.json
 f77598a3b0c2cf7ea5b80e78f2d37fd96663d1d1 data/forge/tags/items/nuggets/arsenic.json
 8933ce73cd478ab63a4f154354fe78b719a982e7 data/forge/tags/items/nuggets/au198.json
+55316003cdca9b36193faba3d00b49d78ecc176e data/forge/tags/items/nuggets/australium.json
 a60278e9991251a2faac846a4d72a59fa433640d data/forge/tags/items/nuggets/beryllium.json
 e35b3e396c09cde73f8ca246b8fae29f8f31d6c9 data/forge/tags/items/nuggets/bismuth.json
 dbb956f75651baa4bcdab7e8e446bb254082ba49 data/forge/tags/items/nuggets/co60.json
@@ -239,6 +249,7 @@ b5c5de61e62c93f09206efc098dc09567d51ea12 data/forge/tags/items/nuggets/u233.json
 a2f95b3de109501693eeeafba62cd3c7923cdab3 data/forge/tags/items/nuggets/u235.json
 3b6a840df07d91cdbc821f801f7407b4c17aae69 data/forge/tags/items/nuggets/u238.json
 eaf5bb880b3b8bcab7201a1da97fac96bf1d0e6c data/forge/tags/items/nuggets/uranium.json
+6e2f5dd3b6670ba084db3a7cb821ead3cc6354b3 data/forge/tags/items/nuggets/zirconium.json
 e8dd45aaef81403fd2ec64da7ad83bf5cefd407c data/forge/tags/items/pipes/aluminium.json
 72dd5afbcdf305e39a41a3de86780effa2b1cffe data/forge/tags/items/pipes/copper.json
 9b440b0904862ef75185daaabe00880f5be4d9eb data/forge/tags/items/pipes/dura_steel.json
@@ -277,6 +288,7 @@ f01211e1c65f432c984a7aa2da1974f6f01c05a6 data/forge/tags/items/welded_plates/com
 1071af475f53cd30508cdcc7368d7be3344224a5 data/forge/tags/items/welded_plates/tcalloy.json
 dda70995d4da55ec3ab14e0f959ae1f01472b722 data/forge/tags/items/welded_plates/titanium.json
 77bfaf03eb164cd3d4c891ff4121f4f059327e0d data/forge/tags/items/welded_plates/tungsten.json
+1541c8ef02187a5139ccf855f140f305c54572c8 data/forge/tags/items/welded_plates/zirconium.json
 06db91ca912edf499aa00f7d1f3f7778e3a9a560 data/forge/tags/items/wires/advanced_alloy.json
 45e0869852f2e9c1ac6092ea2c47b2d6b3d821ad data/forge/tags/items/wires/aluminium.json
 1712e6e88138ed87a28f09ed0636aea6d7ed8ccb data/forge/tags/items/wires/carbon.json
@@ -287,9 +299,11 @@ fe6d72ff114db751975cec8ef6f8e842bd94b91c data/forge/tags/items/wires/red_copper.
 f9e2f5369cd27669a877b9c501420ad40a4cd1c6 data/forge/tags/items/wires/schrabidium.json
 839e21479c32a075ea67ea0f0bfb4bbeff2e95b3 data/forge/tags/items/wires/steel.json
 63f4de8d6d5a326144f2baa3e64ca87dd966cd1c data/forge/tags/items/wires/tungsten.json
-62ecbc37a90f536e2200e198fd80f09a4b67af90 data/hbmntm/tags/items/billets.json
+b894e9f164f3fc664f90c7579a62586b46e25836 data/forge/tags/items/wires/zirconium.json
+455ed6888bb9e37163eef605e0897ea207aa5763 data/hbmntm/tags/items/billets.json
 5e5245f92e4f2eed9c0fbe3d93f0366e27a4530c data/hbmntm/tags/items/billets/actinium.json
 65d1d0138232e9f49b85fcdf4a585711b8c1d528 data/hbmntm/tags/items/billets/au198.json
+1ab902dad59d64ed93bbe859502ea9611c92bb19 data/hbmntm/tags/items/billets/australium.json
 1ed5aa494fc0e2101d01be5d430859837e56f2bf data/hbmntm/tags/items/billets/beryllium.json
 4f8bd0a2af0877bf0680ab609aebe2398a537ef9 data/hbmntm/tags/items/billets/bismuth.json
 896714251903e5bae2ee26ab064a3392b210848c data/hbmntm/tags/items/billets/co60.json
@@ -312,11 +326,12 @@ c155f2eec2284e4d41e2201bde32ad779f0491e1 data/hbmntm/tags/items/billets/schrabid
 0e7df76f1639e3e258a3083e98920ead87e5f956 data/hbmntm/tags/items/billets/u235.json
 e1cad104a422dc9390d4558f791ecf69d6bfbd5b data/hbmntm/tags/items/billets/u238.json
 0de025b337e63f6f7205ca7f4572cc81f8bca27e data/hbmntm/tags/items/billets/uranium.json
+942f86833e162fb66eb45efc6bc8d91d7a0dd0a7 data/hbmntm/tags/items/billets/zirconium.json
 52399c58757427c851870ab78f516ec44d4bf5c0 data/hbmntm/tags/items/bolts.json
 91bc2a2b13a956975d4ca55d4f1875ca12b69098 data/hbmntm/tags/items/bolts/dura_steel.json
 917a5ccfac0bb58b7f57dfdd10c3b9be038ea5ed data/hbmntm/tags/items/bolts/steel.json
 50f4dcf0f59834dade6ee6f41c1db2b01333343d data/hbmntm/tags/items/bolts/tungsten.json
-1047473edfcc7d061f607a8124e6e71eef7afa70 data/hbmntm/tags/items/cast_plates.json
+c099c3b729c2d106bfe8fe99f972b0a71110b4ba data/hbmntm/tags/items/cast_plates.json
 3351b00a4464f28ff6a623e8a97bb2bc07679d2e data/hbmntm/tags/items/cast_plates/advanced_alloy.json
 2b7646483e45e10d9202e90ed91298b7846320d3 data/hbmntm/tags/items/cast_plates/aluminium.json
 1e32fbfb213b63b7efd863dc2a00ecd2a23003a4 data/hbmntm/tags/items/cast_plates/arsenic_bronze.json
@@ -338,10 +353,12 @@ ff4c56b3e561dc13f1534ce36ffc6dcde905dd70 data/hbmntm/tags/items/cast_plates/stee
 f0129d253a0a0aba0331be096779d1e7474af754 data/hbmntm/tags/items/cast_plates/titanium.json
 3123ed1795462a83e9a3ea18698b8822558a6385 data/hbmntm/tags/items/cast_plates/tungsten.json
 20b1690a76d46ac1dfa2fd543788637f44bb48a2 data/hbmntm/tags/items/cast_plates/weaponsteel.json
-baec8dce5e1cb822e11fd4399db6693c7eac88e5 data/hbmntm/tags/items/dense_wires.json
+56e211005c9f64446f552514c7707fd3abdde6ba data/hbmntm/tags/items/cast_plates/zirconium.json
+bf38e308379623bd56da75ee050dddaa117bc116 data/hbmntm/tags/items/dense_wires.json
 445d299bd5e97b73ea025963c1cde4179dcf4e99 data/hbmntm/tags/items/dense_wires/advanced_alloy.json
 cf28b0a2c5876ec76fa8c5bf8e1578a5ab1f3b0a data/hbmntm/tags/items/dense_wires/bscco.json
 3af25f5e8b7f27dc232bf7719be4631c1d13ecf1 data/hbmntm/tags/items/dense_wires/copper.json
+a9c38d1700158756926d781773e132e647b6d02c data/hbmntm/tags/items/dense_wires/dineutronium.json
 4b05d05e4a89a1d5b0fc29f7aa3ea5d678d68af7 data/hbmntm/tags/items/dense_wires/gold.json
 e4fc626e0f216a66e56f56f0820bf41192aa98a6 data/hbmntm/tags/items/dense_wires/magnetized_tungsten.json
 4739a1f6e114b3692cc0eecdc7b0d153e5fb25c9 data/hbmntm/tags/items/dense_wires/niobium.json
@@ -351,11 +368,12 @@ e4fc626e0f216a66e56f56f0820bf41192aa98a6 data/hbmntm/tags/items/dense_wires/magn
 9e9c66cb7486fe75f59d4b8734cc143cbf5b46da data/hbmntm/tags/items/dense_wires/starmetal.json
 91800dd12e1a77be641edd9223116ec2a668f8cb data/hbmntm/tags/items/dense_wires/titanium.json
 bdb5a3d7ce3ad9acc93aec21736fa7730c1fae0d data/hbmntm/tags/items/dense_wires/tungsten.json
-88c4ff34e56739e925a9a74b2c21d6aaeaade156 data/hbmntm/tags/items/dusts.json
+242b10f2d1ae399487cf0b50762ecf4457a97132 data/hbmntm/tags/items/dusts.json
 c40ef920e623ce3df8013577c8b095e55e01e50d data/hbmntm/tags/items/dusts/actinium.json
 ba4c2d818c958f3960e55089a21d93dc92b49134 data/hbmntm/tags/items/dusts/advanced_alloy.json
 8f3517c5ce9894cfa635e38c41712fbf6870e2e3 data/hbmntm/tags/items/dusts/aluminium.json
 5a7da8688b08115214ff32577dfd7ce4a1eb7642 data/hbmntm/tags/items/dusts/au198.json
+35f0f982aef48d3bcdf94ef997c4faa95e85c936 data/hbmntm/tags/items/dusts/australium.json
 53079656e8aad73f978b62d811ecb3289d1e8ce4 data/hbmntm/tags/items/dusts/beryllium.json
 c72b72102cc38e71729a7511bf5875c371da6f98 data/hbmntm/tags/items/dusts/bismuth.json
 66ffec8403a9e0da792cefb77d95efafba6a1bfb data/hbmntm/tags/items/dusts/co60.json
@@ -386,7 +404,8 @@ e6c5bf12b92307b123dab1bb9fedede1d0f9560b data/hbmntm/tags/items/dusts/tcalloy.js
 3780f92ef454344ec740d12a4cb830079eed75a7 data/hbmntm/tags/items/dusts/titanium.json
 527058e848bab2a136048a2c6762fa7bbd202017 data/hbmntm/tags/items/dusts/tungsten.json
 9eba03bc3a313e264e5a9da8e2ebeadec5450680 data/hbmntm/tags/items/dusts/uranium.json
-1984e8a68464e5b7c1733aee7d524a94eef73d46 data/hbmntm/tags/items/fragments.json
+79db59409a0404aedfc82ff40555941cd5bc69b0 data/hbmntm/tags/items/dusts/zirconium.json
+bcc18ec5e52b211333dd26532b8cd0fb5568f2b5 data/hbmntm/tags/items/fragments.json
 634b92b6cc765c92ac0316648ee1696f7450d8db data/hbmntm/tags/items/fragments/aluminium.json
 e0d9850a5b6d43dd8896f2e0162e058b9c3e0f3c data/hbmntm/tags/items/fragments/beryllium.json
 9e14eb3010cccfc907e14c6f21387e4cfd210344 data/hbmntm/tags/items/fragments/cobalt.json
@@ -403,6 +422,7 @@ d07d7904857fffeb47d779ec1b3be934661f1e9c data/hbmntm/tags/items/fragments/poloni
 c318e61dfb0d9440e95f229d206d59c1088bbda6 data/hbmntm/tags/items/fragments/tungsten.json
 eff7a9473b5304ba9ce67a70736ec17ac4109a3f data/hbmntm/tags/items/fragments/u238.json
 bc60f95dfddcd49dd0bdab71646c859e64b39361 data/hbmntm/tags/items/fragments/uranium.json
+dee421af70a4ec9fe3454357e5051dbb3f26ecf1 data/hbmntm/tags/items/fragments/zirconium.json
 60a18690fd2efa6a4272322957a0654f15e0c4d8 data/hbmntm/tags/items/grips.json
 018e4e72b65f4a08ef9f50ecd440bd1e53f18e4f data/hbmntm/tags/items/grips/desh.json
 96dcc2055d0837559dc535e9a990c0a2d19c6b3f data/hbmntm/tags/items/grips/dura_steel.json
@@ -430,13 +450,14 @@ d05b1dbb78bd75037901c8a922a68b61ce108c0b data/hbmntm/tags/items/heavy_receivers/
 5c4b19584475ff93f33920a280f114c6a7a567eb data/hbmntm/tags/items/heavy_receivers/saturnite.json
 a6fcbc25faf5d6aec67e6d7d1a871ed60390279b data/hbmntm/tags/items/heavy_receivers/tcalloy.json
 2f6de77f0a06e094a0973e05f883f94fa7e536eb data/hbmntm/tags/items/heavy_receivers/weaponsteel.json
-5fd0bc8ce3403d9201fecd5e0c0cbc5eb1130445 data/hbmntm/tags/items/ingots.json
+59aa09e8d44adda3edba2e010b008858398efda5 data/hbmntm/tags/items/ingots.json
 ce0e5383152e3688e8affeb9f3f055f398890c5d data/hbmntm/tags/items/ingots/actinium.json
 cb89c36c841df517917c244f076a163ef7774995 data/hbmntm/tags/items/ingots/advanced_alloy.json
 10a6f40dff0685eb2df65cc4eb1f64711e667146 data/hbmntm/tags/items/ingots/aluminium.json
 eefb9592ba23f76c8368294a3445f497d3a515a3 data/hbmntm/tags/items/ingots/arsenic.json
 670023b28b8042388eba21a69002f23fbf280a44 data/hbmntm/tags/items/ingots/arsenic_bronze.json
 7580736c183ded874ede3e275b47a74371613e5a data/hbmntm/tags/items/ingots/au198.json
+dde69e649b4378513042801d2fd69f651caac3e7 data/hbmntm/tags/items/ingots/australium.json
 303a6400def3b66e3609630a789b8015b05ea811 data/hbmntm/tags/items/ingots/beryllium.json
 3ad5c040e1461287bfb6cce156554eb222ecc9d5 data/hbmntm/tags/items/ingots/bismuth.json
 d8d13863f1e61247ea7a93e267dd90be381c0c84 data/hbmntm/tags/items/ingots/bismuth_bronze.json
@@ -483,6 +504,7 @@ e9502ccb15b372bd2252dc9d9ea422738e246af9 data/hbmntm/tags/items/ingots/tungsten.
 2e26dd4c5f02b720ef8ca56890ee1ed847ebc962 data/hbmntm/tags/items/ingots/u238.json
 d69d6cd0bd7d10dd4dcd8ee3bd7dd8b3fbe01324 data/hbmntm/tags/items/ingots/uranium.json
 8f105d9dda70444c91102da485f18d59d9c95cd5 data/hbmntm/tags/items/ingots/weaponsteel.json
+74643c2cf511656da1e757b599764b85eeeb98ef data/hbmntm/tags/items/ingots/zirconium.json
 b63e6fad08f639c564475d96ae0a1e6c7d70efe2 data/hbmntm/tags/items/light_barrels.json
 d933ccc5add5080c50433edd36989f6bb58fc2d5 data/hbmntm/tags/items/light_barrels/arsenic_bronze.json
 f44a19568dc961aaee2011f43a83356e112f6dcc data/hbmntm/tags/items/light_barrels/bismuth_bronze.json
@@ -511,6 +533,7 @@ ace742248cd2c588943aa67e1c50730cd5007193 data/hbmntm/tags/items/materials/advanc
 a54f65970418a63f7606e13e0dff5b776b1c264f data/hbmntm/tags/items/materials/arsenic.json
 47a4e1b7b68751d97353a7a17b8bf080c0a5fd62 data/hbmntm/tags/items/materials/arsenic_bronze.json
 e1fe52f5e65db61ac89a7263e549f4343559ba94 data/hbmntm/tags/items/materials/au198.json
+26e75e2ba15e45e09c011ea7361d92e7fceb7696 data/hbmntm/tags/items/materials/australium.json
 0f7f4ad51e636dd6a739c380cada4c26bc982bad data/hbmntm/tags/items/materials/beryllium.json
 371ba28c562569ff8b52d4f6141170d486a4d4a5 data/hbmntm/tags/items/materials/bismuth.json
 f5155977def8c6952f44738aedf81dc786ecb905 data/hbmntm/tags/items/materials/bismuth_bronze.json
@@ -522,7 +545,7 @@ cd6c3e3ad56edfb1ba6620b1a8508c0b04993941 data/hbmntm/tags/items/materials/cobalt
 91679680fe13222000d4672e0e1f7029f68e4225 data/hbmntm/tags/items/materials/combine_steel.json
 5c1729a1544c53304bc27c8a15a11ea97d070278 data/hbmntm/tags/items/materials/copper.json
 727a1e6b23f61620be5ff6e85f2699b93679e837 data/hbmntm/tags/items/materials/desh.json
-3c09caad38aec758f3807bb7bd856d687e48ce68 data/hbmntm/tags/items/materials/dineutronium.json
+3b0054a91883ac19faf11f47a00cf738acfb5d64 data/hbmntm/tags/items/materials/dineutronium.json
 b5312384ffe1f67c00bb313a67a2c3cb2306236c data/hbmntm/tags/items/materials/dura_steel.json
 841d0095f7316f0b3f74c8b227e83057e9993135 data/hbmntm/tags/items/materials/euphemium.json
 253034093cb46c253b30cfde5924035b5a5cfcc4 data/hbmntm/tags/items/materials/ferrouranium.json
@@ -560,14 +583,16 @@ cd2cd029b0ee0a66d49e8b9f17b9e40854aef162 data/hbmntm/tags/items/materials/u233.j
 6e2d69bb01cf5b6dcfc37a797bf6526c0b8039e7 data/hbmntm/tags/items/materials/u238.json
 d5c164ba523e19ab70e30712ffdaffa39f076465 data/hbmntm/tags/items/materials/uranium.json
 744b86041653a92e2f4332b2eae7f65157e0b360 data/hbmntm/tags/items/materials/weaponsteel.json
+3d0cf2a4e4b1e0307ea6a816dbc1b53b3206405d data/hbmntm/tags/items/materials/zirconium.json
 4c90b2cf5a6471ced1b00f031742893d00059810 data/hbmntm/tags/items/mechanisms.json
 5d42290b56e46c3a67f011ada0c86492fa6d0035 data/hbmntm/tags/items/mechanisms/gunmetal.json
 f5265ec8768ffefaae37f5f7bd58fef7361755eb data/hbmntm/tags/items/mechanisms/saturnite.json
 fefdba2ae53f02349269dc0b5cdf95514f3e6404 data/hbmntm/tags/items/mechanisms/weaponsteel.json
-c121875762c614995b06265a66235da85fb018c7 data/hbmntm/tags/items/nuggets.json
+94f2825dc3eadce045fe8d270f8c10d6d3e5f99e data/hbmntm/tags/items/nuggets.json
 3a304e0331d81ee04224ea7fa577278ed4ed54de data/hbmntm/tags/items/nuggets/actinium.json
 f77598a3b0c2cf7ea5b80e78f2d37fd96663d1d1 data/hbmntm/tags/items/nuggets/arsenic.json
 8933ce73cd478ab63a4f154354fe78b719a982e7 data/hbmntm/tags/items/nuggets/au198.json
+55316003cdca9b36193faba3d00b49d78ecc176e data/hbmntm/tags/items/nuggets/australium.json
 a60278e9991251a2faac846a4d72a59fa433640d data/hbmntm/tags/items/nuggets/beryllium.json
 e35b3e396c09cde73f8ca246b8fae29f8f31d6c9 data/hbmntm/tags/items/nuggets/bismuth.json
 dbb956f75651baa4bcdab7e8e446bb254082ba49 data/hbmntm/tags/items/nuggets/co60.json
@@ -596,6 +621,7 @@ b5c5de61e62c93f09206efc098dc09567d51ea12 data/hbmntm/tags/items/nuggets/u233.jso
 a2f95b3de109501693eeeafba62cd3c7923cdab3 data/hbmntm/tags/items/nuggets/u235.json
 3b6a840df07d91cdbc821f801f7407b4c17aae69 data/hbmntm/tags/items/nuggets/u238.json
 eaf5bb880b3b8bcab7201a1da97fac96bf1d0e6c data/hbmntm/tags/items/nuggets/uranium.json
+6e2f5dd3b6670ba084db3a7cb821ead3cc6354b3 data/hbmntm/tags/items/nuggets/zirconium.json
 17c6be9ebdb577b07b4bc3bc434d0da61086a54f data/hbmntm/tags/items/pipes.json
 e8dd45aaef81403fd2ec64da7ad83bf5cefd407c data/hbmntm/tags/items/pipes/aluminium.json
 72dd5afbcdf305e39a41a3de86780effa2b1cffe data/hbmntm/tags/items/pipes/copper.json
@@ -629,7 +655,7 @@ f733b1450a008a9cbc080cf54fb56473e128b9f9 data/hbmntm/tags/items/stocks.json
 ca46561cf94affaa036209c00454580723be65f2 data/hbmntm/tags/items/stocks/gunmetal.json
 ffb68afc3e899d8c9ffb2a08f8bf83e7ea5b2355 data/hbmntm/tags/items/stocks/saturnite.json
 e0086c97d7351575cfb98f6042dd302da69d9a93 data/hbmntm/tags/items/stocks/weaponsteel.json
-fe68be55fac27bfc86774d96fefd9a1665bb8854 data/hbmntm/tags/items/welded_plates.json
+e52546ab8240bacdf29e644d050274d30761355c data/hbmntm/tags/items/welded_plates.json
 442a4f652298a125aec9bc3d798eaed6234545d1 data/hbmntm/tags/items/welded_plates/aluminium.json
 57af8cf8f16a350558a60b204fa299255d24cb8e data/hbmntm/tags/items/welded_plates/cdalloy.json
 f01211e1c65f432c984a7aa2da1974f6f01c05a6 data/hbmntm/tags/items/welded_plates/combine_steel.json
@@ -639,7 +665,8 @@ f01211e1c65f432c984a7aa2da1974f6f01c05a6 data/hbmntm/tags/items/welded_plates/co
 1071af475f53cd30508cdcc7368d7be3344224a5 data/hbmntm/tags/items/welded_plates/tcalloy.json
 dda70995d4da55ec3ab14e0f959ae1f01472b722 data/hbmntm/tags/items/welded_plates/titanium.json
 77bfaf03eb164cd3d4c891ff4121f4f059327e0d data/hbmntm/tags/items/welded_plates/tungsten.json
-57ad004b3b12bdbb6be16a8f4333c7686f6e7674 data/hbmntm/tags/items/wires.json
+1541c8ef02187a5139ccf855f140f305c54572c8 data/hbmntm/tags/items/welded_plates/zirconium.json
+fa59ce187f7a6ba1f4c7a1572202db9dd62a25c6 data/hbmntm/tags/items/wires.json
 06db91ca912edf499aa00f7d1f3f7778e3a9a560 data/hbmntm/tags/items/wires/advanced_alloy.json
 45e0869852f2e9c1ac6092ea2c47b2d6b3d821ad data/hbmntm/tags/items/wires/aluminium.json
 1712e6e88138ed87a28f09ed0636aea6d7ed8ccb data/hbmntm/tags/items/wires/carbon.json
@@ -650,3 +677,4 @@ fe6d72ff114db751975cec8ef6f8e842bd94b91c data/hbmntm/tags/items/wires/red_copper
 f9e2f5369cd27669a877b9c501420ad40a4cd1c6 data/hbmntm/tags/items/wires/schrabidium.json
 839e21479c32a075ea67ea0f0bfb4bbeff2e95b3 data/hbmntm/tags/items/wires/steel.json
 63f4de8d6d5a326144f2baa3e64ca87dd966cd1c data/hbmntm/tags/items/wires/tungsten.json
+b894e9f164f3fc664f90c7579a62586b46e25836 data/hbmntm/tags/items/wires/zirconium.json

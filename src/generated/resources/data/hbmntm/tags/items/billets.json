@@ -1,6 +1,7 @@
 {
   "values": [
     "hbmntm:billet_uranium",
+    "hbmntm:billet_australium",
     "hbmntm:billet_u233",
     "hbmntm:billet_u235",
     "hbmntm:billet_u238",
@@ -23,6 +24,7 @@
     "hbmntm:billet_bismuth",
     "hbmntm:billet_beryllium",
     "hbmntm:billet_cobalt",
+    "hbmntm:billet_zirconium",
     "hbmntm:billet_silicon"
   ]
 }

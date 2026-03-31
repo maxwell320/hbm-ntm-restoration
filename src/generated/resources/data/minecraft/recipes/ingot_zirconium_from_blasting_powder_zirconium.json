@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.1,
+  "group": "zirconium",
+  "ingredient": {
+    "item": "hbmntm:powder_zirconium"
+  },
+  "result": "hbmntm:ingot_zirconium"
+}

@@ -8,6 +8,7 @@
     "hbmntm:plate_sextuple_steel",
     "hbmntm:plate_sextuple_tcalloy",
     "hbmntm:plate_sextuple_cdalloy",
-    "hbmntm:plate_sextuple_combine_steel"
+    "hbmntm:plate_sextuple_combine_steel",
+    "hbmntm:plate_sextuple_zirconium"
   ]
 }

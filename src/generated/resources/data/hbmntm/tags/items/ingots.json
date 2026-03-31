@@ -1,6 +1,7 @@
 {
   "values": [
     "hbmntm:ingot_uranium",
+    "hbmntm:ingot_australium",
     "hbmntm:ingot_u233",
     "hbmntm:ingot_u235",
     "hbmntm:ingot_u238",
@@ -47,6 +48,7 @@
     "hbmntm:ingot_niobium",
     "hbmntm:ingot_beryllium",
     "hbmntm:ingot_cobalt",
+    "hbmntm:ingot_zirconium",
     "hbmntm:ingot_silicon",
     "hbmntm:ingot_dura_steel",
     "hbmntm:ingot_desh",

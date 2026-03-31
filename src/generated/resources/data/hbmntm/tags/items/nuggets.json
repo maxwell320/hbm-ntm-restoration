@@ -1,6 +1,7 @@
 {
   "values": [
     "hbmntm:nugget_uranium",
+    "hbmntm:nugget_australium",
     "hbmntm:nugget_u233",
     "hbmntm:nugget_u235",
     "hbmntm:nugget_u238",
@@ -27,6 +28,7 @@
     "hbmntm:nugget_niobium",
     "hbmntm:nugget_beryllium",
     "hbmntm:nugget_cobalt",
+    "hbmntm:nugget_zirconium",
     "hbmntm:nugget_silicon",
     "hbmntm:nugget_desh",
     "hbmntm:nugget_euphemium",
