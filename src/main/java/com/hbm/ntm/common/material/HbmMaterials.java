@@ -17,7 +17,8 @@ public final class HbmMaterials {
     public static final HbmMaterialDefinition DIAMOND = HbmMaterialDefinition.of("diamond", "Diamond", HbmMaterialShape.DUST, HbmMaterialShape.CRYSTAL)
         .withItemId(HbmMaterialShape.DUST, "powder_diamond")
         .withItemId(HbmMaterialShape.CRYSTAL, "crystal_diamond");
-    public static final HbmMaterialDefinition FIREBRICK = HbmMaterialDefinition.of("firebrick", "Firebrick", HbmMaterialShape.INGOT);
+    public static final HbmMaterialDefinition FIREBRICK = HbmMaterialDefinition.of("firebrick", "Firebrick", HbmMaterialShape.INGOT)
+        .withItemDisplayName(HbmMaterialShape.INGOT, "Firebrick");
     public static final HbmMaterialDefinition IRON = HbmMaterialDefinition.of("iron", "Iron", HbmMaterialShape.FRAGMENT, HbmMaterialShape.DUST, HbmMaterialShape.CRYSTAL, HbmMaterialShape.PLATE, HbmMaterialShape.PIPE, HbmMaterialShape.CAST_PLATE, HbmMaterialShape.WELDED_PLATE)
         .withItemId(HbmMaterialShape.DUST, "powder_iron")
         .withItemId(HbmMaterialShape.CRYSTAL, "crystal_iron");
@@ -300,24 +301,31 @@ public final class HbmMaterials {
         .withItemId(HbmMaterialShape.DUST, "powder_zirconium");
     public static final HbmMaterialDefinition SILICON = HbmMaterialDefinition.of("silicon", "Silicon", HbmMaterialShape.INGOT, HbmMaterialShape.NUGGET, HbmMaterialShape.BILLET);
     public static final HbmMaterialDefinition POLYMER = HbmMaterialDefinition.of("polymer", "Polymer", HbmMaterialShape.INGOT, HbmMaterialShape.DUST, HbmMaterialShape.PLATE, HbmMaterialShape.STOCK, HbmMaterialShape.GRIP)
+        .withItemDisplayName(HbmMaterialShape.INGOT, "Polymer Bar")
         .withItemId(HbmMaterialShape.DUST, "powder_polymer")
         .withItemId(HbmMaterialShape.PLATE, "plate_polymer")
         .withItemDisplayName(HbmMaterialShape.PLATE, "Insulator");
     public static final HbmMaterialDefinition BAKELITE = HbmMaterialDefinition.of("bakelite", "Bakelite", HbmMaterialShape.INGOT, HbmMaterialShape.DUST, HbmMaterialShape.STOCK, HbmMaterialShape.GRIP)
+        .withItemDisplayName(HbmMaterialShape.INGOT, "Bakelite Bar")
         .withItemId(HbmMaterialShape.DUST, "powder_bakelite");
     public static final HbmMaterialDefinition LATEX = HbmMaterialDefinition.of("latex", "Latex", HbmMaterialShape.GEM, HbmMaterialShape.INGOT)
         .withItemId(HbmMaterialShape.GEM, "ball_resin")
         .withItemDisplayName(HbmMaterialShape.GEM, "Resin Ball")
         .withItemId(HbmMaterialShape.INGOT, "ingot_biorubber")
-        .withItemDisplayName(HbmMaterialShape.INGOT, "Biorubber");
-    public static final HbmMaterialDefinition RUBBER = HbmMaterialDefinition.of("rubber", "Rubber", HbmMaterialShape.INGOT, HbmMaterialShape.PIPE, HbmMaterialShape.GRIP);
+        .withItemDisplayName(HbmMaterialShape.INGOT, "Latex Bar");
+    public static final HbmMaterialDefinition RUBBER = HbmMaterialDefinition.of("rubber", "Rubber", HbmMaterialShape.INGOT, HbmMaterialShape.PIPE, HbmMaterialShape.GRIP)
+        .withItemDisplayName(HbmMaterialShape.INGOT, "Rubber Bar");
     public static final HbmMaterialDefinition PC = HbmMaterialDefinition.of("pc", "PC", HbmMaterialShape.INGOT, HbmMaterialShape.STOCK, HbmMaterialShape.GRIP)
-        .withItemId(HbmMaterialShape.INGOT, "ingot_pc");
+        .withItemId(HbmMaterialShape.INGOT, "ingot_pc")
+        .withItemDisplayName(HbmMaterialShape.INGOT, "Hard Plastic Bar");
     public static final HbmMaterialDefinition PVC = HbmMaterialDefinition.of("pvc", "PVC", HbmMaterialShape.INGOT, HbmMaterialShape.STOCK, HbmMaterialShape.GRIP)
-        .withItemId(HbmMaterialShape.INGOT, "ingot_pvc");
+        .withItemId(HbmMaterialShape.INGOT, "ingot_pvc")
+        .withItemDisplayName(HbmMaterialShape.INGOT, "PVC Bar");
     public static final HbmMaterialDefinition FIBERGLASS = HbmMaterialDefinition.of("fiberglass", "Fiberglass", HbmMaterialShape.INGOT)
-        .withItemId(HbmMaterialShape.INGOT, "ingot_fiberglass");
+        .withItemId(HbmMaterialShape.INGOT, "ingot_fiberglass")
+        .withItemDisplayName(HbmMaterialShape.INGOT, "Fiberglass Bar");
     public static final HbmMaterialDefinition ASBESTOS = HbmMaterialDefinition.of("asbestos", "Asbestos", HbmMaterialShape.INGOT, HbmMaterialShape.DUST)
+        .withItemDisplayName(HbmMaterialShape.INGOT, "Asbestos Sheet")
         .withItemId(HbmMaterialShape.DUST, "powder_asbestos");
     public static final HbmMaterialDefinition OSMIRIDIUM = HbmMaterialDefinition.of("osmiridium", "Osmiridium", HbmMaterialShape.INGOT, HbmMaterialShape.NUGGET, HbmMaterialShape.CRYSTAL, HbmMaterialShape.CAST_PLATE, HbmMaterialShape.WELDED_PLATE)
         .withItemId(HbmMaterialShape.CRYSTAL, "crystal_osmiridium");
@@ -326,7 +334,8 @@ public final class HbmMaterials {
     public static final HbmMaterialDefinition ELECTRONIUM = HbmMaterialDefinition.of("electronium", "Electronium", HbmMaterialShape.INGOT)
         .withItemId(HbmMaterialShape.INGOT, "ingot_electronium");
     public static final HbmMaterialDefinition SLAG = HbmMaterialDefinition.of("slag", "Slag", HbmMaterialShape.INGOT);
-    public static final HbmMaterialDefinition MUD = HbmMaterialDefinition.of("mud", "Mud", HbmMaterialShape.INGOT);
+    public static final HbmMaterialDefinition MUD = HbmMaterialDefinition.of("mud", "Mud", HbmMaterialShape.INGOT)
+        .withItemDisplayName(HbmMaterialShape.INGOT, "Solid Mud Brick");
     public static final HbmMaterialDefinition DURA_STEEL = HbmMaterialDefinition.of("dura_steel", "High-Speed Steel", HbmMaterialShape.INGOT, HbmMaterialShape.DUST, HbmMaterialShape.BOLT, HbmMaterialShape.PLATE, HbmMaterialShape.CAST_PLATE, HbmMaterialShape.PIPE, HbmMaterialShape.LIGHT_BARREL, HbmMaterialShape.HEAVY_BARREL, HbmMaterialShape.LIGHT_RECEIVER, HbmMaterialShape.HEAVY_RECEIVER, HbmMaterialShape.GRIP)
         .withItemDisplayName(HbmMaterialShape.INGOT, "High-Speed Steel Ingot")
         .withItemId(HbmMaterialShape.DUST, "powder_dura_steel")
