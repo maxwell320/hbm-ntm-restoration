@@ -1,75 +1,57 @@
 # HBM's Nuclear Tech Mod Modern Port
 
-An unofficial architectural modernization port of **HBM's Nuclear Tech Mod** from Minecraft **1.7.10** to **Minecraft 1.20.1** on **Forge**.
+This repo is for a 1.20.1 Forge port of HBM's Nuclear Tech Mod.
 
-This repository is being built as a phased rewrite-by-system project, not a line-by-line code translation.
+It is not going to be a straight copy of the old 1.7.10 code. Too much of that code depends on old Forge and old Minecraft internals, so the only sane way to do this is to rebuild it piece by piece and keep the original feel where it matters.
 
-## Project Status
+## Current state
 
-The project is currently in the **foundation and architecture** stage.
+Right now this is still early setup work.
 
-Completed so far:
-- Forge 1.20.1 workspace scaffolded
-- Java 17 build toolchain pinned
-- Gradle wrapper and IDE runs validated
-- Minimal mod entrypoint created
-- CI workflow added
+So far the project has:
+- a working Forge 1.20.1 workspace
+- Java 17 set as the build toolchain
+- Gradle runs working
+- a minimal mod bootstrap
+- a basic CI build
 
-## Technical Baseline
+## Project baseline
 
 - Minecraft: `1.20.1`
-- Mod loader: `Forge 47.4.18`
-- Java toolchain: `17`
-- Gradle wrapper: project-managed
-- Base package: `com.hbm.ntm`
+- Forge: `47.4.18`
+- Java: `17`
 - Mod ID: `hbmntm`
+- Package: `com.hbm.ntm`
 
-## Development Principles
+## What comes first
 
-- Keep `main` buildable
-- Prefer phased subsystem rewrites over direct legacy translation
-- Preserve gameplay identity while replacing obsolete technical foundations
-- Favor data-driven content where practical
-- Keep client-only code isolated from common/server logic
-- Validate on both client and dedicated server paths
+The first real milestones are the boring but necessary parts:
+- registry and package structure cleanup
+- core materials and item families
+- basic blocks and recipes
+- machine foundations
+- hazard and radiation groundwork
+- heat, power, and reactor groundwork
 
-## Current Scope
+## What is not happening yet
 
-Near-term scope:
-- registry architecture
-- items/materials foundation
-- block and recipe pipelines
-- machine framework
-- hazard/radiation framework
-- power, heat, and reactor primitives
-
-Out-of-scope for the earliest milestones:
-- full content parity
-- legacy renderer parity
-- advanced compat integrations
-- dimensions and large world event systems
+- full content parity with the 1.7.10 version
+- one huge dump of legacy code
+- advanced compat support
+- dimensions and large world systems
+- anything that pretends this is already release-ready
 
 ## Building
 
-Use the Gradle wrapper from the project root.
+From the project root:
 
-Typical commands:
 - `gradlew.bat genIntellijRuns`
 - `gradlew.bat build`
 - `gradlew.bat runClient`
 - `gradlew.bat runServer`
 
-## Repository Policy
+## Notes
 
-- Small, reviewable commits
-- CI must stay green on active branches
-- New systems should be introduced behind clear architectural boundaries
-- No bulk legacy dumps into the modern source tree
+This is an unofficial port effort based on the original HBM project by HbMinecraft and contributors.
 
-## Attribution and License
-
-This project is an unofficial modernization effort based on the original HBM project by **HbMinecraft** and contributors.
-
-Attribution to the original project should be preserved in documentation, release notes, and repository history where applicable.
-
-See `ROADMAP.md` for the phased migration strategy.
+The plan will move around as the project gets deeper into actual subsystem work. `ROADMAP.md` is just the current working order, not a promise that every phase will stay exactly the same.
