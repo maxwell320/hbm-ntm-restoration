@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.1,
+  "group": "au198",
+  "ingredient": {
+    "item": "hbmntm:powder_au198"
+  },
+  "result": "hbmntm:ingot_au198"
+}

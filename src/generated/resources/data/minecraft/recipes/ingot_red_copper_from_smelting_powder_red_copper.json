@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "group": "red_copper",
+  "ingredient": {
+    "item": "hbmntm:powder_red_copper"
+  },
+  "result": "hbmntm:ingot_red_copper"
+}

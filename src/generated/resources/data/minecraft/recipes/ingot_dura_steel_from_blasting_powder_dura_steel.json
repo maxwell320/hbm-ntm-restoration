@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.1,
+  "group": "dura_steel",
+  "ingredient": {
+    "item": "hbmntm:powder_dura_steel"
+  },
+  "result": "hbmntm:ingot_dura_steel"
+}

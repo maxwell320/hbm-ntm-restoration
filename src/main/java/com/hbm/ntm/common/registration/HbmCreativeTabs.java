@@ -13,8 +13,9 @@ import net.minecraftforge.registries.RegistryObject;
 
 public final class HbmCreativeTabs {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, HbmNtmMod.MOD_ID);
+    @SuppressWarnings("null")
     public static final RegistryObject<CreativeModeTab> MAIN = CREATIVE_MODE_TABS.register("main", () -> CreativeModeTab.builder()
-        .title(Component.translatable("itemGroup." + HbmNtmMod.MOD_ID + ".main"))
+        .title(Objects.requireNonNull(Component.translatable("itemGroup." + HbmNtmMod.MOD_ID + ".main")))
         .icon(() -> new ItemStack(Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.URANIUM, HbmMaterialShape.INGOT).get())))
         .displayItems((parameters, output) -> HbmItems.creativeTabEntries().forEach(item -> output.accept(Objects.requireNonNull(item.get()))))
         .build());

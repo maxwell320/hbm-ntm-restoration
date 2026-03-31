@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_powder_aluminium": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "hbmntm:powder_aluminium"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:ingot_aluminium_from_smelting_powder_aluminium"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_powder_aluminium",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:ingot_aluminium_from_smelting_powder_aluminium"
+    ]
+  },
+  "sends_telemetry_event": false
+}

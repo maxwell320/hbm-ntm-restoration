@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.1,
+  "group": "schrabidate",
+  "ingredient": {
+    "item": "hbmntm:powder_schrabidate"
+  },
+  "result": "hbmntm:ingot_schrabidate"
+}

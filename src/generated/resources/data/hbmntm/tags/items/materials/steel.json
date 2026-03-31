@@ -1,0 +1,17 @@
+{
+  "values": [
+    "hbmntm:ingot_steel",
+    "hbmntm:powder_steel",
+    "hbmntm:wire_fine_steel",
+    "hbmntm:bolt_steel",
+    "hbmntm:plate_steel",
+    "hbmntm:plate_triple_steel",
+    "hbmntm:plate_sextuple_steel",
+    "hbmntm:shell_steel",
+    "hbmntm:ntmpipe_steel",
+    "hbmntm:barrel_light_steel",
+    "hbmntm:barrel_heavy_steel",
+    "hbmntm:receiver_light_steel",
+    "hbmntm:grip_steel"
+  ]
+}

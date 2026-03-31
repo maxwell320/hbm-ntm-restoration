@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_powder_tantalium": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "hbmntm:powder_tantalium"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:ingot_tantalium_from_blasting_powder_tantalium"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_powder_tantalium",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:ingot_tantalium_from_blasting_powder_tantalium"
+    ]
+  },
+  "sends_telemetry_event": false
+}

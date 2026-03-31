@@ -1,0 +1,12 @@
+{
+  "values": [
+    "hbmntm:plate_sextuple_iron",
+    "hbmntm:plate_sextuple_titanium",
+    "hbmntm:plate_sextuple_copper",
+    "hbmntm:plate_sextuple_tungsten",
+    "hbmntm:plate_sextuple_aluminium",
+    "hbmntm:plate_sextuple_steel",
+    "hbmntm:plate_sextuple_tcalloy",
+    "hbmntm:plate_sextuple_cdalloy"
+  ]
+}

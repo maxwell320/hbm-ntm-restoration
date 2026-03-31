@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "group": "ra226",
+  "ingredient": {
+    "item": "hbmntm:powder_ra226"
+  },
+  "result": "hbmntm:ingot_ra226"
+}

@@ -1,0 +1,28 @@
+{
+  "values": [
+    "hbmntm:billet_uranium",
+    "hbmntm:billet_u233",
+    "hbmntm:billet_u235",
+    "hbmntm:billet_u238",
+    "hbmntm:billet_th232",
+    "hbmntm:billet_plutonium",
+    "hbmntm:billet_pu238",
+    "hbmntm:billet_pu239",
+    "hbmntm:billet_pu240",
+    "hbmntm:billet_neptunium",
+    "hbmntm:billet_polonium",
+    "hbmntm:billet_technetium",
+    "hbmntm:billet_ra226",
+    "hbmntm:billet_actinium",
+    "hbmntm:billet_co60",
+    "hbmntm:billet_au198",
+    "hbmntm:billet_pb209",
+    "hbmntm:billet_schrabidium",
+    "hbmntm:billet_solinium",
+    "hbmntm:billet_gh336",
+    "hbmntm:billet_bismuth",
+    "hbmntm:billet_beryllium",
+    "hbmntm:billet_cobalt",
+    "hbmntm:billet_silicon"
+  ]
+}

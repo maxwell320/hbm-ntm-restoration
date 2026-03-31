@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "group": "desh",
+  "ingredient": {
+    "item": "hbmntm:powder_desh"
+  },
+  "result": "hbmntm:ingot_desh"
+}

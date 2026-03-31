@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.1,
+  "group": "neptunium",
+  "ingredient": {
+    "item": "hbmntm:powder_neptunium"
+  },
+  "result": "hbmntm:ingot_neptunium"
+}

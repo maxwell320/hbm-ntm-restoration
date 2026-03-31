@@ -1,0 +1,14 @@
+{
+  "values": [
+    "hbmntm:bedrockorefragment_copper",
+    "hbmntm:ingot_copper",
+    "hbmntm:powder_copper",
+    "hbmntm:wire_fine_copper",
+    "hbmntm:plate_copper",
+    "hbmntm:wire_dense_copper",
+    "hbmntm:plate_triple_copper",
+    "hbmntm:plate_sextuple_copper",
+    "hbmntm:shell_copper",
+    "hbmntm:ntmpipe_copper"
+  ]
+}

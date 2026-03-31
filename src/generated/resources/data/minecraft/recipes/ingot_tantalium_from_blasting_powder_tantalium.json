@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.1,
+  "group": "tantalium",
+  "ingredient": {
+    "item": "hbmntm:powder_tantalium"
+  },
+  "result": "hbmntm:ingot_tantalium"
+}

@@ -1,5 +1,6 @@
 package com.hbm.ntm;
 
+import com.hbm.ntm.data.HbmDataGenerators;
 import com.hbm.ntm.common.config.HbmCommonConfig;
 import com.hbm.ntm.common.registration.HbmRegistries;
 import com.hbm.ntm.common.setup.HbmCommonSetup;
@@ -19,6 +20,7 @@ public class HbmNtmMod {
 
         HbmCommonConfig.register(context);
         HbmRegistries.register(modEventBus);
+        modEventBus.addListener(HbmDataGenerators::onGatherData);
         modEventBus.addListener(HbmCommonSetup::onCommonSetup);
 
         LOGGER.info("Initializing {}", MOD_ID);

@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "group": "co60",
+  "ingredient": {
+    "item": "hbmntm:powder_co60"
+  },
+  "result": "hbmntm:ingot_co60"
+}

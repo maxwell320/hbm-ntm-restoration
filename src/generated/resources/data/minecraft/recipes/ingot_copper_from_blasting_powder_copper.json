@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.1,
+  "group": "copper",
+  "ingredient": {
+    "item": "hbmntm:powder_copper"
+  },
+  "result": "hbmntm:ingot_copper"
+}

@@ -1,0 +1,15 @@
+{
+  "values": [
+    "hbmntm:ingot_dura_steel",
+    "hbmntm:powder_dura_steel",
+    "hbmntm:bolt_dura_steel",
+    "hbmntm:plate_dura_steel",
+    "hbmntm:plate_triple_dura_steel",
+    "hbmntm:ntmpipe_dura_steel",
+    "hbmntm:barrel_light_dura_steel",
+    "hbmntm:barrel_heavy_dura_steel",
+    "hbmntm:receiver_light_dura_steel",
+    "hbmntm:receiver_heavy_dura_steel",
+    "hbmntm:grip_dura_steel"
+  ]
+}

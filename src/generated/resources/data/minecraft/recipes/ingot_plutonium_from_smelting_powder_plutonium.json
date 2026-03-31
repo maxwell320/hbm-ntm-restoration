@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "group": "plutonium",
+  "ingredient": {
+    "item": "hbmntm:powder_plutonium"
+  },
+  "result": "hbmntm:ingot_plutonium"
+}

@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_powder_plutonium": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "hbmntm:powder_plutonium"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:ingot_plutonium_from_blasting_powder_plutonium"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_powder_plutonium",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:ingot_plutonium_from_blasting_powder_plutonium"
+    ]
+  },
+  "sends_telemetry_event": false
+}

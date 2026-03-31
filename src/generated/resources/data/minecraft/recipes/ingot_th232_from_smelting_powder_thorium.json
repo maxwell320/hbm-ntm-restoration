@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "group": "th232",
+  "ingredient": {
+    "item": "hbmntm:powder_thorium"
+  },
+  "result": "hbmntm:ingot_th232"
+}

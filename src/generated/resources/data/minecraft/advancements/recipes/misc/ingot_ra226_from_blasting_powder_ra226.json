@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_powder_ra226": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "hbmntm:powder_ra226"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:ingot_ra226_from_blasting_powder_ra226"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_powder_ra226",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:ingot_ra226_from_blasting_powder_ra226"
+    ]
+  },
+  "sends_telemetry_event": false
+}

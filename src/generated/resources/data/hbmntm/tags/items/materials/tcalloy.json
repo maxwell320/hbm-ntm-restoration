@@ -1,0 +1,12 @@
+{
+  "values": [
+    "hbmntm:ingot_tcalloy",
+    "hbmntm:powder_tcalloy",
+    "hbmntm:plate_triple_tcalloy",
+    "hbmntm:plate_sextuple_tcalloy",
+    "hbmntm:barrel_light_tcalloy",
+    "hbmntm:barrel_heavy_tcalloy",
+    "hbmntm:receiver_light_tcalloy",
+    "hbmntm:receiver_heavy_tcalloy"
+  ]
+}

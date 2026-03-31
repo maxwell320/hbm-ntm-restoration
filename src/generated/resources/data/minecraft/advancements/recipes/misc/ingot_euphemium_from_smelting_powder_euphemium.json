@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_powder_euphemium": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "hbmntm:powder_euphemium"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:ingot_euphemium_from_smelting_powder_euphemium"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_powder_euphemium",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:ingot_euphemium_from_smelting_powder_euphemium"
+    ]
+  },
+  "sends_telemetry_event": false
+}

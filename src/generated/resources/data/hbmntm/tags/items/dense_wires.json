@@ -1,0 +1,13 @@
+{
+  "values": [
+    "hbmntm:wire_dense_gold",
+    "hbmntm:wire_dense_titanium",
+    "hbmntm:wire_dense_copper",
+    "hbmntm:wire_dense_red_copper",
+    "hbmntm:wire_dense_advanced_alloy",
+    "hbmntm:wire_dense_tungsten",
+    "hbmntm:wire_dense_schrabidium",
+    "hbmntm:wire_dense_schrabidate",
+    "hbmntm:wire_dense_niobium"
+  ]
+}

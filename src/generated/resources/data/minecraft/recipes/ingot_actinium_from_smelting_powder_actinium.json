@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "group": "actinium",
+  "ingredient": {
+    "item": "hbmntm:powder_actinium"
+  },
+  "result": "hbmntm:ingot_actinium"
+}
