@@ -309,6 +309,9 @@ public final class HbmMaterials {
     public static final HbmMaterialDefinition MOLYSITE = HbmMaterialDefinition.of("molysite", "Molysite", HbmMaterialShape.FRAGMENT, HbmMaterialShape.DUST)
         .withItemId(HbmMaterialShape.DUST, "powder_molysite")
         .withItemDisplayName(HbmMaterialShape.DUST, "Molysite");
+    public static final HbmMaterialDefinition LIMESTONE = HbmMaterialDefinition.of("limestone", "Limestone", HbmMaterialShape.DUST)
+        .withItemId(HbmMaterialShape.DUST, "powder_limestone")
+        .withItemDisplayName(HbmMaterialShape.DUST, "Limestone Powder");
     public static final HbmMaterialDefinition CINNABAR = HbmMaterialDefinition.of("cinnabar", "Cinnabar", HbmMaterialShape.FRAGMENT, HbmMaterialShape.GEM, HbmMaterialShape.CRYSTAL)
         .withItemId(HbmMaterialShape.GEM, "cinnebar")
         .withItemDisplayName(HbmMaterialShape.GEM, "Cinnabar")
@@ -485,6 +488,7 @@ public final class HbmMaterials {
         SODALITE,
         CHLOROCALCITE,
         MOLYSITE,
+        LIMESTONE,
         CINNABAR,
         IODINE,
         ASTATINE,
