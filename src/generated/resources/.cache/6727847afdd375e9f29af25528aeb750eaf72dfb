@@ -1,4 +1,4 @@
-// 1.20.1	2026-04-01T20:58:13.309079	HBM Item Tags
+// 1.20.1	2026-04-01T21:04:16.3635254	HBM Item Tags
 5e5245f92e4f2eed9c0fbe3d93f0366e27a4530c data/forge/tags/items/billets/actinium.json
 65d1d0138232e9f49b85fcdf4a585711b8c1d528 data/forge/tags/items/billets/au198.json
 1ab902dad59d64ed93bbe859502ea9611c92bb19 data/forge/tags/items/billets/australium.json
@@ -132,7 +132,7 @@ a74a9f7e521a9bea4696d408271abaa0ba83541f data/forge/tags/items/dusts/fluorite.js
 3c33ea2ca0602d0bd5a422be099fb795ab296701 data/forge/tags/items/dusts/i131.json
 a04672cb372ad49ff2bb10bf76dc580c2f7519ee data/forge/tags/items/dusts/iodine.json
 78d1d2d5cf282483719fad4c1e9e422c51fe7b97 data/forge/tags/items/dusts/iron.json
-d143687d97aef36ca51e61af2756ad34ecccd86e data/forge/tags/items/dusts/kno.json
+fac40d62711303d375428377dde43c55fc6105d5 data/forge/tags/items/dusts/kno.json
 1a2edf76e50ba30bd1bc2a5b556cfc838a65a05d data/forge/tags/items/dusts/lanthanium.json
 6ab27e5f9ebe89de77564e519405575d764211e1 data/forge/tags/items/dusts/lapis.json
 55656fdd50bcb914c48cee1945f7e14cf5e40410 data/forge/tags/items/dusts/lead.json
@@ -547,7 +547,7 @@ a9c38d1700158756926d781773e132e647b6d02c data/hbmntm/tags/items/dense_wires/dine
 9e9c66cb7486fe75f59d4b8734cc143cbf5b46da data/hbmntm/tags/items/dense_wires/starmetal.json
 91800dd12e1a77be641edd9223116ec2a668f8cb data/hbmntm/tags/items/dense_wires/titanium.json
 767ffeb00d069ca933ff1c6f946333806968046e data/hbmntm/tags/items/dense_wires/tungsten.json
-efa31211c15bd52db80924514d9f40a65bf3c5ed data/hbmntm/tags/items/dusts.json
+c67bb74f72eb0818754cfba69ad43d3c8e3593a2 data/hbmntm/tags/items/dusts.json
 c40ef920e623ce3df8013577c8b095e55e01e50d data/hbmntm/tags/items/dusts/actinium.json
 ba4c2d818c958f3960e55089a21d93dc92b49134 data/hbmntm/tags/items/dusts/advanced_alloy.json
 8f3517c5ce9894cfa635e38c41712fbf6870e2e3 data/hbmntm/tags/items/dusts/aluminium.json
@@ -586,7 +586,7 @@ a74a9f7e521a9bea4696d408271abaa0ba83541f data/hbmntm/tags/items/dusts/fluorite.j
 3c33ea2ca0602d0bd5a422be099fb795ab296701 data/hbmntm/tags/items/dusts/i131.json
 a04672cb372ad49ff2bb10bf76dc580c2f7519ee data/hbmntm/tags/items/dusts/iodine.json
 78d1d2d5cf282483719fad4c1e9e422c51fe7b97 data/hbmntm/tags/items/dusts/iron.json
-d143687d97aef36ca51e61af2756ad34ecccd86e data/hbmntm/tags/items/dusts/kno.json
+fac40d62711303d375428377dde43c55fc6105d5 data/hbmntm/tags/items/dusts/kno.json
 1a2edf76e50ba30bd1bc2a5b556cfc838a65a05d data/hbmntm/tags/items/dusts/lanthanium.json
 6ab27e5f9ebe89de77564e519405575d764211e1 data/hbmntm/tags/items/dusts/lapis.json
 55656fdd50bcb914c48cee1945f7e14cf5e40410 data/hbmntm/tags/items/dusts/lead.json
@@ -850,7 +850,7 @@ f6765212f5c1eea6ccff4ff99f81c336b2ba765f data/hbmntm/tags/items/materials/gunmet
 18993321d5683b1fb81fe9406f085bffb3c32f34 data/hbmntm/tags/items/materials/i131.json
 a04672cb372ad49ff2bb10bf76dc580c2f7519ee data/hbmntm/tags/items/materials/iodine.json
 c0742d4beac006a30073dab1f02d323f3f5296d2 data/hbmntm/tags/items/materials/iron.json
-8a9b2680f00515aa32bbaa57c088176e2d0061a5 data/hbmntm/tags/items/materials/kno.json
+9c88e4d69724f2e05b76c26a4fc22dc2e2043c8f data/hbmntm/tags/items/materials/kno.json
 ae9b62f01a02681328d46a79c15fa5f126e5d182 data/hbmntm/tags/items/materials/lanthanium.json
 79c100e5a62e3abe9ec3557beaa7d38a9e603876 data/hbmntm/tags/items/materials/lapis.json
 b1cd263437a386462b25baed682b4c4247480650 data/hbmntm/tags/items/materials/latex.json

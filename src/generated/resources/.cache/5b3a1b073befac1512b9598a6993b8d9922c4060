@@ -1,4 +1,4 @@
-// 1.20.1	2026-04-01T20:58:13.3339185	Item Models: hbmntm
+// 1.20.1	2026-04-01T21:04:16.3800942	Item Models: hbmntm
 5af477fae0ee316daeface1cde9128dc4f6e626c assets/hbmntm/models/item/ball_resin.json
 66063b17cb93c7336607cef31749a6f0ec6dd344 assets/hbmntm/models/item/bedrockorefragment_aluminium.json
 66063b17cb93c7336607cef31749a6f0ec6dd344 assets/hbmntm/models/item/bedrockorefragment_beryllium.json
@@ -181,7 +181,7 @@ e0f5689a509a1a6b835fcb5a31a9d3bd288a7fab assets/hbmntm/models/item/ingot_weapons
 e0f5689a509a1a6b835fcb5a31a9d3bd288a7fab assets/hbmntm/models/item/ingot_zirconium.json
 5af477fae0ee316daeface1cde9128dc4f6e626c assets/hbmntm/models/item/lignite.json
 e0f5689a509a1a6b835fcb5a31a9d3bd288a7fab assets/hbmntm/models/item/lithium.json
-c6deebadfc028d6d62f45fc649e6c7dd033f5af5 assets/hbmntm/models/item/nitra.json
+c6deebadfc028d6d62f45fc649e6c7dd033f5af5 assets/hbmntm/models/item/niter.json
 e8f2c9d07112191f81aacbb40fcf61b0b3ca583e assets/hbmntm/models/item/nugget_actinium.json
 e8f2c9d07112191f81aacbb40fcf61b0b3ca583e assets/hbmntm/models/item/nugget_arsenic.json
 e8f2c9d07112191f81aacbb40fcf61b0b3ca583e assets/hbmntm/models/item/nugget_au198.json
