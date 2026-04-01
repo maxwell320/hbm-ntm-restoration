@@ -88,6 +88,7 @@ public final class HbmMaterials {
         .withItemId(HbmMaterialShape.DUST, "powder_neptunium");
     public static final HbmMaterialDefinition POLONIUM = HbmMaterialDefinition.of("polonium", "Polonium", HbmMaterialShape.FRAGMENT, HbmMaterialShape.INGOT, HbmMaterialShape.NUGGET, HbmMaterialShape.BILLET, HbmMaterialShape.DUST)
         .withItemDisplayName(HbmMaterialShape.INGOT, "Polonium-210 Ingot")
+        .withItemDisplayName(HbmMaterialShape.NUGGET, "Polonium-210 Nugget")
         .withItemId(HbmMaterialShape.DUST, "powder_polonium");
     public static final HbmMaterialDefinition TECHNETIUM = HbmMaterialDefinition.of("technetium", "Technetium", HbmMaterialShape.FRAGMENT, HbmMaterialShape.INGOT, HbmMaterialShape.NUGGET, HbmMaterialShape.BILLET)
         .withItemDisplayName(HbmMaterialShape.INGOT, "Technetium-99 Ingot")
@@ -219,6 +220,7 @@ public final class HbmMaterials {
     public static final HbmMaterialDefinition TANTALIUM = HbmMaterialDefinition.of("tantalium", "Tantalium", HbmMaterialShape.FRAGMENT, HbmMaterialShape.INGOT, HbmMaterialShape.NUGGET, HbmMaterialShape.GEM, HbmMaterialShape.DUST)
         .withItemDisplayName(HbmMaterialShape.INGOT, "Tantalum Ingot")
         .withItemDisplayName(HbmMaterialShape.NUGGET, "Tantalum Nugget")
+        .withItemDisplayName(HbmMaterialShape.GEM, "Tantalum Polycrystal")
         .withItemDisplayName(HbmMaterialShape.DUST, "Tantalum Powder")
         .withItemId(HbmMaterialShape.GEM, "gem_tantalium")
         .withItemId(HbmMaterialShape.DUST, "powder_tantalium");
@@ -269,7 +271,8 @@ public final class HbmMaterials {
         .withItemId(HbmMaterialShape.INGOT, "ingot_phosphorus")
         .withItemDisplayName(HbmMaterialShape.INGOT, "Bar of White Phosphorus");
     public static final HbmMaterialDefinition SODALITE = HbmMaterialDefinition.of("sodalite", "Sodalite", HbmMaterialShape.FRAGMENT, HbmMaterialShape.GEM)
-        .withItemId(HbmMaterialShape.GEM, "gem_sodalite");
+        .withItemId(HbmMaterialShape.GEM, "gem_sodalite")
+        .withItemDisplayName(HbmMaterialShape.GEM, "Sodalite");
     public static final HbmMaterialDefinition CHLOROCALCITE = HbmMaterialDefinition.of("chlorocalcite", "Chlorocalcite", HbmMaterialShape.FRAGMENT, HbmMaterialShape.DUST)
         .withItemId(HbmMaterialShape.DUST, "powder_chlorocalcite")
         .withItemDisplayName(HbmMaterialShape.DUST, "Chlorocalcite");
