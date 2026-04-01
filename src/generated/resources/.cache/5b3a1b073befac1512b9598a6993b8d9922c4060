@@ -1,4 +1,4 @@
-// 1.20.1	2026-04-01T16:49:41.6541498	Item Models: hbmntm
+// 1.20.1	2026-04-01T17:40:37.9126719	Item Models: hbmntm
 5af477fae0ee316daeface1cde9128dc4f6e626c assets/hbmntm/models/item/ball_resin.json
 eca0ce1be9a8cdc468645ed5f33746d4234c91ad assets/hbmntm/models/item/barrel_heavy_cdalloy.json
 eca0ce1be9a8cdc468645ed5f33746d4234c91ad assets/hbmntm/models/item/barrel_heavy_desh.json
@@ -113,6 +113,7 @@ c6deebadfc028d6d62f45fc649e6c7dd033f5af5 assets/hbmntm/models/item/fluorite.json
 66063b17cb93c7336607cef31749a6f0ec6dd344 assets/hbmntm/models/item/fragment_boron.json
 66063b17cb93c7336607cef31749a6f0ec6dd344 assets/hbmntm/models/item/fragment_cerium.json
 66063b17cb93c7336607cef31749a6f0ec6dd344 assets/hbmntm/models/item/fragment_cobalt.json
+66063b17cb93c7336607cef31749a6f0ec6dd344 assets/hbmntm/models/item/fragment_coltan.json
 66063b17cb93c7336607cef31749a6f0ec6dd344 assets/hbmntm/models/item/fragment_lanthanium.json
 66063b17cb93c7336607cef31749a6f0ec6dd344 assets/hbmntm/models/item/fragment_meteorite.json
 66063b17cb93c7336607cef31749a6f0ec6dd344 assets/hbmntm/models/item/fragment_neodymium.json
@@ -329,6 +330,8 @@ c6deebadfc028d6d62f45fc649e6c7dd033f5af5 assets/hbmntm/models/item/powder_coal.j
 da5d98b464567d94836049cecc97328495fcfb10 assets/hbmntm/models/item/powder_coal_tiny.json
 c6deebadfc028d6d62f45fc649e6c7dd033f5af5 assets/hbmntm/models/item/powder_cobalt.json
 da5d98b464567d94836049cecc97328495fcfb10 assets/hbmntm/models/item/powder_cobalt_tiny.json
+c6deebadfc028d6d62f45fc649e6c7dd033f5af5 assets/hbmntm/models/item/powder_coltan.json
+c6deebadfc028d6d62f45fc649e6c7dd033f5af5 assets/hbmntm/models/item/powder_coltan_ore.json
 c6deebadfc028d6d62f45fc649e6c7dd033f5af5 assets/hbmntm/models/item/powder_combine_steel.json
 c6deebadfc028d6d62f45fc649e6c7dd033f5af5 assets/hbmntm/models/item/powder_copper.json
 c6deebadfc028d6d62f45fc649e6c7dd033f5af5 assets/hbmntm/models/item/powder_cs137.json

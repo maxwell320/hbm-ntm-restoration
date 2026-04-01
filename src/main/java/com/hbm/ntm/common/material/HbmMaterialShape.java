@@ -7,6 +7,7 @@ public enum HbmMaterialShape {
     GEM("gem", "Gem", "gems", "item/emerald"),
     CRYSTAL("crystal", "Crystal", "crystals", "item/amethyst_shard", "%s Crystals"),
     DUST_TINY("dust_tiny", "Tiny Dust", "tiny_dusts", "item/sugar", "Tiny Pile of %s Powder"),
+    ORE_DUST("dust_ore", "Ore Dust", "ore_dusts", "item/gunpowder", "Crushed %s"),
     DUST("dust", "Dust", "dusts", "item/gunpowder", "%s Powder"),
     WIRE("wire_fine", "Fine Wire", "wires", "item/string", "%s Wire"),
     DENSE_WIRE("wire_dense", "Dense Wire", "dense_wires", "item/redstone", "Dense %s Wire"),

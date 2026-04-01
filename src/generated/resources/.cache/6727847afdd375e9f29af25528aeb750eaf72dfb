@@ -1,4 +1,4 @@
-// 1.20.1	2026-04-01T16:49:41.6161497	HBM Item Tags
+// 1.20.1	2026-04-01T17:40:37.8439568	HBM Item Tags
 5e5245f92e4f2eed9c0fbe3d93f0366e27a4530c data/forge/tags/items/billets/actinium.json
 65d1d0138232e9f49b85fcdf4a585711b8c1d528 data/forge/tags/items/billets/au198.json
 1ab902dad59d64ed93bbe859502ea9611c92bb19 data/forge/tags/items/billets/australium.json
@@ -116,6 +116,7 @@ c72b72102cc38e71729a7511bf5875c371da6f98 data/forge/tags/items/dusts/bismuth.jso
 66ffec8403a9e0da792cefb77d95efafba6a1bfb data/forge/tags/items/dusts/co60.json
 1262eba983f382efc426f61e593f8c5af9545429 data/forge/tags/items/dusts/coal.json
 2ee372514e08739ce88961c916dc2f1af0f679e1 data/forge/tags/items/dusts/cobalt.json
+f68e6117eed576605a439b30ec466619d191ff9b data/forge/tags/items/dusts/coltan.json
 c46dc85bb8e72fd777c256de209e4b7b6dd1ab5d data/forge/tags/items/dusts/combine_steel.json
 481f7ba055426e90f601219eb8af2837006dcd9a data/forge/tags/items/dusts/copper.json
 a2685f2fb2a4a75a172c87634fb8b85ff2aff956 data/forge/tags/items/dusts/cs137.json
@@ -175,6 +176,7 @@ e9cd5e55571ffbef0544f8c9ce356eda0cb94c5b data/forge/tags/items/fragments/boron.j
 faec767fddac7a4b5521d47d2e42eb4a0c985c6f data/forge/tags/items/fragments/chlorocalcite.json
 44bb10849bd5f3f73bfb11923cce2aa6e1747bef data/forge/tags/items/fragments/cinnabar.json
 6061f7980bbe4e9598f554a4df3efa13293f368c data/forge/tags/items/fragments/cobalt.json
+5d40c3f8d2e5f2caa3f3612de9cb6334e049fc4a data/forge/tags/items/fragments/coltan.json
 9594cf310cf885336e4349a2bf770b05406ce688 data/forge/tags/items/fragments/copper.json
 fff1e0321d2726486c444067a5521870f830b519 data/forge/tags/items/fragments/emerald.json
 bc4f1114c4aa7266f7c0d9c2a601e96e12d95d06 data/forge/tags/items/fragments/fluorite.json
@@ -369,6 +371,7 @@ a2f95b3de109501693eeeafba62cd3c7923cdab3 data/forge/tags/items/nuggets/u235.json
 3b6a840df07d91cdbc821f801f7407b4c17aae69 data/forge/tags/items/nuggets/u238.json
 eaf5bb880b3b8bcab7201a1da97fac96bf1d0e6c data/forge/tags/items/nuggets/uranium.json
 6e2f5dd3b6670ba084db3a7cb821ead3cc6354b3 data/forge/tags/items/nuggets/zirconium.json
+d3efbd938fa6282389d573e9125f9c1524fca067 data/forge/tags/items/ore_dusts/coltan.json
 e8dd45aaef81403fd2ec64da7ad83bf5cefd407c data/forge/tags/items/pipes/aluminium.json
 72dd5afbcdf305e39a41a3de86780effa2b1cffe data/forge/tags/items/pipes/copper.json
 9b440b0904862ef75185daaabe00880f5be4d9eb data/forge/tags/items/pipes/dura_steel.json
@@ -541,7 +544,7 @@ a9c38d1700158756926d781773e132e647b6d02c data/hbmntm/tags/items/dense_wires/dine
 9e9c66cb7486fe75f59d4b8734cc143cbf5b46da data/hbmntm/tags/items/dense_wires/starmetal.json
 91800dd12e1a77be641edd9223116ec2a668f8cb data/hbmntm/tags/items/dense_wires/titanium.json
 767ffeb00d069ca933ff1c6f946333806968046e data/hbmntm/tags/items/dense_wires/tungsten.json
-fd908aa03d2222689f5748731a4023de3f0bff38 data/hbmntm/tags/items/dusts.json
+a5dcb647895a5847eb1e8c0f8c2e9adb3b00e882 data/hbmntm/tags/items/dusts.json
 c40ef920e623ce3df8013577c8b095e55e01e50d data/hbmntm/tags/items/dusts/actinium.json
 ba4c2d818c958f3960e55089a21d93dc92b49134 data/hbmntm/tags/items/dusts/advanced_alloy.json
 8f3517c5ce9894cfa635e38c41712fbf6870e2e3 data/hbmntm/tags/items/dusts/aluminium.json
@@ -564,6 +567,7 @@ c72b72102cc38e71729a7511bf5875c371da6f98 data/hbmntm/tags/items/dusts/bismuth.js
 66ffec8403a9e0da792cefb77d95efafba6a1bfb data/hbmntm/tags/items/dusts/co60.json
 1262eba983f382efc426f61e593f8c5af9545429 data/hbmntm/tags/items/dusts/coal.json
 2ee372514e08739ce88961c916dc2f1af0f679e1 data/hbmntm/tags/items/dusts/cobalt.json
+f68e6117eed576605a439b30ec466619d191ff9b data/hbmntm/tags/items/dusts/coltan.json
 c46dc85bb8e72fd777c256de209e4b7b6dd1ab5d data/hbmntm/tags/items/dusts/combine_steel.json
 481f7ba055426e90f601219eb8af2837006dcd9a data/hbmntm/tags/items/dusts/copper.json
 a2685f2fb2a4a75a172c87634fb8b85ff2aff956 data/hbmntm/tags/items/dusts/cs137.json
@@ -615,7 +619,7 @@ e6c5bf12b92307b123dab1bb9fedede1d0f9560b data/hbmntm/tags/items/dusts/tcalloy.js
 9eba03bc3a313e264e5a9da8e2ebeadec5450680 data/hbmntm/tags/items/dusts/uranium.json
 d53c533d294c31f57d0ae100ebc41e4405a7ac2b data/hbmntm/tags/items/dusts/xe135.json
 79db59409a0404aedfc82ff40555941cd5bc69b0 data/hbmntm/tags/items/dusts/zirconium.json
-2fa0806d26fc97efe3a4535c752869cfaaed19e7 data/hbmntm/tags/items/fragments.json
+f65199d9114db19a0d8a874ec9d78dc45d7c86b2 data/hbmntm/tags/items/fragments.json
 bc5694fda8f4cea61737a8eb02c81d13c0a5be89 data/hbmntm/tags/items/fragments/actinium.json
 634b92b6cc765c92ac0316648ee1696f7450d8db data/hbmntm/tags/items/fragments/aluminium.json
 e0d9850a5b6d43dd8896f2e0162e058b9c3e0f3c data/hbmntm/tags/items/fragments/beryllium.json
@@ -624,6 +628,7 @@ e9cd5e55571ffbef0544f8c9ce356eda0cb94c5b data/hbmntm/tags/items/fragments/boron.
 faec767fddac7a4b5521d47d2e42eb4a0c985c6f data/hbmntm/tags/items/fragments/chlorocalcite.json
 44bb10849bd5f3f73bfb11923cce2aa6e1747bef data/hbmntm/tags/items/fragments/cinnabar.json
 6061f7980bbe4e9598f554a4df3efa13293f368c data/hbmntm/tags/items/fragments/cobalt.json
+5d40c3f8d2e5f2caa3f3612de9cb6334e049fc4a data/hbmntm/tags/items/fragments/coltan.json
 9594cf310cf885336e4349a2bf770b05406ce688 data/hbmntm/tags/items/fragments/copper.json
 fff1e0321d2726486c444067a5521870f830b519 data/hbmntm/tags/items/fragments/emerald.json
 bc4f1114c4aa7266f7c0d9c2a601e96e12d95d06 data/hbmntm/tags/items/fragments/fluorite.json
@@ -816,6 +821,7 @@ ec67a3bc49fe7a3bb773f7ec20ac33bb7ff66d3f data/hbmntm/tags/items/materials/cdallo
 3171210d7e646e86e1346a3f1d9dbfa87d2b1470 data/hbmntm/tags/items/materials/co60.json
 3f5dd2ffb4c079421efd66ba8283ad1c25efa6cc data/hbmntm/tags/items/materials/coal.json
 77abe67dc3726dfd84b70e83e56d83eec92d68b6 data/hbmntm/tags/items/materials/cobalt.json
+852363bc104cfe367861a71de2e1779ae7201352 data/hbmntm/tags/items/materials/coltan.json
 91679680fe13222000d4672e0e1f7029f68e4225 data/hbmntm/tags/items/materials/combine_steel.json
 a54daba7ad61e403ac536ce18806ad495164d5db data/hbmntm/tags/items/materials/copper.json
 cf45171ee55a914f97571b06a2440f4e24896b44 data/hbmntm/tags/items/materials/cs137.json
@@ -939,6 +945,8 @@ a2f95b3de109501693eeeafba62cd3c7923cdab3 data/hbmntm/tags/items/nuggets/u235.jso
 3b6a840df07d91cdbc821f801f7407b4c17aae69 data/hbmntm/tags/items/nuggets/u238.json
 eaf5bb880b3b8bcab7201a1da97fac96bf1d0e6c data/hbmntm/tags/items/nuggets/uranium.json
 6e2f5dd3b6670ba084db3a7cb821ead3cc6354b3 data/hbmntm/tags/items/nuggets/zirconium.json
+d3efbd938fa6282389d573e9125f9c1524fca067 data/hbmntm/tags/items/ore_dusts.json
+d3efbd938fa6282389d573e9125f9c1524fca067 data/hbmntm/tags/items/ore_dusts/coltan.json
 1b672bcca3a8b5ef3ab3ada4dc57e96b60a85ddd data/hbmntm/tags/items/pipes.json
 e8dd45aaef81403fd2ec64da7ad83bf5cefd407c data/hbmntm/tags/items/pipes/aluminium.json
 72dd5afbcdf305e39a41a3de86780effa2b1cffe data/hbmntm/tags/items/pipes/copper.json

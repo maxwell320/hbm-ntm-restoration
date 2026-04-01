@@ -229,6 +229,12 @@ public final class HbmMaterials {
         .withItemDisplayName(HbmMaterialShape.DUST, "Tantalum Powder")
         .withItemId(HbmMaterialShape.GEM, "gem_tantalium")
         .withItemId(HbmMaterialShape.DUST, "powder_tantalium");
+    public static final HbmMaterialDefinition COLTAN = HbmMaterialDefinition.of("coltan", "Coltan", HbmMaterialShape.FRAGMENT, HbmMaterialShape.ORE_DUST, HbmMaterialShape.DUST)
+        .withItemId(HbmMaterialShape.FRAGMENT, "fragment_coltan")
+        .withItemDisplayName(HbmMaterialShape.FRAGMENT, "Coltan")
+        .withItemId(HbmMaterialShape.ORE_DUST, "powder_coltan_ore")
+        .withItemId(HbmMaterialShape.DUST, "powder_coltan")
+        .withItemDisplayName(HbmMaterialShape.DUST, "Purified Tantalite");
     public static final HbmMaterialDefinition RARE_EARTH = HbmMaterialDefinition.of("rare_earth", "Rare Earth", HbmMaterialShape.CRYSTAL)
         .withItemId(HbmMaterialShape.CRYSTAL, "crystal_rare");
     public static final HbmMaterialDefinition LANTHANIUM = HbmMaterialDefinition.of("lanthanium", "Lanthanium", HbmMaterialShape.FRAGMENT, HbmMaterialShape.INGOT, HbmMaterialShape.DUST_TINY, HbmMaterialShape.DUST)
@@ -447,6 +453,7 @@ public final class HbmMaterials {
         BORON,
         BORAX,
         TANTALIUM,
+        COLTAN,
         RARE_EARTH,
         LANTHANIUM,
         NEODYMIUM,
