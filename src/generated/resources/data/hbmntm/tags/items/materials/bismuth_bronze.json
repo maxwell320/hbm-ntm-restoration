@@ -2,8 +2,8 @@
   "values": [
     "hbmntm:ingot_bismuth_bronze",
     "hbmntm:plate_cast_bismuth_bronze",
-    "hbmntm:barrel_light_bismuth_bronze",
-    "hbmntm:receiver_light_bismuth_bronze",
-    "hbmntm:receiver_heavy_bismuth_bronze"
+    "hbmntm:part_barrel_light_bismuth_bronze",
+    "hbmntm:part_receiver_light_bismuth_bronze",
+    "hbmntm:part_receiver_heavy_bismuth_bronze"
   ]
 }

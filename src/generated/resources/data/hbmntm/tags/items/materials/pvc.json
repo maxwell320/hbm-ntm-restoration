@@ -1,7 +1,7 @@
 {
   "values": [
     "hbmntm:ingot_pvc",
-    "hbmntm:stock_pvc",
-    "hbmntm:grip_pvc"
+    "hbmntm:part_stock_pvc",
+    "hbmntm:part_grip_pvc"
   ]
 }

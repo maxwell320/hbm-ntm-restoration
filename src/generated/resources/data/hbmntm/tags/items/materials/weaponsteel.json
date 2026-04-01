@@ -3,13 +3,13 @@
     "hbmntm:ingot_weaponsteel",
     "hbmntm:plate_weaponsteel",
     "hbmntm:plate_cast_weaponsteel",
-    "hbmntm:shell_weaponsteel",
-    "hbmntm:barrel_light_weaponsteel",
-    "hbmntm:barrel_heavy_weaponsteel",
-    "hbmntm:receiver_light_weaponsteel",
-    "hbmntm:receiver_heavy_weaponsteel",
-    "hbmntm:gun_mechanism_weaponsteel",
-    "hbmntm:stock_weaponsteel",
-    "hbmntm:grip_weaponsteel"
+    "hbmntm:shellntm_weaponsteel",
+    "hbmntm:part_barrel_light_weaponsteel",
+    "hbmntm:part_barrel_heavy_weaponsteel",
+    "hbmntm:part_receiver_light_weaponsteel",
+    "hbmntm:part_receiver_heavy_weaponsteel",
+    "hbmntm:part_mechanism_weaponsteel",
+    "hbmntm:part_stock_weaponsteel",
+    "hbmntm:part_grip_weaponsteel"
   ]
 }

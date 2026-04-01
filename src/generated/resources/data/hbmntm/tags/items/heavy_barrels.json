@@ -1,13 +1,13 @@
 {
   "values": [
-    "hbmntm:barrel_heavy_steel",
-    "hbmntm:barrel_heavy_tcalloy",
-    "hbmntm:barrel_heavy_cdalloy",
-    "hbmntm:barrel_heavy_ferrouranium",
-    "hbmntm:barrel_heavy_gunmetal",
-    "hbmntm:barrel_heavy_weaponsteel",
-    "hbmntm:barrel_heavy_saturnite",
-    "hbmntm:barrel_heavy_dura_steel",
-    "hbmntm:barrel_heavy_desh"
+    "hbmntm:part_barrel_heavy_steel",
+    "hbmntm:part_barrel_heavy_tcalloy",
+    "hbmntm:part_barrel_heavy_cdalloy",
+    "hbmntm:part_barrel_heavy_ferrouranium",
+    "hbmntm:part_barrel_heavy_gunmetal",
+    "hbmntm:part_barrel_heavy_weaponsteel",
+    "hbmntm:part_barrel_heavy_saturnite",
+    "hbmntm:part_barrel_heavy_dura_steel",
+    "hbmntm:part_barrel_heavy_desh"
   ]
 }

@@ -2,12 +2,12 @@
   "values": [
     "hbmntm:ingot_gunmetal",
     "hbmntm:plate_gunmetal",
-    "hbmntm:barrel_light_gunmetal",
-    "hbmntm:barrel_heavy_gunmetal",
-    "hbmntm:receiver_light_gunmetal",
-    "hbmntm:receiver_heavy_gunmetal",
-    "hbmntm:gun_mechanism_gunmetal",
-    "hbmntm:stock_gunmetal",
-    "hbmntm:grip_gunmetal"
+    "hbmntm:part_barrel_light_gunmetal",
+    "hbmntm:part_barrel_heavy_gunmetal",
+    "hbmntm:part_receiver_light_gunmetal",
+    "hbmntm:part_receiver_heavy_gunmetal",
+    "hbmntm:part_mechanism_gunmetal",
+    "hbmntm:part_stock_gunmetal",
+    "hbmntm:part_grip_gunmetal"
   ]
 }

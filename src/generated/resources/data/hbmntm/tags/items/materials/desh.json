@@ -4,10 +4,10 @@
     "hbmntm:nugget_desh",
     "hbmntm:powder_desh",
     "hbmntm:plate_desh",
-    "hbmntm:barrel_light_desh",
-    "hbmntm:barrel_heavy_desh",
-    "hbmntm:receiver_light_desh",
-    "hbmntm:stock_desh",
-    "hbmntm:grip_desh"
+    "hbmntm:part_barrel_light_desh",
+    "hbmntm:part_barrel_heavy_desh",
+    "hbmntm:part_receiver_light_desh",
+    "hbmntm:part_stock_desh",
+    "hbmntm:part_grip_desh"
   ]
 }

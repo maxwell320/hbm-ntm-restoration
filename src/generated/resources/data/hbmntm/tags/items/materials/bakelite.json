@@ -2,7 +2,7 @@
   "values": [
     "hbmntm:ingot_bakelite",
     "hbmntm:powder_bakelite",
-    "hbmntm:stock_bakelite",
-    "hbmntm:grip_bakelite"
+    "hbmntm:part_stock_bakelite",
+    "hbmntm:part_grip_bakelite"
   ]
 }

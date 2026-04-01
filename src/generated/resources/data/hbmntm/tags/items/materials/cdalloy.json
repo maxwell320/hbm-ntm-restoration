@@ -3,9 +3,9 @@
     "hbmntm:ingot_cdalloy",
     "hbmntm:plate_cast_cdalloy",
     "hbmntm:plate_welded_cdalloy",
-    "hbmntm:barrel_light_cdalloy",
-    "hbmntm:barrel_heavy_cdalloy",
-    "hbmntm:receiver_light_cdalloy",
-    "hbmntm:receiver_heavy_cdalloy"
+    "hbmntm:part_barrel_light_cdalloy",
+    "hbmntm:part_barrel_heavy_cdalloy",
+    "hbmntm:part_receiver_light_cdalloy",
+    "hbmntm:part_receiver_heavy_cdalloy"
   ]
 }

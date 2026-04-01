@@ -3,7 +3,7 @@
     "hbmntm:ingot_polymer",
     "hbmntm:powder_polymer",
     "hbmntm:plate_polymer",
-    "hbmntm:stock_polymer",
-    "hbmntm:grip_polymer"
+    "hbmntm:part_stock_polymer",
+    "hbmntm:part_grip_polymer"
   ]
 }

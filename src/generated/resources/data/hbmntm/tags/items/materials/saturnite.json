@@ -3,13 +3,13 @@
     "hbmntm:ingot_saturnite",
     "hbmntm:plate_saturnite",
     "hbmntm:plate_cast_saturnite",
-    "hbmntm:shell_saturnite",
-    "hbmntm:barrel_light_saturnite",
-    "hbmntm:barrel_heavy_saturnite",
-    "hbmntm:receiver_light_saturnite",
-    "hbmntm:receiver_heavy_saturnite",
-    "hbmntm:gun_mechanism_saturnite",
-    "hbmntm:stock_saturnite",
-    "hbmntm:grip_saturnite"
+    "hbmntm:shellntm_saturnite",
+    "hbmntm:part_barrel_light_saturnite",
+    "hbmntm:part_barrel_heavy_saturnite",
+    "hbmntm:part_receiver_light_saturnite",
+    "hbmntm:part_receiver_heavy_saturnite",
+    "hbmntm:part_mechanism_saturnite",
+    "hbmntm:part_stock_saturnite",
+    "hbmntm:part_grip_saturnite"
   ]
 }

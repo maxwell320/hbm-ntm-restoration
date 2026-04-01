@@ -1,15 +1,15 @@
 {
   "values": [
-    "hbmntm:grip_steel",
-    "hbmntm:grip_gunmetal",
-    "hbmntm:grip_weaponsteel",
-    "hbmntm:grip_saturnite",
-    "hbmntm:grip_polymer",
-    "hbmntm:grip_bakelite",
-    "hbmntm:grip_rubber",
-    "hbmntm:grip_pc",
-    "hbmntm:grip_pvc",
-    "hbmntm:grip_dura_steel",
-    "hbmntm:grip_desh"
+    "hbmntm:part_grip_steel",
+    "hbmntm:part_grip_gunmetal",
+    "hbmntm:part_grip_weaponsteel",
+    "hbmntm:part_grip_saturnite",
+    "hbmntm:part_grip_polymer",
+    "hbmntm:part_grip_bakelite",
+    "hbmntm:part_grip_rubber",
+    "hbmntm:part_grip_pc",
+    "hbmntm:part_grip_pvc",
+    "hbmntm:part_grip_dura_steel",
+    "hbmntm:part_grip_desh"
   ]
 }

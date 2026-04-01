@@ -1,7 +1,7 @@
 {
   "values": [
-    "hbmntm:gun_mechanism_gunmetal",
-    "hbmntm:gun_mechanism_weaponsteel",
-    "hbmntm:gun_mechanism_saturnite"
+    "hbmntm:part_mechanism_gunmetal",
+    "hbmntm:part_mechanism_weaponsteel",
+    "hbmntm:part_mechanism_saturnite"
   ]
 }

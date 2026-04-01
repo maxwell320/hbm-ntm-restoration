@@ -1,12 +1,12 @@
 {
   "values": [
-    "hbmntm:stock_gunmetal",
-    "hbmntm:stock_weaponsteel",
-    "hbmntm:stock_saturnite",
-    "hbmntm:stock_polymer",
-    "hbmntm:stock_bakelite",
-    "hbmntm:stock_pc",
-    "hbmntm:stock_pvc",
-    "hbmntm:stock_desh"
+    "hbmntm:part_stock_gunmetal",
+    "hbmntm:part_stock_weaponsteel",
+    "hbmntm:part_stock_saturnite",
+    "hbmntm:part_stock_polymer",
+    "hbmntm:part_stock_bakelite",
+    "hbmntm:part_stock_pc",
+    "hbmntm:part_stock_pvc",
+    "hbmntm:part_stock_desh"
   ]
 }

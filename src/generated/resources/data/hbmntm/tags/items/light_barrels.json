@@ -1,14 +1,14 @@
 {
   "values": [
-    "hbmntm:barrel_light_steel",
-    "hbmntm:barrel_light_tcalloy",
-    "hbmntm:barrel_light_cdalloy",
-    "hbmntm:barrel_light_bismuth_bronze",
-    "hbmntm:barrel_light_arsenic_bronze",
-    "hbmntm:barrel_light_gunmetal",
-    "hbmntm:barrel_light_weaponsteel",
-    "hbmntm:barrel_light_saturnite",
-    "hbmntm:barrel_light_dura_steel",
-    "hbmntm:barrel_light_desh"
+    "hbmntm:part_barrel_light_steel",
+    "hbmntm:part_barrel_light_tcalloy",
+    "hbmntm:part_barrel_light_cdalloy",
+    "hbmntm:part_barrel_light_bismuth_bronze",
+    "hbmntm:part_barrel_light_arsenic_bronze",
+    "hbmntm:part_barrel_light_gunmetal",
+    "hbmntm:part_barrel_light_weaponsteel",
+    "hbmntm:part_barrel_light_saturnite",
+    "hbmntm:part_barrel_light_dura_steel",
+    "hbmntm:part_barrel_light_desh"
   ]
 }

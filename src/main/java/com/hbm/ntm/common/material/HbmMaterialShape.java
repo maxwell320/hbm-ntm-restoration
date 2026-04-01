@@ -15,16 +15,16 @@ public enum HbmMaterialShape {
     PLATE("plate", "Plate", "plates", "item/paper"),
     CAST_PLATE("plate_cast", "Cast Plate", "cast_plates", "item/map", "Cast %s Plate"),
     WELDED_PLATE("plate_welded", "Welded Plate", "welded_plates", "item/book", "Welded %s Plate"),
-    SHELL("shell", "Shell", "shells", "item/rabbit_hide"),
+    SHELL("shellntm", "Shell", "shells", "item/rabbit_hide"),
     PIPE("pipentm", "Pipe", "pipes", "item/copper_ingot"),
     BILLET("billet", "Billet", "billets", "item/brick"),
-    LIGHT_BARREL("barrel_light", "Light Barrel", "light_barrels", "item/blaze_rod", "Light %s Barrel"),
-    HEAVY_BARREL("barrel_heavy", "Heavy Barrel", "heavy_barrels", "item/blaze_powder", "Heavy %s Barrel"),
-    LIGHT_RECEIVER("receiver_light", "Light Receiver", "light_receivers", "item/flint", "Light %s Receiver"),
-    HEAVY_RECEIVER("receiver_heavy", "Heavy Receiver", "heavy_receivers", "item/netherite_scrap", "Heavy %s Receiver"),
-    MECHANISM("gun_mechanism", "Gun Mechanism", "mechanisms", "item/iron_nugget"),
-    STOCK("stock", "Stock", "stocks", "item/stick"),
-    GRIP("grip", "Grip", "grips", "item/leather");
+    LIGHT_BARREL("part_barrel_light", "Light Barrel", "light_barrels", "item/blaze_rod", "Light %s Barrel"),
+    HEAVY_BARREL("part_barrel_heavy", "Heavy Barrel", "heavy_barrels", "item/blaze_powder", "Heavy %s Barrel"),
+    LIGHT_RECEIVER("part_receiver_light", "Light Receiver", "light_receivers", "item/flint", "Light %s Receiver"),
+    HEAVY_RECEIVER("part_receiver_heavy", "Heavy Receiver", "heavy_receivers", "item/netherite_scrap", "Heavy %s Receiver"),
+    MECHANISM("part_mechanism", "Gun Mechanism", "mechanisms", "item/iron_nugget"),
+    STOCK("part_stock", "Stock", "stocks", "item/stick"),
+    GRIP("part_grip", "Grip", "grips", "item/leather");
 
     private final String registryPrefix;
     private final String displaySuffix;

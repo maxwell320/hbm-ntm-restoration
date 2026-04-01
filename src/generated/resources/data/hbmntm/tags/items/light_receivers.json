@@ -1,14 +1,14 @@
 {
   "values": [
-    "hbmntm:receiver_light_steel",
-    "hbmntm:receiver_light_tcalloy",
-    "hbmntm:receiver_light_cdalloy",
-    "hbmntm:receiver_light_bismuth_bronze",
-    "hbmntm:receiver_light_arsenic_bronze",
-    "hbmntm:receiver_light_gunmetal",
-    "hbmntm:receiver_light_weaponsteel",
-    "hbmntm:receiver_light_saturnite",
-    "hbmntm:receiver_light_dura_steel",
-    "hbmntm:receiver_light_desh"
+    "hbmntm:part_receiver_light_steel",
+    "hbmntm:part_receiver_light_tcalloy",
+    "hbmntm:part_receiver_light_cdalloy",
+    "hbmntm:part_receiver_light_bismuth_bronze",
+    "hbmntm:part_receiver_light_arsenic_bronze",
+    "hbmntm:part_receiver_light_gunmetal",
+    "hbmntm:part_receiver_light_weaponsteel",
+    "hbmntm:part_receiver_light_saturnite",
+    "hbmntm:part_receiver_light_dura_steel",
+    "hbmntm:part_receiver_light_desh"
   ]
 }

@@ -1,10 +1,10 @@
 {
   "values": [
-    "hbmntm:shell_titanium",
-    "hbmntm:shell_copper",
-    "hbmntm:shell_aluminium",
-    "hbmntm:shell_steel",
-    "hbmntm:shell_weaponsteel",
-    "hbmntm:shell_saturnite"
+    "hbmntm:shellntm_titanium",
+    "hbmntm:shellntm_copper",
+    "hbmntm:shellntm_aluminium",
+    "hbmntm:shellntm_steel",
+    "hbmntm:shellntm_weaponsteel",
+    "hbmntm:shellntm_saturnite"
   ]
 }
