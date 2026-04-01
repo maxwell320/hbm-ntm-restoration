@@ -1,4 +1,4 @@
-// 1.20.1	2026-04-01T20:37:54.4402893	HBM Item Tags
+// 1.20.1	2026-04-01T20:43:31.6296299	HBM Item Tags
 5e5245f92e4f2eed9c0fbe3d93f0366e27a4530c data/forge/tags/items/billets/actinium.json
 65d1d0138232e9f49b85fcdf4a585711b8c1d528 data/forge/tags/items/billets/au198.json
 1ab902dad59d64ed93bbe859502ea9611c92bb19 data/forge/tags/items/billets/australium.json
@@ -207,6 +207,7 @@ d06614b76bd3970345dbd11c4e90746897df7085 data/forge/tags/items/gems/latex.json
 68d673ede83b7ecd3b1f2829a44d88853581fdf4 data/forge/tags/items/gems/lignite.json
 9ffbfa1cee76e6322f167ffd5f93ed74e3eac687 data/forge/tags/items/gems/sodalite.json
 e484a8499acc8b67806a18b8006e0e7738aea8cc data/forge/tags/items/gems/tantalium.json
+136bbadfb3af4d31ca203be919788b790b3f8444 data/forge/tags/items/gems/volcanic.json
 c44d283b1b4a4e6f639dbe499fa5c6dab7b2e9b7 data/forge/tags/items/grips/bakelite.json
 ea4411caec97873ba94ada65eba858ca746093b9 data/forge/tags/items/grips/desh.json
 7a67fbcc518ece7f843e8e7069eb0270ad1240e5 data/forge/tags/items/grips/dura_steel.json
@@ -655,12 +656,13 @@ c318e61dfb0d9440e95f229d206d59c1088bbda6 data/hbmntm/tags/items/fragments/tungst
 eff7a9473b5304ba9ce67a70736ec17ac4109a3f data/hbmntm/tags/items/fragments/u238.json
 bc60f95dfddcd49dd0bdab71646c859e64b39361 data/hbmntm/tags/items/fragments/uranium.json
 dee421af70a4ec9fe3454357e5051dbb3f26ecf1 data/hbmntm/tags/items/fragments/zirconium.json
-ad95ca7336973b3e4e6ff296c11ed57c562abcdc data/hbmntm/tags/items/gems.json
+3999c8b49ef854ba8f818d69234b4b55e195fbe4 data/hbmntm/tags/items/gems.json
 8d2edd546a9b07413951a310795f9a20a98e820b data/hbmntm/tags/items/gems/cinnabar.json
 d06614b76bd3970345dbd11c4e90746897df7085 data/hbmntm/tags/items/gems/latex.json
 68d673ede83b7ecd3b1f2829a44d88853581fdf4 data/hbmntm/tags/items/gems/lignite.json
 9ffbfa1cee76e6322f167ffd5f93ed74e3eac687 data/hbmntm/tags/items/gems/sodalite.json
 e484a8499acc8b67806a18b8006e0e7738aea8cc data/hbmntm/tags/items/gems/tantalium.json
+136bbadfb3af4d31ca203be919788b790b3f8444 data/hbmntm/tags/items/gems/volcanic.json
 22ddfc0827547c663d5a079f758f1deb6fb2152d data/hbmntm/tags/items/grips.json
 c44d283b1b4a4e6f639dbe499fa5c6dab7b2e9b7 data/hbmntm/tags/items/grips/bakelite.json
 ea4411caec97873ba94ada65eba858ca746093b9 data/hbmntm/tags/items/grips/desh.json
@@ -904,6 +906,7 @@ cd2cd029b0ee0a66d49e8b9f17b9e40854aef162 data/hbmntm/tags/items/materials/u233.j
 428cdcf26caacc137d85bbb05dd46643f7ed6bc1 data/hbmntm/tags/items/materials/u235.json
 6e2d69bb01cf5b6dcfc37a797bf6526c0b8039e7 data/hbmntm/tags/items/materials/u238.json
 53184b886e235fb9771834d1906a1b0148ad8e2e data/hbmntm/tags/items/materials/uranium.json
+136bbadfb3af4d31ca203be919788b790b3f8444 data/hbmntm/tags/items/materials/volcanic.json
 1a704193f66caf08caf86f3893ea934aeebc3bd8 data/hbmntm/tags/items/materials/weaponsteel.json
 2694eebdcf732c1730c012fe232929dce2659cc4 data/hbmntm/tags/items/materials/white_phosphorus.json
 95681e144fe9084ea5727b85391062f09e30c837 data/hbmntm/tags/items/materials/xe135.json

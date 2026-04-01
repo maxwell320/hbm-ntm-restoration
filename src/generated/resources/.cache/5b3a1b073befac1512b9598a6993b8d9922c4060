@@ -1,4 +1,4 @@
-// 1.20.1	2026-04-01T20:37:54.4525582	Item Models: hbmntm
+// 1.20.1	2026-04-01T20:43:31.6445168	Item Models: hbmntm
 5af477fae0ee316daeface1cde9128dc4f6e626c assets/hbmntm/models/item/ball_resin.json
 66063b17cb93c7336607cef31749a6f0ec6dd344 assets/hbmntm/models/item/bedrockorefragment_aluminium.json
 66063b17cb93c7336607cef31749a6f0ec6dd344 assets/hbmntm/models/item/bedrockorefragment_beryllium.json
@@ -101,6 +101,7 @@ c6deebadfc028d6d62f45fc649e6c7dd033f5af5 assets/hbmntm/models/item/fluorite.json
 66063b17cb93c7336607cef31749a6f0ec6dd344 assets/hbmntm/models/item/fragment_niobium.json
 5af477fae0ee316daeface1cde9128dc4f6e626c assets/hbmntm/models/item/gem_sodalite.json
 5af477fae0ee316daeface1cde9128dc4f6e626c assets/hbmntm/models/item/gem_tantalium.json
+5af477fae0ee316daeface1cde9128dc4f6e626c assets/hbmntm/models/item/gem_volcanic.json
 e0f5689a509a1a6b835fcb5a31a9d3bd288a7fab assets/hbmntm/models/item/ingot_actinium.json
 e0f5689a509a1a6b835fcb5a31a9d3bd288a7fab assets/hbmntm/models/item/ingot_advanced_alloy.json
 e0f5689a509a1a6b835fcb5a31a9d3bd288a7fab assets/hbmntm/models/item/ingot_aluminium.json

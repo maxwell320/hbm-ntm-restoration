@@ -228,6 +228,9 @@ public final class HbmMaterials {
     public static final HbmMaterialDefinition BORAX = HbmMaterialDefinition.of("borax", "Borax", HbmMaterialShape.DUST)
         .withItemId(HbmMaterialShape.DUST, "powder_borax")
         .withItemDisplayName(HbmMaterialShape.DUST, "Borax");
+    public static final HbmMaterialDefinition VOLCANIC = HbmMaterialDefinition.of("volcanic", "Volcanic", HbmMaterialShape.GEM)
+        .withItemId(HbmMaterialShape.GEM, "gem_volcanic")
+        .withItemDisplayName(HbmMaterialShape.GEM, "Volcanic Gem");
     public static final HbmMaterialDefinition TANTALIUM = HbmMaterialDefinition.of("tantalium", "Tantalium", HbmMaterialShape.FRAGMENT, HbmMaterialShape.INGOT, HbmMaterialShape.NUGGET, HbmMaterialShape.GEM, HbmMaterialShape.DUST)
         .withItemDisplayName(HbmMaterialShape.FRAGMENT, "Tantalum Bedrock Ore Fragment")
         .withItemDisplayName(HbmMaterialShape.INGOT, "Tantalum Ingot")
@@ -462,6 +465,7 @@ public final class HbmMaterials {
         ARSENIC,
         BORON,
         BORAX,
+        VOLCANIC,
         TANTALIUM,
         COLTAN,
         RARE_EARTH,
