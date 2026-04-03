@@ -27,5 +27,6 @@ logs
 # Files from Forge MDK
 forge*changelog.txt
 
-# Internal notes
-ROADMAP.md
+# Internal notes and docs
+*.md
+docs/
