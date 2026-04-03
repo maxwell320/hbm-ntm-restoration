@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "I": {
+      "item": "minecraft:nether_brick"
+    },
+    "S": {
+      "tag": "forge:stone"
+    }
+  },
+  "pattern": [
+    "III",
+    "SSS"
+  ],
+  "result": {
+    "item": "hbmntm:stamp_stone_flat"
+  },
+  "show_notification": true
+}

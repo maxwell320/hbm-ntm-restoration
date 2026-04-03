@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "I": {
+      "item": "minecraft:brick"
+    },
+    "S": {
+      "item": "hbmntm:ingot_titanium"
+    }
+  },
+  "pattern": [
+    "III",
+    "SSS"
+  ],
+  "result": {
+    "item": "hbmntm:stamp_titanium_flat"
+  },
+  "show_notification": true
+}

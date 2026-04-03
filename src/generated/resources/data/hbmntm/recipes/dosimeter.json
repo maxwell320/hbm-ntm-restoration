@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "B": {
+      "item": "hbmntm:ingot_beryllium"
+    },
+    "C": {
+      "item": "hbmntm:circuit_vacuum_tube"
+    },
+    "G": {
+      "tag": "forge:glass_panes"
+    },
+    "W": {
+      "tag": "minecraft:planks"
+    }
+  },
+  "pattern": [
+    "WGW",
+    "WCW",
+    "WBW"
+  ],
+  "result": {
+    "item": "hbmntm:dosimeter"
+  },
+  "show_notification": true
+}

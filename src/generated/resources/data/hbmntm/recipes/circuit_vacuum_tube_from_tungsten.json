@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "G": {
+      "tag": "forge:glass_panes"
+    },
+    "I": {
+      "item": "hbmntm:plate_polymer"
+    },
+    "W": {
+      "item": "hbmntm:wire_tungsten"
+    }
+  },
+  "pattern": [
+    "G",
+    "W",
+    "I"
+  ],
+  "result": {
+    "item": "hbmntm:circuit_vacuum_tube"
+  },
+  "show_notification": true
+}

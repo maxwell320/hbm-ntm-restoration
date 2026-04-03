@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "I": {
+      "item": "hbmntm:plate_polymer"
+    },
+    "P": {
+      "item": "hbmntm:plate_gold"
+    }
+  },
+  "pattern": [
+    "I",
+    "P"
+  ],
+  "result": {
+    "count": 4,
+    "item": "hbmntm:circuit_pcb"
+  },
+  "show_notification": true
+}

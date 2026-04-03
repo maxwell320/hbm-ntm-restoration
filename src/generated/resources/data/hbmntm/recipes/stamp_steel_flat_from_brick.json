@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "I": {
+      "item": "minecraft:brick"
+    },
+    "S": {
+      "item": "hbmntm:ingot_steel"
+    }
+  },
+  "pattern": [
+    "III",
+    "SSS"
+  ],
+  "result": {
+    "item": "hbmntm:stamp_steel_flat"
+  },
+  "show_notification": true
+}
