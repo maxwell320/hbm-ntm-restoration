@@ -9,7 +9,14 @@ import net.minecraftforge.registries.RegistryObject;
 
 public final class HbmSoundEvents {
     public static final DeferredRegister<SoundEvent> SOUND_EVENTS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, HbmNtmMod.MOD_ID);
+    public static final RegistryObject<SoundEvent> ITEM_GEIGER_1 = register("item.geiger1");
+    public static final RegistryObject<SoundEvent> ITEM_GEIGER_2 = register("item.geiger2");
+    public static final RegistryObject<SoundEvent> ITEM_GEIGER_3 = register("item.geiger3");
+    public static final RegistryObject<SoundEvent> ITEM_GEIGER_4 = register("item.geiger4");
+    public static final RegistryObject<SoundEvent> ITEM_GEIGER_5 = register("item.geiger5");
+    public static final RegistryObject<SoundEvent> ITEM_GEIGER_6 = register("item.geiger6");
     public static final RegistryObject<SoundEvent> ITEM_RADAWAY = register("item.radaway");
+    public static final RegistryObject<SoundEvent> ITEM_TECH_BOOP = register("item.tech_boop");
 
     private HbmSoundEvents() {
     }

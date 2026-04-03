@@ -1,6 +1,8 @@
 package com.hbm.ntm.common.registration;
 
 import com.hbm.ntm.HbmNtmMod;
+import com.hbm.ntm.common.block.SellafieldBlock;
+import com.hbm.ntm.common.item.SellafieldBlockItem;
 import com.hbm.ntm.common.material.HbmMaterialShape;
 import com.hbm.ntm.common.material.HbmMaterials;
 import java.util.Objects;
@@ -17,7 +19,15 @@ public final class HbmCreativeTabs {
     public static final RegistryObject<CreativeModeTab> MAIN = CREATIVE_MODE_TABS.register("main", () -> CreativeModeTab.builder()
         .title(Objects.requireNonNull(Component.translatable("itemGroup." + HbmNtmMod.MOD_ID + ".main")))
         .icon(() -> new ItemStack(Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.URANIUM, HbmMaterialShape.INGOT).get())))
-        .displayItems((parameters, output) -> HbmItems.creativeTabEntries().forEach(item -> output.accept(Objects.requireNonNull(item.get()))))
+        .displayItems((parameters, output) -> HbmItems.creativeTabEntries().forEach(item -> {
+            if (item == HbmItems.SELLAFIELD) {
+                for (int level = 0; level <= SellafieldBlock.MAX_LEVEL; level++) {
+                    output.accept(SellafieldBlockItem.withLevel(Objects.requireNonNull(HbmItems.SELLAFIELD.get()), level));
+                }
+            } else {
+                output.accept(Objects.requireNonNull(item.get()));
+            }
+        }))
         .build());
 
     private HbmCreativeTabs() {

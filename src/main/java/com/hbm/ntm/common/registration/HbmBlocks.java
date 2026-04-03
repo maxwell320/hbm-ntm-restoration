@@ -6,6 +6,9 @@ import com.hbm.ntm.common.block.BasaltOreBlock;
 import com.hbm.ntm.common.block.BasaltOreType;
 import com.hbm.ntm.common.block.FalloutBlock;
 import com.hbm.ntm.common.block.GasAsbestosBlock;
+import com.hbm.ntm.common.block.GeigerCounterBlock;
+import com.hbm.ntm.common.block.NtmAnvilBlock;
+import com.hbm.ntm.common.block.SellafieldBlock;
 import com.hbm.ntm.common.block.SellafieldOreBlock;
 import com.hbm.ntm.common.block.SellafieldOreType;
 import com.hbm.ntm.common.block.SellafieldSlakedBlock;
@@ -33,6 +36,16 @@ public final class HbmBlocks {
     public static final RegistryObject<Block> GAS_ASBESTOS = BLOCKS.register("gas_asbestos",
         () -> new GasAsbestosBlock(Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.AIR).replaceable().noCollission().noOcclusion().randomTicks())));
     public static final RegistryObject<Block> FALLOUT = BLOCKS.register("fallout", FalloutBlock::new);
+    public static final RegistryObject<Block> GEIGER = BLOCKS.register("geiger",
+        () -> new GeigerCounterBlock(Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(15.0F, 0.25F).noOcclusion())));
+    public static final RegistryObject<Block> ANVIL_IRON = BLOCKS.register("anvil_iron",
+        () -> new NtmAnvilBlock(NtmAnvilBlock.TIER_IRON, Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.ANVIL).strength(5.0F, 100.0F).requiresCorrectToolForDrops())));
+    public static final RegistryObject<Block> ANVIL_STEEL = BLOCKS.register("anvil_steel",
+        () -> new NtmAnvilBlock(NtmAnvilBlock.TIER_STEEL, Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.ANVIL).strength(5.0F, 100.0F).requiresCorrectToolForDrops())));
+    public static final RegistryObject<Block> ANVIL_DESH = BLOCKS.register("anvil_desh",
+        () -> new NtmAnvilBlock(NtmAnvilBlock.TIER_DESH, Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.ANVIL).strength(5.0F, 100.0F).requiresCorrectToolForDrops())));
+    public static final RegistryObject<Block> SELLAFIELD = BLOCKS.register("sellafield",
+        () -> new SellafieldBlock(Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.STONE).strength(5.0F, 6.0F).requiresCorrectToolForDrops().randomTicks())));
     public static final RegistryObject<Block> SELLAFIELD_SLAKED = BLOCKS.register("sellafield_slaked",
         () -> new SellafieldSlakedBlock(Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.STONE).strength(5.0F, 6.0F).requiresCorrectToolForDrops())));
     public static final RegistryObject<Block> ORE_SELLAFIELD_DIAMOND = registerSellafieldOre(SellafieldOreType.DIAMOND);
