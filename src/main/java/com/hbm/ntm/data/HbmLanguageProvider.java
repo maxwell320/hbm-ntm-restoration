@@ -62,6 +62,18 @@ public class HbmLanguageProvider extends LanguageProvider {
         add(Objects.requireNonNull(HbmItems.POWDER_SAWDUST.get()), "Sawdust");
         add(Objects.requireNonNull(HbmItems.PHOTO_PANEL.get()), "Photovoltaic Panel");
         add(Objects.requireNonNull(HbmItems.PIN.get()), "Bobby Pin");
+        add(Objects.requireNonNull(HbmItems.CATALYST_CLAY.get()), "Clay Catalyst");
+        add(Objects.requireNonNull(HbmItems.DEUTERIUM_FILTER.get()), "Deuterium Filter");
+        add(Objects.requireNonNull(HbmItems.FINS_FLAT.get()), "Flat Steel Casing");
+        add(Objects.requireNonNull(HbmItems.SPHERE_STEEL.get()), "Steel Sphere");
+        add(Objects.requireNonNull(HbmItems.PEDESTAL_STEEL.get()), "Steel Pedestal");
+        add(Objects.requireNonNull(HbmItems.FINS_BIG_STEEL.get()), "Big Steel Grid Fins");
+        add(Objects.requireNonNull(HbmItems.FINS_SMALL_STEEL.get()), "Small Steel Grid Fins");
+        add(Objects.requireNonNull(HbmItems.FINS_QUAD_TITANIUM.get()), "Small Titanium Fins");
+        add(Objects.requireNonNull(HbmItems.BLADE_TITANIUM.get()), "Titanium Blade");
+        add(Objects.requireNonNull(HbmItems.TURBINE_TITANIUM.get()), "Titanium Steam Turbine");
+        add(Objects.requireNonNull(HbmItems.RING_STARMETAL.get()), "§9Starmetal Ring§r");
+        add(Objects.requireNonNull(HbmItems.SAWBLADE.get()), "Sawblade");
         add("item.hbmntm.pin.desc", "Standard success rate of picking a regular lock is ~10%%.");
         add(Objects.requireNonNull(HbmItems.RADAWAY.get()), "RadAway");
         add(Objects.requireNonNull(HbmItems.RADAWAY_STRONG.get()), "Strong RadAway");

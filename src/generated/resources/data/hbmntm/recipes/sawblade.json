@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "minecraft:iron_ingot"
+    },
+    "I": {
+      "item": "hbmntm:plate_steel"
+    }
+  },
+  "pattern": [
+    "III",
+    "ICI",
+    "III"
+  ],
+  "result": {
+    "item": "hbmntm:sawblade"
+  },
+  "show_notification": true
+}

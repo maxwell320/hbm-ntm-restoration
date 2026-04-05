@@ -152,9 +152,28 @@ public class HbmRecipeProvider extends RecipeProvider {
         final ItemLike coilGoldTorus = Objects.requireNonNull(HbmItems.COIL_GOLD_TORUS.get());
         final ItemLike photoPanel = Objects.requireNonNull(HbmItems.PHOTO_PANEL.get());
         final ItemLike pin = Objects.requireNonNull(HbmItems.PIN.get());
+        final ItemLike catalystClay = Objects.requireNonNull(HbmItems.CATALYST_CLAY.get());
+        final ItemLike deuteriumFilter = Objects.requireNonNull(HbmItems.DEUTERIUM_FILTER.get());
+        final ItemLike finsFlat = Objects.requireNonNull(HbmItems.FINS_FLAT.get());
+        final ItemLike sphereSteel = Objects.requireNonNull(HbmItems.SPHERE_STEEL.get());
+        final ItemLike pedestalSteel = Objects.requireNonNull(HbmItems.PEDESTAL_STEEL.get());
+        final ItemLike finsBigSteel = Objects.requireNonNull(HbmItems.FINS_BIG_STEEL.get());
+        final ItemLike finsSmallSteel = Objects.requireNonNull(HbmItems.FINS_SMALL_STEEL.get());
+        final ItemLike finsQuadTitanium = Objects.requireNonNull(HbmItems.FINS_QUAD_TITANIUM.get());
+        final ItemLike bladeTitanium = Objects.requireNonNull(HbmItems.BLADE_TITANIUM.get());
+        final ItemLike turbineTitanium = Objects.requireNonNull(HbmItems.TURBINE_TITANIUM.get());
+        final ItemLike ringStarmetal = Objects.requireNonNull(HbmItems.RING_STARMETAL.get());
+        final ItemLike sawblade = Objects.requireNonNull(HbmItems.SAWBLADE.get());
+        final ItemLike ironDust = Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.IRON, HbmMaterialShape.DUST).get());
+        final ItemLike sulfurDust = Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.SULFUR, HbmMaterialShape.DUST).get());
+        final ItemLike supportSteelIngot = Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.STEEL, HbmMaterialShape.INGOT).get());
         final ItemLike titaniumPlate = Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.TITANIUM, HbmMaterialShape.PLATE).get());
+        final ItemLike starmetalIngot = Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.STARMETAL, HbmMaterialShape.INGOT).get());
         final ItemLike strontiumDust = Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.STRONTIUM, HbmMaterialShape.DUST).get());
         final Ingredient plasticBars = Ingredient.of(polymerBar, bakeliteBar, latexBar, rubberBar, petBar, pcBar, pvcBar);
+        final Ingredient resistantAlloyIngots = Ingredient.of(
+            Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.TCALLOY, HbmMaterialShape.INGOT).get()),
+            Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.CDALLOY, HbmMaterialShape.INGOT).get()));
 
         ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, vacuumTube)
             .pattern("G")
@@ -439,6 +458,111 @@ public class HbmRecipeProvider extends RecipeProvider {
             .define('W', copperWire)
             .unlockedBy(getHasName(copperWire), has(copperWire))
             .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "pin")));
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, catalystClay)
+            .requires(ironDust)
+            .requires(Items.CLAY_BALL)
+            .unlockedBy(getHasName(ironDust), has(ironDust))
+            .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "catalyst_clay")));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, deuteriumFilter)
+            .pattern("TST")
+            .pattern("SCS")
+            .pattern("TST")
+            .define('T', resistantAlloyIngots)
+            .define('S', sulfurDust)
+            .define('C', catalystClay)
+            .unlockedBy(getHasName(catalystClay), has(catalystClay))
+            .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "deuterium_filter")));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, finsFlat)
+            .pattern("IP")
+            .pattern("PP")
+            .pattern("IP")
+            .define('I', supportSteelIngot)
+            .define('P', steelPlate)
+            .unlockedBy(getHasName(steelPlate), has(steelPlate))
+            .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "fins_flat")));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, sphereSteel)
+            .pattern("PIP")
+            .pattern("I I")
+            .pattern("PIP")
+            .define('P', steelPlate)
+            .define('I', supportSteelIngot)
+            .unlockedBy(getHasName(steelPlate), has(steelPlate))
+            .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "sphere_steel")));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, pedestalSteel)
+            .pattern("P P")
+            .pattern("P P")
+            .pattern("III")
+            .define('P', steelPlate)
+            .define('I', supportSteelIngot)
+            .unlockedBy(getHasName(steelPlate), has(steelPlate))
+            .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "pedestal_steel")));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, finsBigSteel)
+            .pattern(" PI")
+            .pattern("III")
+            .pattern(" PI")
+            .define('P', steelPlate)
+            .define('I', supportSteelIngot)
+            .unlockedBy(getHasName(steelPlate), has(steelPlate))
+            .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "fins_big_steel")));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, finsSmallSteel)
+            .pattern(" PP")
+            .pattern("PII")
+            .pattern(" PP")
+            .define('P', steelPlate)
+            .define('I', supportSteelIngot)
+            .unlockedBy(getHasName(steelPlate), has(steelPlate))
+            .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "fins_small_steel")));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, finsQuadTitanium)
+            .pattern(" PP")
+            .pattern("III")
+            .pattern(" PP")
+            .define('P', titaniumPlate)
+            .define('I', Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.TITANIUM, HbmMaterialShape.INGOT).get()))
+            .unlockedBy(getHasName(titaniumPlate), has(titaniumPlate))
+            .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "fins_quad_titanium")));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, bladeTitanium, 2)
+            .pattern("TP")
+            .pattern("TP")
+            .pattern("TT")
+            .define('P', titaniumPlate)
+            .define('T', Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.TITANIUM, HbmMaterialShape.INGOT).get()))
+            .unlockedBy(getHasName(titaniumPlate), has(titaniumPlate))
+            .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "blade_titanium")));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, turbineTitanium)
+            .pattern("BBB")
+            .pattern("BSB")
+            .pattern("BBB")
+            .define('B', bladeTitanium)
+            .define('S', supportSteelIngot)
+            .unlockedBy(getHasName(bladeTitanium), has(bladeTitanium))
+            .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "turbine_titanium")));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ringStarmetal)
+            .pattern(" S ")
+            .pattern("S S")
+            .pattern(" S ")
+            .define('S', starmetalIngot)
+            .unlockedBy(getHasName(starmetalIngot), has(starmetalIngot))
+            .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "ring_starmetal")));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, sawblade)
+            .pattern("III")
+            .pattern("ICI")
+            .pattern("III")
+            .define('I', steelPlate)
+            .define('C', Items.IRON_INGOT)
+            .unlockedBy(getHasName(steelPlate), has(steelPlate))
+            .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "sawblade")));
 
         ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, motorDesh)
             .pattern("PCP")

@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "C": {
+      "item": "hbmntm:catalyst_clay"
+    },
+    "S": {
+      "item": "hbmntm:sulfur"
+    },
+    "T": [
+      {
+        "item": "hbmntm:ingot_tcalloy"
+      },
+      {
+        "item": "hbmntm:ingot_cdalloy"
+      }
+    ]
+  },
+  "pattern": [
+    "TST",
+    "SCS",
+    "TST"
+  ],
+  "result": {
+    "item": "hbmntm:deuterium_filter"
+  },
+  "show_notification": true
+}

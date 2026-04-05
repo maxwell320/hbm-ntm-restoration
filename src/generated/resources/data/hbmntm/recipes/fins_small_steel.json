@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "item": "hbmntm:ingot_steel"
+    },
+    "P": {
+      "item": "hbmntm:plate_steel"
+    }
+  },
+  "pattern": [
+    " PP",
+    "PII",
+    " PP"
+  ],
+  "result": {
+    "item": "hbmntm:fins_small_steel"
+  },
+  "show_notification": true
+}

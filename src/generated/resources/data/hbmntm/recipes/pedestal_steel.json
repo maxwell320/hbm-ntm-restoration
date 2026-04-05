@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "item": "hbmntm:ingot_steel"
+    },
+    "P": {
+      "item": "hbmntm:plate_steel"
+    }
+  },
+  "pattern": [
+    "P P",
+    "P P",
+    "III"
+  ],
+  "result": {
+    "item": "hbmntm:pedestal_steel"
+  },
+  "show_notification": true
+}

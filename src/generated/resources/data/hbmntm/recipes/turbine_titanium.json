@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "hbmntm:blade_titanium"
+    },
+    "S": {
+      "item": "hbmntm:ingot_steel"
+    }
+  },
+  "pattern": [
+    "BBB",
+    "BSB",
+    "BBB"
+  ],
+  "result": {
+    "item": "hbmntm:turbine_titanium"
+  },
+  "show_notification": true
+}

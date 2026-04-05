@@ -35,6 +35,18 @@ public class HbmItemModelProvider extends ItemModelProvider {
         singleTexture("motor_desh", mcLoc("item/generated"), "layer0", modLoc("item/motor_desh"));
         singleTexture("photo_panel", mcLoc("item/generated"), "layer0", modLoc("item/photo_panel"));
         singleTexture("pin", mcLoc("item/generated"), "layer0", modLoc("item/pin"));
+        singleTexture("catalyst_clay", mcLoc("item/generated"), "layer0", modLoc("item/catalyst_clay"));
+        singleTexture("deuterium_filter", mcLoc("item/generated"), "layer0", modLoc("item/deuterium_filter"));
+        singleTexture("fins_flat", mcLoc("item/generated"), "layer0", modLoc("item/fins_flat"));
+        singleTexture("sphere_steel", mcLoc("item/generated"), "layer0", modLoc("item/sphere_steel"));
+        singleTexture("pedestal_steel", mcLoc("item/generated"), "layer0", modLoc("item/pedestal_steel"));
+        singleTexture("fins_big_steel", mcLoc("item/generated"), "layer0", modLoc("item/fins_big_steel"));
+        singleTexture("fins_small_steel", mcLoc("item/generated"), "layer0", modLoc("item/fins_small_steel"));
+        singleTexture("fins_quad_titanium", mcLoc("item/generated"), "layer0", modLoc("item/fins_quad_titanium"));
+        singleTexture("blade_titanium", mcLoc("item/generated"), "layer0", modLoc("item/blade_titanium"));
+        singleTexture("turbine_titanium", mcLoc("item/generated"), "layer0", modLoc("item/turbine_titanium"));
+        singleTexture("ring_starmetal", mcLoc("item/generated"), "layer0", modLoc("item/ring_starmetal"));
+        singleTexture("sawblade", mcLoc("item/generated"), "layer0", modLoc("item/sawblade"));
         singleTexture("dosimeter", mcLoc("item/generated"), "layer0", modLoc("item/dosimeter"));
         singleTexture("ducttape", mcLoc("item/generated"), "layer0", modLoc("item/ducttape"));
         singleTexture("fuse", mcLoc("item/generated"), "layer0", modLoc("item/fuse"));

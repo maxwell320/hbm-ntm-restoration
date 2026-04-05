@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "S": {
+      "item": "hbmntm:ingot_starmetal"
+    }
+  },
+  "pattern": [
+    " S ",
+    "S S",
+    " S "
+  ],
+  "result": {
+    "item": "hbmntm:ring_starmetal"
+  },
+  "show_notification": true
+}
