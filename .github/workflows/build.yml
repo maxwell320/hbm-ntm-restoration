@@ -35,37 +35,14 @@ jobs:
       - name: Make Gradle wrapper executable
         run: chmod +x gradlew
 
-      - name: Debug pre-build environment
+      - name: Clean injected toolchain paths
         run: |
-          echo "--- Environment ---"
-          echo "HOME=$HOME"
-          echo "JAVA_HOME=$JAVA_HOME"
-          echo "GRADLE_HOME=${GRADLE_HOME:-<unset>}"
-          echo "GRADLE_USER_HOME=$GRADLE_USER_HOME"
-          echo "--- Searching for ALL gradle.properties files ---"
-          find / -name "gradle.properties" -readable 2>/dev/null || true
-          echo "--- System Gradle init scripts ---"
-          find /usr/share/gradle*/init.d/ -type f 2>/dev/null || echo "(none)"
-          echo "--- GRADLE_USER_HOME contents ---"
-          find "$GRADLE_USER_HOME" -type f 2>/dev/null || echo "(empty)"
-          echo "--- Searching for Windows path in any readable file ---"
-          grep -rl "Eclipse Adoptium" /home/runner/ 2>/dev/null || echo "(not found)"
+          echo "--- gradle.properties BEFORE cleanup ---"
+          cat gradle.properties
+          echo "---"
+          sed -i '/org\.gradle\.java\.installations/d' gradle.properties
+          echo "--- gradle.properties AFTER cleanup ---"
+          cat gradle.properties
 
       - name: Build
-        run: |
-          unset GRADLE_HOME
-          ./gradlew build --no-daemon \
-            -Dorg.gradle.java.installations.auto-detect=false \
-            -Dorg.gradle.java.installations.auto-download=false \
-            -Dorg.gradle.java.installations.paths="$JAVA_HOME"
-
-      - name: Debug Java and Gradle environment
-        if: failure()
-        run: |
-          echo "HOME=$HOME"
-          echo "JAVA_HOME=$JAVA_HOME"
-          env | sort | grep -E 'JAVA|GRADLE|MAVEN|TOOL' || true
-          echo "--- All gradle.properties found ---"
-          find "$GRADLE_USER_HOME" -name "gradle.properties" -exec echo "== {} ==" \; -exec cat {} \; 2>/dev/null || true
-          echo "--- toolchains.xml ---"
-          find "$HOME" -maxdepth 4 -name toolchains.xml -print -exec cat {} \; || true
+        run: ./gradlew build --no-daemon
