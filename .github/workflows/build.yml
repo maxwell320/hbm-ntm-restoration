@@ -36,13 +36,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Clean injected toolchain paths
-        run: |
-          echo "--- gradle.properties BEFORE cleanup ---"
-          cat gradle.properties
-          echo "---"
-          sed -i '/org\.gradle\.java\.installations/d' gradle.properties
-          echo "--- gradle.properties AFTER cleanup ---"
-          cat gradle.properties
+        run: sed -i '/org\.gradle\.java\.installations/d' gradle.properties
 
       - name: Build
         run: ./gradlew build --no-daemon
