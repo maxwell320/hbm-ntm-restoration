@@ -3,9 +3,11 @@ package com.hbm.ntm.common.registration;
 import com.hbm.ntm.HbmNtmMod;
 import com.hbm.ntm.common.block.BasaltBlockType;
 import com.hbm.ntm.common.block.BasaltOreType;
+import com.hbm.ntm.common.block.MaterialBlockType;
 import com.hbm.ntm.common.block.SellafieldOreType;
 import com.hbm.ntm.common.block.StoneResourceType;
 import com.hbm.ntm.common.item.BriquetteItemType;
+import com.hbm.ntm.common.item.BatteryItem;
 import com.hbm.ntm.common.item.CasingItemType;
 import com.hbm.ntm.common.item.CokeItemType;
 import com.hbm.ntm.common.item.CircuitItemType;
@@ -51,6 +53,7 @@ public final class HbmItems {
     public static final RegistryObject<Item> DUCTTAPE = registerSimpleItem("ducttape", SIMPLE_ITEMS);
     public static final RegistryObject<Item> FUSE = registerSimpleItem("fuse", SIMPLE_ITEMS);
     public static final RegistryObject<Item> SAFETY_FUSE = registerSimpleItem("safety_fuse", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> BATTERY_POTATO = registerItem("battery_potato", () -> new BatteryItem(1_000, 0, 100, new Item.Properties()), SIMPLE_ITEMS);
     public static final RegistryObject<Item> COIL_COPPER_TORUS = registerSimpleItem("coil_copper_torus", SIMPLE_ITEMS);
     public static final RegistryObject<Item> MOTOR = registerSimpleItem("motor", SIMPLE_ITEMS);
     public static final RegistryObject<Item> MOTOR_DESH = registerSimpleItem("motor_desh", SIMPLE_ITEMS);
@@ -66,15 +69,20 @@ public final class HbmItems {
     public static final RegistryObject<Item> PEDESTAL_STEEL = registerSimpleItem("pedestal_steel", SIMPLE_ITEMS);
     public static final RegistryObject<Item> FINS_BIG_STEEL = registerSimpleItem("fins_big_steel", SIMPLE_ITEMS);
     public static final RegistryObject<Item> FINS_SMALL_STEEL = registerSimpleItem("fins_small_steel", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> FINS_TRI_STEEL = registerSimpleItem("fins_tri_steel", SIMPLE_ITEMS);
     public static final RegistryObject<Item> FINS_QUAD_TITANIUM = registerSimpleItem("fins_quad_titanium", SIMPLE_ITEMS);
     public static final RegistryObject<Item> BLADE_TITANIUM = registerSimpleItem("blade_titanium", SIMPLE_ITEMS);
     public static final RegistryObject<Item> TURBINE_TITANIUM = registerSimpleItem("turbine_titanium", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> FLYWHEEL_BERYLLIUM = registerSimpleItem("flywheel_beryllium", SIMPLE_ITEMS);
     public static final RegistryObject<Item> RING_STARMETAL = registerSimpleItem("ring_starmetal", SIMPLE_ITEMS);
     public static final RegistryObject<Item> SAWBLADE = registerSimpleItem("sawblade", SIMPLE_ITEMS);
     public static final RegistryObject<Item> FALLOUT = registerSimpleItem("fallout", SIMPLE_ITEMS);
     public static final RegistryObject<Item> POWDER_SAWDUST = registerSimpleItem("powder_sawdust", SIMPLE_ITEMS);
     public static final RegistryObject<Item> UPGRADE_TEMPLATE = registerSimpleItem("upgrade_template", SIMPLE_ITEMS);
     public static final RegistryObject<Item> FALLOUT_LAYER = registerBlockItem("fallout_layer", HbmBlocks.FALLOUT, BLOCK_ITEMS);
+    public static final RegistryObject<Item> CREATIVE_ENERGY_SOURCE = registerBlockItem("creative_energy_source", HbmBlocks.CREATIVE_ENERGY_SOURCE, BLOCK_ITEMS);
+    public static final RegistryObject<Item> RED_CABLE = registerBlockItem("red_cable", HbmBlocks.RED_CABLE, BLOCK_ITEMS);
+    public static final RegistryObject<Item> RED_CABLE_CLASSIC = registerBlockItem("red_cable_classic", HbmBlocks.RED_CABLE_CLASSIC, BLOCK_ITEMS);
     public static final RegistryObject<Item> GEIGER = registerBlockItem("geiger", HbmBlocks.GEIGER, BLOCK_ITEMS);
     public static final RegistryObject<Item> PRESS_PREHEATER = registerBlockItem("press_preheater", HbmBlocks.PRESS_PREHEATER, BLOCK_ITEMS);
     public static final RegistryObject<Item> SELLAFIELD = registerItem("sellafield", () -> new SellafieldBlockItem(HbmBlocks.SELLAFIELD.get(), new Item.Properties()), BLOCK_ITEMS);
@@ -97,6 +105,7 @@ public final class HbmItems {
         registerCircuitItems();
         registerStampItems();
         registerAnvilBlockItems();
+        registerMaterialBlockItems();
         registerStoneResourceBlockItems();
         registerBasaltBlockItems();
         registerBasaltOreBlockItems();
@@ -149,6 +158,12 @@ public final class HbmItems {
         registerBlockItem("anvil_iron", HbmBlocks.ANVIL_IRON, BLOCK_ITEMS);
         registerBlockItem("anvil_steel", HbmBlocks.ANVIL_STEEL, BLOCK_ITEMS);
         registerBlockItem("anvil_desh", HbmBlocks.ANVIL_DESH, BLOCK_ITEMS);
+    }
+
+    private static void registerMaterialBlockItems() {
+        for (final MaterialBlockType type : MaterialBlockType.values()) {
+            registerBlockItem(type.blockId(), HbmBlocks.getMaterialBlock(type), BLOCK_ITEMS);
+        }
     }
 
     private static void registerStoneResourceBlockItems() {
@@ -292,6 +307,14 @@ public final class HbmItems {
         final RegistryObject<Item> registryObject = BLOCK_ITEMS.get(type.blockId());
         if (registryObject == null) {
             throw new IllegalArgumentException("Unknown basalt block item: " + type.blockId());
+        }
+        return registryObject;
+    }
+
+    public static RegistryObject<Item> getMaterialBlockItem(final MaterialBlockType type) {
+        final RegistryObject<Item> registryObject = BLOCK_ITEMS.get(type.blockId());
+        if (registryObject == null) {
+            throw new IllegalArgumentException("Unknown material block item: " + type.blockId());
         }
         return registryObject;
     }

@@ -2,6 +2,7 @@ package com.hbm.ntm.data;
 
 import com.hbm.ntm.HbmNtmMod;
 import com.hbm.ntm.common.block.BasaltBlockType;
+import com.hbm.ntm.common.block.MaterialBlockType;
 import com.hbm.ntm.common.item.CircuitItemType;
 import com.hbm.ntm.common.item.StampItemType;
 import com.hbm.ntm.common.material.HbmMaterialDefinition;
@@ -42,8 +43,11 @@ public class HbmRecipeProvider extends RecipeProvider {
             buildDustSmelting(recipeOutput, material);
         }
 
+        buildBatteryRecipes(recipeOutput);
+        buildMaterialBlockRecipes(recipeOutput);
         buildBasaltRecipes(recipeOutput);
         buildCircuitRecipes(recipeOutput);
+        buildEnergyRecipes(recipeOutput);
         buildPressSupportRecipes(recipeOutput);
         buildStampRecipes(recipeOutput);
         buildFalloutRecipes(recipeOutput);
@@ -85,6 +89,65 @@ public class HbmRecipeProvider extends RecipeProvider {
         oreCooking(recipeOutput, RecipeSerializer.BLASTING_RECIPE, ingredients, RecipeCategory.MISC, ingot, 0.1F, 100, material.id(), "_from_blasting");
     }
 
+    private void buildMaterialBlockRecipes(final Consumer<FinishedRecipe> recipeOutput) {
+        for (final MaterialBlockType type : MaterialBlockType.values()) {
+            final ItemLike ingot = Objects.requireNonNull(HbmItems.getMaterialPart(type.material(), HbmMaterialShape.INGOT).get());
+            final ItemLike block = Objects.requireNonNull(HbmBlocks.getMaterialBlock(type).get());
+
+            ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, block)
+                .pattern("III")
+                .pattern("III")
+                .pattern("III")
+                .define('I', ingot)
+                .unlockedBy(getHasName(ingot), has(ingot))
+                .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, type.blockId() + "_from_ingots")));
+
+            ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ingot, 9)
+                .requires(block)
+                .unlockedBy(getHasName(block), has(block))
+                .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, type.material().itemId(HbmMaterialShape.INGOT) + "_from_" + type.blockId())));
+        }
+    }
+
+    private void buildBatteryRecipes(final Consumer<FinishedRecipe> recipeOutput) {
+        final ItemLike potatoBattery = Objects.requireNonNull(HbmItems.BATTERY_POTATO.get());
+        final ItemLike aluminiumWire = Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.ALUMINIUM, HbmMaterialShape.WIRE).get());
+        final ItemLike copperWire = Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.COPPER, HbmMaterialShape.WIRE).get());
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, potatoBattery)
+            .requires(Items.POTATO)
+            .requires(aluminiumWire)
+            .requires(copperWire)
+            .unlockedBy(getHasName(aluminiumWire), has(aluminiumWire))
+            .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "battery_potato")));
+    }
+
+    private void buildEnergyRecipes(final Consumer<FinishedRecipe> recipeOutput) {
+        final ItemLike redCable = Objects.requireNonNull(HbmBlocks.RED_CABLE.get());
+        final ItemLike redCableClassic = Objects.requireNonNull(HbmBlocks.RED_CABLE_CLASSIC.get());
+        final ItemLike polymerPlate = Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.POLYMER, HbmMaterialShape.PLATE).get());
+        final ItemLike redCopperWire = Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.RED_COPPER, HbmMaterialShape.WIRE).get());
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, redCable, 16)
+            .pattern(" W ")
+            .pattern("RRR")
+            .pattern(" W ")
+            .define('W', polymerPlate)
+            .define('R', redCopperWire)
+            .unlockedBy(getHasName(redCopperWire), has(redCopperWire))
+            .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "red_cable")));
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, redCableClassic)
+            .requires(redCable)
+            .unlockedBy(getHasName(redCable), has(redCable))
+            .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "red_cable_classic")));
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, redCable)
+            .requires(redCableClassic)
+            .unlockedBy(getHasName(redCableClassic), has(redCableClassic))
+            .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "red_cable_from_classic")));
+    }
+
     private void buildBasaltRecipes(final Consumer<FinishedRecipe> recipeOutput) {
         final ItemLike basalt = Objects.requireNonNull(HbmBlocks.getBasaltBlock(BasaltBlockType.BASALT).get());
         final ItemLike smoothBasalt = Objects.requireNonNull(HbmBlocks.getBasaltBlock(BasaltBlockType.BASALT_SMOOTH).get());
@@ -108,6 +171,7 @@ public class HbmRecipeProvider extends RecipeProvider {
         final ItemLike pcb = Objects.requireNonNull(HbmItems.getCircuit(CircuitItemType.PCB).get());
         final ItemLike siliconWafer = Objects.requireNonNull(HbmItems.getCircuit(CircuitItemType.SILICON).get());
         final ItemLike chip = Objects.requireNonNull(HbmItems.getCircuit(CircuitItemType.CHIP).get());
+        final ItemLike chipBismoid = Objects.requireNonNull(HbmItems.getCircuit(CircuitItemType.CHIP_BISMOID).get());
         final ItemLike atomicClock = Objects.requireNonNull(HbmItems.getCircuit(CircuitItemType.ATOMIC_CLOCK).get());
         final ItemLike controllerChassis = Objects.requireNonNull(HbmItems.getCircuit(CircuitItemType.CONTROLLER_CHASSIS).get());
         final ItemLike numitron = Objects.requireNonNull(HbmItems.getCircuit(CircuitItemType.NUMITRON).get());
@@ -134,6 +198,7 @@ public class HbmRecipeProvider extends RecipeProvider {
         final ItemLike copperWire = Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.COPPER, HbmMaterialShape.WIRE).get());
         final ItemLike redCopperWire = Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.RED_COPPER, HbmMaterialShape.WIRE).get());
         final ItemLike aluminiumDust = Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.ALUMINIUM, HbmMaterialShape.DUST).get());
+        final ItemLike bismuthNugget = Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.BISMUTH, HbmMaterialShape.NUGGET).get());
         final ItemLike ironPlate = Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.IRON, HbmMaterialShape.PLATE).get());
         final ItemLike copperPlate = Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.COPPER, HbmMaterialShape.PLATE).get());
         final ItemLike goldPlate = Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.GOLD, HbmMaterialShape.PLATE).get());
@@ -159,17 +224,23 @@ public class HbmRecipeProvider extends RecipeProvider {
         final ItemLike pedestalSteel = Objects.requireNonNull(HbmItems.PEDESTAL_STEEL.get());
         final ItemLike finsBigSteel = Objects.requireNonNull(HbmItems.FINS_BIG_STEEL.get());
         final ItemLike finsSmallSteel = Objects.requireNonNull(HbmItems.FINS_SMALL_STEEL.get());
+        final ItemLike finsTriSteel = Objects.requireNonNull(HbmItems.FINS_TRI_STEEL.get());
         final ItemLike finsQuadTitanium = Objects.requireNonNull(HbmItems.FINS_QUAD_TITANIUM.get());
         final ItemLike bladeTitanium = Objects.requireNonNull(HbmItems.BLADE_TITANIUM.get());
         final ItemLike turbineTitanium = Objects.requireNonNull(HbmItems.TURBINE_TITANIUM.get());
+        final ItemLike flywheelBeryllium = Objects.requireNonNull(HbmItems.FLYWHEEL_BERYLLIUM.get());
         final ItemLike ringStarmetal = Objects.requireNonNull(HbmItems.RING_STARMETAL.get());
         final ItemLike sawblade = Objects.requireNonNull(HbmItems.SAWBLADE.get());
         final ItemLike ironDust = Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.IRON, HbmMaterialShape.DUST).get());
         final ItemLike sulfurDust = Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.SULFUR, HbmMaterialShape.DUST).get());
+        final ItemLike ironCastPlate = Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.IRON, HbmMaterialShape.CAST_PLATE).get());
         final ItemLike supportSteelIngot = Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.STEEL, HbmMaterialShape.INGOT).get());
+        final ItemLike berylliumBlock = Objects.requireNonNull(HbmBlocks.getMaterialBlock(MaterialBlockType.BERYLLIUM).get());
+        final ItemLike steelBlock = Objects.requireNonNull(HbmBlocks.getMaterialBlock(MaterialBlockType.STEEL).get());
         final ItemLike titaniumPlate = Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.TITANIUM, HbmMaterialShape.PLATE).get());
         final ItemLike starmetalIngot = Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.STARMETAL, HbmMaterialShape.INGOT).get());
         final ItemLike strontiumDust = Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.STRONTIUM, HbmMaterialShape.DUST).get());
+        final ItemLike duraPipe = Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.DURA_STEEL, HbmMaterialShape.PIPE).get());
         final Ingredient plasticBars = Ingredient.of(polymerBar, bakeliteBar, latexBar, rubberBar, petBar, pcBar, pvcBar);
         final Ingredient resistantAlloyIngots = Ingredient.of(
             Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.TCALLOY, HbmMaterialShape.INGOT).get()),
@@ -288,6 +359,28 @@ public class HbmRecipeProvider extends RecipeProvider {
             .define('W', goldWire)
             .unlockedBy(getHasName(siliconWafer), has(siliconWafer))
             .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "circuit_chip_from_gold_wire")));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, chipBismoid)
+            .pattern("III")
+            .pattern("SNS")
+            .pattern("WWW")
+            .define('I', polymerPlate)
+            .define('S', siliconWafer)
+            .define('N', bismuthNugget)
+            .define('W', copperWire)
+            .unlockedBy(getHasName(siliconWafer), has(siliconWafer))
+            .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "circuit_chip_bismoid_from_copper_wire")));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, chipBismoid)
+            .pattern("III")
+            .pattern("SNS")
+            .pattern("WWW")
+            .define('I', polymerPlate)
+            .define('S', siliconWafer)
+            .define('N', bismuthNugget)
+            .define('W', goldWire)
+            .unlockedBy(getHasName(siliconWafer), has(siliconWafer))
+            .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "circuit_chip_bismoid_from_gold_wire")));
 
         ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, crtDisplay, 4)
             .pattern(" A ")
@@ -520,6 +613,16 @@ public class HbmRecipeProvider extends RecipeProvider {
             .unlockedBy(getHasName(steelPlate), has(steelPlate))
             .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "fins_small_steel")));
 
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, finsTriSteel)
+            .pattern(" PI")
+            .pattern("IIB")
+            .pattern(" PI")
+            .define('P', steelPlate)
+            .define('I', supportSteelIngot)
+            .define('B', steelBlock)
+            .unlockedBy(getHasName(steelBlock), has(steelBlock))
+            .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "fins_tri_steel")));
+
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, finsQuadTitanium)
             .pattern(" PP")
             .pattern("III")
@@ -554,6 +657,16 @@ public class HbmRecipeProvider extends RecipeProvider {
             .define('S', starmetalIngot)
             .unlockedBy(getHasName(starmetalIngot), has(starmetalIngot))
             .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "ring_starmetal")));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, flywheelBeryllium)
+            .pattern("IBI")
+            .pattern("BTB")
+            .pattern("IBI")
+            .define('I', ironCastPlate)
+            .define('B', berylliumBlock)
+            .define('T', duraPipe)
+            .unlockedBy(getHasName(berylliumBlock), has(berylliumBlock))
+            .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "flywheel_beryllium")));
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, sawblade)
             .pattern("III")

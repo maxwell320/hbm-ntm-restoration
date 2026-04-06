@@ -2,6 +2,7 @@ package com.hbm.ntm.data;
 
 import com.hbm.ntm.common.block.BasaltBlockType;
 import com.hbm.ntm.common.block.BasaltOreType;
+import com.hbm.ntm.common.block.MaterialBlockType;
 import com.hbm.ntm.common.block.SellafieldOreType;
 import com.hbm.ntm.common.block.StoneResourceType;
 import com.hbm.ntm.common.material.HbmMaterialShape;
@@ -25,6 +26,7 @@ import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.minecraft.data.loot.BlockLootSubProvider;
 
+@SuppressWarnings("null")
 public class HbmBlockLootProvider extends BlockLootSubProvider {
     private final Set<Block> knownBlocks = new LinkedHashSet<>();
 
@@ -49,12 +51,19 @@ public class HbmBlockLootProvider extends BlockLootSubProvider {
         dropSelf(HbmBlocks.ANVIL_IRON.get());
         dropSelf(HbmBlocks.ANVIL_STEEL.get());
         dropSelf(HbmBlocks.ANVIL_DESH.get());
+        dropSelf(HbmBlocks.CREATIVE_ENERGY_SOURCE.get());
         add(HbmBlocks.FALLOUT.get(), createSingleItemTable(HbmItems.FALLOUT.get()));
         dropSelf(HbmBlocks.GEIGER.get());
         dropSelf(HbmBlocks.PRESS_PREHEATER.get());
+        dropSelf(HbmBlocks.RED_CABLE.get());
+        dropSelf(HbmBlocks.RED_CABLE_CLASSIC.get());
         dropSelf(HbmBlocks.SELLAFIELD_SLAKED.get());
         add(HbmBlocks.WASTE_LOG.get(), createWasteLogTable(HbmBlocks.WASTE_LOG.get()));
         dropSelf(HbmBlocks.WASTE_PLANKS.get());
+
+        for (final MaterialBlockType type : MaterialBlockType.values()) {
+            dropSelf(HbmBlocks.getMaterialBlock(type).get());
+        }
 
         for (final BasaltBlockType type : BasaltBlockType.values()) {
             dropSelf(HbmBlocks.getBasaltBlock(type).get());

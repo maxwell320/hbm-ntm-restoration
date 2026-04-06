@@ -7,12 +7,20 @@ public enum CircuitItemType {
     PCB("circuit_pcb", "Printed Circuit Board", "item/circuit_pcb"),
     SILICON("circuit_silicon", "Printed Silicon Wafer", "item/circuit_silicon"),
     CHIP("circuit_chip", "Microchip", "item/circuit_chip"),
-    ATOMIC_CLOCK("circuit_atomic_clock", "Atomic Clock", "item/circuit_atomic_clock"),
-    CONTROLLER_CHASSIS("circuit_controller_chassis", "Control Unit Casing", "item/circuit_controller_chassis"),
-    NUMITRON("circuit_numitron", "Incandescent Seven Segment Display", "item/circuit_numitron"),
+    CHIP_BISMOID("circuit_chip_bismoid", "Versatile Integrated Circuit", "item/circuit_chip_bismoid"),
     ANALOG("circuit_analog", "Analog Circuit Board", "item/circuit_analog"),
     BASIC("circuit_basic", "Integrated Circuit Board", "item/circuit_basic"),
-    ADVANCED("circuit_advanced", "Military Grade Circuit Board", "item/circuit_advanced");
+    ADVANCED("circuit_advanced", "Military Grade Circuit Board", "item/circuit_advanced"),
+    CAPACITOR_BOARD("circuit_capacitor_board", "Capacitor Board", "item/circuit_capacitor_board"),
+    BISMOID("circuit_bismoid", "Versatile Circuit Board", "item/circuit_bismoid"),
+    CONTROLLER_CHASSIS("circuit_controller_chassis", "Control Unit Casing", "item/circuit_controller_chassis"),
+    CONTROLLER("circuit_controller", "Control Unit", "item/circuit_controller"),
+    CONTROLLER_ADVANCED("circuit_controller_advanced", "Advanced Control Unit", "item/circuit_controller_advanced"),
+    QUANTUM("circuit_quantum", "Quantum Processing Unit", "item/circuit_quantum"),
+    CHIP_QUANTUM("circuit_chip_quantum", "Solid State Quantum Processor", "item/circuit_chip_quantum"),
+    CONTROLLER_QUANTUM("circuit_controller_quantum", "Quantum Computer", "item/circuit_controller_quantum"),
+    ATOMIC_CLOCK("circuit_atomic_clock", "Atomic Clock", "item/circuit_atomic_clock"),
+    NUMITRON("circuit_numitron", "Incandescent Seven Segment Display", "item/circuit_numitron");
 
     private final String itemId;
     private final String displayName;

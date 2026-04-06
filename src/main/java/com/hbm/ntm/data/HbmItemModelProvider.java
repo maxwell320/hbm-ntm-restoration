@@ -1,6 +1,7 @@
 package com.hbm.ntm.data;
 
 import com.hbm.ntm.HbmNtmMod;
+import com.hbm.ntm.common.block.MaterialBlockType;
 import com.hbm.ntm.common.block.SellafieldOreType;
 import com.hbm.ntm.common.item.BriquetteItemType;
 import com.hbm.ntm.common.item.CasingItemType;
@@ -24,6 +25,7 @@ public class HbmItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
+        singleTexture("battery_potato", mcLoc("item/generated"), "layer0", modLoc("item/battery_potato"));
         singleTexture("biomass", mcLoc("item/generated"), "layer0", modLoc("item/biomass"));
         singleTexture("biomass_compressed", mcLoc("item/generated"), "layer0", modLoc("item/biomass_compressed"));
         singleTexture("burnt_bark", mcLoc("item/generated"), "layer0", modLoc("item/burnt_bark"));
@@ -42,9 +44,11 @@ public class HbmItemModelProvider extends ItemModelProvider {
         singleTexture("pedestal_steel", mcLoc("item/generated"), "layer0", modLoc("item/pedestal_steel"));
         singleTexture("fins_big_steel", mcLoc("item/generated"), "layer0", modLoc("item/fins_big_steel"));
         singleTexture("fins_small_steel", mcLoc("item/generated"), "layer0", modLoc("item/fins_small_steel"));
+        singleTexture("fins_tri_steel", mcLoc("item/generated"), "layer0", modLoc("item/fins_tri_steel"));
         singleTexture("fins_quad_titanium", mcLoc("item/generated"), "layer0", modLoc("item/fins_quad_titanium"));
         singleTexture("blade_titanium", mcLoc("item/generated"), "layer0", modLoc("item/blade_titanium"));
         singleTexture("turbine_titanium", mcLoc("item/generated"), "layer0", modLoc("item/turbine_titanium"));
+        singleTexture("flywheel_beryllium", mcLoc("item/generated"), "layer0", modLoc("item/flywheel_beryllium"));
         singleTexture("ring_starmetal", mcLoc("item/generated"), "layer0", modLoc("item/ring_starmetal"));
         singleTexture("sawblade", mcLoc("item/generated"), "layer0", modLoc("item/sawblade"));
         singleTexture("dosimeter", mcLoc("item/generated"), "layer0", modLoc("item/dosimeter"));
@@ -65,6 +69,10 @@ public class HbmItemModelProvider extends ItemModelProvider {
         singleTexture("upgrade_template", mcLoc("item/generated"), "layer0", modLoc("item/upgrade_template"));
         singleTexture("sellafield", mcLoc("item/generated"), "layer0", modLoc("block/sellafield_slaked"));
         withExistingParent("sellafield_slaked", modLoc("block/sellafield_slaked"));
+
+        for (final MaterialBlockType type : MaterialBlockType.values()) {
+            withExistingParent(type.blockId(), modLoc("block/" + type.blockId()));
+        }
 
         for (final SellafieldOreType type : SellafieldOreType.values()) {
             withExistingParent(type.blockId(), modLoc("block/" + type.blockId() + "_inventory"));

@@ -3,6 +3,7 @@ package com.hbm.ntm.data;
 import com.hbm.ntm.HbmNtmMod;
 import com.hbm.ntm.common.block.BasaltBlockType;
 import com.hbm.ntm.common.block.BasaltOreType;
+import com.hbm.ntm.common.block.MaterialBlockType;
 import com.hbm.ntm.common.block.SellafieldOreType;
 import com.hbm.ntm.common.block.StoneResourceType;
 import com.hbm.ntm.common.registration.HbmBlocks;
@@ -15,6 +16,7 @@ import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.NotNull;
 
+@SuppressWarnings("null")
 public class HbmBlockTagProvider extends BlockTagsProvider {
     public HbmBlockTagProvider(final PackOutput output, final CompletableFuture<HolderLookup.Provider> lookupProvider, final ExistingFileHelper existingFileHelper) {
         super(output, lookupProvider, HbmNtmMod.MOD_ID, existingFileHelper);
@@ -24,10 +26,15 @@ public class HbmBlockTagProvider extends BlockTagsProvider {
     protected void addTags(final @NotNull HolderLookup.Provider provider) {
         tag(BlockTags.MINEABLE_WITH_SHOVEL).add(HbmBlocks.FALLOUT.get());
         tag(BlockTags.MINEABLE_WITH_AXE).add(HbmBlocks.WASTE_LOG.get(), HbmBlocks.WASTE_PLANKS.get());
-        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(HbmBlocks.GEIGER.get(), HbmBlocks.PRESS_PREHEATER.get(), HbmBlocks.ANVIL_IRON.get(), HbmBlocks.ANVIL_STEEL.get(),
+        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(HbmBlocks.CREATIVE_ENERGY_SOURCE.get(), HbmBlocks.GEIGER.get(), HbmBlocks.PRESS_PREHEATER.get(), HbmBlocks.RED_CABLE.get(), HbmBlocks.RED_CABLE_CLASSIC.get(), HbmBlocks.ANVIL_IRON.get(), HbmBlocks.ANVIL_STEEL.get(),
             HbmBlocks.ANVIL_DESH.get(), HbmBlocks.SELLAFIELD.get(), HbmBlocks.SELLAFIELD_SLAKED.get());
-        tag(BlockTags.NEEDS_STONE_TOOL).add(HbmBlocks.PRESS_PREHEATER.get(), HbmBlocks.ANVIL_IRON.get(), HbmBlocks.ANVIL_STEEL.get(), HbmBlocks.ANVIL_DESH.get(),
+        tag(BlockTags.NEEDS_STONE_TOOL).add(HbmBlocks.CREATIVE_ENERGY_SOURCE.get(), HbmBlocks.PRESS_PREHEATER.get(), HbmBlocks.RED_CABLE.get(), HbmBlocks.RED_CABLE_CLASSIC.get(), HbmBlocks.ANVIL_IRON.get(), HbmBlocks.ANVIL_STEEL.get(), HbmBlocks.ANVIL_DESH.get(),
             HbmBlocks.SELLAFIELD.get(), HbmBlocks.SELLAFIELD_SLAKED.get());
+
+        for (final MaterialBlockType type : MaterialBlockType.values()) {
+            tag(BlockTags.MINEABLE_WITH_PICKAXE).add(HbmBlocks.getMaterialBlock(type).get());
+            tag(BlockTags.NEEDS_STONE_TOOL).add(HbmBlocks.getMaterialBlock(type).get());
+        }
 
         for (final BasaltBlockType type : BasaltBlockType.values()) {
             tag(BlockTags.MINEABLE_WITH_PICKAXE).add(HbmBlocks.getBasaltBlock(type).get());
@@ -71,6 +78,10 @@ public class HbmBlockTagProvider extends BlockTagsProvider {
         tag(HbmBlockTags.named("forge", "ores/uranium")).add(HbmBlocks.getSellafieldOre(SellafieldOreType.URANIUM_SCORCHED).get());
         tag(HbmBlockTags.named(HbmNtmMod.MOD_ID, "ores/schrabidium")).add(HbmBlocks.getSellafieldOre(SellafieldOreType.SCHRABIDIUM).get());
         tag(HbmBlockTags.named("forge", "ores/schrabidium")).add(HbmBlocks.getSellafieldOre(SellafieldOreType.SCHRABIDIUM).get());
+        tag(HbmBlockTags.named(HbmNtmMod.MOD_ID, "storage_blocks/steel")).add(HbmBlocks.getMaterialBlock(MaterialBlockType.STEEL).get());
+        tag(HbmBlockTags.named("forge", "storage_blocks/steel")).add(HbmBlocks.getMaterialBlock(MaterialBlockType.STEEL).get());
+        tag(HbmBlockTags.named(HbmNtmMod.MOD_ID, "storage_blocks/beryllium")).add(HbmBlocks.getMaterialBlock(MaterialBlockType.BERYLLIUM).get());
+        tag(HbmBlockTags.named("forge", "storage_blocks/beryllium")).add(HbmBlocks.getMaterialBlock(MaterialBlockType.BERYLLIUM).get());
     }
 
     @Override
