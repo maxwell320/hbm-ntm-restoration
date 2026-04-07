@@ -5,7 +5,8 @@ import com.hbm.ntm.common.material.HbmMaterials;
 
 public enum MaterialBlockType {
     STEEL("block_steel", "Block of Steel", HbmMaterials.STEEL, 5.0F, 50.0F),
-    BERYLLIUM("block_beryllium", "Block of Beryllium", HbmMaterials.BERYLLIUM, 5.0F, 20.0F);
+    BERYLLIUM("block_beryllium", "Block of Beryllium", HbmMaterials.BERYLLIUM, 5.0F, 20.0F),
+    LEAD("block_lead", "Block of Lead", HbmMaterials.LEAD, 5.0F, 50.0F);
 
     private final String blockId;
     private final String displayName;

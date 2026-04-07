@@ -26,10 +26,12 @@ public class HbmBlockTagProvider extends BlockTagsProvider {
     protected void addTags(final @NotNull HolderLookup.Provider provider) {
         tag(BlockTags.MINEABLE_WITH_SHOVEL).add(HbmBlocks.FALLOUT.get());
         tag(BlockTags.MINEABLE_WITH_AXE).add(HbmBlocks.WASTE_LOG.get(), HbmBlocks.WASTE_PLANKS.get());
-        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(HbmBlocks.CREATIVE_ENERGY_SOURCE.get(), HbmBlocks.GEIGER.get(), HbmBlocks.PRESS_PREHEATER.get(), HbmBlocks.RED_CABLE.get(), HbmBlocks.RED_CABLE_CLASSIC.get(), HbmBlocks.ANVIL_IRON.get(), HbmBlocks.ANVIL_STEEL.get(),
-            HbmBlocks.ANVIL_DESH.get(), HbmBlocks.SELLAFIELD.get(), HbmBlocks.SELLAFIELD_SLAKED.get());
-        tag(BlockTags.NEEDS_STONE_TOOL).add(HbmBlocks.CREATIVE_ENERGY_SOURCE.get(), HbmBlocks.PRESS_PREHEATER.get(), HbmBlocks.RED_CABLE.get(), HbmBlocks.RED_CABLE_CLASSIC.get(), HbmBlocks.ANVIL_IRON.get(), HbmBlocks.ANVIL_STEEL.get(), HbmBlocks.ANVIL_DESH.get(),
-            HbmBlocks.SELLAFIELD.get(), HbmBlocks.SELLAFIELD_SLAKED.get());
+        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(HbmBlocks.CREATIVE_ENERGY_SOURCE.get(), HbmBlocks.MACHINE_BATTERY.get(), HbmBlocks.GEIGER.get(), HbmBlocks.PRESS_PREHEATER.get(), HbmBlocks.RED_CABLE.get(), HbmBlocks.RED_CABLE_CLASSIC.get(), HbmBlocks.ANVIL_IRON.get(), HbmBlocks.ANVIL_LEAD.get(),
+            HbmBlocks.ANVIL_STEEL.get(), HbmBlocks.ANVIL_DESH.get(), HbmBlocks.ANVIL_FERRORANIUM.get(), HbmBlocks.ANVIL_SATURNITE.get(), HbmBlocks.ANVIL_BISMUTH_BRONZE.get(), HbmBlocks.ANVIL_ARSENIC_BRONZE.get(), HbmBlocks.ANVIL_SCHRABIDATE.get(),
+            HbmBlocks.ANVIL_DNT.get(), HbmBlocks.ANVIL_OSMIRIDIUM.get(), HbmBlocks.ANVIL_MURKY.get(), HbmBlocks.SELLAFIELD.get(), HbmBlocks.SELLAFIELD_SLAKED.get());
+        tag(BlockTags.NEEDS_STONE_TOOL).add(HbmBlocks.CREATIVE_ENERGY_SOURCE.get(), HbmBlocks.MACHINE_BATTERY.get(), HbmBlocks.PRESS_PREHEATER.get(), HbmBlocks.RED_CABLE.get(), HbmBlocks.RED_CABLE_CLASSIC.get(), HbmBlocks.ANVIL_IRON.get(), HbmBlocks.ANVIL_LEAD.get(), HbmBlocks.ANVIL_STEEL.get(),
+            HbmBlocks.ANVIL_DESH.get(), HbmBlocks.ANVIL_FERRORANIUM.get(), HbmBlocks.ANVIL_SATURNITE.get(), HbmBlocks.ANVIL_BISMUTH_BRONZE.get(), HbmBlocks.ANVIL_ARSENIC_BRONZE.get(), HbmBlocks.ANVIL_SCHRABIDATE.get(),
+            HbmBlocks.ANVIL_DNT.get(), HbmBlocks.ANVIL_OSMIRIDIUM.get(), HbmBlocks.ANVIL_MURKY.get(), HbmBlocks.SELLAFIELD.get(), HbmBlocks.SELLAFIELD_SLAKED.get());
 
         for (final MaterialBlockType type : MaterialBlockType.values()) {
             tag(BlockTags.MINEABLE_WITH_PICKAXE).add(HbmBlocks.getMaterialBlock(type).get());

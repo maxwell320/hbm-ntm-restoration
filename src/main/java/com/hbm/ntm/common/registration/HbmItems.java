@@ -7,6 +7,7 @@ import com.hbm.ntm.common.block.MaterialBlockType;
 import com.hbm.ntm.common.block.SellafieldOreType;
 import com.hbm.ntm.common.block.StoneResourceType;
 import com.hbm.ntm.common.item.BriquetteItemType;
+import com.hbm.ntm.common.item.BatteryBlockItem;
 import com.hbm.ntm.common.item.BatteryItem;
 import com.hbm.ntm.common.item.CasingItemType;
 import com.hbm.ntm.common.item.CokeItemType;
@@ -15,11 +16,16 @@ import com.hbm.ntm.common.item.ChunkOreItemType;
 import com.hbm.ntm.common.item.DosimeterItem;
 import com.hbm.ntm.common.item.GeigerCounterItem;
 import com.hbm.ntm.common.item.MaterialPartItem;
+import com.hbm.ntm.common.item.MachineUpgradeItem;
+import com.hbm.ntm.common.item.PageItem;
 import com.hbm.ntm.common.item.RadXItem;
 import com.hbm.ntm.common.item.RadawayItem;
 import com.hbm.ntm.common.item.SellafieldBlockItem;
+import com.hbm.ntm.common.item.StampBookItem;
 import com.hbm.ntm.common.item.StampItem;
 import com.hbm.ntm.common.item.StampItemType;
+import com.hbm.ntm.common.item.TemplateFolderItem;
+import com.hbm.ntm.common.item.UndefinedItem;
 import com.hbm.ntm.common.material.HbmMaterialDefinition;
 import com.hbm.ntm.common.material.HbmMaterialShape;
 import com.hbm.ntm.common.material.HbmMaterials;
@@ -31,6 +37,7 @@ import java.util.List;
 import java.util.Map;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -46,6 +53,7 @@ public final class HbmItems {
     private static final Map<String, RegistryObject<Item>> CIRCUITS = new LinkedHashMap<>();
     private static final Map<String, RegistryObject<Item>> STAMPS = new LinkedHashMap<>();
     private static final Map<String, RegistryObject<Item>> SIMPLE_ITEMS = new LinkedHashMap<>();
+    private static final Map<String, RegistryObject<Item>> HIDDEN_ITEMS = new LinkedHashMap<>();
     private static final Map<String, RegistryObject<Item>> BLOCK_ITEMS = new LinkedHashMap<>();
     public static final RegistryObject<Item> BURNT_BARK = registerSimpleItem("burnt_bark", SIMPLE_ITEMS);
     public static final RegistryObject<Item> BIOMASS = registerSimpleItem("biomass", SIMPLE_ITEMS);
@@ -64,6 +72,7 @@ public final class HbmItems {
     public static final RegistryObject<Item> PIN = registerSimpleItem("pin", SIMPLE_ITEMS);
     public static final RegistryObject<Item> CATALYST_CLAY = registerSimpleItem("catalyst_clay", SIMPLE_ITEMS);
     public static final RegistryObject<Item> DEUTERIUM_FILTER = registerSimpleItem("deuterium_filter", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> TEMPLATE_FOLDER = registerItem("template_folder", TemplateFolderItem::new, SIMPLE_ITEMS);
     public static final RegistryObject<Item> FINS_FLAT = registerSimpleItem("fins_flat", SIMPLE_ITEMS);
     public static final RegistryObject<Item> SPHERE_STEEL = registerSimpleItem("sphere_steel", SIMPLE_ITEMS);
     public static final RegistryObject<Item> PEDESTAL_STEEL = registerSimpleItem("pedestal_steel", SIMPLE_ITEMS);
@@ -76,11 +85,46 @@ public final class HbmItems {
     public static final RegistryObject<Item> FLYWHEEL_BERYLLIUM = registerSimpleItem("flywheel_beryllium", SIMPLE_ITEMS);
     public static final RegistryObject<Item> RING_STARMETAL = registerSimpleItem("ring_starmetal", SIMPLE_ITEMS);
     public static final RegistryObject<Item> SAWBLADE = registerSimpleItem("sawblade", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> NUGGET_MERCURY_TINY = registerSimpleItem("nugget_mercury_tiny", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> NUGGET_MERCURY = registerSimpleItem("nugget_mercury", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> INGOT_MERCURY = NUGGET_MERCURY;
+    public static final RegistryObject<Item> BOTTLE_MERCURY = registerItem("bottle_mercury", () -> new Item(new Item.Properties().craftRemainder(Items.GLASS_BOTTLE)), SIMPLE_ITEMS);
     public static final RegistryObject<Item> FALLOUT = registerSimpleItem("fallout", SIMPLE_ITEMS);
     public static final RegistryObject<Item> POWDER_SAWDUST = registerSimpleItem("powder_sawdust", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> UPGRADE_MUFFLER = registerSimpleItem("upgrade_muffler", SIMPLE_ITEMS);
     public static final RegistryObject<Item> UPGRADE_TEMPLATE = registerSimpleItem("upgrade_template", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> UPGRADE_SPEED_1 = registerItem("upgrade_speed_1", () -> new MachineUpgradeItem(MachineUpgradeItem.UpgradeType.SPEED, 1), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> UPGRADE_SPEED_2 = registerItem("upgrade_speed_2", () -> new MachineUpgradeItem(MachineUpgradeItem.UpgradeType.SPEED, 2), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> UPGRADE_SPEED_3 = registerItem("upgrade_speed_3", () -> new MachineUpgradeItem(MachineUpgradeItem.UpgradeType.SPEED, 3), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> UPGRADE_EFFECT_1 = registerItem("upgrade_effect_1", () -> new MachineUpgradeItem(MachineUpgradeItem.UpgradeType.EFFECT, 1), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> UPGRADE_EFFECT_2 = registerItem("upgrade_effect_2", () -> new MachineUpgradeItem(MachineUpgradeItem.UpgradeType.EFFECT, 2), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> UPGRADE_EFFECT_3 = registerItem("upgrade_effect_3", () -> new MachineUpgradeItem(MachineUpgradeItem.UpgradeType.EFFECT, 3), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> UPGRADE_POWER_1 = registerItem("upgrade_power_1", () -> new MachineUpgradeItem(MachineUpgradeItem.UpgradeType.POWER, 1), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> UPGRADE_POWER_2 = registerItem("upgrade_power_2", () -> new MachineUpgradeItem(MachineUpgradeItem.UpgradeType.POWER, 2), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> UPGRADE_POWER_3 = registerItem("upgrade_power_3", () -> new MachineUpgradeItem(MachineUpgradeItem.UpgradeType.POWER, 3), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> UPGRADE_FORTUNE_1 = registerItem("upgrade_fortune_1", () -> new MachineUpgradeItem(MachineUpgradeItem.UpgradeType.FORTUNE, 1), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> UPGRADE_FORTUNE_2 = registerItem("upgrade_fortune_2", () -> new MachineUpgradeItem(MachineUpgradeItem.UpgradeType.FORTUNE, 2), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> UPGRADE_FORTUNE_3 = registerItem("upgrade_fortune_3", () -> new MachineUpgradeItem(MachineUpgradeItem.UpgradeType.FORTUNE, 3), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> UPGRADE_AFTERBURN_1 = registerItem("upgrade_afterburn_1", () -> new MachineUpgradeItem(MachineUpgradeItem.UpgradeType.AFTERBURN, 1), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> UPGRADE_AFTERBURN_2 = registerItem("upgrade_afterburn_2", () -> new MachineUpgradeItem(MachineUpgradeItem.UpgradeType.AFTERBURN, 2), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> UPGRADE_AFTERBURN_3 = registerItem("upgrade_afterburn_3", () -> new MachineUpgradeItem(MachineUpgradeItem.UpgradeType.AFTERBURN, 3), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> UPGRADE_OVERDRIVE_1 = registerItem("upgrade_overdrive_1", () -> new MachineUpgradeItem(MachineUpgradeItem.UpgradeType.OVERDRIVE, 1), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> UPGRADE_OVERDRIVE_2 = registerItem("upgrade_overdrive_2", () -> new MachineUpgradeItem(MachineUpgradeItem.UpgradeType.OVERDRIVE, 2), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> UPGRADE_OVERDRIVE_3 = registerItem("upgrade_overdrive_3", () -> new MachineUpgradeItem(MachineUpgradeItem.UpgradeType.OVERDRIVE, 3), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> UPGRADE_RADIUS = registerItem("upgrade_radius", () -> new MachineUpgradeItem(MachineUpgradeItem.UpgradeType.RADIUS, 0, 16), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> UPGRADE_HEALTH = registerItem("upgrade_health", () -> new MachineUpgradeItem(MachineUpgradeItem.UpgradeType.HEALTH, 0, 16), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> UPGRADE_SMELTER = registerItem("upgrade_smelter", () -> new MachineUpgradeItem(MachineUpgradeItem.UpgradeType.SMELTER, 0), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> UPGRADE_SHREDDER = registerItem("upgrade_shredder", () -> new MachineUpgradeItem(MachineUpgradeItem.UpgradeType.SHREDDER, 0), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> UPGRADE_CENTRIFUGE = registerItem("upgrade_centrifuge", () -> new MachineUpgradeItem(MachineUpgradeItem.UpgradeType.CENTRIFUGE, 0), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> UPGRADE_CRYSTALLIZER = registerItem("upgrade_crystallizer", () -> new MachineUpgradeItem(MachineUpgradeItem.UpgradeType.CRYSTALLIZER, 0), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> UPGRADE_NULLIFIER = registerItem("upgrade_nullifier", () -> new MachineUpgradeItem(MachineUpgradeItem.UpgradeType.NULLIFIER, 0), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> UPGRADE_SCREM = registerItem("upgrade_screm", () -> new MachineUpgradeItem(MachineUpgradeItem.UpgradeType.SCREM, 0), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> UPGRADE_GC_SPEED = registerItem("upgrade_gc_speed", () -> new MachineUpgradeItem(MachineUpgradeItem.UpgradeType.GC_SPEED, 0), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> UPGRADE_5G = registerItem("upgrade_5g", () -> new MachineUpgradeItem(MachineUpgradeItem.UpgradeType.SPECIAL, 0), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> UNDEFINED = registerItem("undefined", UndefinedItem::new, SIMPLE_ITEMS);
     public static final RegistryObject<Item> FALLOUT_LAYER = registerBlockItem("fallout_layer", HbmBlocks.FALLOUT, BLOCK_ITEMS);
     public static final RegistryObject<Item> CREATIVE_ENERGY_SOURCE = registerBlockItem("creative_energy_source", HbmBlocks.CREATIVE_ENERGY_SOURCE, BLOCK_ITEMS);
+    public static final RegistryObject<Item> MACHINE_BATTERY = registerItem("machine_battery", () -> new BatteryBlockItem(HbmBlocks.MACHINE_BATTERY.get(), new Item.Properties()), HIDDEN_ITEMS);
     public static final RegistryObject<Item> RED_CABLE = registerBlockItem("red_cable", HbmBlocks.RED_CABLE, BLOCK_ITEMS);
     public static final RegistryObject<Item> RED_CABLE_CLASSIC = registerBlockItem("red_cable_classic", HbmBlocks.RED_CABLE_CLASSIC, BLOCK_ITEMS);
     public static final RegistryObject<Item> GEIGER = registerBlockItem("geiger", HbmBlocks.GEIGER, BLOCK_ITEMS);
@@ -95,6 +139,8 @@ public final class HbmItems {
     public static final RegistryObject<Item> RADAWAY_STRONG = registerItem("radaway_strong", () -> new RadawayItem(350, new Item.Properties()), SIMPLE_ITEMS);
     public static final RegistryObject<Item> RADAWAY_FLUSH = registerItem("radaway_flush", () -> new RadawayItem(500, new Item.Properties()), SIMPLE_ITEMS);
     public static final RegistryObject<Item> RADX = registerItem("radx", () -> new RadXItem(new Item.Properties()), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> STAMP_BOOK = registerItem("stamp_book", StampBookItem::new, HIDDEN_ITEMS);
+    public static final RegistryObject<Item> PAGE_OF = registerItem("page_of_", PageItem::new, HIDDEN_ITEMS);
 
     static {
         HbmMaterials.ordered().forEach(HbmItems::registerMaterialSet);
@@ -156,8 +202,17 @@ public final class HbmItems {
 
     private static void registerAnvilBlockItems() {
         registerBlockItem("anvil_iron", HbmBlocks.ANVIL_IRON, BLOCK_ITEMS);
+        registerBlockItem("anvil_lead", HbmBlocks.ANVIL_LEAD, BLOCK_ITEMS);
         registerBlockItem("anvil_steel", HbmBlocks.ANVIL_STEEL, BLOCK_ITEMS);
         registerBlockItem("anvil_desh", HbmBlocks.ANVIL_DESH, BLOCK_ITEMS);
+        registerBlockItem("anvil_ferrouranium", HbmBlocks.ANVIL_FERRORANIUM, BLOCK_ITEMS);
+        registerBlockItem("anvil_saturnite", HbmBlocks.ANVIL_SATURNITE, BLOCK_ITEMS);
+        registerBlockItem("anvil_bismuth_bronze", HbmBlocks.ANVIL_BISMUTH_BRONZE, BLOCK_ITEMS);
+        registerBlockItem("anvil_arsenic_bronze", HbmBlocks.ANVIL_ARSENIC_BRONZE, BLOCK_ITEMS);
+        registerBlockItem("anvil_schrabidate", HbmBlocks.ANVIL_SCHRABIDATE, BLOCK_ITEMS);
+        registerBlockItem("anvil_dnt", HbmBlocks.ANVIL_DNT, BLOCK_ITEMS);
+        registerBlockItem("anvil_osmiridium", HbmBlocks.ANVIL_OSMIRIDIUM, BLOCK_ITEMS);
+        registerBlockItem("anvil_murky", HbmBlocks.ANVIL_MURKY, BLOCK_ITEMS);
     }
 
     private static void registerMaterialBlockItems() {

@@ -8,7 +8,14 @@ import com.hbm.ntm.common.registration.HbmBlocks;
 import com.hbm.ntm.common.registration.HbmItems;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.BiFunction;
+import java.util.function.BiPredicate;
 import java.util.function.Supplier;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Style;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -37,10 +44,44 @@ public final class HbmAnvilRecipes {
     );
 
     public static final List<SmithingRecipe> SMITHING_RECIPES = List.of(
-        smithing(NtmAnvilBlock.TIER_IRON, HbmBlocks.ANVIL_IRON, Ingredient.of(HbmBlocks.ANVIL_IRON.get()), 1,
+        smithing(NtmAnvilBlock.TIER_IRON, HbmBlocks.ANVIL_STEEL, Ingredient.of(HbmBlocks.ANVIL_IRON.get()), 1,
             Ingredient.of(Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.STEEL, HbmMaterialShape.INGOT).get())), 10),
+        smithing(NtmAnvilBlock.TIER_IRON, HbmBlocks.ANVIL_LEAD, Ingredient.of(HbmBlocks.ANVIL_IRON.get()), 1,
+            Ingredient.of(Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.LEAD, HbmMaterialShape.INGOT).get())), 10),
         smithing(NtmAnvilBlock.TIER_IRON, HbmBlocks.ANVIL_DESH, Ingredient.of(HbmBlocks.ANVIL_IRON.get()), 1,
             Ingredient.of(Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.DESH, HbmMaterialShape.INGOT).get())), 10),
+        smithing(NtmAnvilBlock.TIER_IRON, HbmBlocks.ANVIL_STEEL, Ingredient.of(HbmBlocks.ANVIL_LEAD.get()), 1,
+            Ingredient.of(Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.STEEL, HbmMaterialShape.INGOT).get())), 10),
+        smithing(NtmAnvilBlock.TIER_IRON, HbmBlocks.ANVIL_DESH, Ingredient.of(HbmBlocks.ANVIL_LEAD.get()), 1,
+            Ingredient.of(Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.DESH, HbmMaterialShape.INGOT).get())), 10),
+        smithing(NtmAnvilBlock.TIER_IRON, HbmBlocks.ANVIL_SATURNITE, Ingredient.of(HbmBlocks.ANVIL_IRON.get()), 1,
+            Ingredient.of(Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.SATURNITE, HbmMaterialShape.INGOT).get())), 10),
+        smithing(NtmAnvilBlock.TIER_IRON, HbmBlocks.ANVIL_FERRORANIUM, Ingredient.of(HbmBlocks.ANVIL_IRON.get()), 1,
+            Ingredient.of(Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.FERRORANIUM, HbmMaterialShape.INGOT).get())), 10),
+        smithing(NtmAnvilBlock.TIER_IRON, HbmBlocks.ANVIL_BISMUTH_BRONZE, Ingredient.of(HbmBlocks.ANVIL_IRON.get()), 1,
+            Ingredient.of(Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.BISMUTH_BRONZE, HbmMaterialShape.INGOT).get())), 10),
+        smithing(NtmAnvilBlock.TIER_IRON, HbmBlocks.ANVIL_ARSENIC_BRONZE, Ingredient.of(HbmBlocks.ANVIL_IRON.get()), 1,
+            Ingredient.of(Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.ARSENIC_BRONZE, HbmMaterialShape.INGOT).get())), 10),
+        smithing(NtmAnvilBlock.TIER_IRON, HbmBlocks.ANVIL_SCHRABIDATE, Ingredient.of(HbmBlocks.ANVIL_IRON.get()), 1,
+            Ingredient.of(Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.SCHRABIDATE, HbmMaterialShape.INGOT).get())), 10),
+        smithing(NtmAnvilBlock.TIER_IRON, HbmBlocks.ANVIL_DNT, Ingredient.of(HbmBlocks.ANVIL_IRON.get()), 1,
+            Ingredient.of(Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.DINEUTRONIUM, HbmMaterialShape.INGOT).get())), 10),
+        smithing(NtmAnvilBlock.TIER_IRON, HbmBlocks.ANVIL_OSMIRIDIUM, Ingredient.of(HbmBlocks.ANVIL_IRON.get()), 1,
+            Ingredient.of(Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.OSMIRIDIUM, HbmMaterialShape.INGOT).get())), 10),
+        smithing(NtmAnvilBlock.TIER_IRON, HbmBlocks.ANVIL_SATURNITE, Ingredient.of(HbmBlocks.ANVIL_LEAD.get()), 1,
+            Ingredient.of(Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.SATURNITE, HbmMaterialShape.INGOT).get())), 10),
+        smithing(NtmAnvilBlock.TIER_IRON, HbmBlocks.ANVIL_FERRORANIUM, Ingredient.of(HbmBlocks.ANVIL_LEAD.get()), 1,
+            Ingredient.of(Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.FERRORANIUM, HbmMaterialShape.INGOT).get())), 10),
+        smithing(NtmAnvilBlock.TIER_IRON, HbmBlocks.ANVIL_BISMUTH_BRONZE, Ingredient.of(HbmBlocks.ANVIL_LEAD.get()), 1,
+            Ingredient.of(Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.BISMUTH_BRONZE, HbmMaterialShape.INGOT).get())), 10),
+        smithing(NtmAnvilBlock.TIER_IRON, HbmBlocks.ANVIL_ARSENIC_BRONZE, Ingredient.of(HbmBlocks.ANVIL_LEAD.get()), 1,
+            Ingredient.of(Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.ARSENIC_BRONZE, HbmMaterialShape.INGOT).get())), 10),
+        smithing(NtmAnvilBlock.TIER_IRON, HbmBlocks.ANVIL_SCHRABIDATE, Ingredient.of(HbmBlocks.ANVIL_LEAD.get()), 1,
+            Ingredient.of(Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.SCHRABIDATE, HbmMaterialShape.INGOT).get())), 10),
+        smithing(NtmAnvilBlock.TIER_IRON, HbmBlocks.ANVIL_DNT, Ingredient.of(HbmBlocks.ANVIL_LEAD.get()), 1,
+            Ingredient.of(Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.DINEUTRONIUM, HbmMaterialShape.INGOT).get())), 10),
+        smithing(NtmAnvilBlock.TIER_IRON, HbmBlocks.ANVIL_OSMIRIDIUM, Ingredient.of(HbmBlocks.ANVIL_LEAD.get()), 1,
+            Ingredient.of(Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.OSMIRIDIUM, HbmMaterialShape.INGOT).get())), 10),
         smithing(NtmAnvilBlock.TIER_STEEL, stamp(StampItemType.IRON_C9), Ingredient.of(Objects.requireNonNull(HbmItems.getStamp(StampItemType.IRON_FLAT).get())), 1,
             Ingredient.of(Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.GUNMETAL, HbmMaterialShape.INGOT).get())), 2),
         smithing(NtmAnvilBlock.TIER_STEEL, stamp(StampItemType.IRON_C50), Ingredient.of(Objects.requireNonNull(HbmItems.getStamp(StampItemType.IRON_FLAT).get())), 1,
@@ -48,7 +89,11 @@ public final class HbmAnvilRecipes {
         smithing(NtmAnvilBlock.TIER_DESH, stamp(StampItemType.DESH_C9), Ingredient.of(Objects.requireNonNull(HbmItems.getStamp(StampItemType.DESH_FLAT).get())), 1,
             Ingredient.of(Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.WEAPONSTEEL, HbmMaterialShape.INGOT).get())), 4),
         smithing(NtmAnvilBlock.TIER_DESH, stamp(StampItemType.DESH_C50), Ingredient.of(Objects.requireNonNull(HbmItems.getStamp(StampItemType.DESH_FLAT).get())), 1,
-            Ingredient.of(Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.WEAPONSTEEL, HbmMaterialShape.INGOT).get())), 4)
+            Ingredient.of(Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.WEAPONSTEEL, HbmMaterialShape.INGOT).get())), 4),
+        smithing(NtmAnvilBlock.TIER_IRON, material(HbmMaterials.GUNMETAL, HbmMaterialShape.INGOT),
+            Ingredient.of(Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.COPPER, HbmMaterialShape.INGOT).get())), 1,
+            Ingredient.of(Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.ALUMINIUM, HbmMaterialShape.INGOT).get())), 1),
+        smithingSpecial(NtmAnvilBlock.TIER_IRON, 1, 1, HbmAnvilRecipes::renameMatches, HbmAnvilRecipes::renameOutput)
     );
 
     private HbmAnvilRecipes() {
@@ -68,11 +113,62 @@ public final class HbmAnvilRecipes {
 
     private static SmithingRecipe smithing(final int tier, final Supplier<? extends ItemLike> output, final Ingredient left, final int leftCount,
                                            final Ingredient right, final int rightCount) {
-        return new SmithingRecipe(tier, () -> Objects.requireNonNull(output.get()).asItem(), left, leftCount, right, rightCount);
+        return new SmithingRecipe(tier, () -> Objects.requireNonNull(output.get()).asItem(), left, leftCount, right, rightCount, null, null);
+    }
+
+    private static SmithingRecipe smithingSpecial(final int tier, final int leftCount, final int rightCount,
+                                                  final BiPredicate<ItemStack, ItemStack> matcher,
+                                                  final BiFunction<ItemStack, ItemStack, ItemStack> outputFactory) {
+        return new SmithingRecipe(tier, () -> Items.AIR, Ingredient.EMPTY, leftCount, Ingredient.EMPTY, rightCount, matcher, outputFactory);
     }
 
     private static Supplier<Item> stamp(final StampItemType type) {
         return () -> Objects.requireNonNull(HbmItems.getStamp(type).get());
+    }
+
+    private static Supplier<Item> material(final com.hbm.ntm.common.material.HbmMaterialDefinition material, final HbmMaterialShape shape) {
+        return () -> Objects.requireNonNull(HbmItems.getMaterialPart(material, shape).get());
+    }
+
+    private static boolean renameMatches(final ItemStack left, final ItemStack right) {
+        return !left.isEmpty() && right.is(Items.NAME_TAG) && right.hasCustomHoverName();
+    }
+
+    private static ItemStack renameOutput(final ItemStack left, final ItemStack right) {
+        final ItemStack out = left.copy();
+        out.setCount(1);
+        out.setHoverName(parseLegacyName(right.getHoverName().getString()));
+        return out;
+    }
+
+    private static MutableComponent parseLegacyName(final String rawName) {
+        final String formatted = rawName.replace("\\&", "§");
+        final MutableComponent result = Component.empty();
+        final StringBuilder segment = new StringBuilder();
+        Style style = Style.EMPTY;
+
+        for (int i = 0; i < formatted.length(); i++) {
+            final char c = formatted.charAt(i);
+            if (c == '§' && i + 1 < formatted.length()) {
+                final ChatFormatting formatting = ChatFormatting.getByCode(formatted.charAt(i + 1));
+                if (formatting != null) {
+                    if (segment.length() > 0) {
+                        result.append(Component.literal(segment.toString()).setStyle(style));
+                        segment.setLength(0);
+                    }
+                    style = formatting == ChatFormatting.RESET ? Style.EMPTY : style.applyLegacyFormat(formatting);
+                    i++;
+                    continue;
+                }
+            }
+            segment.append(c);
+        }
+
+        if (segment.length() > 0) {
+            result.append(Component.literal(segment.toString()).setStyle(style));
+        }
+
+        return result;
     }
 
     public record ConstructionRecipe(Supplier<Item> input, Supplier<Item> output, int tier) {
@@ -93,13 +189,20 @@ public final class HbmAnvilRecipes {
         }
     }
 
-    public record SmithingRecipe(int tier, Supplier<Item> output, Ingredient left, int leftCount, Ingredient right, int rightCount) {
+    public record SmithingRecipe(int tier, Supplier<Item> output, Ingredient left, int leftCount, Ingredient right, int rightCount,
+                                 BiPredicate<ItemStack, ItemStack> matcher, BiFunction<ItemStack, ItemStack, ItemStack> outputFactory) {
         public boolean matches(final ItemStack leftStack, final ItemStack rightStack) {
+            if (this.matcher != null) {
+                return this.matcher.test(leftStack, rightStack);
+            }
             return this.left.test(leftStack) && leftStack.getCount() >= this.leftCount
                 && this.right.test(rightStack) && rightStack.getCount() >= this.rightCount;
         }
 
-        public ItemStack outputStack() {
+        public ItemStack outputStack(final ItemStack leftStack, final ItemStack rightStack) {
+            if (this.outputFactory != null) {
+                return this.outputFactory.apply(leftStack, rightStack);
+            }
             return new ItemStack(Objects.requireNonNull(this.output.get()));
         }
     }

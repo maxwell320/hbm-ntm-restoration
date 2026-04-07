@@ -48,6 +48,7 @@ public class HbmRecipeProvider extends RecipeProvider {
         buildBasaltRecipes(recipeOutput);
         buildCircuitRecipes(recipeOutput);
         buildEnergyRecipes(recipeOutput);
+        buildMercuryRecipes(recipeOutput);
         buildPressSupportRecipes(recipeOutput);
         buildStampRecipes(recipeOutput);
         buildFalloutRecipes(recipeOutput);
@@ -120,6 +121,40 @@ public class HbmRecipeProvider extends RecipeProvider {
             .requires(copperWire)
             .unlockedBy(getHasName(aluminiumWire), has(aluminiumWire))
             .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "battery_potato")));
+    }
+
+    private void buildMercuryRecipes(final Consumer<FinishedRecipe> recipeOutput) {
+        final ItemLike tinyDropMercury = Objects.requireNonNull(HbmItems.NUGGET_MERCURY_TINY.get());
+        final ItemLike dropMercury = Objects.requireNonNull(HbmItems.NUGGET_MERCURY.get());
+        final ItemLike bottleMercury = Objects.requireNonNull(HbmItems.BOTTLE_MERCURY.get());
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, dropMercury)
+            .pattern("###")
+            .pattern("###")
+            .pattern("###")
+            .define('#', tinyDropMercury)
+            .unlockedBy(getHasName(tinyDropMercury), has(tinyDropMercury))
+            .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "nugget_mercury_from_tiny_drops")));
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, tinyDropMercury, 9)
+            .requires(dropMercury)
+            .unlockedBy(getHasName(dropMercury), has(dropMercury))
+            .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "nugget_mercury_tiny_from_drop")));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, bottleMercury)
+            .pattern("###")
+            .pattern("#B#")
+            .pattern("###")
+            .define('#', dropMercury)
+            .define('B', Items.GLASS_BOTTLE)
+            .unlockedBy(getHasName(dropMercury), has(dropMercury))
+            .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "bottle_mercury")));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, dropMercury, 8)
+            .pattern("#")
+            .define('#', bottleMercury)
+            .unlockedBy(getHasName(bottleMercury), has(bottleMercury))
+            .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "nugget_mercury_from_bottle")));
     }
 
     private void buildEnergyRecipes(final Consumer<FinishedRecipe> recipeOutput) {
@@ -219,6 +254,7 @@ public class HbmRecipeProvider extends RecipeProvider {
         final ItemLike pin = Objects.requireNonNull(HbmItems.PIN.get());
         final ItemLike catalystClay = Objects.requireNonNull(HbmItems.CATALYST_CLAY.get());
         final ItemLike deuteriumFilter = Objects.requireNonNull(HbmItems.DEUTERIUM_FILTER.get());
+        final ItemLike templateFolder = Objects.requireNonNull(HbmItems.TEMPLATE_FOLDER.get());
         final ItemLike finsFlat = Objects.requireNonNull(HbmItems.FINS_FLAT.get());
         final ItemLike sphereSteel = Objects.requireNonNull(HbmItems.SPHERE_STEEL.get());
         final ItemLike pedestalSteel = Objects.requireNonNull(HbmItems.PEDESTAL_STEEL.get());
@@ -568,6 +604,16 @@ public class HbmRecipeProvider extends RecipeProvider {
             .unlockedBy(getHasName(catalystClay), has(catalystClay))
             .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "deuterium_filter")));
 
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, templateFolder)
+            .pattern("LPL")
+            .pattern("BPB")
+            .pattern("LPL")
+            .define('P', Items.PAPER)
+            .define('L', Tags.Items.DYES)
+            .define('B', Tags.Items.DYES)
+            .unlockedBy("has_paper", has(Items.PAPER))
+            .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "template_folder")));
+
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, finsFlat)
             .pattern("IP")
             .pattern("PP")
@@ -729,6 +775,15 @@ public class HbmRecipeProvider extends RecipeProvider {
             .define('C', basicCircuit)
             .unlockedBy(getHasName(basicCircuit), has(basicCircuit))
             .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "upgrade_template_from_basic")));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, Objects.requireNonNull(HbmItems.UPGRADE_MUFFLER.get()), 16)
+            .pattern("III")
+            .pattern("IWI")
+            .pattern("III")
+            .define('I', rubberBar)
+            .define('W', ItemTags.WOOL)
+            .unlockedBy(getHasName(rubberBar), has(rubberBar))
+            .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "upgrade_muffler")));
 
         ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, Objects.requireNonNull(HbmItems.FUSE.get()))
             .requires(steelPlate)
@@ -1039,11 +1094,17 @@ public class HbmRecipeProvider extends RecipeProvider {
 
     private void buildReadoutToolRecipes(final Consumer<FinishedRecipe> recipeOutput) {
         final ItemLike ironAnvil = Objects.requireNonNull(HbmBlocks.ANVIL_IRON.get());
+        final ItemLike leadAnvil = Objects.requireNonNull(HbmBlocks.ANVIL_LEAD.get());
+        final ItemLike steelAnvil = Objects.requireNonNull(HbmBlocks.ANVIL_STEEL.get());
+        final ItemLike murkyAnvil = Objects.requireNonNull(HbmBlocks.ANVIL_MURKY.get());
         final ItemLike dosimeter = Objects.requireNonNull(HbmItems.DOSIMETER.get());
         final ItemLike geigerCounter = Objects.requireNonNull(HbmItems.GEIGER_COUNTER.get());
         final ItemLike geigerBlock = Objects.requireNonNull(HbmBlocks.GEIGER.get());
+        final ItemLike undefined = Objects.requireNonNull(HbmItems.UNDEFINED.get());
         final ItemLike vacuumTube = Objects.requireNonNull(HbmItems.getCircuit(CircuitItemType.VACUUM_TUBE).get());
         final ItemLike berylliumIngot = Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.BERYLLIUM, HbmMaterialShape.INGOT).get());
+        final ItemLike leadIngot = Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.LEAD, HbmMaterialShape.INGOT).get());
+        final ItemLike leadBlock = Objects.requireNonNull(HbmBlocks.getMaterialBlock(MaterialBlockType.LEAD).get());
 
         ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ironAnvil)
             .pattern("III")
@@ -1053,6 +1114,24 @@ public class HbmRecipeProvider extends RecipeProvider {
             .define('B', Blocks.IRON_BLOCK)
             .unlockedBy("has_iron_block", has(Blocks.IRON_BLOCK))
             .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "anvil_iron")));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, leadAnvil)
+            .pattern("III")
+            .pattern(" B ")
+            .pattern("III")
+            .define('I', leadIngot)
+            .define('B', leadBlock)
+            .unlockedBy(getHasName(leadBlock), has(leadBlock))
+            .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "anvil_lead")));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, murkyAnvil)
+            .pattern("UUU")
+            .pattern("UAU")
+            .pattern("UUU")
+            .define('U', undefined)
+            .define('A', steelAnvil)
+            .unlockedBy(getHasName(undefined), has(undefined))
+            .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "anvil_murky")));
 
         ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, dosimeter)
             .pattern("WGW")

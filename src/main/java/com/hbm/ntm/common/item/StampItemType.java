@@ -9,6 +9,8 @@ public enum StampItemType {
     IRON_PLATE("stamp_iron_plate", "Plate Stamp (Iron)", "item/stamp_iron_plate", 64),
     IRON_WIRE("stamp_iron_wire", "Wire Stamp (Iron)", "item/stamp_iron_wire", 64),
     IRON_CIRCUIT("stamp_iron_circuit", "Circuit Stamp (Iron)", "item/stamp_iron_circuit", 64),
+    IRON_C357("stamp_357", ".357 Magnum Stamp", "item/stamp_357", 1000),
+    IRON_C44("stamp_44", ".44 Magnum Stamp", "item/stamp_44", 1000),
     IRON_C9("stamp_9", "Small Caliber Stamp", "item/stamp_9", 1000),
     IRON_C50("stamp_50", "Large Caliber Stamp", "item/stamp_50", 1000),
     STEEL_FLAT("stamp_steel_flat", "Flat Stamp (Steel)", "item/stamp_steel_flat", 192),
@@ -27,6 +29,8 @@ public enum StampItemType {
     DESH_PLATE("stamp_desh_plate", "Plate Stamp (Desh)", "item/stamp_desh_plate", 0),
     DESH_WIRE("stamp_desh_wire", "Wire Stamp (Desh)", "item/stamp_desh_wire", 0),
     DESH_CIRCUIT("stamp_desh_circuit", "Circuit Stamp (Desh)", "item/stamp_desh_circuit", 0),
+    DESH_C357("stamp_desh_357", ".357 Magnum Stamp (Desh)", "item/stamp_357_desh", 0),
+    DESH_C44("stamp_desh_44", ".44 Magnum Stamp (Desh)", "item/stamp_44_desh", 0),
     DESH_C9("stamp_desh_9", "Small Caliber Stamp (Desh)", "item/stamp_9_desh", 0),
     DESH_C50("stamp_desh_50", "Large Caliber Stamp (Desh)", "item/stamp_50_desh", 0);
 

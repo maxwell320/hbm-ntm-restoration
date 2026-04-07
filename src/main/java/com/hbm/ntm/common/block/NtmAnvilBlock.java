@@ -21,6 +21,11 @@ public class NtmAnvilBlock extends AnvilBlock {
     public static final int TIER_IRON = 1;
     public static final int TIER_STEEL = 2;
     public static final int TIER_DESH = 3;
+    public static final int TIER_FERRORANIUM = 4;
+    public static final int TIER_RBMK = 5;
+    public static final int TIER_SCHRABIDATE = 6;
+    public static final int TIER_DNT = 7;
+    public static final int TIER_OSMIRIDIUM = 8;
 
     private final int tier;
 

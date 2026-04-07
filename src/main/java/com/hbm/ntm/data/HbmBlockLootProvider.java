@@ -49,9 +49,19 @@ public class HbmBlockLootProvider extends BlockLootSubProvider {
     protected void generate() {
         add(HbmBlocks.GAS_ASBESTOS.get(), noDrop());
         dropSelf(HbmBlocks.ANVIL_IRON.get());
+        dropSelf(HbmBlocks.ANVIL_LEAD.get());
         dropSelf(HbmBlocks.ANVIL_STEEL.get());
         dropSelf(HbmBlocks.ANVIL_DESH.get());
+        dropSelf(HbmBlocks.ANVIL_FERRORANIUM.get());
+        dropSelf(HbmBlocks.ANVIL_SATURNITE.get());
+        dropSelf(HbmBlocks.ANVIL_BISMUTH_BRONZE.get());
+        dropSelf(HbmBlocks.ANVIL_ARSENIC_BRONZE.get());
+        dropSelf(HbmBlocks.ANVIL_SCHRABIDATE.get());
+        dropSelf(HbmBlocks.ANVIL_DNT.get());
+        dropSelf(HbmBlocks.ANVIL_OSMIRIDIUM.get());
+        dropSelf(HbmBlocks.ANVIL_MURKY.get());
         dropSelf(HbmBlocks.CREATIVE_ENERGY_SOURCE.get());
+        dropSelf(HbmBlocks.MACHINE_BATTERY.get());
         add(HbmBlocks.FALLOUT.get(), createSingleItemTable(HbmItems.FALLOUT.get()));
         dropSelf(HbmBlocks.GEIGER.get());
         dropSelf(HbmBlocks.PRESS_PREHEATER.get());

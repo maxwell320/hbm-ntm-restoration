@@ -22,6 +22,7 @@ import net.minecraftforge.data.event.GatherDataEvent;
         generator.addProvider(event.includeServer(), new HbmItemTagProvider(output, lookupProvider, blockTags.contentsGetter(), existingFileHelper));
         generator.addProvider(event.includeServer(), new HbmLootProvider(output));
         generator.addProvider(event.includeServer(), new HbmRecipeProvider(output));
+        generator.addProvider(event.includeClient(), new HbmBlockStateProvider(output, existingFileHelper));
         generator.addProvider(event.includeClient(), new HbmLanguageProvider(output));
         generator.addProvider(event.includeClient(), new HbmItemModelProvider(output, existingFileHelper));
     }

@@ -17,6 +17,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import org.jetbrains.annotations.Nullable;
 
 public class StoneResourceBlock extends Block {
     private final StoneResourceType type;
@@ -40,7 +41,7 @@ public class StoneResourceBlock extends Block {
     }
 
     @Override
-    public void playerDestroy(final Level level, final Player player, final BlockPos pos, final BlockState state, final BlockEntity blockEntity, final ItemStack tool) {
+    public void playerDestroy(final Level level, final Player player, final BlockPos pos, final BlockState state, final @Nullable BlockEntity blockEntity, final ItemStack tool) {
         super.playerDestroy(level, player, pos, state, blockEntity, tool);
         replaceWithAsbestosGas(level, pos);
     }

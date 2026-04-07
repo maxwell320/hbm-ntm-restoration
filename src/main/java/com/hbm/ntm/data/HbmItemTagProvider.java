@@ -2,6 +2,7 @@ package com.hbm.ntm.data;
 
 import com.hbm.ntm.HbmNtmMod;
 import com.hbm.ntm.common.block.BasaltOreType;
+import com.hbm.ntm.common.block.MaterialBlockType;
 import com.hbm.ntm.common.block.StoneResourceType;
 import com.hbm.ntm.common.item.ChunkOreItemType;
 import com.hbm.ntm.common.material.HbmMaterialDefinition;
@@ -114,6 +115,13 @@ public class HbmItemTagProvider extends ItemTagsProvider {
         tag(Objects.requireNonNull(HbmItemTags.named(HbmNtmMod.MOD_ID, "materials/hematite"))).add(stoneHematite);
         tag(Objects.requireNonNull(HbmItemTags.named(HbmNtmMod.MOD_ID, "ores/hematite"))).add(stoneHematite);
         tag(Objects.requireNonNull(HbmItemTags.named("forge", "ores/hematite"))).add(stoneHematite);
+
+        for (final MaterialBlockType type : MaterialBlockType.values()) {
+            final Item blockItem = Objects.requireNonNull(HbmItems.getMaterialBlockItem(type).get());
+            tag(Objects.requireNonNull(HbmItemTags.material(type.material()))).add(blockItem);
+            tag(Objects.requireNonNull(HbmItemTags.named(HbmNtmMod.MOD_ID, "storage_blocks/" + type.material().id()))).add(blockItem);
+            tag(Objects.requireNonNull(HbmItemTags.named("forge", "storage_blocks/" + type.material().id()))).add(blockItem);
+        }
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.hbm.ntm.common.registration;
 
 import com.hbm.ntm.HbmNtmMod;
+import com.hbm.ntm.common.block.BatteryBlock;
 import com.hbm.ntm.common.block.BasaltBlockType;
 import com.hbm.ntm.common.block.BasaltOreBlock;
 import com.hbm.ntm.common.block.BasaltOreType;
@@ -45,6 +46,8 @@ public final class HbmBlocks {
         () -> new GeigerCounterBlock(Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(15.0F, 0.25F).noOcclusion())));
     public static final RegistryObject<Block> CREATIVE_ENERGY_SOURCE = BLOCKS.register("creative_energy_source",
         () -> new CreativeEnergySourceBlock(Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(5.0F, 10.0F).requiresCorrectToolForDrops().lightLevel(state -> 15))));
+    public static final RegistryObject<Block> MACHINE_BATTERY = BLOCKS.register("machine_battery",
+        () -> new BatteryBlock(Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(5.0F, 10.0F).requiresCorrectToolForDrops())));
     public static final RegistryObject<Block> RED_CABLE = BLOCKS.register("red_cable",
         () -> new CableBlock(20_000, 20_000, Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(5.0F, 10.0F).requiresCorrectToolForDrops().noOcclusion())));
     public static final RegistryObject<Block> RED_CABLE_CLASSIC = BLOCKS.register("red_cable_classic",
@@ -53,10 +56,28 @@ public final class HbmBlocks {
         () -> new Block(Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(5.0F, 10.0F).requiresCorrectToolForDrops())));
     public static final RegistryObject<Block> ANVIL_IRON = BLOCKS.register("anvil_iron",
         () -> new NtmAnvilBlock(NtmAnvilBlock.TIER_IRON, Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.ANVIL).strength(5.0F, 100.0F).requiresCorrectToolForDrops())));
+    public static final RegistryObject<Block> ANVIL_LEAD = BLOCKS.register("anvil_lead",
+        () -> new NtmAnvilBlock(NtmAnvilBlock.TIER_IRON, Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.ANVIL).strength(5.0F, 100.0F).requiresCorrectToolForDrops())));
     public static final RegistryObject<Block> ANVIL_STEEL = BLOCKS.register("anvil_steel",
         () -> new NtmAnvilBlock(NtmAnvilBlock.TIER_STEEL, Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.ANVIL).strength(5.0F, 100.0F).requiresCorrectToolForDrops())));
     public static final RegistryObject<Block> ANVIL_DESH = BLOCKS.register("anvil_desh",
         () -> new NtmAnvilBlock(NtmAnvilBlock.TIER_DESH, Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.ANVIL).strength(5.0F, 100.0F).requiresCorrectToolForDrops())));
+    public static final RegistryObject<Block> ANVIL_FERRORANIUM = BLOCKS.register("anvil_ferrouranium",
+        () -> new NtmAnvilBlock(NtmAnvilBlock.TIER_FERRORANIUM, Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.ANVIL).strength(5.0F, 100.0F).requiresCorrectToolForDrops())));
+    public static final RegistryObject<Block> ANVIL_SATURNITE = BLOCKS.register("anvil_saturnite",
+        () -> new NtmAnvilBlock(NtmAnvilBlock.TIER_RBMK, Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.ANVIL).strength(5.0F, 100.0F).requiresCorrectToolForDrops())));
+    public static final RegistryObject<Block> ANVIL_BISMUTH_BRONZE = BLOCKS.register("anvil_bismuth_bronze",
+        () -> new NtmAnvilBlock(NtmAnvilBlock.TIER_RBMK, Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.ANVIL).strength(5.0F, 100.0F).requiresCorrectToolForDrops())));
+    public static final RegistryObject<Block> ANVIL_ARSENIC_BRONZE = BLOCKS.register("anvil_arsenic_bronze",
+        () -> new NtmAnvilBlock(NtmAnvilBlock.TIER_RBMK, Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.ANVIL).strength(5.0F, 100.0F).requiresCorrectToolForDrops())));
+    public static final RegistryObject<Block> ANVIL_SCHRABIDATE = BLOCKS.register("anvil_schrabidate",
+        () -> new NtmAnvilBlock(NtmAnvilBlock.TIER_SCHRABIDATE, Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.ANVIL).strength(5.0F, 100.0F).requiresCorrectToolForDrops())));
+    public static final RegistryObject<Block> ANVIL_DNT = BLOCKS.register("anvil_dnt",
+        () -> new NtmAnvilBlock(NtmAnvilBlock.TIER_DNT, Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.ANVIL).strength(5.0F, 100.0F).requiresCorrectToolForDrops())));
+    public static final RegistryObject<Block> ANVIL_OSMIRIDIUM = BLOCKS.register("anvil_osmiridium",
+        () -> new NtmAnvilBlock(NtmAnvilBlock.TIER_OSMIRIDIUM, Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.ANVIL).strength(5.0F, 100.0F).requiresCorrectToolForDrops())));
+    public static final RegistryObject<Block> ANVIL_MURKY = BLOCKS.register("anvil_murky",
+        () -> new NtmAnvilBlock(1916169, Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.ANVIL).strength(5.0F, 100.0F).requiresCorrectToolForDrops())));
     public static final RegistryObject<Block> SELLAFIELD = BLOCKS.register("sellafield",
         () -> new SellafieldBlock(Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.STONE).strength(5.0F, 6.0F).requiresCorrectToolForDrops().randomTicks())));
     public static final RegistryObject<Block> SELLAFIELD_SLAKED = BLOCKS.register("sellafield_slaked",
@@ -72,6 +93,7 @@ public final class HbmBlocks {
         () -> new Block(Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).strength(0.5F, 2.5F))));
     public static final RegistryObject<Block> BLOCK_STEEL = registerMaterialBlock(MaterialBlockType.STEEL);
     public static final RegistryObject<Block> BLOCK_BERYLLIUM = registerMaterialBlock(MaterialBlockType.BERYLLIUM);
+    public static final RegistryObject<Block> BLOCK_LEAD = registerMaterialBlock(MaterialBlockType.LEAD);
     public static final RegistryObject<Block> BASALT = registerBasaltBlock(BasaltBlockType.BASALT);
     public static final RegistryObject<Block> BASALT_SMOOTH = registerBasaltBlock(BasaltBlockType.BASALT_SMOOTH);
     public static final RegistryObject<Block> BASALT_POLISHED = registerBasaltBlock(BasaltBlockType.BASALT_POLISHED);

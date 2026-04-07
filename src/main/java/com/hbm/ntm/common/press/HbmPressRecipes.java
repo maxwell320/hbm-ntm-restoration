@@ -4,7 +4,11 @@ import com.hbm.ntm.common.item.BriquetteItemType;
 import com.hbm.ntm.common.item.CasingItemType;
 import com.hbm.ntm.common.item.CokeItemType;
 import com.hbm.ntm.common.item.CircuitItemType;
+import com.hbm.ntm.common.item.PageItem;
+import com.hbm.ntm.common.item.PageItemType;
+import com.hbm.ntm.common.item.PrintingStampType;
 import com.hbm.ntm.common.item.StampItem;
+import com.hbm.ntm.common.item.StampBookItem;
 import com.hbm.ntm.common.item.StampItemType;
 import com.hbm.ntm.common.material.HbmMaterialDefinition;
 import com.hbm.ntm.common.material.HbmMaterialShape;
@@ -35,10 +39,17 @@ public final class HbmPressRecipes {
 
     public static Optional<PressRecipe> findRecipe(final ItemStack inputStack, final ItemStack stampStack) {
         ensureInitialized();
-        if (inputStack.isEmpty() || stampStack.isEmpty() || !(stampStack.getItem() instanceof final StampItem stampItem)) {
+        if (inputStack.isEmpty() || stampStack.isEmpty()) {
             return Optional.empty();
         }
-        final PressStampType stampType = PressStampType.from(stampItem.type());
+        final PressStampType stampType;
+        if (stampStack.getItem() instanceof final StampItem stampItem) {
+            stampType = PressStampType.from(stampItem.type());
+        } else if (stampStack.getItem() instanceof StampBookItem) {
+            stampType = PressStampType.from(StampBookItem.getType(stampStack));
+        } else {
+            return Optional.empty();
+        }
         if (stampType == null) {
             return Optional.empty();
         }
@@ -119,12 +130,25 @@ public final class HbmPressRecipes {
         add(PressStampType.CIRCUIT,
             Ingredient.of(item(HbmMaterials.SILICON, HbmMaterialShape.BILLET)),
             new ItemStack(Objects.requireNonNull(HbmItems.getCircuit(CircuitItemType.SILICON).get())));
+
+        addPrintingRecipe(PrintingStampType.PRINTING1, PageItemType.PAGE1);
+        addPrintingRecipe(PrintingStampType.PRINTING2, PageItemType.PAGE2);
+        addPrintingRecipe(PrintingStampType.PRINTING3, PageItemType.PAGE3);
+        addPrintingRecipe(PrintingStampType.PRINTING4, PageItemType.PAGE4);
+        addPrintingRecipe(PrintingStampType.PRINTING5, PageItemType.PAGE5);
+        addPrintingRecipe(PrintingStampType.PRINTING6, PageItemType.PAGE6);
+        addPrintingRecipe(PrintingStampType.PRINTING7, PageItemType.PAGE7);
+        addPrintingRecipe(PrintingStampType.PRINTING8, PageItemType.PAGE8);
     }
 
     private static void addPlateRecipe(final HbmMaterialDefinition material) {
         add(PressStampType.PLATE,
             Ingredient.of(item(material, HbmMaterialShape.INGOT)),
             new ItemStack(item(material, HbmMaterialShape.PLATE)));
+    }
+
+    private static void addPrintingRecipe(final PrintingStampType stampType, final PageItemType pageType) {
+        add(PressStampType.from(stampType), Ingredient.of(Items.PAPER), PageItem.create(Objects.requireNonNull(HbmItems.PAGE_OF.get()), pageType));
     }
 
     private static void add(final PressStampType stampType, final Ingredient input, final ItemStack output) {
@@ -150,8 +174,18 @@ public final class HbmPressRecipes {
         PLATE,
         WIRE,
         CIRCUIT,
+        C357,
+        C44,
         C9,
-        C50;
+        C50,
+        PRINTING1,
+        PRINTING2,
+        PRINTING3,
+        PRINTING4,
+        PRINTING5,
+        PRINTING6,
+        PRINTING7,
+        PRINTING8;
 
         public static PressStampType from(final StampItemType type) {
             return switch (type) {
@@ -159,8 +193,23 @@ public final class HbmPressRecipes {
                 case STONE_PLATE, IRON_PLATE, STEEL_PLATE, TITANIUM_PLATE, OBSIDIAN_PLATE, DESH_PLATE -> PLATE;
                 case STONE_WIRE, IRON_WIRE, STEEL_WIRE, TITANIUM_WIRE, OBSIDIAN_WIRE, DESH_WIRE -> WIRE;
                 case STONE_CIRCUIT, IRON_CIRCUIT, STEEL_CIRCUIT, TITANIUM_CIRCUIT, OBSIDIAN_CIRCUIT, DESH_CIRCUIT -> CIRCUIT;
+                case IRON_C357, DESH_C357 -> C357;
+                case IRON_C44, DESH_C44 -> C44;
                 case IRON_C9, DESH_C9 -> C9;
                 case IRON_C50, DESH_C50 -> C50;
+            };
+        }
+
+        public static PressStampType from(final PrintingStampType type) {
+            return switch (type) {
+                case PRINTING1 -> PRINTING1;
+                case PRINTING2 -> PRINTING2;
+                case PRINTING3 -> PRINTING3;
+                case PRINTING4 -> PRINTING4;
+                case PRINTING5 -> PRINTING5;
+                case PRINTING6 -> PRINTING6;
+                case PRINTING7 -> PRINTING7;
+                case PRINTING8 -> PRINTING8;
             };
         }
     }

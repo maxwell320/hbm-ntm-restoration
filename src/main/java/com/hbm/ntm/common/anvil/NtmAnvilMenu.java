@@ -193,7 +193,7 @@ public class NtmAnvilMenu extends AbstractContainerMenu {
         for (final HbmAnvilRecipes.SmithingRecipe recipe : HbmAnvilRecipes.smithingRecipesForTier(this.tier)) {
             if (recipe.matches(left, right)) {
                 this.selectedSmithingRecipe = recipe;
-                this.result.setItem(0, recipe.outputStack());
+                this.result.setItem(0, recipe.outputStack(left, right));
                 break;
             }
         }
