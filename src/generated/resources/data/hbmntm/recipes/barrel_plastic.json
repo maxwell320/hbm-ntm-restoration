@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "I": {
+      "item": "hbmntm:plate_polymer"
+    },
+    "P": {
+      "item": "hbmntm:plate_aluminium"
+    }
+  },
+  "pattern": [
+    "IPI",
+    "I I",
+    "IPI"
+  ],
+  "result": {
+    "item": "hbmntm:barrel_plastic"
+  },
+  "show_notification": true
+}

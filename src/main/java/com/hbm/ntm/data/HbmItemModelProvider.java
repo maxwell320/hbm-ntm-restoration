@@ -44,6 +44,9 @@ public class HbmItemModelProvider extends ItemModelProvider {
         singleTexture("fins_flat", mcLoc("item/generated"), "layer0", modLoc("item/fins_flat"));
         singleTexture("sphere_steel", mcLoc("item/generated"), "layer0", modLoc("item/sphere_steel"));
         singleTexture("pedestal_steel", mcLoc("item/generated"), "layer0", modLoc("item/pedestal_steel"));
+        withExistingParent("fluid_identifier_multi", mcLoc("item/generated"))
+            .texture("layer0", modLoc("item/fluid_identifier_multi"))
+            .texture("layer1", modLoc("item/fluid_identifier_overlay"));
         singleTexture("fins_big_steel", mcLoc("item/generated"), "layer0", modLoc("item/fins_big_steel"));
         singleTexture("fins_small_steel", mcLoc("item/generated"), "layer0", modLoc("item/fins_small_steel"));
         singleTexture("fins_tri_steel", mcLoc("item/generated"), "layer0", modLoc("item/fins_tri_steel"));

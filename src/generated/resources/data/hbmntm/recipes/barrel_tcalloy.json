@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "I": {
+      "item": "hbmntm:ingot_tcalloy"
+    },
+    "P": {
+      "item": "hbmntm:plate_titanium"
+    }
+  },
+  "pattern": [
+    "IPI",
+    "I I",
+    "IPI"
+  ],
+  "result": {
+    "item": "hbmntm:barrel_tcalloy"
+  },
+  "show_notification": true
+}

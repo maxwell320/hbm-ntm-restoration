@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "I": {
+      "item": "hbmntm:plate_schrabidium"
+    },
+    "P": {
+      "item": "hbmntm:coil_advanced_torus"
+    }
+  },
+  "pattern": [
+    "IPI",
+    "I I",
+    "IPI"
+  ],
+  "result": {
+    "item": "hbmntm:barrel_antimatter"
+  },
+  "show_notification": true
+}

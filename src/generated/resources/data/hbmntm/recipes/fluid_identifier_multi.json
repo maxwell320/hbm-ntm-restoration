@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "C": {
+      "item": "hbmntm:circuit_vacuum_tube"
+    },
+    "D": {
+      "tag": "forge:dyes"
+    },
+    "P": {
+      "item": "hbmntm:plate_iron"
+    }
+  },
+  "pattern": [
+    "D",
+    "C",
+    "P"
+  ],
+  "result": {
+    "item": "hbmntm:fluid_identifier_multi"
+  },
+  "show_notification": true
+}

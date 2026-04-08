@@ -48,6 +48,7 @@ public class HbmRecipeProvider extends RecipeProvider {
         buildBasaltRecipes(recipeOutput);
         buildCircuitRecipes(recipeOutput);
         buildEnergyRecipes(recipeOutput);
+        buildFluidStorageRecipes(recipeOutput);
         buildMercuryRecipes(recipeOutput);
         buildPressSupportRecipes(recipeOutput);
         buildStampRecipes(recipeOutput);
@@ -150,9 +151,8 @@ public class HbmRecipeProvider extends RecipeProvider {
             .unlockedBy(getHasName(dropMercury), has(dropMercury))
             .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "bottle_mercury")));
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, dropMercury, 8)
-            .pattern("#")
-            .define('#', bottleMercury)
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, dropMercury, 8)
+            .requires(bottleMercury)
             .unlockedBy(getHasName(bottleMercury), has(bottleMercury))
             .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "nugget_mercury_from_bottle")));
     }
@@ -181,6 +181,80 @@ public class HbmRecipeProvider extends RecipeProvider {
             .requires(redCableClassic)
             .unlockedBy(getHasName(redCableClassic), has(redCableClassic))
             .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "red_cable_from_classic")));
+    }
+
+    private void buildFluidStorageRecipes(final Consumer<FinishedRecipe> recipeOutput) {
+        final ItemLike plasticBarrel = Objects.requireNonNull(HbmBlocks.BARREL_PLASTIC.get());
+        final ItemLike steelBarrel = Objects.requireNonNull(HbmBlocks.BARREL_STEEL.get());
+        final ItemLike tcalloyBarrel = Objects.requireNonNull(HbmBlocks.BARREL_TCALLOY.get());
+        final ItemLike antimatterBarrel = Objects.requireNonNull(HbmBlocks.BARREL_ANTIMATTER.get());
+        final ItemLike fluidDuctNeo = Objects.requireNonNull(HbmBlocks.FLUID_DUCT_NEO.get());
+        final ItemLike fluidIdentifierMulti = Objects.requireNonNull(HbmItems.FLUID_IDENTIFIER_MULTI.get());
+        final ItemLike polymerPlate = Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.POLYMER, HbmMaterialShape.PLATE).get());
+        final ItemLike aluminiumPlate = Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.ALUMINIUM, HbmMaterialShape.PLATE).get());
+        final ItemLike steelPlate = Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.STEEL, HbmMaterialShape.PLATE).get());
+        final ItemLike steelIngot = Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.STEEL, HbmMaterialShape.INGOT).get());
+        final ItemLike titaniumPlate = Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.TITANIUM, HbmMaterialShape.PLATE).get());
+        final ItemLike tcalloyIngot = Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.TCALLOY, HbmMaterialShape.INGOT).get());
+        final ItemLike schrabidiumPlate = Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.SCHRABIDIUM, HbmMaterialShape.PLATE).get());
+        final ItemLike advancedCoil = Objects.requireNonNull(HbmItems.COIL_ADVANCED_TORUS.get());
+        final ItemLike vacuumTube = Objects.requireNonNull(HbmItems.getCircuit(CircuitItemType.VACUUM_TUBE).get());
+        final ItemLike ironPlate = Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.IRON, HbmMaterialShape.PLATE).get());
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, plasticBarrel)
+            .pattern("IPI")
+            .pattern("I I")
+            .pattern("IPI")
+            .define('I', polymerPlate)
+            .define('P', aluminiumPlate)
+            .unlockedBy(getHasName(polymerPlate), has(polymerPlate))
+            .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "barrel_plastic")));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, fluidDuctNeo, 8)
+            .pattern("SAS")
+            .pattern("   ")
+            .pattern("SAS")
+            .define('S', steelPlate)
+            .define('A', aluminiumPlate)
+            .unlockedBy(getHasName(steelPlate), has(steelPlate))
+            .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "fluid_duct_neo")));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, steelBarrel)
+            .pattern("IPI")
+            .pattern("I I")
+            .pattern("IPI")
+            .define('I', steelPlate)
+            .define('P', steelIngot)
+            .unlockedBy(getHasName(steelPlate), has(steelPlate))
+            .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "barrel_steel")));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, tcalloyBarrel)
+            .pattern("IPI")
+            .pattern("I I")
+            .pattern("IPI")
+            .define('I', tcalloyIngot)
+            .define('P', titaniumPlate)
+            .unlockedBy(getHasName(tcalloyIngot), has(tcalloyIngot))
+            .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "barrel_tcalloy")));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, antimatterBarrel)
+            .pattern("IPI")
+            .pattern("I I")
+            .pattern("IPI")
+            .define('I', schrabidiumPlate)
+            .define('P', advancedCoil)
+            .unlockedBy(getHasName(schrabidiumPlate), has(schrabidiumPlate))
+            .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "barrel_antimatter")));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, fluidIdentifierMulti)
+            .pattern("D")
+            .pattern("C")
+            .pattern("P")
+            .define('D', Ingredient.of(ItemTags.create(ResourceLocation.fromNamespaceAndPath("forge", "dyes"))))
+            .define('C', vacuumTube)
+            .define('P', ironPlate)
+            .unlockedBy(getHasName(vacuumTube), has(vacuumTube))
+            .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "fluid_identifier_multi")));
     }
 
     private void buildBasaltRecipes(final Consumer<FinishedRecipe> recipeOutput) {

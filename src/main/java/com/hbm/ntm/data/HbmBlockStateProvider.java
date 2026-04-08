@@ -20,6 +20,12 @@ public class HbmBlockStateProvider extends BlockStateProvider {
     @Override
     protected void registerStatesAndModels() {
         batteryBlock(HbmBlocks.MACHINE_BATTERY.get(), "machine_battery", "battery_front_alt", "battery_side_alt", "battery_top");
+        simpleCubeBlock(HbmBlocks.BARREL_PLASTIC.get(), "barrel_plastic", "barrel_plastic");
+        simpleCubeBlock(HbmBlocks.BARREL_CORRODED.get(), "barrel_corroded", "barrel_corroded");
+        simpleCubeBlock(HbmBlocks.BARREL_IRON.get(), "barrel_iron", "barrel_iron");
+        simpleCubeBlock(HbmBlocks.BARREL_STEEL.get(), "barrel_steel", "barrel_steel");
+        simpleCubeBlock(HbmBlocks.BARREL_TCALLOY.get(), "barrel_tcalloy", "barrel_tcalloy");
+        simpleCubeBlock(HbmBlocks.BARREL_ANTIMATTER.get(), "barrel_antimatter", "barrel_antimatter");
         anvilBlock(HbmBlocks.ANVIL_IRON.get(), "anvil_iron", "anvil_iron");
         anvilBlock(HbmBlocks.ANVIL_LEAD.get(), "anvil_lead", "anvil_lead");
         anvilBlock(HbmBlocks.ANVIL_STEEL.get(), "anvil_steel", "anvil_steel");
@@ -70,5 +76,11 @@ public class HbmBlockStateProvider extends BlockStateProvider {
             .modelForState().modelFile(model).rotationY(180).addModel()
             .partialState().with(BatteryBlock.FACING, Direction.WEST)
             .modelForState().modelFile(model).rotationY(270).addModel();
+    }
+
+    private void simpleCubeBlock(final Block block, final String modelName, final String textureName) {
+        final ModelFile model = models().cubeAll(modelName, modLoc("block/" + textureName));
+        simpleBlock(block, model);
+        simpleBlockItem(block, model);
     }
 }

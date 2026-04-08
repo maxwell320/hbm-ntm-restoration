@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "I": {
+      "item": "hbmntm:plate_steel"
+    },
+    "P": {
+      "item": "hbmntm:ingot_steel"
+    }
+  },
+  "pattern": [
+    "IPI",
+    "I I",
+    "IPI"
+  ],
+  "result": {
+    "item": "hbmntm:barrel_steel"
+  },
+  "show_notification": true
+}

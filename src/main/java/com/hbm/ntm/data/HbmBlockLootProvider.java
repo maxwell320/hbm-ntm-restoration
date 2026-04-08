@@ -65,8 +65,15 @@ public class HbmBlockLootProvider extends BlockLootSubProvider {
         add(HbmBlocks.FALLOUT.get(), createSingleItemTable(HbmItems.FALLOUT.get()));
         dropSelf(HbmBlocks.GEIGER.get());
         dropSelf(HbmBlocks.PRESS_PREHEATER.get());
+        dropSelf(HbmBlocks.BARREL_PLASTIC.get());
+        dropSelf(HbmBlocks.BARREL_CORRODED.get());
+        dropSelf(HbmBlocks.BARREL_IRON.get());
+        dropSelf(HbmBlocks.BARREL_STEEL.get());
+        dropSelf(HbmBlocks.BARREL_TCALLOY.get());
+        dropSelf(HbmBlocks.BARREL_ANTIMATTER.get());
         dropSelf(HbmBlocks.RED_CABLE.get());
         dropSelf(HbmBlocks.RED_CABLE_CLASSIC.get());
+        dropSelf(HbmBlocks.FLUID_DUCT_NEO.get());
         dropSelf(HbmBlocks.SELLAFIELD_SLAKED.get());
         add(HbmBlocks.WASTE_LOG.get(), createWasteLogTable(HbmBlocks.WASTE_LOG.get()));
         dropSelf(HbmBlocks.WASTE_PLANKS.get());

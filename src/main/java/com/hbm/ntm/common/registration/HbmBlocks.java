@@ -1,6 +1,8 @@
 package com.hbm.ntm.common.registration;
 
 import com.hbm.ntm.HbmNtmMod;
+import com.hbm.ntm.common.block.BarrelBlock;
+import com.hbm.ntm.common.block.BarrelType;
 import com.hbm.ntm.common.block.BatteryBlock;
 import com.hbm.ntm.common.block.BasaltBlockType;
 import com.hbm.ntm.common.block.BasaltOreBlock;
@@ -8,6 +10,7 @@ import com.hbm.ntm.common.block.BasaltOreType;
 import com.hbm.ntm.common.block.CableBlock;
 import com.hbm.ntm.common.block.CreativeEnergySourceBlock;
 import com.hbm.ntm.common.block.FalloutBlock;
+import com.hbm.ntm.common.block.FluidDuctBlock;
 import com.hbm.ntm.common.block.GasAsbestosBlock;
 import com.hbm.ntm.common.block.GeigerCounterBlock;
 import com.hbm.ntm.common.block.MaterialBlockType;
@@ -52,8 +55,22 @@ public final class HbmBlocks {
         () -> new CableBlock(20_000, 20_000, Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(5.0F, 10.0F).requiresCorrectToolForDrops().noOcclusion())));
     public static final RegistryObject<Block> RED_CABLE_CLASSIC = BLOCKS.register("red_cable_classic",
         () -> new CableBlock(20_000, 20_000, Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(5.0F, 10.0F).requiresCorrectToolForDrops().noOcclusion())));
+    public static final RegistryObject<Block> FLUID_DUCT_NEO = BLOCKS.register("fluid_duct_neo",
+        () -> new FluidDuctBlock(Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(5.0F, 10.0F).requiresCorrectToolForDrops().noOcclusion())));
     public static final RegistryObject<Block> PRESS_PREHEATER = BLOCKS.register("press_preheater",
         () -> new Block(Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(5.0F, 10.0F).requiresCorrectToolForDrops())));
+    public static final RegistryObject<Block> BARREL_PLASTIC = BLOCKS.register("barrel_plastic",
+        () -> new BarrelBlock(BarrelType.PLASTIC, Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(2.0F, 5.0F).requiresCorrectToolForDrops().noOcclusion())));
+    public static final RegistryObject<Block> BARREL_CORRODED = BLOCKS.register("barrel_corroded",
+        () -> new BarrelBlock(BarrelType.CORRODED, Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(2.0F, 5.0F).requiresCorrectToolForDrops().noOcclusion())));
+    public static final RegistryObject<Block> BARREL_IRON = BLOCKS.register("barrel_iron",
+        () -> new BarrelBlock(BarrelType.IRON, Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(2.0F, 5.0F).requiresCorrectToolForDrops().noOcclusion())));
+    public static final RegistryObject<Block> BARREL_STEEL = BLOCKS.register("barrel_steel",
+        () -> new BarrelBlock(BarrelType.STEEL, Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(2.0F, 5.0F).requiresCorrectToolForDrops().noOcclusion())));
+    public static final RegistryObject<Block> BARREL_TCALLOY = BLOCKS.register("barrel_tcalloy",
+        () -> new BarrelBlock(BarrelType.TCALLOY, Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(2.0F, 5.0F).requiresCorrectToolForDrops().noOcclusion())));
+    public static final RegistryObject<Block> BARREL_ANTIMATTER = BLOCKS.register("barrel_antimatter",
+        () -> new BarrelBlock(BarrelType.ANTIMATTER, Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(2.0F, 5.0F).requiresCorrectToolForDrops().noOcclusion())));
     public static final RegistryObject<Block> ANVIL_IRON = BLOCKS.register("anvil_iron",
         () -> new NtmAnvilBlock(NtmAnvilBlock.TIER_IRON, Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.ANVIL).strength(5.0F, 100.0F).requiresCorrectToolForDrops())));
     public static final RegistryObject<Block> ANVIL_LEAD = BLOCKS.register("anvil_lead",
