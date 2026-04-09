@@ -9,14 +9,17 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 
+@SuppressWarnings({"null", "deprecation"})
 public class GasAsbestosBlock extends Block {
     public GasAsbestosBlock(final BlockBehaviour.Properties properties) {
         super(properties);
     }
 
     @Override
-    public void onPlace(final BlockState state, final Level level, final BlockPos pos, final BlockState oldState, final boolean movedByPiston) {
+    public void onPlace(final @NotNull BlockState state, final @NotNull Level level, final @NotNull BlockPos pos, final @NotNull BlockState oldState,
+                        final boolean movedByPiston) {
         super.onPlace(state, level, pos, oldState, movedByPiston);
         if (!level.isClientSide()) {
             level.scheduleTick(pos, this, 10);
@@ -24,7 +27,8 @@ public class GasAsbestosBlock extends Block {
     }
 
     @Override
-    public void neighborChanged(final BlockState state, final Level level, final BlockPos pos, final Block block, final BlockPos fromPos, final boolean isMoving) {
+    public void neighborChanged(final @NotNull BlockState state, final @NotNull Level level, final @NotNull BlockPos pos, final @NotNull Block block,
+                                final @NotNull BlockPos fromPos, final boolean isMoving) {
         super.neighborChanged(state, level, pos, block, fromPos, isMoving);
         if (!level.isClientSide()) {
             level.scheduleTick(pos, this, 10);
@@ -32,7 +36,7 @@ public class GasAsbestosBlock extends Block {
     }
 
     @Override
-    public void tick(final BlockState state, final ServerLevel level, final BlockPos pos, final RandomSource random) {
+    public void tick(final @NotNull BlockState state, final @NotNull ServerLevel level, final @NotNull BlockPos pos, final @NotNull RandomSource random) {
         if (random.nextInt(50) == 0) {
             level.removeBlock(pos, false);
             return;
@@ -44,12 +48,12 @@ public class GasAsbestosBlock extends Block {
     }
 
     @Override
-    public boolean propagatesSkylightDown(final BlockState state, final BlockGetter reader, final BlockPos pos) {
+    public boolean propagatesSkylightDown(final @NotNull BlockState state, final @NotNull BlockGetter reader, final @NotNull BlockPos pos) {
         return true;
     }
 
     @Override
-    public float getShadeBrightness(final BlockState state, final BlockGetter reader, final BlockPos pos) {
+    public float getShadeBrightness(final @NotNull BlockState state, final @NotNull BlockGetter reader, final @NotNull BlockPos pos) {
         return 1.0F;
     }
 

@@ -3,17 +3,19 @@ package com.hbm.ntm.common.multiblock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("null")
-public abstract class MultiblockProxyBE extends MultiblockCoreBE {
+public abstract class MultiblockProxyBE extends BlockEntity {
     private BlockPos corePos = BlockPos.ZERO;
+    private Direction direction = Direction.NORTH;
 
     protected MultiblockProxyBE(BlockEntityType<?> type, BlockPos pos, BlockState state) {
-        super(type, pos, state, 0);
+        super(type, pos, state);
     }
 
     public @Nullable BlockPos getCorePos() {
@@ -26,7 +28,15 @@ public abstract class MultiblockProxyBE extends MultiblockCoreBE {
     public void setCorePos(@NotNull BlockPos corePos) {
         this.corePos = corePos.immutable();
         this.setChanged();
-        this.syncToClient();
+    }
+
+    public @NotNull Direction getDirection() {
+        return this.direction;
+    }
+
+    public void setDirection(@NotNull Direction direction) {
+        this.direction = direction;
+        this.setChanged();
     }
 
     private @NotNull BlockPos findCore() {
@@ -47,26 +57,29 @@ public abstract class MultiblockProxyBE extends MultiblockCoreBE {
     }
 
     @Override
-    protected void saveMachineData(@NotNull CompoundTag tag) {
-        super.saveMachineData(tag);
+    protected void saveAdditional(@NotNull CompoundTag tag) {
+        super.saveAdditional(tag);
         tag.putInt("coreX", this.corePos.getX());
         tag.putInt("coreY", this.corePos.getY());
         tag.putInt("coreZ", this.corePos.getZ());
+        tag.putInt("direction", this.direction.ordinal());
     }
 
     @Override
-    protected void loadMachineData(@NotNull CompoundTag tag) {
-        super.loadMachineData(tag);
+    public void load(@NotNull CompoundTag tag) {
+        super.load(tag);
         this.corePos = new BlockPos(tag.getInt("coreX"), tag.getInt("coreY"), tag.getInt("coreZ"));
+        this.direction = Direction.from3DDataValue(tag.getInt("direction"));
     }
 
-    @Override
     public void validateStructure() {
         BlockPos corePos = this.getCorePos();
         if (corePos != null && this.level != null && !this.level.isClientSide()) {
-            if (!this.getStructure().canForm(this.level, corePos, this.getDirection())) {
+            if (!this.getStructure().isFormed(this.level, corePos, this.getDirection())) {
                 this.getStructure().breakStructure(this.level, corePos, this.getDirection());
             }
         }
     }
+
+    public abstract MultiblockStructure getStructure();
 }

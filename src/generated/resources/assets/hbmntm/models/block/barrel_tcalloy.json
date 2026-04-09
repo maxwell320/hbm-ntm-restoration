@@ -1,6 +1,9 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "flip_v": true,
+  "loader": "forge:obj",
+  "model": "hbmntm:models/block/barrel_body.obj",
   "textures": {
-    "all": "hbmntm:block/barrel_tcalloy"
+    "particle": "hbmntm:block/barrel_tcalloy",
+    "texture0": "hbmntm:block/barrel_tcalloy"
   }
 }

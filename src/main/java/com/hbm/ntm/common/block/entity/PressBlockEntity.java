@@ -1,9 +1,12 @@
 package com.hbm.ntm.common.block.entity;
 
 import com.hbm.ntm.common.menu.PressMenu;
+import com.hbm.ntm.common.multiblock.MultiblockCoreBE;
+import com.hbm.ntm.common.multiblock.MultiblockStructure;
 import com.hbm.ntm.common.item.StampBookItem;
 import com.hbm.ntm.common.item.StampItem;
 import com.hbm.ntm.common.press.HbmPressRecipes;
+import com.hbm.ntm.common.press.PressStructure;
 import com.hbm.ntm.common.registration.HbmBlockEntityTypes;
 import com.hbm.ntm.common.registration.HbmBlocks;
 import net.minecraft.core.BlockPos;
@@ -21,7 +24,7 @@ import net.minecraftforge.common.ForgeHooks;
 import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("null")
-public class PressBlockEntity extends MachineBlockEntity {
+public class PressBlockEntity extends MultiblockCoreBE {
     public static final int SLOT_FUEL = 0;
     public static final int SLOT_STAMP = 1;
     public static final int SLOT_INPUT = 2;
@@ -42,6 +45,11 @@ public class PressBlockEntity extends MachineBlockEntity {
 
     public PressBlockEntity(final BlockPos pos, final BlockState state) {
         super(HbmBlockEntityTypes.MACHINE_PRESS.get(), pos, state, SLOT_COUNT);
+    }
+
+    @Override
+    public MultiblockStructure getStructure() {
+        return PressStructure.INSTANCE;
     }
 
     public static void serverTick(final Level level, final BlockPos pos, final BlockState state, final PressBlockEntity press) {

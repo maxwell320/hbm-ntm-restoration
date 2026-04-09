@@ -1,6 +1,8 @@
 package com.hbm.ntm.common.block.entity;
 
+import com.hbm.ntm.common.energy.EnergyNetworkDistributor;
 import com.hbm.ntm.common.energy.IEnergyGenerator;
+import com.hbm.ntm.common.energy.IEnergyNetworkProvider;
 import com.hbm.ntm.common.registration.HbmBlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -15,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("null")
-public class CreativeEnergySourceBlockEntity extends BlockEntity implements IEnergyGenerator {
+public class CreativeEnergySourceBlockEntity extends BlockEntity implements IEnergyGenerator, IEnergyNetworkProvider {
     private static final int TRANSFER_PER_TICK = 100_000;
     private static final IEnergyStorage ENERGY_STORAGE = new CreativeEnergyStorage();
     private LazyOptional<IEnergyStorage> energyCapability = LazyOptional.empty();
@@ -25,17 +27,7 @@ public class CreativeEnergySourceBlockEntity extends BlockEntity implements IEne
     }
 
     public static void serverTick(final Level level, final BlockPos pos, final BlockState state, final CreativeEnergySourceBlockEntity blockEntity) {
-        for (final Direction direction : Direction.values()) {
-            final BlockEntity neighbor = level.getBlockEntity(pos.relative(direction));
-            if (neighbor == null) {
-                continue;
-            }
-            neighbor.getCapability(ForgeCapabilities.ENERGY, direction.getOpposite()).ifPresent(storage -> {
-                if (storage.canReceive()) {
-                    storage.receiveEnergy(TRANSFER_PER_TICK, false);
-                }
-            });
-        }
+        EnergyNetworkDistributor.distribute(level, pos, TRANSFER_PER_TICK, TRANSFER_PER_TICK, null);
     }
 
     @Override
@@ -59,6 +51,20 @@ public class CreativeEnergySourceBlockEntity extends BlockEntity implements IEne
     @Override
     public @Nullable IEnergyStorage getEnergyStorage(@Nullable final Direction side) {
         return ENERGY_STORAGE;
+    }
+
+    @Override
+    public long getAvailableNetworkEnergy(@Nullable final Direction side) {
+        return TRANSFER_PER_TICK;
+    }
+
+    @Override
+    public void consumeNetworkEnergy(@Nullable final Direction side, final long amount) {
+    }
+
+    @Override
+    public long getNetworkProviderSpeed(@Nullable final Direction side) {
+        return TRANSFER_PER_TICK;
     }
 
     @Override

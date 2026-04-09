@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "item": "hbmntm:ingot_titanium"
+    },
+    "P": {
+      "item": "hbmntm:plate_titanium"
+    }
+  },
+  "pattern": [
+    " P ",
+    "PIP",
+    " P "
+  ],
+  "result": {
+    "item": "hbmntm:blades_titanium"
+  },
+  "show_notification": true
+}

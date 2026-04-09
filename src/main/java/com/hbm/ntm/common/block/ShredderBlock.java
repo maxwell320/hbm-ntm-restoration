@@ -17,11 +17,6 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-/**
- * Shredder machine block — direct port of legacy {@code MachineShredder}.
- * <p>
- * Legacy: 1×1×1 block with directional front face, hardness 5.0F, resistance 10.0F.
- */
 @SuppressWarnings("null")
 public class ShredderBlock extends MachineBlock {
 

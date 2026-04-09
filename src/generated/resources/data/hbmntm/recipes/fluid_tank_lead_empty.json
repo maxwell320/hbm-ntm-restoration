@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "L": {
+      "item": "hbmntm:plate_lead"
+    },
+    "T": {
+      "item": "hbmntm:fluid_tank_empty"
+    },
+    "U": {
+      "item": "hbmntm:billet_u238"
+    }
+  },
+  "pattern": [
+    "LUL",
+    "LTL",
+    "LUL"
+  ],
+  "result": {
+    "count": 4,
+    "item": "hbmntm:fluid_tank_lead_empty"
+  },
+  "show_notification": true
+}

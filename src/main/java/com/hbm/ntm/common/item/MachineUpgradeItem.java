@@ -66,12 +66,26 @@ public class MachineUpgradeItem extends Item {
         SPECIAL,
         RADIUS,
         HEALTH,
-        SMELTER,
-        SHREDDER,
-        CENTRIFUGE,
-        CRYSTALLIZER,
+        SMELTER(true),
+        SHREDDER(true),
+        CENTRIFUGE(true),
+        CRYSTALLIZER(true),
         NULLIFIER,
         SCREM,
-        GC_SPEED
+        GC_SPEED;
+
+        private final boolean mutex;
+
+        UpgradeType() {
+            this(false);
+        }
+
+        UpgradeType(final boolean mutex) {
+            this.mutex = mutex;
+        }
+
+        public boolean isMutex() {
+            return this.mutex;
+        }
     }
 }

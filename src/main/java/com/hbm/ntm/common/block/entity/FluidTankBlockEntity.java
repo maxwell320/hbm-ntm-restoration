@@ -1,6 +1,9 @@
 package com.hbm.ntm.common.block.entity;
 
+import com.hbm.ntm.common.fluid.FluidNetworkPriority;
 import com.hbm.ntm.common.fluid.HbmFluidTank;
+import com.hbm.ntm.common.fluid.IFluidNetworkProvider;
+import com.hbm.ntm.common.fluid.IFluidNetworkReceiver;
 import com.hbm.ntm.common.fluid.SidedFluidHandler;
 import java.util.EnumMap;
 import java.util.Map;
@@ -26,7 +29,7 @@ import org.jetbrains.annotations.Nullable;
  * Mirrors legacy TileEntityBarrel core responsibilities using modern Forge APIs.
  */
 @SuppressWarnings("null")
-public abstract class FluidTankBlockEntity extends BlockEntity {
+public abstract class FluidTankBlockEntity extends BlockEntity implements IFluidNetworkProvider, IFluidNetworkReceiver {
     protected final HbmFluidTank tank;
     private final Map<Direction, LazyOptional<IFluidHandler>> sidedCapabilities = new EnumMap<>(Direction.class);
     private LazyOptional<IFluidHandler> tankCapability = LazyOptional.empty();
@@ -121,6 +124,56 @@ public abstract class FluidTankBlockEntity extends BlockEntity {
      */
     public FluidStack getFluid() {
         return this.tank.getFluid().copy();
+    }
+
+    @Override
+    public long getAvailableNetworkFluid(final FluidStack fluid, final int pressure, final @Nullable Direction side) {
+        if (!this.canDrainFromSide(side == null ? Direction.UP : side)) {
+            return 0;
+        }
+        if (this.tank.isEmpty()) {
+            return 0;
+        }
+        return fluid.isEmpty() || this.tank.getFluid().isFluidEqual(fluid) ? this.tank.getFluidAmount() : 0;
+    }
+
+    @Override
+    public void consumeNetworkFluid(final FluidStack fluid, final int pressure, final long amount, final @Nullable Direction side) {
+        if (amount > 0 && (side == null || this.canDrainFromSide(side))) {
+            this.tank.drain((int) Math.min(Integer.MAX_VALUE, amount), IFluidHandler.FluidAction.EXECUTE);
+        }
+    }
+
+    @Override
+    public long getNetworkFluidDemand(final FluidStack fluid, final int pressure, final @Nullable Direction side) {
+        if ((side != null && !this.canFillFromSide(side)) || fluid.isEmpty()) {
+            return 0;
+        }
+        return this.tank.fill(fluid.copy(), IFluidHandler.FluidAction.SIMULATE);
+    }
+
+    @Override
+    public long receiveNetworkFluid(final FluidStack fluid, final int pressure, final long amount, final @Nullable Direction side) {
+        if (amount <= 0 || fluid.isEmpty() || (side != null && !this.canFillFromSide(side))) {
+            return amount;
+        }
+        final int filled = this.tank.fill(new FluidStack(fluid, (int) Math.min(Integer.MAX_VALUE, amount)), IFluidHandler.FluidAction.EXECUTE);
+        return amount - filled;
+    }
+
+    @Override
+    public long getFluidProviderSpeed(final FluidStack fluid, final int pressure, final @Nullable Direction side) {
+        return this.getAvailableNetworkFluid(fluid, pressure, side);
+    }
+
+    @Override
+    public long getFluidReceiverSpeed(final FluidStack fluid, final int pressure, final @Nullable Direction side) {
+        return this.getNetworkFluidDemand(fluid, pressure, side);
+    }
+
+    @Override
+    public FluidNetworkPriority getFluidNetworkPriority() {
+        return FluidNetworkPriority.NORMAL;
     }
 
     /**

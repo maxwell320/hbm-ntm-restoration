@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "hbmntm:plate_steel"
+    },
+    "S": {
+      "item": "hbmntm:plate_copper"
+    }
+  },
+  "pattern": [
+    "S ",
+    "AA",
+    "AA"
+  ],
+  "result": {
+    "count": 2,
+    "item": "hbmntm:gas_empty"
+  },
+  "show_notification": true
+}

@@ -21,6 +21,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 
+@SuppressWarnings("null")
 public final class HbmAnvilRecipes {
     public static final List<ConstructionRecipe> CONSTRUCTION_RECIPES = List.of(
         construction(StampItemType.STONE_FLAT, StampItemType.STONE_PLATE, NtmAnvilBlock.TIER_IRON),

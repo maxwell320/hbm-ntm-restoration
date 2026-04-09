@@ -1,8 +1,14 @@
 package com.hbm.ntm.common.block.entity;
 
 import com.hbm.ntm.common.fluid.HbmFluidTank;
+import com.hbm.ntm.common.fluid.FluidNetworkDistributor;
 import com.hbm.ntm.common.registration.HbmBlockEntityTypes;
+import com.hbm.ntm.common.transfer.TransferGraphManager;
+import com.hbm.ntm.common.transfer.TransferNetworkKind;
+import com.hbm.ntm.common.transfer.TransferNodeProvider;
+import java.util.EnumSet;
 import java.util.Objects;
+import java.util.Set;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -18,7 +24,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("null")
-public class FluidDuctBlockEntity extends BlockEntity {
+public class FluidDuctBlockEntity extends BlockEntity implements TransferNodeProvider {
     public static final int BUFFER_CAPACITY = 1_000;
     public static final int TRANSFER_PER_TICK = 250;
     private static final String CONFIGURED_FLUID_TAG = "configured_fluid";
@@ -35,8 +41,36 @@ public class FluidDuctBlockEntity extends BlockEntity {
     }
 
     public static void serverTick(final Level level, final BlockPos pos, final BlockState state, final FluidDuctBlockEntity blockEntity) {
+        TransferGraphManager.rebuildIfDirty(level, pos, TransferNetworkKind.FLUID);
         blockEntity.pushFluid(level, pos);
         blockEntity.pullFluid(level, pos);
+    }
+
+    @Override
+    public TransferNetworkKind getTransferNetworkKind() {
+        return TransferNetworkKind.FLUID;
+    }
+
+    @Override
+    public Set<Direction> getConnectionDirections() {
+        return EnumSet.allOf(Direction.class);
+    }
+
+    @Override
+    public void onLoad() {
+        super.onLoad();
+        if (this.level != null && !this.level.isClientSide) {
+            TransferGraphManager.markDirty(this.level, this.worldPosition, TransferNetworkKind.FLUID);
+        }
+    }
+
+    @Override
+    public void invalidateCaps() {
+        if (this.level != null && !this.level.isClientSide) {
+            TransferGraphManager.markDirty(this.level, this.worldPosition, TransferNetworkKind.FLUID);
+            TransferGraphManager.removeNode(this.level, this.worldPosition, TransferNetworkKind.FLUID);
+        }
+        super.invalidateCaps();
     }
 
     @Override
@@ -71,7 +105,20 @@ public class FluidDuctBlockEntity extends BlockEntity {
         if (!this.buffer.isEmpty() && !this.isValidFluid(this.buffer.getFluid())) {
             this.buffer.setFluidStack(FluidStack.EMPTY);
         }
+        if (this.level != null && !this.level.isClientSide) {
+            TransferGraphManager.markDirty(this.level, this.worldPosition, TransferNetworkKind.FLUID);
+        }
         this.onContentsChanged();
+    }
+
+    @Override
+    public boolean canConnectTo(final Level level, final BlockPos pos, final Direction side, final BlockEntity neighbor) {
+        if (!(neighbor instanceof final FluidDuctBlockEntity duct)) {
+            return true;
+        }
+        return this.configuredFluidId == null
+            || duct.configuredFluidId == null
+            || Objects.equals(this.configuredFluidId, duct.configuredFluidId);
     }
 
     private void pullFluid(final Level level, final BlockPos pos) {
@@ -127,19 +174,18 @@ public class FluidDuctBlockEntity extends BlockEntity {
                 }
                 final int moved = duct.receiveFromDuct(stored, TRANSFER_PER_TICK, direction.getOpposite());
                 if (moved > 0) {
+                    TransferGraphManager.recordTransfer(level, pos, TransferNetworkKind.FLUID, moved);
                     this.buffer.drain(moved, IFluidHandler.FluidAction.EXECUTE);
                     stored.shrink(moved);
                 }
                 continue;
             }
-            final IFluidHandler handler = neighbor.getCapability(ForgeCapabilities.FLUID_HANDLER, direction.getOpposite()).orElse(null);
-            if (handler == null) {
-                continue;
-            }
-            final int moved = handler.fill(new FluidStack(stored, Math.min(TRANSFER_PER_TICK, stored.getAmount())), IFluidHandler.FluidAction.EXECUTE);
+            final int moved = FluidNetworkDistributor.distribute(level, pos, stored, TRANSFER_PER_TICK, direction.getOpposite());
             if (moved > 0) {
+                TransferGraphManager.recordTransfer(level, pos, TransferNetworkKind.FLUID, moved);
                 this.buffer.drain(moved, IFluidHandler.FluidAction.EXECUTE);
                 stored.shrink(moved);
+                return;
             }
         }
     }

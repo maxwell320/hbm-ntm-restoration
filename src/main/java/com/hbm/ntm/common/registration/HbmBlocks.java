@@ -14,7 +14,11 @@ import com.hbm.ntm.common.block.FluidDuctBlock;
 import com.hbm.ntm.common.block.GasAsbestosBlock;
 import com.hbm.ntm.common.block.GeigerCounterBlock;
 import com.hbm.ntm.common.block.MaterialBlockType;
+import com.hbm.ntm.common.block.NetherOreBlock;
+import com.hbm.ntm.common.block.NetherOreType;
 import com.hbm.ntm.common.block.NtmAnvilBlock;
+import com.hbm.ntm.common.block.OverworldOreBlock;
+import com.hbm.ntm.common.block.OverworldOreType;
 import com.hbm.ntm.common.block.PressBlock;
 import com.hbm.ntm.common.block.SellafieldBlock;
 import com.hbm.ntm.common.block.ShredderBlock;
@@ -41,6 +45,8 @@ public final class HbmBlocks {
     private static final Map<String, RegistryObject<Block>> BASALT_BLOCKS = new LinkedHashMap<>();
     private static final Map<String, RegistryObject<Block>> BASALT_ORES = new LinkedHashMap<>();
     private static final Map<String, RegistryObject<Block>> MATERIAL_BLOCKS = new LinkedHashMap<>();
+    private static final Map<String, RegistryObject<Block>> OVERWORLD_ORES = new LinkedHashMap<>();
+    private static final Map<String, RegistryObject<Block>> NETHER_ORES = new LinkedHashMap<>();
     private static final Map<String, RegistryObject<Block>> SELLAFIELD_ORES = new LinkedHashMap<>();
     private static final Map<String, RegistryObject<Block>> STONE_RESOURCES = new LinkedHashMap<>();
 
@@ -117,6 +123,41 @@ public final class HbmBlocks {
     public static final RegistryObject<Block> BLOCK_STEEL = registerMaterialBlock(MaterialBlockType.STEEL);
     public static final RegistryObject<Block> BLOCK_BERYLLIUM = registerMaterialBlock(MaterialBlockType.BERYLLIUM);
     public static final RegistryObject<Block> BLOCK_LEAD = registerMaterialBlock(MaterialBlockType.LEAD);
+    public static final RegistryObject<Block> BLOCK_URANIUM = registerMaterialBlock(MaterialBlockType.URANIUM);
+    public static final RegistryObject<Block> BLOCK_TITANIUM = registerMaterialBlock(MaterialBlockType.TITANIUM);
+    public static final RegistryObject<Block> BLOCK_COPPER = registerMaterialBlock(MaterialBlockType.COPPER);
+    public static final RegistryObject<Block> BLOCK_TUNGSTEN = registerMaterialBlock(MaterialBlockType.TUNGSTEN);
+    public static final RegistryObject<Block> BLOCK_ALUMINIUM = registerMaterialBlock(MaterialBlockType.ALUMINIUM);
+    public static final RegistryObject<Block> BLOCK_RED_COPPER = registerMaterialBlock(MaterialBlockType.RED_COPPER);
+    public static final RegistryObject<Block> BLOCK_ADVANCED_ALLOY = registerMaterialBlock(MaterialBlockType.ADVANCED_ALLOY);
+    public static final RegistryObject<Block> BLOCK_THORIUM = registerMaterialBlock(MaterialBlockType.THORIUM);
+    public static final RegistryObject<Block> BLOCK_PLUTONIUM = registerMaterialBlock(MaterialBlockType.PLUTONIUM);
+    public static final RegistryObject<Block> BLOCK_NEPTUNIUM = registerMaterialBlock(MaterialBlockType.NEPTUNIUM);
+    public static final RegistryObject<Block> BLOCK_POLONIUM = registerMaterialBlock(MaterialBlockType.POLONIUM);
+    public static final RegistryObject<Block> BLOCK_TCALLOY = registerMaterialBlock(MaterialBlockType.TCALLOY);
+    public static final RegistryObject<Block> BLOCK_CDALLOY = registerMaterialBlock(MaterialBlockType.CDALLOY);
+    public static final RegistryObject<Block> BLOCK_AUSTRALIUM = registerMaterialBlock(MaterialBlockType.AUSTRALIUM);
+    public static final RegistryObject<Block> BLOCK_SCHRABIDIUM = registerMaterialBlock(MaterialBlockType.SCHRABIDIUM);
+    public static final RegistryObject<Block> BLOCK_SCHRARANIUM = registerMaterialBlock(MaterialBlockType.SCHRARANIUM);
+    public static final RegistryObject<Block> BLOCK_SCHRABIDATE = registerMaterialBlock(MaterialBlockType.SCHRABIDATE);
+    public static final RegistryObject<Block> BLOCK_SOLINIUM = registerMaterialBlock(MaterialBlockType.SOLINIUM);
+    public static final RegistryObject<Block> BLOCK_MAGNETIZED_TUNGSTEN = registerMaterialBlock(MaterialBlockType.MAGNETIZED_TUNGSTEN);
+    public static final RegistryObject<Block> BLOCK_COMBINE_STEEL = registerMaterialBlock(MaterialBlockType.COMBINE_STEEL);
+    public static final RegistryObject<Block> BLOCK_DESH = registerMaterialBlock(MaterialBlockType.DESH);
+    public static final RegistryObject<Block> BLOCK_DURA_STEEL = registerMaterialBlock(MaterialBlockType.DURA_STEEL);
+    public static final RegistryObject<Block> BLOCK_STARMETAL = registerMaterialBlock(MaterialBlockType.STARMETAL);
+    public static final RegistryObject<Block> BLOCK_EUPHEMIUM = registerMaterialBlock(MaterialBlockType.EUPHEMIUM);
+    public static final RegistryObject<Block> BLOCK_DINEUTRONIUM = registerMaterialBlock(MaterialBlockType.DINEUTRONIUM);
+    public static final RegistryObject<Block> BLOCK_YELLOWCAKE = registerMaterialBlock(MaterialBlockType.YELLOWCAKE);
+    public static final RegistryObject<Block> BLOCK_COBALT = registerMaterialBlock(MaterialBlockType.COBALT);
+    public static final RegistryObject<Block> BLOCK_LITHIUM = registerMaterialBlock(MaterialBlockType.LITHIUM);
+    public static final RegistryObject<Block> BLOCK_BISMUTH = registerMaterialBlock(MaterialBlockType.BISMUTH);
+    public static final RegistryObject<Block> BLOCK_ZIRCONIUM = registerMaterialBlock(MaterialBlockType.ZIRCONIUM);
+    public static final RegistryObject<Block> BLOCK_POLYMER = registerMaterialBlock(MaterialBlockType.POLYMER);
+    public static final RegistryObject<Block> BLOCK_BAKELITE = registerMaterialBlock(MaterialBlockType.BAKELITE);
+    public static final RegistryObject<Block> BLOCK_RUBBER = registerMaterialBlock(MaterialBlockType.RUBBER);
+    public static final RegistryObject<Block> BLOCK_ASBESTOS = registerMaterialBlock(MaterialBlockType.ASBESTOS);
+    public static final RegistryObject<Block> BLOCK_FIBERGLASS = registerMaterialBlock(MaterialBlockType.FIBERGLASS);
     public static final RegistryObject<Block> BASALT = registerBasaltBlock(BasaltBlockType.BASALT);
     public static final RegistryObject<Block> BASALT_SMOOTH = registerBasaltBlock(BasaltBlockType.BASALT_SMOOTH);
     public static final RegistryObject<Block> BASALT_POLISHED = registerBasaltBlock(BasaltBlockType.BASALT_POLISHED);
@@ -133,6 +174,36 @@ public final class HbmBlocks {
     public static final RegistryObject<Block> STONE_RESOURCE_BAUXITE = registerStoneResource(StoneResourceType.BAUXITE);
     public static final RegistryObject<Block> STONE_RESOURCE_HEMATITE = registerStoneResource(StoneResourceType.HEMATITE);
     public static final RegistryObject<Block> STONE_RESOURCE_MALACHITE = registerStoneResource(StoneResourceType.MALACHITE);
+    public static final RegistryObject<Block> ORE_URANIUM = registerOverworldOre(OverworldOreType.URANIUM);
+    public static final RegistryObject<Block> ORE_URANIUM_SCORCHED = registerOverworldOre(OverworldOreType.URANIUM_SCORCHED);
+    public static final RegistryObject<Block> ORE_TITANIUM = registerOverworldOre(OverworldOreType.TITANIUM);
+    public static final RegistryObject<Block> ORE_THORIUM = registerOverworldOre(OverworldOreType.THORIUM);
+    public static final RegistryObject<Block> ORE_NITER = registerOverworldOre(OverworldOreType.NITER);
+    public static final RegistryObject<Block> ORE_COPPER = registerOverworldOre(OverworldOreType.COPPER);
+    public static final RegistryObject<Block> ORE_TUNGSTEN = registerOverworldOre(OverworldOreType.TUNGSTEN);
+    public static final RegistryObject<Block> ORE_ALUMINIUM = registerOverworldOre(OverworldOreType.ALUMINIUM);
+    public static final RegistryObject<Block> ORE_FLUORITE = registerOverworldOre(OverworldOreType.FLUORITE);
+    public static final RegistryObject<Block> ORE_LEAD = registerOverworldOre(OverworldOreType.LEAD);
+    public static final RegistryObject<Block> ORE_SCHRABIDIUM = registerOverworldOre(OverworldOreType.SCHRABIDIUM);
+    public static final RegistryObject<Block> ORE_BERYLLIUM = registerOverworldOre(OverworldOreType.BERYLLIUM);
+    public static final RegistryObject<Block> ORE_AUSTRALIUM = registerOverworldOre(OverworldOreType.AUSTRALIUM);
+    public static final RegistryObject<Block> ORE_RARE = registerOverworldOre(OverworldOreType.RARE);
+    public static final RegistryObject<Block> ORE_COBALT = registerOverworldOre(OverworldOreType.COBALT);
+    public static final RegistryObject<Block> ORE_CINNEBAR = registerOverworldOre(OverworldOreType.CINNEBAR);
+    public static final RegistryObject<Block> ORE_COLTAN = registerOverworldOre(OverworldOreType.COLTAN);
+    public static final RegistryObject<Block> ORE_ALEXANDRITE = registerOverworldOre(OverworldOreType.ALEXANDRITE);
+    public static final RegistryObject<Block> ORE_LIGNITE = registerOverworldOre(OverworldOreType.LIGNITE);
+    public static final RegistryObject<Block> ORE_ASBESTOS = registerOverworldOre(OverworldOreType.ASBESTOS);
+    public static final RegistryObject<Block> ORE_NETHER_COAL = registerNetherOre(NetherOreType.COAL);
+    public static final RegistryObject<Block> ORE_NETHER_SMOLDERING = registerNetherOre(NetherOreType.SMOLDERING);
+    public static final RegistryObject<Block> ORE_NETHER_URANIUM = registerNetherOre(NetherOreType.URANIUM);
+    public static final RegistryObject<Block> ORE_NETHER_URANIUM_SCORCHED = registerNetherOre(NetherOreType.URANIUM_SCORCHED);
+    public static final RegistryObject<Block> ORE_NETHER_PLUTONIUM = registerNetherOre(NetherOreType.PLUTONIUM);
+    public static final RegistryObject<Block> ORE_NETHER_TUNGSTEN = registerNetherOre(NetherOreType.TUNGSTEN);
+    public static final RegistryObject<Block> ORE_NETHER_SULFUR = registerNetherOre(NetherOreType.SULFUR);
+    public static final RegistryObject<Block> ORE_NETHER_FIRE = registerNetherOre(NetherOreType.FIRE);
+    public static final RegistryObject<Block> ORE_NETHER_COBALT = registerNetherOre(NetherOreType.COBALT);
+    public static final RegistryObject<Block> ORE_NETHER_SCHRABIDIUM = registerNetherOre(NetherOreType.SCHRABIDIUM);
 
     private HbmBlocks() {
     }
@@ -174,6 +245,20 @@ public final class HbmBlocks {
         return registryObject;
     }
 
+    private static RegistryObject<Block> registerOverworldOre(final OverworldOreType type) {
+        final RegistryObject<Block> registryObject = BLOCKS.register(type.blockId(),
+            () -> new OverworldOreBlock(type, Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.STONE).strength(type.hardness(), type.resistance()).requiresCorrectToolForDrops())));
+        OVERWORLD_ORES.put(type.blockId(), registryObject);
+        return registryObject;
+    }
+
+    private static RegistryObject<Block> registerNetherOre(final NetherOreType type) {
+        final RegistryObject<Block> registryObject = BLOCKS.register(type.blockId(),
+            () -> new NetherOreBlock(type, Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.NETHERRACK).strength(type.hardness(), type.resistance()).requiresCorrectToolForDrops())));
+        NETHER_ORES.put(type.blockId(), registryObject);
+        return registryObject;
+    }
+
     public static RegistryObject<Block> getBasaltOre(final BasaltOreType type) {
         final RegistryObject<Block> registryObject = BASALT_ORES.get(type.blockId());
         if (registryObject == null) {
@@ -210,6 +295,22 @@ public final class HbmBlocks {
         final RegistryObject<Block> registryObject = STONE_RESOURCES.get(type.blockId());
         if (registryObject == null) {
             throw new IllegalArgumentException("Unknown stone resource block: " + type.blockId());
+        }
+        return registryObject;
+    }
+
+    public static RegistryObject<Block> getOverworldOre(final OverworldOreType type) {
+        final RegistryObject<Block> registryObject = OVERWORLD_ORES.get(type.blockId());
+        if (registryObject == null) {
+            throw new IllegalArgumentException("Unknown overworld ore block: " + type.blockId());
+        }
+        return registryObject;
+    }
+
+    public static RegistryObject<Block> getNetherOre(final NetherOreType type) {
+        final RegistryObject<Block> registryObject = NETHER_ORES.get(type.blockId());
+        if (registryObject == null) {
+            throw new IllegalArgumentException("Unknown nether ore block: " + type.blockId());
         }
         return registryObject;
     }

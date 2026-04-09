@@ -1,11 +1,33 @@
 package com.hbm.ntm.common.block.entity;
 
+import com.hbm.ntm.common.energy.EnergyConnectionMode;
+import com.hbm.ntm.common.energy.EnergyNetworkPriority;
+import com.hbm.ntm.common.energy.HbmEnergyStorage;
+import com.hbm.ntm.common.energy.IEnergyGenerator;
+import com.hbm.ntm.common.energy.IEnergyNetworkProvider;
+import com.hbm.ntm.common.energy.IEnergyNetworkReceiver;
+import com.hbm.ntm.common.energy.IEnergyUser;
+import com.hbm.ntm.common.energy.SidedEnergyStorage;
+import com.hbm.ntm.common.fluid.FluidNetworkPriority;
+import com.hbm.ntm.common.fluid.HbmFluidTank;
+import com.hbm.ntm.common.fluid.IFluidNetworkProvider;
+import com.hbm.ntm.common.fluid.IFluidNetworkReceiver;
+import com.hbm.ntm.common.fluid.MachineFluidHandler;
+import com.hbm.ntm.common.fluid.SidedFluidHandler;
+import com.hbm.ntm.common.item.MachineUpgradeItem;
+import com.hbm.ntm.common.machine.IConditionalInventoryAccess;
+import com.hbm.ntm.common.machine.IRepairableMachine;
+import com.hbm.ntm.common.machine.IUpgradeInfoProvider;
 import com.hbm.ntm.common.machine.IMachineControlReceiver;
+import com.hbm.ntm.common.machine.MachineUpgradeManager;
 import java.util.EnumMap;
+import java.util.List;
 import java.util.Map;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -19,17 +41,33 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.energy.IEnergyStorage;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("null")
-public abstract class MachineBlockEntity extends BlockEntity implements MenuProvider, IMachineControlReceiver {
+public abstract class MachineBlockEntity extends BlockEntity implements MenuProvider, IMachineControlReceiver, IEnergyUser, IEnergyGenerator,
+    IConditionalInventoryAccess, IRepairableMachine, IUpgradeInfoProvider, IEnergyNetworkProvider, IEnergyNetworkReceiver,
+    IFluidNetworkProvider, IFluidNetworkReceiver {
     private final ItemStackHandler items;
+    private final MachineUpgradeManager upgradeManager;
     private final Map<Direction, LazyOptional<IItemHandler>> sidedItemCapabilities = new EnumMap<>(Direction.class);
+    private final Map<Direction, LazyOptional<IEnergyStorage>> sidedEnergyCapabilities = new EnumMap<>(Direction.class);
+    private final Map<Direction, LazyOptional<IFluidHandler>> sidedFluidCapabilities = new EnumMap<>(Direction.class);
     private LazyOptional<IItemHandler> itemCapability = LazyOptional.empty();
+    private LazyOptional<IEnergyStorage> energyCapability = LazyOptional.empty();
+    private LazyOptional<IFluidHandler> fluidCapability = LazyOptional.empty();
     private boolean muffled;
+    private boolean loaded = true;
+    private boolean runtimeInitialized;
+    private @Nullable HbmEnergyStorage energyStorage;
+    private HbmFluidTank[] fluidTanks = new HbmFluidTank[0];
+    private @Nullable MachineFluidHandler fluidHandler;
+    private int maintenanceLevel = -1;
+    private boolean maintenanceBlocked;
 
     protected MachineBlockEntity(final BlockEntityType<?> type, final BlockPos pos, final BlockState state, final int slotCount) {
         super(type, pos, state);
@@ -39,20 +77,35 @@ public abstract class MachineBlockEntity extends BlockEntity implements MenuProv
                 MachineBlockEntity.this.onInventoryChanged(slot);
             }
         };
+        this.upgradeManager = new MachineUpgradeManager(this);
     }
 
     @Override
     public void onLoad() {
         super.onLoad();
+        this.loaded = true;
+        this.ensureRuntimeInitialized();
         this.createCapabilities();
+    }
+
+    @Override
+    public void onChunkUnloaded() {
+        super.onChunkUnloaded();
+        this.loaded = false;
     }
 
     @Override
     public void invalidateCaps() {
         super.invalidateCaps();
         this.itemCapability.invalidate();
+        this.energyCapability.invalidate();
+        this.fluidCapability.invalidate();
         this.sidedItemCapabilities.values().forEach(LazyOptional::invalidate);
+        this.sidedEnergyCapabilities.values().forEach(LazyOptional::invalidate);
+        this.sidedFluidCapabilities.values().forEach(LazyOptional::invalidate);
         this.sidedItemCapabilities.clear();
+        this.sidedEnergyCapabilities.clear();
+        this.sidedFluidCapabilities.clear();
     }
 
     @Override
@@ -63,19 +116,54 @@ public abstract class MachineBlockEntity extends BlockEntity implements MenuProv
 
     @Override
     protected void saveAdditional(final CompoundTag tag) {
+        this.ensureRuntimeInitialized();
         super.saveAdditional(tag);
         tag.put("items", this.items.serializeNBT());
         tag.putBoolean("muffled", this.muffled);
+        tag.putBoolean("maintenanceBlocked", this.maintenanceBlocked);
+        tag.putInt("maintenanceLevel", this.getMaintenanceLevel());
+        if (this.energyStorage != null) {
+            tag.put("energy", this.energyStorage.serializeNBT());
+        }
+        if (this.fluidTanks.length > 0) {
+            final ListTag tanksTag = new ListTag();
+            for (int tankIndex = 0; tankIndex < this.fluidTanks.length; tankIndex++) {
+                final CompoundTag tankTag = new CompoundTag();
+                tankTag.putInt("slot", tankIndex);
+                this.fluidTanks[tankIndex].writeToNBT(tankTag);
+                tanksTag.add(tankTag);
+            }
+            tag.put("fluidTanks", tanksTag);
+        }
         this.saveMachineData(tag);
     }
 
     @Override
     public void load(final CompoundTag tag) {
+        this.ensureRuntimeInitialized();
         super.load(tag);
         if (tag.contains("items", CompoundTag.TAG_COMPOUND)) {
             this.items.deserializeNBT(tag.getCompound("items"));
         }
         this.muffled = tag.getBoolean("muffled");
+        this.maintenanceBlocked = tag.getBoolean("maintenanceBlocked");
+        if (tag.contains("maintenanceLevel", Tag.TAG_INT)) {
+            this.maintenanceLevel = tag.getInt("maintenanceLevel");
+        }
+        final Tag energyTag = tag.get("energy");
+        if (this.energyStorage != null && energyTag != null) {
+            this.energyStorage.deserializeNBT(energyTag);
+        }
+        if (tag.contains("fluidTanks", Tag.TAG_LIST)) {
+            final ListTag tanksTag = tag.getList("fluidTanks", Tag.TAG_COMPOUND);
+            for (int i = 0; i < tanksTag.size(); i++) {
+                final CompoundTag tankTag = tanksTag.getCompound(i);
+                final int tankIndex = tankTag.getInt("slot");
+                if (tankIndex >= 0 && tankIndex < this.fluidTanks.length) {
+                    this.fluidTanks[tankIndex].readFromNBT(tankTag);
+                }
+            }
+        }
         this.loadMachineData(tag);
     }
 
@@ -103,8 +191,15 @@ public abstract class MachineBlockEntity extends BlockEntity implements MenuProv
 
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(final @NotNull Capability<T> capability, final @Nullable Direction side) {
+        this.ensureRuntimeInitialized();
         if (capability == ForgeCapabilities.ITEM_HANDLER) {
             return side == null ? this.itemCapability.cast() : this.sidedItemCapabilities.getOrDefault(side, LazyOptional.empty()).cast();
+        }
+        if (capability == ForgeCapabilities.ENERGY && this.energyStorage != null) {
+            return side == null ? this.energyCapability.cast() : this.sidedEnergyCapabilities.getOrDefault(side, LazyOptional.empty()).cast();
+        }
+        if (capability == ForgeCapabilities.FLUID_HANDLER && this.fluidHandler != null) {
+            return side == null ? this.fluidCapability.cast() : this.sidedFluidCapabilities.getOrDefault(side, LazyOptional.empty()).cast();
         }
         return super.getCapability(capability, side);
     }
@@ -117,8 +212,7 @@ public abstract class MachineBlockEntity extends BlockEntity implements MenuProv
     @Override
     public void receiveControl(final CompoundTag data) {
         this.applyControlData(data);
-        this.setChanged();
-        this.syncToClient();
+        this.markChangedAndSync();
     }
 
     public ItemStackHandler getInternalItemHandler() {
@@ -131,14 +225,26 @@ public abstract class MachineBlockEntity extends BlockEntity implements MenuProv
 
     public void setMuffled(final boolean muffled) {
         this.muffled = muffled;
-        this.setChanged();
-        this.syncToClient();
+        this.markChangedAndSync();
+    }
+
+    public boolean isLoaded() {
+        return this.loaded;
+    }
+
+    public float getVolume(final float baseVolume) {
+        return this.muffled ? baseVolume * 0.1F : baseVolume;
     }
 
     public void syncToClient() {
         if (this.level != null) {
             this.level.sendBlockUpdated(this.worldPosition, this.getBlockState(), this.getBlockState(), 3);
         }
+    }
+
+    public void markChangedAndSync() {
+        this.setChanged();
+        this.syncToClient();
     }
 
     public void dropContents() {
@@ -175,20 +281,415 @@ public abstract class MachineBlockEntity extends BlockEntity implements MenuProv
         return true;
     }
 
+    @Override
+    public boolean canInsertItem(final int slot, final net.minecraft.world.item.ItemStack stack, final @Nullable Direction side) {
+        return this.canInsertIntoSlot(slot, stack, side);
+    }
+
+    @Override
+    public boolean canExtractItem(final int slot, final net.minecraft.world.item.ItemStack stack, final @Nullable Direction side) {
+        return this.canExtractFromSlot(slot, side);
+    }
+
+    @Override
+    public int[] getAccessibleSlots(final @Nullable Direction side) {
+        final int[] slots = new int[this.items.getSlots()];
+        for (int i = 0; i < this.items.getSlots(); i++) {
+            slots[i] = i;
+        }
+        return slots;
+    }
+
     public boolean isItemValid(final int slot, final net.minecraft.world.item.ItemStack stack) {
         return true;
     }
 
+    @Override
+    public @Nullable IEnergyStorage getEnergyStorage(final @Nullable Direction side) {
+        this.ensureRuntimeInitialized();
+        if (this.energyStorage == null) {
+            return null;
+        }
+        if (side == null) {
+            return this.energyStorage;
+        }
+        return this.sidedEnergyCapabilities.getOrDefault(side, LazyOptional.empty()).orElse(this.energyStorage);
+    }
+
+    @Override
+    public EnergyConnectionMode getEnergyConnection(final @Nullable Direction side) {
+        this.ensureRuntimeInitialized();
+        return this.energyStorage == null ? EnergyConnectionMode.NONE : this.getEnergyConnectionMode(side);
+    }
+
+    protected EnergyConnectionMode getEnergyConnectionMode(final @Nullable Direction side) {
+        return EnergyConnectionMode.BOTH;
+    }
+
+    public int getStoredEnergy() {
+        this.ensureRuntimeInitialized();
+        return this.energyStorage == null ? 0 : this.energyStorage.getEnergyStored();
+    }
+
+    public int getMaxStoredEnergy() {
+        this.ensureRuntimeInitialized();
+        return this.energyStorage == null ? 0 : this.energyStorage.getMaxEnergyStored();
+    }
+
+    public boolean hasEnergyStorage() {
+        this.ensureRuntimeInitialized();
+        return this.energyStorage != null;
+    }
+
+    @Override
+    public long getAvailableNetworkEnergy(final @Nullable Direction side) {
+        final IEnergyStorage storage = this.getEnergyStorage(side);
+        if (storage == null || !this.canExtractEnergy(side)) {
+            return 0;
+        }
+        return Math.min(storage.getEnergyStored(), storage.extractEnergy(Integer.MAX_VALUE, true));
+    }
+
+    @Override
+    public void consumeNetworkEnergy(final @Nullable Direction side, final long amount) {
+        final IEnergyStorage storage = this.getEnergyStorage(side);
+        if (storage == null || amount <= 0 || !this.canExtractEnergy(side)) {
+            return;
+        }
+        storage.extractEnergy((int) Math.min(Integer.MAX_VALUE, amount), false);
+    }
+
+    @Override
+    public long getNetworkProviderSpeed(final @Nullable Direction side) {
+        final IEnergyStorage storage = this.getEnergyStorage(side);
+        return storage == null ? 0 : storage.extractEnergy(Integer.MAX_VALUE, true);
+    }
+
+    @Override
+    public long getNetworkEnergyDemand(final @Nullable Direction side) {
+        final IEnergyStorage storage = this.getEnergyStorage(side);
+        if (storage == null || !this.canReceiveEnergy(side)) {
+            return 0;
+        }
+        return storage.receiveEnergy(Integer.MAX_VALUE, true);
+    }
+
+    @Override
+    public long receiveNetworkEnergy(final @Nullable Direction side, final long amount) {
+        final IEnergyStorage storage = this.getEnergyStorage(side);
+        if (storage == null || amount <= 0 || !this.canReceiveEnergy(side)) {
+            return amount;
+        }
+        final int received = storage.receiveEnergy((int) Math.min(Integer.MAX_VALUE, amount), false);
+        return amount - received;
+    }
+
+    @Override
+    public long getNetworkReceiverSpeed(final @Nullable Direction side) {
+        final IEnergyStorage storage = this.getEnergyStorage(side);
+        return storage == null ? 0 : storage.receiveEnergy(Integer.MAX_VALUE, true);
+    }
+
+    @Override
+    public EnergyNetworkPriority getNetworkPriority() {
+        return EnergyNetworkPriority.NORMAL;
+    }
+
+    public int getTankCount() {
+        this.ensureRuntimeInitialized();
+        return this.fluidTanks.length;
+    }
+
+    public @Nullable HbmFluidTank getFluidTank(final int tankIndex) {
+        this.ensureRuntimeInitialized();
+        return tankIndex >= 0 && tankIndex < this.fluidTanks.length ? this.fluidTanks[tankIndex] : null;
+    }
+
+    public boolean hasFluidTanks() {
+        this.ensureRuntimeInitialized();
+        return this.fluidTanks.length > 0;
+    }
+
+    @Override
+    public long getAvailableNetworkFluid(final net.minecraftforge.fluids.FluidStack fluid, final int pressure, final @Nullable Direction side) {
+        if (!this.canDrainFromFluidNetwork(side, fluid)) {
+            return 0;
+        }
+        final HbmFluidTank tank = this.getPrimaryFluidTankFor(fluid);
+        return tank == null ? 0 : tank.getFluidAmount();
+    }
+
+    @Override
+    public void consumeNetworkFluid(final net.minecraftforge.fluids.FluidStack fluid, final int pressure, final long amount, final @Nullable Direction side) {
+        if (amount <= 0 || !this.canDrainFromFluidNetwork(side, fluid)) {
+            return;
+        }
+        final HbmFluidTank tank = this.getPrimaryFluidTankFor(fluid);
+        if (tank != null) {
+            tank.drain((int) Math.min(Integer.MAX_VALUE, amount), IFluidHandler.FluidAction.EXECUTE);
+        }
+    }
+
+    @Override
+    public long getNetworkFluidDemand(final net.minecraftforge.fluids.FluidStack fluid, final int pressure, final @Nullable Direction side) {
+        if (!this.canFillFromFluidNetwork(side, fluid)) {
+            return 0;
+        }
+        final HbmFluidTank tank = this.getPrimaryFluidTankFor(fluid);
+        if (tank == null) {
+            return 0;
+        }
+        return tank.fill(fluid.copy(), IFluidHandler.FluidAction.SIMULATE);
+    }
+
+    @Override
+    public long receiveNetworkFluid(final net.minecraftforge.fluids.FluidStack fluid, final int pressure, final long amount, final @Nullable Direction side) {
+        if (amount <= 0 || !this.canFillFromFluidNetwork(side, fluid)) {
+            return amount;
+        }
+        final HbmFluidTank tank = this.getPrimaryFluidTankFor(fluid);
+        if (tank == null) {
+            return amount;
+        }
+        final int filled = tank.fill(new net.minecraftforge.fluids.FluidStack(fluid, (int) Math.min(Integer.MAX_VALUE, amount)), IFluidHandler.FluidAction.EXECUTE);
+        return amount - filled;
+    }
+
+    @Override
+    public long getFluidProviderSpeed(final net.minecraftforge.fluids.FluidStack fluid, final int pressure, final @Nullable Direction side) {
+        return this.getAvailableNetworkFluid(fluid, pressure, side);
+    }
+
+    @Override
+    public long getFluidReceiverSpeed(final net.minecraftforge.fluids.FluidStack fluid, final int pressure, final @Nullable Direction side) {
+        return this.getNetworkFluidDemand(fluid, pressure, side);
+    }
+
+    @Override
+    public FluidNetworkPriority getFluidNetworkPriority() {
+        return FluidNetworkPriority.NORMAL;
+    }
+
+    protected boolean canFillFromSide(final Direction side) {
+        return true;
+    }
+
+    protected boolean canDrainFromSide(final Direction side) {
+        return true;
+    }
+
+    protected boolean canFillFromFluidNetwork(final @Nullable Direction side, final net.minecraftforge.fluids.FluidStack fluid) {
+        return side == null || this.canFillFromSide(side);
+    }
+
+    protected boolean canDrainFromFluidNetwork(final @Nullable Direction side, final net.minecraftforge.fluids.FluidStack fluid) {
+        return side == null || this.canDrainFromSide(side);
+    }
+
+    protected boolean isUpgradeSlot(final int slot) {
+        return false;
+    }
+
+    public boolean isUpgradeInventorySlot(final int slot) {
+        return this.isUpgradeSlot(slot);
+    }
+
+    public int countUpgrades(final MachineUpgradeItem.UpgradeType type) {
+        return this.upgradeManager.getLevel(type);
+    }
+
+    public int highestUpgradeTier(final MachineUpgradeItem.UpgradeType type) {
+        int tier = 0;
+        for (int slot = 0; slot < this.items.getSlots(); slot++) {
+            if (!this.isUpgradeSlot(slot)) {
+                continue;
+            }
+            final net.minecraft.world.item.ItemStack stack = this.items.getStackInSlot(slot);
+            if (!stack.isEmpty() && stack.getItem() instanceof final MachineUpgradeItem upgrade && upgrade.type() == type) {
+                tier = Math.max(tier, upgrade.tier());
+            }
+        }
+        return tier;
+    }
+
+    public boolean hasUpgrade(final MachineUpgradeItem.UpgradeType type) {
+        return this.upgradeManager.hasUpgrade(type) || this.highestUpgradeTier(type) > 0;
+    }
+
+    public Map<MachineUpgradeItem.UpgradeType, Integer> getUpgradeLevels() {
+        return this.upgradeManager.getLevels();
+    }
+
+    protected boolean usesMaintenanceSystem() {
+        return false;
+    }
+
+    protected int getMaxMaintenanceLevel() {
+        return 100;
+    }
+
+    public int getMaintenanceLevel() {
+        this.ensureRuntimeInitialized();
+        return this.maintenanceLevel;
+    }
+
+    public boolean isMaintenanceBlocked() {
+        return this.usesMaintenanceSystem() && this.maintenanceBlocked;
+    }
+
+    @Override
+    public boolean isDamaged() {
+        return this.isMaintenanceBlocked();
+    }
+
+    @Override
+    public List<net.minecraft.world.item.ItemStack> getRepairMaterials() {
+        return List.of();
+    }
+
+    @Override
+    public void repairMachine() {
+        if (this.usesMaintenanceSystem()) {
+            this.maintenanceLevel = this.getMaxMaintenanceLevel();
+            this.maintenanceBlocked = false;
+            this.markChangedAndSync();
+        }
+    }
+
+    public boolean damageMachine(final int amount) {
+        if (!this.usesMaintenanceSystem() || amount <= 0) {
+            return false;
+        }
+        final int oldValue = this.maintenanceLevel;
+        this.maintenanceLevel = Math.max(0, this.maintenanceLevel - amount);
+        this.maintenanceBlocked = this.maintenanceLevel <= 0;
+        if (this.maintenanceLevel != oldValue) {
+            this.markChangedAndSync();
+            return true;
+        }
+        return false;
+    }
+
+    public boolean repairMachine(final int amount) {
+        if (!this.usesMaintenanceSystem() || amount <= 0) {
+            return false;
+        }
+        final int oldValue = this.maintenanceLevel;
+        this.maintenanceLevel = Math.min(this.getMaxMaintenanceLevel(), this.maintenanceLevel + amount);
+        this.maintenanceBlocked = this.maintenanceLevel <= 0;
+        if (this.maintenanceLevel != oldValue) {
+            this.markChangedAndSync();
+            return true;
+        }
+        return false;
+    }
+
     protected void onInventoryChanged(final int slot) {
+        this.upgradeManager.invalidate();
         this.setChanged();
     }
 
     protected void createCapabilities() {
+        this.ensureRuntimeInitialized();
         this.itemCapability = LazyOptional.of(() -> this.items);
         this.sidedItemCapabilities.clear();
         for (final Direction direction : Direction.values()) {
             this.sidedItemCapabilities.put(direction, LazyOptional.of(() -> new MachineSidedItemHandler(this, direction)));
         }
+        if (this.energyStorage != null) {
+            this.energyCapability = LazyOptional.of(() -> this.energyStorage);
+            this.sidedEnergyCapabilities.clear();
+            for (final Direction direction : Direction.values()) {
+                this.sidedEnergyCapabilities.put(direction, LazyOptional.of(() -> new SidedEnergyStorage(this.energyStorage, () -> this.getEnergyConnectionMode(direction))));
+            }
+        }
+        if (this.fluidHandler != null) {
+            this.fluidCapability = LazyOptional.of(() -> this.fluidHandler);
+            this.sidedFluidCapabilities.clear();
+            for (final Direction direction : Direction.values()) {
+                final boolean canFill = this.canFillFromSide(direction);
+                final boolean canDrain = this.canDrainFromSide(direction);
+                this.sidedFluidCapabilities.put(direction, LazyOptional.of(() -> new SidedFluidHandler(this.fluidHandler, canFill, canDrain)));
+            }
+        }
+    }
+
+    protected @Nullable HbmEnergyStorage createEnergyStorage() {
+        return null;
+    }
+
+    protected HbmFluidTank[] createFluidTanks() {
+        return new HbmFluidTank[0];
+    }
+
+    protected final HbmEnergyStorage createSimpleEnergyStorage(final int capacity, final int maxReceive, final int maxExtract) {
+        return this.createSimpleEnergyStorage(capacity, maxReceive, maxExtract, 0);
+    }
+
+    protected final HbmEnergyStorage createSimpleEnergyStorage(final int capacity, final int maxReceive, final int maxExtract, final int energy) {
+        return new HbmEnergyStorage(capacity, maxReceive, maxExtract, energy) {
+            @Override
+            protected void onEnergyChanged() {
+                MachineBlockEntity.this.onEnergyContentsChanged();
+            }
+        };
+    }
+
+    protected final HbmFluidTank createFluidTank(final int capacity) {
+        return this.createFluidTank(capacity, fluidStack -> true);
+    }
+
+    protected final HbmFluidTank createFluidTank(final int capacity, final java.util.function.Predicate<net.minecraftforge.fluids.FluidStack> validator) {
+        return new HbmFluidTank(capacity, validator, this::onFluidContentsChanged);
+    }
+
+    protected void onEnergyContentsChanged() {
+        this.markChangedAndSync();
+        if (this.level != null) {
+            this.level.updateNeighbourForOutputSignal(this.worldPosition, this.getBlockState().getBlock());
+        }
+    }
+
+    protected void onFluidContentsChanged() {
+        this.markChangedAndSync();
+        if (this.level != null) {
+            this.level.updateNeighbourForOutputSignal(this.worldPosition, this.getBlockState().getBlock());
+        }
+    }
+
+    private @Nullable HbmFluidTank getPrimaryFluidTankFor(final net.minecraftforge.fluids.FluidStack fluid) {
+        this.ensureRuntimeInitialized();
+        for (final HbmFluidTank tank : this.fluidTanks) {
+            if (tank == null) {
+                continue;
+            }
+            if (tank.isEmpty()) {
+                if (fluid.isEmpty() || tank.isFluidValid(fluid)) {
+                    return tank;
+                }
+                continue;
+            }
+            if (fluid.isEmpty() || tank.getFluid().isFluidEqual(fluid)) {
+                return tank;
+            }
+        }
+        return this.fluidTanks.length > 0 ? this.fluidTanks[0] : null;
+    }
+
+    private void ensureRuntimeInitialized() {
+        if (this.runtimeInitialized) {
+            return;
+        }
+        this.energyStorage = this.createEnergyStorage();
+        this.fluidTanks = this.createFluidTanks();
+        if (this.fluidTanks == null) {
+            this.fluidTanks = new HbmFluidTank[0];
+        }
+        this.fluidHandler = this.fluidTanks.length > 0 ? new MachineFluidHandler(this.fluidTanks) : null;
+        if (this.maintenanceLevel < 0) {
+            this.maintenanceLevel = this.getMaxMaintenanceLevel();
+        }
+        this.runtimeInitialized = true;
     }
 
     protected void saveMachineData(final CompoundTag tag) {
@@ -198,5 +699,20 @@ public abstract class MachineBlockEntity extends BlockEntity implements MenuProv
     }
 
     protected void applyControlData(final CompoundTag data) {
+    }
+
+    @Override
+    public boolean canProvideInfo(final MachineUpgradeItem.UpgradeType type, final int level, final boolean extendedInfo) {
+        return false;
+    }
+
+    @Override
+    public void provideInfo(final MachineUpgradeItem.UpgradeType type, final int level, final List<net.minecraft.network.chat.Component> info,
+                            final boolean extendedInfo) {
+    }
+
+    @Override
+    public Map<MachineUpgradeItem.UpgradeType, Integer> getValidUpgrades() {
+        return Map.of();
     }
 }

@@ -1,18 +1,24 @@
 package com.hbm.ntm.client;
 
 import com.hbm.ntm.HbmNtmMod;
+import com.hbm.ntm.client.renderer.blockentity.BarrelBlockEntityRenderer;
 import com.hbm.ntm.client.screen.BarrelScreen;
 import com.hbm.ntm.client.screen.FluidIdentifierScreen;
 import com.hbm.ntm.client.screen.NtmAnvilScreen;
 import com.hbm.ntm.client.screen.PressScreen;
+import com.hbm.ntm.client.screen.ShredderScreen;
 import com.hbm.ntm.common.block.SellafieldBlock;
 import com.hbm.ntm.common.fluid.HbmFluidType;
+import com.hbm.ntm.common.item.CanisterItem;
 import com.hbm.ntm.common.item.FluidIdentifierItem;
+import com.hbm.ntm.common.item.FluidTankItem;
+import com.hbm.ntm.common.item.GasTankItem;
 import com.hbm.ntm.common.block.SellafieldOreType;
 import com.hbm.ntm.common.item.MaterialPartItem;
 import com.hbm.ntm.common.item.SellafieldBlockItem;
 import com.hbm.ntm.common.material.LegacyMaterialColors;
 import com.hbm.ntm.common.registration.HbmBlocks;
+import com.hbm.ntm.common.registration.HbmBlockEntityTypes;
 import com.hbm.ntm.common.registration.HbmFluids;
 import com.hbm.ntm.common.registration.HbmItems;
 import com.hbm.ntm.common.registration.HbmMenuTypes;
@@ -20,6 +26,7 @@ import java.util.Objects;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
@@ -37,10 +44,12 @@ public final class HbmClientSetup {
     public static void onClientSetup(final FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
             final RenderType translucent = Objects.requireNonNull(RenderType.translucent());
+            BlockEntityRenderers.register(HbmBlockEntityTypes.BARREL.get(), BarrelBlockEntityRenderer::new);
             MenuScreens.register(HbmMenuTypes.BARREL.get(), BarrelScreen::new);
             MenuScreens.register(HbmMenuTypes.MACHINE_PRESS.get(), PressScreen::new);
             MenuScreens.register(HbmMenuTypes.NTM_ANVIL.get(), NtmAnvilScreen::new);
             MenuScreens.register(HbmMenuTypes.FLUID_IDENTIFIER.get(), FluidIdentifierScreen::new);
+            MenuScreens.register(HbmMenuTypes.MACHINE_SHREDDER.get(), ShredderScreen::new);
             ItemBlockRenderTypes.setRenderLayer(Objects.requireNonNull(HbmFluids.COOLANT.getStillFluid()), translucent);
             ItemBlockRenderTypes.setRenderLayer(Objects.requireNonNull(HbmFluids.COOLANT.getFlowingFluid()), translucent);
             ItemBlockRenderTypes.setRenderLayer(Objects.requireNonNull(HbmFluids.COOLANT_HOT.getStillFluid()), translucent);
@@ -387,5 +396,16 @@ public final class HbmClientSetup {
             final var fluidType = fluid.getFluidType();
             return fluidType instanceof HbmFluidType hbmFluidType ? hbmFluidType.getTintColor() : 0xFFFFFFFF;
         }, HbmItems.FLUID_IDENTIFIER_MULTI.get());
+        event.register((stack, tintIndex) -> tintIndex == 1 ? CanisterItem.getColor(stack) : 0xFFFFFF,
+            HbmItems.CANISTER_FULL.get());
+        event.register((stack, tintIndex) -> switch (tintIndex) {
+            case 1 -> GasTankItem.getBottleColor(stack);
+            case 2 -> GasTankItem.getLabelColor(stack);
+            default -> 0xFFFFFF;
+        }, HbmItems.GAS_FULL.get());
+        event.register((stack, tintIndex) -> tintIndex == 1 ? FluidTankItem.getColor(stack) : 0xFFFFFF,
+            HbmItems.FLUID_TANK_FULL.get(), HbmItems.FLUID_TANK_LEAD_FULL.get());
+        event.register((stack, tintIndex) -> tintIndex == 1 ? FluidTankItem.getColor(stack) : 0xFFFFFF,
+            HbmItems.FLUID_BARREL_FULL.get(), HbmItems.FLUID_PACK_FULL.get());
     }
 }

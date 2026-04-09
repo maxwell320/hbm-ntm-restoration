@@ -6,14 +6,15 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
-import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("null")
 public class SimpleMultiblockStructure implements MultiblockStructure {
     private final int[] dimensions;
     private final Block block;
 
-    public SimpleMultiblockStructure(int[] dimensions, Block block) {
+    public SimpleMultiblockStructure(final int[] dimensions, final Block block) {
+        LegacyMultiblockGeometry.validate(dimensions);
         this.dimensions = dimensions.clone();
         this.block = block;
     }
@@ -24,68 +25,55 @@ public class SimpleMultiblockStructure implements MultiblockStructure {
     }
 
     @Override
-    public boolean canForm(Level level, BlockPos corePos, Direction direction) {
-        int[] rotated = rotateDimensions(direction);
-        BlockPos minPos = corePos.offset(-rotated[4], -rotated[1], -rotated[2]);
-        BlockPos maxPos = corePos.offset(rotated[5], rotated[0], rotated[3]);
-
-        for (BlockPos pos : BlockPos.betweenClosed(minPos, maxPos)) {
-            if (!pos.equals(corePos)) {
-                BlockState state = level.getBlockState(pos);
-                if (!state.isAir() && !state.canBeReplaced()) {
-                    return false;
-                }
+    public boolean isFormed(final Level level, final BlockPos corePos, final Direction direction) {
+        for (final BlockPos pos : this.getPositions(corePos, direction)) {
+            if (!this.isExpectedState(level, corePos, pos, direction)) {
+                return false;
             }
         }
         return true;
     }
 
     @Override
-    public void form(Level level, BlockPos corePos, Direction direction) {
-        int[] rotated = rotateDimensions(direction);
-        BlockPos minPos = corePos.offset(-rotated[4], -rotated[1], -rotated[2]);
-        BlockPos maxPos = corePos.offset(rotated[5], rotated[0], rotated[3]);
-
-        for (BlockPos pos : BlockPos.betweenClosed(minPos, maxPos)) {
-            if (!pos.equals(corePos)) {
-                level.setBlockAndUpdate(pos, this.block.defaultBlockState());
+    public void form(final Level level, final BlockPos corePos, final Direction direction) {
+        for (final BlockPos pos : this.getPositions(corePos, direction)) {
+            if (this.shouldSkipPlacement(corePos, pos, direction)) {
+                continue;
             }
+            level.setBlockAndUpdate(pos, this.stateForPosition(corePos, pos, direction));
+            this.afterPlace(level, corePos, pos, direction);
         }
     }
 
     @Override
-    public void breakStructure(Level level, BlockPos corePos, Direction direction) {
-        int[] rotated = rotateDimensions(direction);
-        BlockPos minPos = corePos.offset(-rotated[4], -rotated[1], -rotated[2]);
-        BlockPos maxPos = corePos.offset(rotated[5], rotated[0], rotated[3]);
-
-        for (BlockPos pos : BlockPos.betweenClosed(minPos, maxPos)) {
-            if (level.getBlockEntity(pos) instanceof MultiblockProxyBE) {
+    public void breakStructure(final Level level, final BlockPos corePos, final Direction direction) {
+        for (final BlockPos pos : this.getPositions(corePos, direction)) {
+            if (this.shouldSkipPlacement(corePos, pos, direction)) {
+                continue;
+            }
+            if (this.isExpectedState(level, corePos, pos, direction)) {
                 level.removeBlock(pos, false);
             }
         }
     }
 
     @Override
-    public List<BlockPos> getPositions(BlockPos corePos, Direction direction) {
-        int[] rotated = rotateDimensions(direction);
-        BlockPos minPos = corePos.offset(-rotated[4], -rotated[1], -rotated[2]);
-        BlockPos maxPos = corePos.offset(rotated[5], rotated[0], rotated[3]);
-        List<BlockPos> positions = new ArrayList<>();
-
-        for (BlockPos pos : BlockPos.betweenClosed(minPos, maxPos)) {
-            positions.add(pos.immutable());
-        }
-        return positions;
+    public List<BlockPos> getPositions(final BlockPos corePos, final Direction direction) {
+        return LegacyMultiblockGeometry.positions(corePos, this.dimensions, direction);
     }
 
-    private int[] rotateDimensions(Direction direction) {
-        return switch (direction) {
-            case NORTH -> this.dimensions;
-            case SOUTH -> new int[]{this.dimensions[0], this.dimensions[1], this.dimensions[2], this.dimensions[3], this.dimensions[5], this.dimensions[4]};
-            case EAST -> new int[]{this.dimensions[0], this.dimensions[1], this.dimensions[2], this.dimensions[3], this.dimensions[2], this.dimensions[3]};
-            case WEST -> new int[]{this.dimensions[0], this.dimensions[1], this.dimensions[2], this.dimensions[3], this.dimensions[3], this.dimensions[2]};
-            default -> this.dimensions;
-        };
+    protected BlockState stateForPosition(final BlockPos corePos, final BlockPos pos, final Direction direction) {
+        return this.block.defaultBlockState();
+    }
+
+    protected boolean isExpectedState(final Level level, final BlockPos corePos, final BlockPos pos, final Direction direction) {
+        return level.getBlockState(pos).is(this.block);
+    }
+
+    protected boolean shouldSkipPlacement(final BlockPos corePos, final BlockPos pos, final Direction direction) {
+        return pos.equals(corePos);
+    }
+
+    protected void afterPlace(final Level level, final BlockPos corePos, final BlockPos pos, final Direction direction) {
     }
 }

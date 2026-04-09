@@ -7,7 +7,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("null")
 public abstract class MultiblockCoreBE extends MachineBlockEntity {
@@ -59,7 +58,7 @@ public abstract class MultiblockCoreBE extends MachineBlockEntity {
 
     public void validateStructure() {
         if (this.level != null && !this.level.isClientSide()) {
-            if (!this.getStructure().canForm(this.level, this.corePos, this.direction)) {
+            if (!this.getStructure().isFormed(this.level, this.corePos, this.direction)) {
                 this.getStructure().breakStructure(this.level, this.corePos, this.direction);
             }
         }

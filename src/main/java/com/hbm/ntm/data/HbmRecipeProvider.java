@@ -54,6 +54,7 @@ public class HbmRecipeProvider extends RecipeProvider {
         buildStampRecipes(recipeOutput);
         buildFalloutRecipes(recipeOutput);
         buildReadoutToolRecipes(recipeOutput);
+        buildBladeRecipes(recipeOutput);
     }
 
     private void buildNuggetPacking(final Consumer<FinishedRecipe> recipeOutput, final HbmMaterialDefinition material) {
@@ -190,8 +191,15 @@ public class HbmRecipeProvider extends RecipeProvider {
         final ItemLike antimatterBarrel = Objects.requireNonNull(HbmBlocks.BARREL_ANTIMATTER.get());
         final ItemLike fluidDuctNeo = Objects.requireNonNull(HbmBlocks.FLUID_DUCT_NEO.get());
         final ItemLike fluidIdentifierMulti = Objects.requireNonNull(HbmItems.FLUID_IDENTIFIER_MULTI.get());
+        final ItemLike canisterEmpty = Objects.requireNonNull(HbmItems.CANISTER_EMPTY.get());
+        final ItemLike gasEmpty = Objects.requireNonNull(HbmItems.GAS_EMPTY.get());
+        final ItemLike fluidTankEmpty = Objects.requireNonNull(HbmItems.FLUID_TANK_EMPTY.get());
+        final ItemLike fluidTankLeadEmpty = Objects.requireNonNull(HbmItems.FLUID_TANK_LEAD_EMPTY.get());
+        final ItemLike fluidBarrelEmpty = Objects.requireNonNull(HbmItems.FLUID_BARREL_EMPTY.get());
         final ItemLike polymerPlate = Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.POLYMER, HbmMaterialShape.PLATE).get());
         final ItemLike aluminiumPlate = Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.ALUMINIUM, HbmMaterialShape.PLATE).get());
+        final ItemLike copperPlate = Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.COPPER, HbmMaterialShape.PLATE).get());
+        final ItemLike leadPlate = Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.LEAD, HbmMaterialShape.PLATE).get());
         final ItemLike steelPlate = Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.STEEL, HbmMaterialShape.PLATE).get());
         final ItemLike steelIngot = Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.STEEL, HbmMaterialShape.INGOT).get());
         final ItemLike titaniumPlate = Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.TITANIUM, HbmMaterialShape.PLATE).get());
@@ -200,6 +208,7 @@ public class HbmRecipeProvider extends RecipeProvider {
         final ItemLike advancedCoil = Objects.requireNonNull(HbmItems.COIL_ADVANCED_TORUS.get());
         final ItemLike vacuumTube = Objects.requireNonNull(HbmItems.getCircuit(CircuitItemType.VACUUM_TUBE).get());
         final ItemLike ironPlate = Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.IRON, HbmMaterialShape.PLATE).get());
+        final ItemLike u238Billet = Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.U238, HbmMaterialShape.BILLET).get());
 
         ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, plasticBarrel)
             .pattern("IPI")
@@ -209,6 +218,54 @@ public class HbmRecipeProvider extends RecipeProvider {
             .define('P', aluminiumPlate)
             .unlockedBy(getHasName(polymerPlate), has(polymerPlate))
             .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "barrel_plastic")));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, canisterEmpty, 2)
+            .pattern("S ")
+            .pattern("AA")
+            .pattern("AA")
+            .define('S', steelPlate)
+            .define('A', aluminiumPlate)
+            .unlockedBy(getHasName(steelPlate), has(steelPlate))
+            .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "canister_empty")));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, gasEmpty, 2)
+            .pattern("S ")
+            .pattern("AA")
+            .pattern("AA")
+            .define('S', copperPlate)
+            .define('A', steelPlate)
+            .unlockedBy(getHasName(steelPlate), has(steelPlate))
+            .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "gas_empty")));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, fluidTankEmpty, 8)
+            .pattern("APA")
+            .pattern("AGA")
+            .pattern("APA")
+            .define('A', aluminiumPlate)
+            .define('P', ironPlate)
+            .define('G', Tags.Items.GLASS_PANES)
+            .unlockedBy(getHasName(aluminiumPlate), has(aluminiumPlate))
+            .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "fluid_tank_empty")));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, fluidTankLeadEmpty, 4)
+            .pattern("LUL")
+            .pattern("LTL")
+            .pattern("LUL")
+            .define('L', leadPlate)
+            .define('U', u238Billet)
+            .define('T', fluidTankEmpty)
+            .unlockedBy(getHasName(fluidTankEmpty), has(fluidTankEmpty))
+            .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "fluid_tank_lead_empty")));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, fluidBarrelEmpty, 2)
+            .pattern("SAS")
+            .pattern("SGS")
+            .pattern("SAS")
+            .define('S', steelPlate)
+            .define('A', aluminiumPlate)
+            .define('G', Tags.Items.GLASS_PANES)
+            .unlockedBy(getHasName(steelPlate), has(steelPlate))
+            .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "fluid_barrel_empty")));
 
         ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, fluidDuctNeo, 8)
             .pattern("SAS")
@@ -1239,6 +1296,43 @@ public class HbmRecipeProvider extends RecipeProvider {
             .requires(geigerBlock)
             .unlockedBy(getHasName(geigerBlock), has(geigerBlock))
             .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "geiger_counter_from_geiger")));
+    }
+
+    private void buildBladeRecipes(final Consumer<FinishedRecipe> recipeOutput) {
+        final ItemLike steelPlate = HbmItems.getMaterialPart(HbmMaterials.STEEL, HbmMaterialShape.PLATE).get();
+        final ItemLike steelIngot = HbmItems.getMaterialPart(HbmMaterials.STEEL, HbmMaterialShape.INGOT).get();
+        final ItemLike titaniumPlate = HbmItems.getMaterialPart(HbmMaterials.TITANIUM, HbmMaterialShape.PLATE).get();
+        final ItemLike titaniumIngot = HbmItems.getMaterialPart(HbmMaterials.TITANIUM, HbmMaterialShape.INGOT).get();
+        final ItemLike alloyPlate = HbmItems.getMaterialPart(HbmMaterials.ADVANCED_ALLOY, HbmMaterialShape.PLATE).get();
+        final ItemLike alloyIngot = HbmItems.getMaterialPart(HbmMaterials.ADVANCED_ALLOY, HbmMaterialShape.INGOT).get();
+
+        // blades_steel: " P " / "PIP" / " P "
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, HbmItems.BLADES_STEEL.get())
+            .pattern(" P ").pattern("PIP").pattern(" P ")
+            .define('P', steelPlate).define('I', steelIngot)
+            .unlockedBy(getHasName(steelPlate), has(steelPlate))
+            .save(recipeOutput, rl("blades_steel"));
+
+        // blades_titanium
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, HbmItems.BLADES_TITANIUM.get())
+            .pattern(" P ").pattern("PIP").pattern(" P ")
+            .define('P', titaniumPlate).define('I', titaniumIngot)
+            .unlockedBy(getHasName(titaniumPlate), has(titaniumPlate))
+            .save(recipeOutput, rl("blades_titanium"));
+
+        // blades_advanced_alloy
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, HbmItems.BLADES_ADVANCED_ALLOY.get())
+            .pattern(" P ").pattern("PIP").pattern(" P ")
+            .define('P', alloyPlate).define('I', alloyIngot)
+            .unlockedBy(getHasName(alloyPlate), has(alloyPlate))
+            .save(recipeOutput, rl("blades_advanced_alloy"));
+
+        // blades_desh: " P " / "PBP" / " P " — BLOCKED: plate_desh not yet in material system
+        // legacy uses ModItems.plate_desh which is a special non-autogen plate
+    }
+
+    private static ResourceLocation rl(final String path) {
+        return Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, path));
     }
 
     private void buildTwoByTwoBlockRecipe(final Consumer<FinishedRecipe> recipeOutput, final ItemLike output, final ItemLike ingredient, final String recipeName) {

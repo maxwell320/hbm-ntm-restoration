@@ -4,6 +4,8 @@ import com.hbm.ntm.HbmNtmMod;
 import com.hbm.ntm.common.block.BasaltBlockType;
 import com.hbm.ntm.common.block.BasaltOreType;
 import com.hbm.ntm.common.block.MaterialBlockType;
+import com.hbm.ntm.common.block.NetherOreType;
+import com.hbm.ntm.common.block.OverworldOreType;
 import com.hbm.ntm.common.block.SellafieldOreType;
 import com.hbm.ntm.common.block.StoneResourceType;
 import com.hbm.ntm.common.item.BriquetteItemType;
@@ -233,6 +235,18 @@ public class HbmLanguageProvider extends LanguageProvider {
         add(Objects.requireNonNull(HbmItems.MOTOR_DESH.get()), "Desh Motor");
         add(Objects.requireNonNull(HbmItems.DOSIMETER.get()), "Dosimeter");
         add(Objects.requireNonNull(HbmItems.TANK_STEEL.get()), "Steel Tank");
+        add(Objects.requireNonNull(HbmItems.CANISTER_EMPTY.get()), "Empty Canister");
+        add(Objects.requireNonNull(HbmItems.CANISTER_FULL.get()), "Canister:");
+        add(Objects.requireNonNull(HbmItems.GAS_EMPTY.get()), "Empty Gas Tank");
+        add(Objects.requireNonNull(HbmItems.GAS_FULL.get()), "Gas Tank:");
+        add(Objects.requireNonNull(HbmItems.FLUID_TANK_EMPTY.get()), "Empty Universal Fluid Tank");
+        add(Objects.requireNonNull(HbmItems.FLUID_TANK_FULL.get()), "Universal Fluid Tank: %s");
+        add(Objects.requireNonNull(HbmItems.FLUID_TANK_LEAD_EMPTY.get()), "Empty Hazardous Material Tank");
+        add(Objects.requireNonNull(HbmItems.FLUID_TANK_LEAD_FULL.get()), "Hazardous Material Tank: %s");
+        add(Objects.requireNonNull(HbmItems.FLUID_BARREL_EMPTY.get()), "Empty Fluid Barrel");
+        add(Objects.requireNonNull(HbmItems.FLUID_BARREL_FULL.get()), "Fluid Barrel: %s");
+        add(Objects.requireNonNull(HbmItems.FLUID_PACK_EMPTY.get()), "Large Fluid Container");
+        add(Objects.requireNonNull(HbmItems.FLUID_PACK_FULL.get()), "Packaged %s");
         add(Objects.requireNonNull(HbmItems.DUCTTAPE.get()), "Duct Tape");
         add(Objects.requireNonNull(HbmItems.FUSE.get()), "Fuse");
         add(Objects.requireNonNull(HbmItems.SAFETY_FUSE.get()), "Safety Fuse");
@@ -296,6 +310,13 @@ public class HbmLanguageProvider extends LanguageProvider {
         add(Objects.requireNonNull(HbmItems.UPGRADE_GC_SPEED.get()), "Gas Centrifuge Overclocking Upgrade");
         add(Objects.requireNonNull(HbmItems.UPGRADE_5G.get()), "5G Radiation Emitter Upgrade");
         add(Objects.requireNonNull(HbmItems.UPGRADE_TEMPLATE.get()), "Machine Upgrade Template");
+        add(Objects.requireNonNull(HbmItems.SCRAP.get()), "Scrap");
+        add(Objects.requireNonNull(HbmItems.SCRAP_NUCLEAR.get()), "Radioactive Scraps");
+        add(Objects.requireNonNull(HbmItems.BLADES_STEEL.get()), "Steel Shredder Blades");
+        add(Objects.requireNonNull(HbmItems.BLADES_TITANIUM.get()), "Titanium Shredder Blades");
+        add(Objects.requireNonNull(HbmItems.BLADES_ADVANCED_ALLOY.get()), "Advanced Shredder Blades");
+        add(Objects.requireNonNull(HbmItems.BLADES_DESH.get()), "Desh Shredder Blades");
+        add(Objects.requireNonNull(HbmBlocks.MACHINE_SHREDDER.get()), "Shredder");
         add("geiger.chunkRad", "Current chunk radiation:");
         add("geiger.envRad", "Total environmental radiation:");
         add("geiger.playerRad", "Player contamination:");
@@ -407,6 +428,14 @@ public class HbmLanguageProvider extends LanguageProvider {
 
         for (final SellafieldOreType type : SellafieldOreType.values()) {
             add(Objects.requireNonNull(HbmBlocks.getSellafieldOre(type).get()), type.displayName());
+        }
+
+        for (final OverworldOreType type : OverworldOreType.values()) {
+            add(Objects.requireNonNull(HbmBlocks.getOverworldOre(type).get()), type.displayName());
+        }
+
+        for (final NetherOreType type : NetherOreType.values()) {
+            add(Objects.requireNonNull(HbmBlocks.getNetherOre(type).get()), type.displayName());
         }
     }
 }

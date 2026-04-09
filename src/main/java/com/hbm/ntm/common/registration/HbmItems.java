@@ -5,6 +5,8 @@ import com.hbm.ntm.common.block.BarrelType;
 import com.hbm.ntm.common.block.BasaltBlockType;
 import com.hbm.ntm.common.block.BasaltOreType;
 import com.hbm.ntm.common.block.MaterialBlockType;
+import com.hbm.ntm.common.block.NetherOreType;
+import com.hbm.ntm.common.block.OverworldOreType;
 import com.hbm.ntm.common.block.SellafieldOreType;
 import com.hbm.ntm.common.block.StoneResourceType;
 import com.hbm.ntm.common.item.BarrelBlockItem;
@@ -12,11 +14,14 @@ import com.hbm.ntm.common.item.BriquetteItemType;
 import com.hbm.ntm.common.item.BatteryBlockItem;
 import com.hbm.ntm.common.item.BatteryItem;
 import com.hbm.ntm.common.item.CasingItemType;
+import com.hbm.ntm.common.item.CanisterItem;
 import com.hbm.ntm.common.item.CokeItemType;
 import com.hbm.ntm.common.item.CircuitItemType;
 import com.hbm.ntm.common.item.ChunkOreItemType;
 import com.hbm.ntm.common.item.DosimeterItem;
 import com.hbm.ntm.common.item.FluidIdentifierItem;
+import com.hbm.ntm.common.item.FluidTankItem;
+import com.hbm.ntm.common.item.GasTankItem;
 import com.hbm.ntm.common.item.GeigerCounterItem;
 import com.hbm.ntm.common.item.MaterialPartItem;
 import com.hbm.ntm.common.item.MachineUpgradeItem;
@@ -24,6 +29,7 @@ import com.hbm.ntm.common.item.PageItem;
 import com.hbm.ntm.common.item.RadXItem;
 import com.hbm.ntm.common.item.RadawayItem;
 import com.hbm.ntm.common.item.SellafieldBlockItem;
+import com.hbm.ntm.common.item.ShredderBladesItem;
 import com.hbm.ntm.common.item.StampBookItem;
 import com.hbm.ntm.common.item.StampItem;
 import com.hbm.ntm.common.item.StampItemType;
@@ -38,6 +44,7 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -61,6 +68,8 @@ public final class HbmItems {
     public static final RegistryObject<Item> BURNT_BARK = registerSimpleItem("burnt_bark", SIMPLE_ITEMS);
     public static final RegistryObject<Item> BIOMASS = registerSimpleItem("biomass", SIMPLE_ITEMS);
     public static final RegistryObject<Item> BIOMASS_COMPRESSED = registerSimpleItem("biomass_compressed", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> SCRAP = registerSimpleItem("scrap", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> SCRAP_NUCLEAR = registerSimpleItem("scrap_nuclear", SIMPLE_ITEMS);
     public static final RegistryObject<Item> DUCTTAPE = registerSimpleItem("ducttape", SIMPLE_ITEMS);
     public static final RegistryObject<Item> FUSE = registerSimpleItem("fuse", SIMPLE_ITEMS);
     public static final RegistryObject<Item> SAFETY_FUSE = registerSimpleItem("safety_fuse", SIMPLE_ITEMS);
@@ -69,6 +78,18 @@ public final class HbmItems {
     public static final RegistryObject<Item> MOTOR = registerSimpleItem("motor", SIMPLE_ITEMS);
     public static final RegistryObject<Item> MOTOR_DESH = registerSimpleItem("motor_desh", SIMPLE_ITEMS);
     public static final RegistryObject<Item> TANK_STEEL = registerSimpleItem("tank_steel", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> CANISTER_EMPTY = registerItem("canister_empty", () -> new CanisterItem(false, HbmItems::canisterEmptyItem, HbmItems::canisterFullItem, new Item.Properties().stacksTo(1)), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> CANISTER_FULL = registerItem("canister_full", () -> new CanisterItem(true, HbmItems::canisterEmptyItem, HbmItems::canisterFullItem, new Item.Properties().stacksTo(1)), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> GAS_EMPTY = registerItem("gas_empty", () -> new GasTankItem(false, HbmItems::gasEmptyItem, HbmItems::gasFullItem, new Item.Properties().stacksTo(1)), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> GAS_FULL = registerItem("gas_full", () -> new GasTankItem(true, HbmItems::gasEmptyItem, HbmItems::gasFullItem, new Item.Properties().stacksTo(1)), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> FLUID_TANK_EMPTY = registerSimpleItem("fluid_tank_empty", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> FLUID_TANK_FULL = registerItem("fluid_tank_full", () -> new FluidTankItem(true, false, 1_000, HbmItems::fluidTankEmptyItem, HbmItems::fluidTankFullItem, new Item.Properties().stacksTo(1)), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> FLUID_TANK_LEAD_EMPTY = registerSimpleItem("fluid_tank_lead_empty", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> FLUID_TANK_LEAD_FULL = registerItem("fluid_tank_lead_full", () -> new FluidTankItem(true, true, 1_000, HbmItems::fluidTankLeadEmptyItem, HbmItems::fluidTankLeadFullItem, new Item.Properties().stacksTo(1)), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> FLUID_BARREL_EMPTY = registerSimpleItem("fluid_barrel_empty", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> FLUID_BARREL_FULL = registerItem("fluid_barrel_full", () -> new FluidTankItem(true, false, 16_000, HbmItems::fluidBarrelEmptyItem, HbmItems::fluidBarrelFullItem, new Item.Properties().stacksTo(1)), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> FLUID_PACK_EMPTY = registerSimpleItem("fluid_pack_empty", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> FLUID_PACK_FULL = registerItem("fluid_pack_full", () -> new FluidTankItem(true, false, 32_000, HbmItems::fluidPackEmptyItem, HbmItems::fluidPackFullItem, new Item.Properties().stacksTo(1)), SIMPLE_ITEMS);
     public static final RegistryObject<Item> COIL_ADVANCED_TORUS = registerSimpleItem("coil_advanced_torus", SIMPLE_ITEMS);
     public static final RegistryObject<Item> COIL_GOLD_TORUS = registerSimpleItem("coil_gold_torus", SIMPLE_ITEMS);
     public static final RegistryObject<Item> PHOTO_PANEL = registerSimpleItem("photo_panel", SIMPLE_ITEMS);
@@ -96,6 +117,10 @@ public final class HbmItems {
     public static final RegistryObject<Item> POWDER_SAWDUST = registerSimpleItem("powder_sawdust", SIMPLE_ITEMS);
     public static final RegistryObject<Item> UPGRADE_MUFFLER = registerSimpleItem("upgrade_muffler", SIMPLE_ITEMS);
     public static final RegistryObject<Item> UPGRADE_TEMPLATE = registerSimpleItem("upgrade_template", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> BLADES_STEEL = registerItem("blades_steel", () -> new ShredderBladesItem(200), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> BLADES_TITANIUM = registerItem("blades_titanium", () -> new ShredderBladesItem(350), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> BLADES_ADVANCED_ALLOY = registerItem("blades_advanced_alloy", () -> new ShredderBladesItem(700), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> BLADES_DESH = registerItem("blades_desh", () -> new ShredderBladesItem(0), SIMPLE_ITEMS);
     public static final RegistryObject<Item> UPGRADE_SPEED_1 = registerItem("upgrade_speed_1", () -> new MachineUpgradeItem(MachineUpgradeItem.UpgradeType.SPEED, 1), SIMPLE_ITEMS);
     public static final RegistryObject<Item> UPGRADE_SPEED_2 = registerItem("upgrade_speed_2", () -> new MachineUpgradeItem(MachineUpgradeItem.UpgradeType.SPEED, 2), SIMPLE_ITEMS);
     public static final RegistryObject<Item> UPGRADE_SPEED_3 = registerItem("upgrade_speed_3", () -> new MachineUpgradeItem(MachineUpgradeItem.UpgradeType.SPEED, 3), SIMPLE_ITEMS);
@@ -133,6 +158,7 @@ public final class HbmItems {
     public static final RegistryObject<Item> FLUID_DUCT_NEO = registerBlockItem("fluid_duct_neo", HbmBlocks.FLUID_DUCT_NEO, BLOCK_ITEMS);
     public static final RegistryObject<Item> GEIGER = registerBlockItem("geiger", HbmBlocks.GEIGER, BLOCK_ITEMS);
     public static final RegistryObject<Item> MACHINE_PRESS = registerBlockItem("machine_press", HbmBlocks.MACHINE_PRESS, BLOCK_ITEMS);
+    public static final RegistryObject<Item> MACHINE_SHREDDER = registerBlockItem("machine_shredder", HbmBlocks.MACHINE_SHREDDER, BLOCK_ITEMS);
     public static final RegistryObject<Item> PRESS_PREHEATER = registerBlockItem("press_preheater", HbmBlocks.PRESS_PREHEATER, BLOCK_ITEMS);
     public static final RegistryObject<Item> BARREL_PLASTIC = registerItem("barrel_plastic", () -> new BarrelBlockItem(HbmBlocks.BARREL_PLASTIC.get(), BarrelType.PLASTIC, new Item.Properties()), BLOCK_ITEMS);
     public static final RegistryObject<Item> BARREL_CORRODED = registerItem("barrel_corroded", () -> new BarrelBlockItem(HbmBlocks.BARREL_CORRODED.get(), BarrelType.CORRODED, new Item.Properties()), HIDDEN_ITEMS);
@@ -167,6 +193,8 @@ public final class HbmItems {
         registerStoneResourceBlockItems();
         registerBasaltBlockItems();
         registerBasaltOreBlockItems();
+        registerOverworldOreBlockItems();
+        registerNetherOreBlockItems();
     }
 
     private HbmItems() {
@@ -257,6 +285,66 @@ public final class HbmItems {
         for (final SellafieldOreType type : SellafieldOreType.values()) {
             registerBlockItem(type.blockId(), HbmBlocks.getSellafieldOre(type), BLOCK_ITEMS);
         }
+    }
+
+    private static void registerOverworldOreBlockItems() {
+        for (final OverworldOreType type : OverworldOreType.values()) {
+            registerBlockItem(type.blockId(), HbmBlocks.getOverworldOre(type), BLOCK_ITEMS);
+        }
+    }
+
+    private static void registerNetherOreBlockItems() {
+        for (final NetherOreType type : NetherOreType.values()) {
+            registerBlockItem(type.blockId(), HbmBlocks.getNetherOre(type), BLOCK_ITEMS);
+        }
+    }
+
+    private static Item canisterEmptyItem() {
+        return Objects.requireNonNull(CANISTER_EMPTY.get());
+    }
+
+    private static Item canisterFullItem() {
+        return Objects.requireNonNull(CANISTER_FULL.get());
+    }
+
+    private static Item gasEmptyItem() {
+        return Objects.requireNonNull(GAS_EMPTY.get());
+    }
+
+    private static Item gasFullItem() {
+        return Objects.requireNonNull(GAS_FULL.get());
+    }
+
+    private static Item fluidTankEmptyItem() {
+        return Objects.requireNonNull(FLUID_TANK_EMPTY.get());
+    }
+
+    private static Item fluidTankFullItem() {
+        return Objects.requireNonNull(FLUID_TANK_FULL.get());
+    }
+
+    private static Item fluidTankLeadEmptyItem() {
+        return Objects.requireNonNull(FLUID_TANK_LEAD_EMPTY.get());
+    }
+
+    private static Item fluidTankLeadFullItem() {
+        return Objects.requireNonNull(FLUID_TANK_LEAD_FULL.get());
+    }
+
+    private static Item fluidBarrelEmptyItem() {
+        return Objects.requireNonNull(FLUID_BARREL_EMPTY.get());
+    }
+
+    private static Item fluidBarrelFullItem() {
+        return Objects.requireNonNull(FLUID_BARREL_FULL.get());
+    }
+
+    private static Item fluidPackEmptyItem() {
+        return Objects.requireNonNull(FLUID_PACK_EMPTY.get());
+    }
+
+    private static Item fluidPackFullItem() {
+        return Objects.requireNonNull(FLUID_PACK_FULL.get());
     }
 
     private static RegistryObject<Item> registerMaterialPart(final HbmMaterialDefinition material, final HbmMaterialShape shape) {
@@ -390,6 +478,22 @@ public final class HbmItems {
         final RegistryObject<Item> registryObject = BLOCK_ITEMS.get(type.blockId());
         if (registryObject == null) {
             throw new IllegalArgumentException("Unknown basalt ore block item: " + type.blockId());
+        }
+        return registryObject;
+    }
+
+    public static RegistryObject<Item> getOverworldOreBlockItem(final OverworldOreType type) {
+        final RegistryObject<Item> registryObject = BLOCK_ITEMS.get(type.blockId());
+        if (registryObject == null) {
+            throw new IllegalArgumentException("Unknown overworld ore block item: " + type.blockId());
+        }
+        return registryObject;
+    }
+
+    public static RegistryObject<Item> getNetherOreBlockItem(final NetherOreType type) {
+        final RegistryObject<Item> registryObject = BLOCK_ITEMS.get(type.blockId());
+        if (registryObject == null) {
+            throw new IllegalArgumentException("Unknown nether ore block item: " + type.blockId());
         }
         return registryObject;
     }

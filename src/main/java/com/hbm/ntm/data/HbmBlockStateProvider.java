@@ -2,6 +2,10 @@ package com.hbm.ntm.data;
 
 import com.hbm.ntm.HbmNtmMod;
 import com.hbm.ntm.common.block.BatteryBlock;
+import com.hbm.ntm.common.block.MaterialBlockType;
+import com.hbm.ntm.common.block.NetherOreType;
+import com.hbm.ntm.common.block.OverworldOreType;
+import com.hbm.ntm.common.block.ShredderBlock;
 import com.hbm.ntm.common.registration.HbmBlocks;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
@@ -9,6 +13,7 @@ import net.minecraft.world.level.block.AnvilBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
+import net.minecraftforge.client.model.generators.loaders.ObjModelBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 @SuppressWarnings("null")
@@ -21,12 +26,12 @@ public class HbmBlockStateProvider extends BlockStateProvider {
     protected void registerStatesAndModels() {
         batteryBlock(HbmBlocks.MACHINE_BATTERY.get(), "machine_battery", "battery_front_alt", "battery_side_alt", "battery_top");
         simpleCubeBlock(HbmBlocks.MACHINE_PRESS.get(), "machine_press", "machine_press");
-        simpleCubeBlock(HbmBlocks.BARREL_PLASTIC.get(), "barrel_plastic", "barrel_plastic");
-        simpleCubeBlock(HbmBlocks.BARREL_CORRODED.get(), "barrel_corroded", "barrel_corroded");
-        simpleCubeBlock(HbmBlocks.BARREL_IRON.get(), "barrel_iron", "barrel_iron");
-        simpleCubeBlock(HbmBlocks.BARREL_STEEL.get(), "barrel_steel", "barrel_steel");
-        simpleCubeBlock(HbmBlocks.BARREL_TCALLOY.get(), "barrel_tcalloy", "barrel_tcalloy");
-        simpleCubeBlock(HbmBlocks.BARREL_ANTIMATTER.get(), "barrel_antimatter", "barrel_antimatter");
+        barrelBlock(HbmBlocks.BARREL_PLASTIC.get(), "barrel_plastic", "barrel_plastic");
+        barrelBlock(HbmBlocks.BARREL_CORRODED.get(), "barrel_corroded", "barrel_corroded");
+        barrelBlock(HbmBlocks.BARREL_IRON.get(), "barrel_iron", "barrel_iron");
+        barrelBlock(HbmBlocks.BARREL_STEEL.get(), "barrel_steel", "barrel_steel");
+        barrelBlock(HbmBlocks.BARREL_TCALLOY.get(), "barrel_tcalloy", "barrel_tcalloy");
+        barrelBlock(HbmBlocks.BARREL_ANTIMATTER.get(), "barrel_antimatter", "barrel_antimatter");
         anvilBlock(HbmBlocks.ANVIL_IRON.get(), "anvil_iron", "anvil_iron");
         anvilBlock(HbmBlocks.ANVIL_LEAD.get(), "anvil_lead", "anvil_lead");
         anvilBlock(HbmBlocks.ANVIL_STEEL.get(), "anvil_steel", "anvil_steel");
@@ -39,6 +44,19 @@ public class HbmBlockStateProvider extends BlockStateProvider {
         anvilBlock(HbmBlocks.ANVIL_DNT.get(), "anvil_dnt", "anvil_dnt");
         anvilBlock(HbmBlocks.ANVIL_OSMIRIDIUM.get(), "anvil_osmiridium", "anvil_osmiridium");
         anvilBlock(HbmBlocks.ANVIL_MURKY.get(), "anvil_murky", "anvil_steel");
+        shredderBlock(HbmBlocks.MACHINE_SHREDDER.get(), "machine_shredder");
+
+        for (final OverworldOreType type : OverworldOreType.values()) {
+            simpleCubeBlock(HbmBlocks.getOverworldOre(type).get(), type.blockId(), type.blockId());
+        }
+
+        for (final NetherOreType type : NetherOreType.values()) {
+            simpleCubeBlock(HbmBlocks.getNetherOre(type).get(), type.blockId(), type.blockId());
+        }
+
+        for (final MaterialBlockType type : MaterialBlockType.values()) {
+            simpleCubeBlock(HbmBlocks.getMaterialBlock(type).get(), type.blockId(), type.blockId());
+        }
     }
 
     private void anvilBlock(final Block block, final String modelName, final String textureName) {
@@ -77,6 +95,40 @@ public class HbmBlockStateProvider extends BlockStateProvider {
             .modelForState().modelFile(model).rotationY(180).addModel()
             .partialState().with(BatteryBlock.FACING, Direction.WEST)
             .modelForState().modelFile(model).rotationY(270).addModel();
+    }
+
+    private void barrelBlock(final Block block, final String modelName, final String textureName) {
+        final ModelFile model = models().getBuilder(modelName)
+            .customLoader(ObjModelBuilder::begin)
+            .modelLocation(modLoc("models/block/barrel_body.obj"))
+            .flipV(true)
+            .end()
+            .texture("particle", modLoc("block/" + textureName))
+            .texture("texture0", modLoc("block/" + textureName));
+
+        simpleBlock(block, model);
+        simpleBlockItem(block, model);
+    }
+
+    private void shredderBlock(final Block block, final String modelName) {
+        final ModelFile model = models().withExistingParent(modelName, mcLoc("block/orientable_with_bottom"))
+            .texture("particle", modLoc("block/machine_shredder_side_alt"))
+            .texture("front", modLoc("block/machine_shredder_front_alt"))
+            .texture("side", modLoc("block/machine_shredder_side_alt"))
+            .texture("top", modLoc("block/machine_shredder_top_alt"))
+            .texture("bottom", modLoc("block/machine_shredder_bottom_alt"));
+
+        getVariantBuilder(block)
+            .partialState().with(ShredderBlock.FACING, Direction.NORTH)
+            .modelForState().modelFile(model).addModel()
+            .partialState().with(ShredderBlock.FACING, Direction.EAST)
+            .modelForState().modelFile(model).rotationY(90).addModel()
+            .partialState().with(ShredderBlock.FACING, Direction.SOUTH)
+            .modelForState().modelFile(model).rotationY(180).addModel()
+            .partialState().with(ShredderBlock.FACING, Direction.WEST)
+            .modelForState().modelFile(model).rotationY(270).addModel();
+
+        simpleBlockItem(block, model);
     }
 
     private void simpleCubeBlock(final Block block, final String modelName, final String textureName) {

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "item": "hbmntm:ingot_advanced_alloy"
+    },
+    "P": {
+      "item": "hbmntm:plate_advanced_alloy"
+    }
+  },
+  "pattern": [
+    " P ",
+    "PIP",
+    " P "
+  ],
+  "result": {
+    "item": "hbmntm:blades_advanced_alloy"
+  },
+  "show_notification": true
+}

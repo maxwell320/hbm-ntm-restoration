@@ -4,6 +4,7 @@ import com.hbm.ntm.common.block.entity.PressBlockEntity;
 import com.hbm.ntm.common.item.StampBookItem;
 import com.hbm.ntm.common.item.StampItem;
 import com.hbm.ntm.common.registration.HbmMenuTypes;
+import com.hbm.ntm.common.menu.OutputSlotItemHandler;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;

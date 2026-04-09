@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "hbmntm:plate_aluminium"
+    },
+    "G": {
+      "tag": "forge:glass_panes"
+    },
+    "P": {
+      "item": "hbmntm:plate_iron"
+    }
+  },
+  "pattern": [
+    "APA",
+    "AGA",
+    "APA"
+  ],
+  "result": {
+    "count": 8,
+    "item": "hbmntm:fluid_tank_empty"
+  },
+  "show_notification": true
+}

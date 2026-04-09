@@ -6,6 +6,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -22,6 +23,8 @@ import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("null")
 public abstract class MultiblockBlock extends BaseEntityBlock {
+    private static boolean removingStructure;
+
     protected MultiblockBlock(Properties properties) {
         super(properties);
     }
@@ -55,14 +58,27 @@ public abstract class MultiblockBlock extends BaseEntityBlock {
     @Override
     public void onRemove(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos,
                          @NotNull BlockState newState, boolean movedByPiston) {
-        if (!state.is(newState.getBlock())) {
+        if (!state.is(newState.getBlock()) && !removingStructure) {
             BlockPos corePos = findCore(level, pos);
             if (corePos != null) {
                 BlockEntity coreBE = level.getBlockEntity(corePos);
                 if (coreBE instanceof MachineBlockEntity machine) {
                     machine.dropContents();
                 }
-                getStructure().breakStructure(level, corePos, getDirection(level, corePos));
+                final Direction direction = getDirection(level, corePos);
+                removingStructure = true;
+                for (final BlockPos structurePos : getStructure().getPositions(corePos, direction)) {
+                    if (structurePos.equals(pos)) {
+                        continue;
+                    }
+                    if (level.getBlockState(structurePos).is(state.getBlock())) {
+                        level.removeBlock(structurePos, false);
+                    }
+                }
+                removingStructure = false;
+                if (!corePos.equals(pos)) {
+                    popResource(level, corePos, new ItemStack(state.getBlock()));
+                }
             }
         }
         super.onRemove(state, level, pos, newState, movedByPiston);
@@ -85,8 +101,12 @@ public abstract class MultiblockBlock extends BaseEntityBlock {
         }
 
         Direction direction = getDirection(level, corePos);
-        if (!getStructure().canForm(level, corePos, direction)) {
-            getStructure().breakStructure(level, corePos, direction);
+        if (!getStructure().isFormed(level, corePos, direction)) {
+            if (level.getBlockState(corePos).is(this)) {
+                level.destroyBlock(corePos, true);
+            } else {
+                level.removeBlock(pos, false);
+            }
         }
     }
 

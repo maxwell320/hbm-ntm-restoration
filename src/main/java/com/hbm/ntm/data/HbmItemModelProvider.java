@@ -2,6 +2,8 @@ package com.hbm.ntm.data;
 
 import com.hbm.ntm.HbmNtmMod;
 import com.hbm.ntm.common.block.MaterialBlockType;
+import com.hbm.ntm.common.block.NetherOreType;
+import com.hbm.ntm.common.block.OverworldOreType;
 import com.hbm.ntm.common.block.SellafieldOreType;
 import com.hbm.ntm.common.item.BriquetteItemType;
 import com.hbm.ntm.common.item.CasingItemType;
@@ -33,6 +35,31 @@ public class HbmItemModelProvider extends ItemModelProvider {
         singleTexture("coil_advanced_torus", mcLoc("item/generated"), "layer0", modLoc("item/coil_advanced_torus"));
         singleTexture("coil_copper_torus", mcLoc("item/generated"), "layer0", modLoc("item/coil_copper_torus"));
         singleTexture("coil_gold_torus", mcLoc("item/generated"), "layer0", modLoc("item/coil_gold_torus"));
+        singleTexture("canister_empty", mcLoc("item/generated"), "layer0", modLoc("item/canister_empty"));
+        withExistingParent("canister_full", mcLoc("item/generated"))
+            .texture("layer0", modLoc("item/canister_empty"))
+            .texture("layer1", modLoc("item/canister_overlay"));
+        singleTexture("gas_empty", mcLoc("item/generated"), "layer0", modLoc("item/gas_empty"));
+        withExistingParent("gas_full", mcLoc("item/generated"))
+            .texture("layer0", modLoc("item/gas_empty"))
+            .texture("layer1", modLoc("item/gas_bottle"))
+            .texture("layer2", modLoc("item/gas_label"));
+        singleTexture("fluid_tank_empty", mcLoc("item/generated"), "layer0", modLoc("item/fluid_tank"));
+        withExistingParent("fluid_tank_full", mcLoc("item/generated"))
+            .texture("layer0", modLoc("item/fluid_tank"))
+            .texture("layer1", modLoc("item/fluid_tank_overlay"));
+        singleTexture("fluid_tank_lead_empty", mcLoc("item/generated"), "layer0", modLoc("item/fluid_tank_lead"));
+        withExistingParent("fluid_tank_lead_full", mcLoc("item/generated"))
+            .texture("layer0", modLoc("item/fluid_tank_lead"))
+            .texture("layer1", modLoc("item/fluid_tank_lead_overlay"));
+        singleTexture("fluid_barrel_empty", mcLoc("item/generated"), "layer0", modLoc("item/fluid_barrel"));
+        withExistingParent("fluid_barrel_full", mcLoc("item/generated"))
+            .texture("layer0", modLoc("item/fluid_barrel"))
+            .texture("layer1", modLoc("item/fluid_barrel_overlay"));
+        singleTexture("fluid_pack_empty", mcLoc("item/generated"), "layer0", modLoc("item/fluid_pack"));
+        withExistingParent("fluid_pack_full", mcLoc("item/generated"))
+            .texture("layer0", modLoc("item/fluid_pack"))
+            .texture("layer1", modLoc("item/fluid_pack_overlay"));
         singleTexture("crt_display", mcLoc("item/generated"), "layer0", modLoc("item/crt_display"));
         singleTexture("motor", mcLoc("item/generated"), "layer0", modLoc("item/motor"));
         singleTexture("motor_desh", mcLoc("item/generated"), "layer0", modLoc("item/motor_desh"));
@@ -64,6 +91,8 @@ public class HbmItemModelProvider extends ItemModelProvider {
         singleTexture("ducttape", mcLoc("item/generated"), "layer0", modLoc("item/ducttape"));
         singleTexture("fuse", mcLoc("item/generated"), "layer0", modLoc("item/fuse"));
         singleTexture("safety_fuse", mcLoc("item/generated"), "layer0", modLoc("item/safety_fuse"));
+        singleTexture("scrap", mcLoc("item/generated"), "layer0", modLoc("item/scrap"));
+        singleTexture("scrap_nuclear", mcLoc("item/generated"), "layer0", modLoc("item/scrap_nuclear"));
         singleTexture("tank_steel", mcLoc("item/generated"), "layer0", modLoc("item/tank_steel"));
         withExistingParent("fallout_layer", modLoc("block/fallout"));
         withExistingParent("geiger", modLoc("block/geiger"));
@@ -108,10 +137,22 @@ public class HbmItemModelProvider extends ItemModelProvider {
         singleTexture("upgrade_gc_speed", mcLoc("item/generated"), "layer0", modLoc("item/upgrade_gc_speed"));
         singleTexture("upgrade_5g", mcLoc("item/generated"), "layer0", modLoc("item/upgrade_5g"));
         singleTexture("upgrade_template", mcLoc("item/generated"), "layer0", modLoc("item/upgrade_template"));
+        singleTexture("blades_steel", mcLoc("item/generated"), "layer0", modLoc("item/blades_steel"));
+        singleTexture("blades_titanium", mcLoc("item/generated"), "layer0", modLoc("item/blades_titanium"));
+        singleTexture("blades_advanced_alloy", mcLoc("item/generated"), "layer0", modLoc("item/blades_advanced_alloy"));
+        singleTexture("blades_desh", mcLoc("item/generated"), "layer0", modLoc("item/blades_desh"));
         singleTexture("sellafield", mcLoc("item/generated"), "layer0", modLoc("block/sellafield_slaked"));
         withExistingParent("sellafield_slaked", modLoc("block/sellafield_slaked"));
 
         for (final MaterialBlockType type : MaterialBlockType.values()) {
+            withExistingParent(type.blockId(), modLoc("block/" + type.blockId()));
+        }
+
+        for (final OverworldOreType type : OverworldOreType.values()) {
+            withExistingParent(type.blockId(), modLoc("block/" + type.blockId()));
+        }
+
+        for (final NetherOreType type : NetherOreType.values()) {
             withExistingParent(type.blockId(), modLoc("block/" + type.blockId()));
         }
 

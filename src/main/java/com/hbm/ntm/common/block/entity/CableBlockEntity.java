@@ -1,12 +1,18 @@
 package com.hbm.ntm.common.block.entity;
 
 import com.hbm.ntm.common.energy.EnergyConnectionMode;
+import com.hbm.ntm.common.energy.EnergyNetworkDistributor;
 import com.hbm.ntm.common.energy.HbmEnergyStorage;
 import com.hbm.ntm.common.energy.IEnergyGenerator;
 import com.hbm.ntm.common.energy.IEnergyUser;
 import com.hbm.ntm.common.registration.HbmBlockEntityTypes;
+import com.hbm.ntm.common.transfer.TransferGraphManager;
+import com.hbm.ntm.common.transfer.TransferNetworkKind;
+import com.hbm.ntm.common.transfer.TransferNodeProvider;
+import java.util.EnumSet;
 import java.util.EnumMap;
 import java.util.Map;
+import java.util.Set;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -22,7 +28,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("null")
-public class CableBlockEntity extends BlockEntity implements IEnergyUser, IEnergyGenerator {
+public class CableBlockEntity extends BlockEntity implements IEnergyUser, IEnergyGenerator, TransferNodeProvider {
     private final int transferPerTick;
     private final CableEnergyStorage energyStorage;
     private final Map<Direction, LazyOptional<IEnergyStorage>> sidedCapabilities = new EnumMap<>(Direction.class);
@@ -43,17 +49,35 @@ public class CableBlockEntity extends BlockEntity implements IEnergyUser, IEnerg
     }
 
     public static void serverTick(final Level level, final BlockPos pos, final BlockState state, final CableBlockEntity blockEntity) {
+        TransferGraphManager.rebuildIfDirty(level, pos, TransferNetworkKind.ENERGY);
         blockEntity.pushEnergy(level, pos);
+    }
+
+    @Override
+    public TransferNetworkKind getTransferNetworkKind() {
+        return TransferNetworkKind.ENERGY;
+    }
+
+    @Override
+    public Set<Direction> getConnectionDirections() {
+        return EnumSet.allOf(Direction.class);
     }
 
     @Override
     public void onLoad() {
         super.onLoad();
         this.createCapabilities();
+        if (this.level != null && !this.level.isClientSide) {
+            TransferGraphManager.markDirty(this.level, this.worldPosition, TransferNetworkKind.ENERGY);
+        }
     }
 
     @Override
     public void invalidateCaps() {
+        if (this.level != null && !this.level.isClientSide) {
+            TransferGraphManager.markDirty(this.level, this.worldPosition, TransferNetworkKind.ENERGY);
+            TransferGraphManager.removeNode(this.level, this.worldPosition, TransferNetworkKind.ENERGY);
+        }
         super.invalidateCaps();
         this.energyCapability.invalidate();
         this.sidedCapabilities.values().forEach(LazyOptional::invalidate);
@@ -118,36 +142,15 @@ public class CableBlockEntity extends BlockEntity implements IEnergyUser, IEnerg
     }
 
     private void pushEnergy(final Level level, final BlockPos pos) {
-        int remaining = Math.min(this.transferPerTick, this.energyStorage.getEnergyStored());
-        if (remaining <= 0) {
+        final int available = Math.min(this.transferPerTick, this.energyStorage.getEnergyStored());
+        if (available <= 0) {
             return;
         }
 
-        for (final Direction direction : Direction.values()) {
-            if (remaining <= 0) {
-                return;
-            }
-            if (direction == this.lastInputSide) {
-                continue;
-            }
-
-            final BlockEntity neighbor = level.getBlockEntity(pos.relative(direction));
-            if (neighbor == null) {
-                continue;
-            }
-
-            final IEnergyStorage target = neighbor.getCapability(ForgeCapabilities.ENERGY, direction.getOpposite()).orElse(null);
-            if (target == null || !target.canReceive()) {
-                continue;
-            }
-
-            final int accepted = target.receiveEnergy(remaining, false);
-            if (accepted <= 0) {
-                continue;
-            }
-
-            this.energyStorage.extractEnergy(accepted, false);
-            remaining -= accepted;
+        final int transferred = EnergyNetworkDistributor.distribute(level, pos, available, this.transferPerTick, this.lastInputSide);
+        if (transferred > 0) {
+            TransferGraphManager.recordTransfer(level, pos, TransferNetworkKind.ENERGY, transferred);
+            this.energyStorage.extractEnergy(transferred, false);
         }
     }
 

@@ -3,6 +3,8 @@ package com.hbm.ntm.common.block;
 import com.hbm.ntm.common.block.entity.CableBlockEntity;
 import com.hbm.ntm.common.energy.EnergyConnectionHelper;
 import com.hbm.ntm.common.registration.HbmBlockEntityTypes;
+import com.hbm.ntm.common.transfer.TransferGraphManager;
+import com.hbm.ntm.common.transfer.TransferNetworkKind;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -10,6 +12,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
@@ -24,7 +27,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-@SuppressWarnings("null")
+@SuppressWarnings({"null", "deprecation"})
 public class CableBlock extends BaseEntityBlock {
     public static final BooleanProperty NORTH = BlockStateProperties.NORTH;
     public static final BooleanProperty SOUTH = BlockStateProperties.SOUTH;
@@ -85,7 +88,37 @@ public class CableBlock extends BaseEntityBlock {
     @Override
     public @NotNull BlockState updateShape(final @NotNull BlockState state, final @NotNull Direction direction, final @NotNull BlockState neighborState,
                                            final @NotNull LevelAccessor level, final @NotNull BlockPos pos, final @NotNull BlockPos neighborPos) {
+        if (level instanceof final Level actualLevel && !actualLevel.isClientSide) {
+            TransferGraphManager.markDirty(actualLevel, pos, TransferNetworkKind.ENERGY);
+        }
         return state.setValue(property(direction), canConnect(level, pos, direction));
+    }
+
+    @Override
+    public void onPlace(final @NotNull BlockState state, final @NotNull Level level, final @NotNull BlockPos pos, final @NotNull BlockState oldState,
+                        final boolean isMoving) {
+        super.onPlace(state, level, pos, oldState, isMoving);
+        if (!level.isClientSide && !state.is(oldState.getBlock())) {
+            TransferGraphManager.markDirty(level, pos, TransferNetworkKind.ENERGY);
+        }
+    }
+
+    @Override
+    public void neighborChanged(final @NotNull BlockState state, final @NotNull Level level, final @NotNull BlockPos pos, final @NotNull Block block,
+                                final @NotNull BlockPos fromPos, final boolean isMoving) {
+        super.neighborChanged(state, level, pos, block, fromPos, isMoving);
+        if (!level.isClientSide) {
+            TransferGraphManager.markDirty(level, pos, TransferNetworkKind.ENERGY);
+        }
+    }
+
+    @Override
+    public void onRemove(final @NotNull BlockState state, final @NotNull Level level, final @NotNull BlockPos pos, final @NotNull BlockState newState,
+                         final boolean isMoving) {
+        if (!level.isClientSide && !state.is(newState.getBlock())) {
+            TransferGraphManager.markDirty(level, pos, TransferNetworkKind.ENERGY);
+        }
+        super.onRemove(state, level, pos, newState, isMoving);
     }
 
     @Override

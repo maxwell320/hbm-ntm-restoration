@@ -1,7 +1,11 @@
 package com.hbm.ntm.common.block.entity;
 
+import com.hbm.ntm.common.energy.EnergyNetworkDistributor;
+import com.hbm.ntm.common.energy.EnergyNetworkPriority;
 import com.hbm.ntm.common.energy.HbmEnergyStorage;
 import com.hbm.ntm.common.energy.IEnergyGenerator;
+import com.hbm.ntm.common.energy.IEnergyNetworkProvider;
+import com.hbm.ntm.common.energy.IEnergyNetworkReceiver;
 import com.hbm.ntm.common.energy.IEnergyUser;
 import com.hbm.ntm.common.registration.HbmBlockEntityTypes;
 import net.minecraft.core.BlockPos;
@@ -19,7 +23,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("null")
-public class BatteryBlockEntity extends BlockEntity implements IEnergyUser, IEnergyGenerator {
+public class BatteryBlockEntity extends BlockEntity implements IEnergyUser, IEnergyGenerator, IEnergyNetworkProvider, IEnergyNetworkReceiver {
     public static final int CAPACITY = 1_000_000;
     public static final int MAX_RECEIVE = CAPACITY / 200;
     public static final int MAX_EXTRACT = CAPACITY / 600;
@@ -86,6 +90,47 @@ public class BatteryBlockEntity extends BlockEntity implements IEnergyUser, IEne
     }
 
     @Override
+    public long getAvailableNetworkEnergy(@Nullable final Direction side) {
+        return this.energyStorage.extractEnergy(Integer.MAX_VALUE, true);
+    }
+
+    @Override
+    public void consumeNetworkEnergy(@Nullable final Direction side, final long amount) {
+        if (amount > 0) {
+            this.energyStorage.extractEnergy((int) Math.min(Integer.MAX_VALUE, amount), false);
+        }
+    }
+
+    @Override
+    public long getNetworkProviderSpeed(@Nullable final Direction side) {
+        return this.energyStorage.getMaxExtract();
+    }
+
+    @Override
+    public long getNetworkEnergyDemand(@Nullable final Direction side) {
+        return this.energyStorage.receiveEnergy(Integer.MAX_VALUE, true);
+    }
+
+    @Override
+    public long receiveNetworkEnergy(@Nullable final Direction side, final long amount) {
+        if (amount <= 0) {
+            return 0;
+        }
+        final int received = this.energyStorage.receiveEnergy((int) Math.min(Integer.MAX_VALUE, amount), false);
+        return amount - received;
+    }
+
+    @Override
+    public long getNetworkReceiverSpeed(@Nullable final Direction side) {
+        return this.energyStorage.getMaxReceive();
+    }
+
+    @Override
+    public EnergyNetworkPriority getNetworkPriority() {
+        return EnergyNetworkPriority.NORMAL;
+    }
+
+    @Override
     public com.hbm.ntm.common.energy.EnergyConnectionMode getEnergyConnection(@Nullable final Direction side) {
         return IEnergyUser.super.getEnergyConnection(side);
     }
@@ -99,33 +144,14 @@ public class BatteryBlockEntity extends BlockEntity implements IEnergyUser, IEne
     }
 
     private void pushEnergy(final Level level, final BlockPos pos) {
-        int remaining = Math.min(this.energyStorage.getEnergyStored(), this.energyStorage.getMaxExtract());
-        if (remaining <= 0) {
+        final int available = Math.min(this.energyStorage.getEnergyStored(), this.energyStorage.getMaxExtract());
+        if (available <= 0) {
             return;
         }
 
-        for (final Direction direction : Direction.values()) {
-            if (remaining <= 0) {
-                return;
-            }
-
-            final BlockEntity neighbor = level.getBlockEntity(pos.relative(direction));
-            if (neighbor == null) {
-                continue;
-            }
-
-            final IEnergyStorage target = neighbor.getCapability(ForgeCapabilities.ENERGY, direction.getOpposite()).orElse(null);
-            if (target == null || !target.canReceive()) {
-                continue;
-            }
-
-            final int accepted = target.receiveEnergy(Math.min(remaining, this.energyStorage.getMaxExtract()), false);
-            if (accepted <= 0) {
-                continue;
-            }
-
-            this.energyStorage.extractEnergy(accepted, false);
-            remaining -= accepted;
+        final int transferred = EnergyNetworkDistributor.distribute(level, pos, available, this.energyStorage.getMaxExtract(), null);
+        if (transferred > 0) {
+            this.energyStorage.extractEnergy(transferred, false);
         }
     }
 

@@ -9,6 +9,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.network.NetworkEvent;
 
+@SuppressWarnings("null")
 public record MachineControlPacket(BlockPos pos, CompoundTag data) {
     public static void encode(final MachineControlPacket packet, final FriendlyByteBuf buffer) {
         buffer.writeBlockPos(packet.pos);

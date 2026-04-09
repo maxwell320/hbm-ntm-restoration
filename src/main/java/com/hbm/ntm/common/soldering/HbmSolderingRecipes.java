@@ -4,9 +4,11 @@ import com.hbm.ntm.common.item.CircuitItemType;
 import com.hbm.ntm.common.material.HbmMaterialDefinition;
 import com.hbm.ntm.common.material.HbmMaterialShape;
 import com.hbm.ntm.common.material.HbmMaterials;
+import com.hbm.ntm.common.recipe.CountedIngredient;
+import com.hbm.ntm.common.recipe.MachineRecipeUtil;
+import com.hbm.ntm.common.recipe.MachineRecipeRegistry;
 import com.hbm.ntm.common.registration.HbmFluids;
 import com.hbm.ntm.common.registration.HbmItems;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -18,7 +20,8 @@ import net.minecraftforge.fluids.FluidStack;
 
 @SuppressWarnings("null")
 public final class HbmSolderingRecipes {
-    private static final List<SolderingRecipe> RECIPES = List.of(
+    private static final SolderingRecipeRegistry REGISTRY = new SolderingRecipeRegistry();
+    private static final List<SolderingRecipe> DEFAULT_RECIPES = List.of(
         circuit(CircuitItemType.ANALOG, 100, 100,
             List.of(circuitIngredient(CircuitItemType.VACUUM_TUBE, 3), circuitIngredient(CircuitItemType.CAPACITOR, 2)),
             List.of(circuitIngredient(CircuitItemType.PCB, 4)),
@@ -121,7 +124,7 @@ public final class HbmSolderingRecipes {
     }
 
     public static List<SolderingRecipe> all() {
-        return RECIPES;
+        return REGISTRY.all();
     }
 
     public static Optional<SolderingRecipe> findRecipe(final ItemStack... inputs) {
@@ -150,49 +153,49 @@ public final class HbmSolderingRecipes {
     }
 
     public static Optional<SolderingRecipe> findRecipe(final FluidStack fluid, final List<ItemStack> toppings, final List<ItemStack> pcb, final List<ItemStack> solder) {
-        return RECIPES.stream().filter(recipe -> recipe.matches(fluid, toppings, pcb, solder)).findFirst();
+        return REGISTRY.findFirst(recipe -> recipe.matches(fluid, toppings, pcb, solder));
     }
 
     private static SolderingRecipe circuit(final CircuitItemType outputType, final int duration, final long consumption,
-                                           final List<IngredientStack> toppings, final List<IngredientStack> pcb, final List<IngredientStack> solder) {
+                                           final List<CountedIngredient> toppings, final List<CountedIngredient> pcb, final List<CountedIngredient> solder) {
         return circuit(outputType, FluidStack.EMPTY, duration, consumption, toppings, pcb, solder);
     }
 
     private static SolderingRecipe circuit(final CircuitItemType outputType, final FluidStack fluid, final int duration, final long consumption,
-                                           final List<IngredientStack> toppings, final List<IngredientStack> pcb, final List<IngredientStack> solder) {
+                                           final List<CountedIngredient> toppings, final List<CountedIngredient> pcb, final List<CountedIngredient> solder) {
         return new SolderingRecipe(new ItemStack(circuitItem(outputType)), fluid.copy(), duration, consumption, List.copyOf(toppings), List.copyOf(pcb), List.copyOf(solder));
     }
 
     private static SolderingRecipe simpleItem(final Item output, final int duration, final long consumption,
-                                              final List<IngredientStack> toppings, final List<IngredientStack> pcb, final List<IngredientStack> solder) {
+                                              final List<CountedIngredient> toppings, final List<CountedIngredient> pcb, final List<CountedIngredient> solder) {
         return simpleItem(output, FluidStack.EMPTY, duration, consumption, toppings, pcb, solder);
     }
 
     private static SolderingRecipe simpleItem(final Item output, final FluidStack fluid, final int duration, final long consumption,
-                                              final List<IngredientStack> toppings, final List<IngredientStack> pcb, final List<IngredientStack> solder) {
+                                              final List<CountedIngredient> toppings, final List<CountedIngredient> pcb, final List<CountedIngredient> solder) {
         return new SolderingRecipe(new ItemStack(output), fluid.copy(), duration, consumption, List.copyOf(toppings), List.copyOf(pcb), List.copyOf(solder));
     }
 
-    private static IngredientStack circuitIngredient(final CircuitItemType type, final int count) {
-        return new IngredientStack(Ingredient.of(circuitItem(type)), count);
+    private static CountedIngredient circuitIngredient(final CircuitItemType type, final int count) {
+        return new CountedIngredient(Ingredient.of(circuitItem(type)), count);
     }
 
-    private static IngredientStack materialIngredient(final HbmMaterialDefinition material, final HbmMaterialShape shape, final int count) {
-        return new IngredientStack(Ingredient.of(materialItem(material, shape)), count);
+    private static CountedIngredient materialIngredient(final HbmMaterialDefinition material, final HbmMaterialShape shape, final int count) {
+        return new CountedIngredient(Ingredient.of(materialItem(material, shape)), count);
     }
 
-    private static IngredientStack simpleItemIngredient(final Item item, final int count) {
-        return new IngredientStack(Ingredient.of(item), count);
+    private static CountedIngredient simpleItemIngredient(final Item item, final int count) {
+        return new CountedIngredient(Ingredient.of(item), count);
     }
 
-    private static IngredientStack plasticIngredient(final int count) {
-        return new IngredientStack(Ingredient.of(
+    private static CountedIngredient plasticIngredient(final int count) {
+        return new CountedIngredient(Ingredient.of(
             materialItem(HbmMaterials.POLYMER, HbmMaterialShape.INGOT),
             materialItem(HbmMaterials.BAKELITE, HbmMaterialShape.INGOT)), count);
     }
 
-    private static IngredientStack hardPlasticIngredient(final int count) {
-        return new IngredientStack(Ingredient.of(
+    private static CountedIngredient hardPlasticIngredient(final int count) {
+        return new CountedIngredient(Ingredient.of(
             materialItem(HbmMaterials.PC, HbmMaterialShape.INGOT),
             materialItem(HbmMaterials.PVC, HbmMaterialShape.INGOT)), count);
     }
@@ -209,40 +212,13 @@ public final class HbmSolderingRecipes {
         return stack == null ? ItemStack.EMPTY : stack;
     }
 
-    private static boolean matchesGroup(final List<ItemStack> inputs, final List<IngredientStack> recipe) {
-        final List<IngredientStack> remaining = new ArrayList<>(recipe);
-        for (final ItemStack input : inputs) {
-            if (input == null || input.isEmpty()) {
-                continue;
-            }
-            boolean hasMatch = false;
-            for (int i = 0; i < remaining.size(); i++) {
-                if (remaining.get(i).matches(input)) {
-                    remaining.remove(i);
-                    hasMatch = true;
-                    break;
-                }
-            }
-            if (!hasMatch) {
-                return false;
-            }
-        }
-        return remaining.isEmpty();
-    }
-
-    public record IngredientStack(Ingredient ingredient, int count) {
-        public boolean matches(final ItemStack stack) {
-            return stack.getCount() >= this.count && this.ingredient.test(stack);
-        }
-    }
-
-    public record SolderingRecipe(ItemStack output, FluidStack fluid, int duration, long consumption, List<IngredientStack> toppings,
-                                  List<IngredientStack> pcb, List<IngredientStack> solder) {
+    public record SolderingRecipe(ItemStack output, FluidStack fluid, int duration, long consumption, List<CountedIngredient> toppings,
+                                  List<CountedIngredient> pcb, List<CountedIngredient> solder) {
         public boolean matches(final FluidStack fluid, final List<ItemStack> toppings, final List<ItemStack> pcb, final List<ItemStack> solder) {
-            return matchesFluid(fluid, this.fluid)
-                && matchesGroup(toppings, this.toppings)
-                && matchesGroup(pcb, this.pcb)
-                && matchesGroup(solder, this.solder);
+            return MachineRecipeUtil.matchesFluidRequirement(fluid, this.fluid)
+                && MachineRecipeUtil.matchesShapelessIngredients(toppings, this.toppings)
+                && MachineRecipeUtil.matchesShapelessIngredients(pcb, this.pcb)
+                && MachineRecipeUtil.matchesShapelessIngredients(solder, this.solder);
         }
 
         public ItemStack outputCopy() {
@@ -254,10 +230,10 @@ public final class HbmSolderingRecipes {
         }
     }
 
-    private static boolean matchesFluid(final FluidStack input, final FluidStack recipe) {
-        if (recipe.isEmpty()) {
-            return true;
+    private static final class SolderingRecipeRegistry extends MachineRecipeRegistry<SolderingRecipe> {
+        @Override
+        protected void registerDefaults() {
+            this.addAllRecipes(DEFAULT_RECIPES);
         }
-        return !input.isEmpty() && input.getAmount() >= recipe.getAmount() && input.getFluid().isSame(recipe.getFluid());
     }
 }

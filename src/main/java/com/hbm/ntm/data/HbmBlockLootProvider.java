@@ -4,6 +4,8 @@ import com.hbm.ntm.common.block.PressBlock;
 import com.hbm.ntm.common.block.BasaltBlockType;
 import com.hbm.ntm.common.block.BasaltOreType;
 import com.hbm.ntm.common.block.MaterialBlockType;
+import com.hbm.ntm.common.block.NetherOreType;
+import com.hbm.ntm.common.block.OverworldOreType;
 import com.hbm.ntm.common.press.PressPart;
 import com.hbm.ntm.common.block.SellafieldOreType;
 import com.hbm.ntm.common.block.StoneResourceType;
@@ -76,6 +78,7 @@ public class HbmBlockLootProvider extends BlockLootSubProvider {
         dropSelf(HbmBlocks.BARREL_STEEL.get());
         dropSelf(HbmBlocks.BARREL_TCALLOY.get());
         dropSelf(HbmBlocks.BARREL_ANTIMATTER.get());
+        dropSelf(HbmBlocks.MACHINE_SHREDDER.get());
         dropSelf(HbmBlocks.RED_CABLE.get());
         dropSelf(HbmBlocks.RED_CABLE_CLASSIC.get());
         dropSelf(HbmBlocks.FLUID_DUCT_NEO.get());
@@ -119,6 +122,14 @@ public class HbmBlockLootProvider extends BlockLootSubProvider {
         dropSelf(HbmBlocks.getStoneResource(StoneResourceType.BAUXITE).get());
         dropSelf(HbmBlocks.getStoneResource(StoneResourceType.HEMATITE).get());
         dropSelf(HbmBlocks.getStoneResource(StoneResourceType.MALACHITE).get());
+
+        for (final OverworldOreType type : OverworldOreType.values()) {
+            dropSelf(HbmBlocks.getOverworldOre(type).get());
+        }
+
+        for (final NetherOreType type : NetherOreType.values()) {
+            dropSelf(HbmBlocks.getNetherOre(type).get());
+        }
     }
 
     private LootTable.Builder createWasteLogTable(final Block block) {
