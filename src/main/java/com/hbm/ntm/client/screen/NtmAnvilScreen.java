@@ -108,13 +108,20 @@ public class NtmAnvilScreen extends AbstractContainerScreen<NtmAnvilMenu> {
 
         if (this.selectedRecipe >= 0 && this.selectedRecipe < this.menu.constructionRecipes().size()) {
             final HbmAnvilRecipes.ConstructionRecipe recipe = this.menu.constructionRecipes().get(this.selectedRecipe);
-            final boolean hasInput = this.menu.countPlayerItem(recipe.inputStack()) >= recipe.inputStack().getCount();
             guiGraphics.pose().pushPose();
             guiGraphics.pose().scale(0.5F, 0.5F, 0.5F);
             guiGraphics.drawString(this.font, Component.literal("Inputs:").withStyle(ChatFormatting.YELLOW), 260, 50, 0xFFFFFF, false);
-            guiGraphics.drawString(this.font,
-                Component.literal(">1x " + recipe.inputStack().getHoverName().getString()).withStyle(hasInput ? ChatFormatting.WHITE : ChatFormatting.RED),
-                260, 59, 0xFFFFFF, false);
+            int lineY = 59;
+            for (final HbmAnvilRecipes.ConstructionIngredient ingredient : recipe.ingredients()) {
+                final int available = this.menu.countPlayerItems(ingredient.ingredient());
+                final boolean hasInput = available >= ingredient.count();
+                final var display = ingredient.displayStack();
+                final String name = display.isEmpty() ? "Unknown" : display.getHoverName().getString();
+                guiGraphics.drawString(this.font,
+                    Component.literal(">" + ingredient.count() + "x " + name).withStyle(hasInput ? ChatFormatting.WHITE : ChatFormatting.RED),
+                    260, lineY, 0xFFFFFF, false);
+                lineY += 9;
+            }
             guiGraphics.drawString(this.font, Component.literal("Output:").withStyle(ChatFormatting.YELLOW), 260, 77, 0xFFFFFF, false);
             guiGraphics.drawString(this.font, Component.literal(">1x " + recipe.outputStack().getHoverName().getString()), 260, 86, 0xFFFFFF, false);
             guiGraphics.pose().popPose();
@@ -245,8 +252,16 @@ public class NtmAnvilScreen extends AbstractContainerScreen<NtmAnvilMenu> {
     }
 
     private static boolean recipeMatchesQuery(final HbmAnvilRecipes.ConstructionRecipe recipe, final String query) {
-        return recipe.inputStack().getHoverName().getString().toLowerCase(Locale.US).contains(query)
-            || recipe.outputStack().getHoverName().getString().toLowerCase(Locale.US).contains(query);
+        if (recipe.outputStack().getHoverName().getString().toLowerCase(Locale.US).contains(query)) {
+            return true;
+        }
+        for (final HbmAnvilRecipes.ConstructionIngredient ingredient : recipe.ingredients()) {
+            final var display = ingredient.displayStack();
+            if (!display.isEmpty() && display.getHoverName().getString().toLowerCase(Locale.US).contains(query)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private static boolean inside(final double mouseX, final double mouseY, final int x, final int y, final int width, final int height) {

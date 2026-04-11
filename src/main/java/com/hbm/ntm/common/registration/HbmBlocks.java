@@ -1,6 +1,7 @@
 package com.hbm.ntm.common.registration;
 
 import com.hbm.ntm.HbmNtmMod;
+import com.hbm.ntm.common.block.AssemblyMachineBlock;
 import com.hbm.ntm.common.block.BarrelBlock;
 import com.hbm.ntm.common.block.BarrelType;
 import com.hbm.ntm.common.block.BatteryBlock;
@@ -8,9 +9,11 @@ import com.hbm.ntm.common.block.BasaltBlockType;
 import com.hbm.ntm.common.block.BasaltOreBlock;
 import com.hbm.ntm.common.block.BasaltOreType;
 import com.hbm.ntm.common.block.CableBlock;
+import com.hbm.ntm.common.block.CentrifugeBlock;
 import com.hbm.ntm.common.block.CreativeEnergySourceBlock;
 import com.hbm.ntm.common.block.FalloutBlock;
 import com.hbm.ntm.common.block.FluidDuctBlock;
+import com.hbm.ntm.common.block.GasCentrifugeBlock;
 import com.hbm.ntm.common.block.GasAsbestosBlock;
 import com.hbm.ntm.common.block.GeigerCounterBlock;
 import com.hbm.ntm.common.block.MaterialBlockType;
@@ -22,6 +25,7 @@ import com.hbm.ntm.common.block.OverworldOreType;
 import com.hbm.ntm.common.block.PressBlock;
 import com.hbm.ntm.common.block.SellafieldBlock;
 import com.hbm.ntm.common.block.ShredderBlock;
+import com.hbm.ntm.common.block.SolderingStationBlock;
 import com.hbm.ntm.common.block.SellafieldOreBlock;
 import com.hbm.ntm.common.block.SellafieldOreType;
 import com.hbm.ntm.common.block.SellafieldSlakedBlock;
@@ -67,8 +71,16 @@ public final class HbmBlocks {
         () -> new FluidDuctBlock(Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(5.0F, 10.0F).requiresCorrectToolForDrops().noOcclusion())));
     public static final RegistryObject<Block> MACHINE_PRESS = BLOCKS.register("machine_press",
         () -> new PressBlock(Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(5.0F, 10.0F).requiresCorrectToolForDrops())));
+    public static final RegistryObject<Block> MACHINE_ASSEMBLY_MACHINE = BLOCKS.register("machine_assembly_machine",
+        () -> new AssemblyMachineBlock(Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(5.0F, 10.0F).requiresCorrectToolForDrops())));
+    public static final RegistryObject<Block> MACHINE_SOLDERING_STATION = BLOCKS.register("machine_soldering_station",
+        () -> new SolderingStationBlock(Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(5.0F, 30.0F).requiresCorrectToolForDrops())));
     public static final RegistryObject<Block> MACHINE_SHREDDER = BLOCKS.register("machine_shredder",
         () -> new ShredderBlock(Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(5.0F, 10.0F).requiresCorrectToolForDrops())));
+    public static final RegistryObject<Block> MACHINE_CENTRIFUGE = BLOCKS.register("machine_centrifuge",
+        () -> new CentrifugeBlock(Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(5.0F, 10.0F).requiresCorrectToolForDrops())));
+    public static final RegistryObject<Block> MACHINE_GAS_CENTRIFUGE = BLOCKS.register("machine_gascent",
+        () -> new GasCentrifugeBlock(Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(5.0F, 10.0F).requiresCorrectToolForDrops())));
     public static final RegistryObject<Block> PRESS_PREHEATER = BLOCKS.register("press_preheater",
         () -> new Block(Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(5.0F, 10.0F).requiresCorrectToolForDrops())));
     public static final RegistryObject<Block> BARREL_PLASTIC = BLOCKS.register("barrel_plastic",

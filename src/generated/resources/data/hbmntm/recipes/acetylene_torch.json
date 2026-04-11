@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "P": [
+      {
+        "item": "hbmntm:ingot_polymer"
+      },
+      {
+        "item": "hbmntm:ingot_bakelite"
+      },
+      {
+        "item": "hbmntm:ingot_rubber"
+      }
+    ],
+    "S": {
+      "item": "hbmntm:plate_steel"
+    },
+    "T": {
+      "item": "hbmntm:tank_steel"
+    }
+  },
+  "pattern": [
+    "SS ",
+    " PS",
+    " T "
+  ],
+  "result": {
+    "item": "hbmntm:acetylene_torch"
+  },
+  "show_notification": true
+}

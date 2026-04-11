@@ -2,11 +2,16 @@ package com.hbm.ntm.client;
 
 import com.hbm.ntm.HbmNtmMod;
 import com.hbm.ntm.client.renderer.blockentity.BarrelBlockEntityRenderer;
+import com.hbm.ntm.client.network.MachineClientPacketHandlers;
+import com.hbm.ntm.client.screen.AssemblyMachineScreen;
 import com.hbm.ntm.client.screen.BarrelScreen;
+import com.hbm.ntm.client.screen.CentrifugeScreen;
 import com.hbm.ntm.client.screen.FluidIdentifierScreen;
+import com.hbm.ntm.client.screen.GasCentrifugeScreen;
 import com.hbm.ntm.client.screen.NtmAnvilScreen;
 import com.hbm.ntm.client.screen.PressScreen;
 import com.hbm.ntm.client.screen.ShredderScreen;
+import com.hbm.ntm.client.screen.SolderingStationScreen;
 import com.hbm.ntm.common.block.SellafieldBlock;
 import com.hbm.ntm.common.fluid.HbmFluidType;
 import com.hbm.ntm.common.item.CanisterItem;
@@ -17,6 +22,7 @@ import com.hbm.ntm.common.block.SellafieldOreType;
 import com.hbm.ntm.common.item.MaterialPartItem;
 import com.hbm.ntm.common.item.SellafieldBlockItem;
 import com.hbm.ntm.common.material.LegacyMaterialColors;
+import com.hbm.ntm.common.network.HbmPacketHandler;
 import com.hbm.ntm.common.registration.HbmBlocks;
 import com.hbm.ntm.common.registration.HbmBlockEntityTypes;
 import com.hbm.ntm.common.registration.HbmFluids;
@@ -44,12 +50,17 @@ public final class HbmClientSetup {
     public static void onClientSetup(final FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
             final RenderType translucent = Objects.requireNonNull(RenderType.translucent());
+            HbmPacketHandler.setMachineStateClientDispatcher(MachineClientPacketHandlers::handleMachineStateSync);
             BlockEntityRenderers.register(HbmBlockEntityTypes.BARREL.get(), BarrelBlockEntityRenderer::new);
             MenuScreens.register(HbmMenuTypes.BARREL.get(), BarrelScreen::new);
             MenuScreens.register(HbmMenuTypes.MACHINE_PRESS.get(), PressScreen::new);
+            MenuScreens.register(HbmMenuTypes.MACHINE_ASSEMBLY_MACHINE.get(), AssemblyMachineScreen::new);
             MenuScreens.register(HbmMenuTypes.NTM_ANVIL.get(), NtmAnvilScreen::new);
             MenuScreens.register(HbmMenuTypes.FLUID_IDENTIFIER.get(), FluidIdentifierScreen::new);
             MenuScreens.register(HbmMenuTypes.MACHINE_SHREDDER.get(), ShredderScreen::new);
+            MenuScreens.register(HbmMenuTypes.MACHINE_SOLDERING_STATION.get(), SolderingStationScreen::new);
+            MenuScreens.register(HbmMenuTypes.MACHINE_CENTRIFUGE.get(), CentrifugeScreen::new);
+            MenuScreens.register(HbmMenuTypes.MACHINE_GAS_CENTRIFUGE.get(), GasCentrifugeScreen::new);
             ItemBlockRenderTypes.setRenderLayer(Objects.requireNonNull(HbmFluids.COOLANT.getStillFluid()), translucent);
             ItemBlockRenderTypes.setRenderLayer(Objects.requireNonNull(HbmFluids.COOLANT.getFlowingFluid()), translucent);
             ItemBlockRenderTypes.setRenderLayer(Objects.requireNonNull(HbmFluids.COOLANT_HOT.getStillFluid()), translucent);

@@ -1,7 +1,9 @@
 package com.hbm.ntm.common.block;
 
+import api.hbm.block.IToolable;
 import com.hbm.ntm.common.block.entity.MachineBlockEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -17,7 +19,7 @@ import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("null")
-public abstract class MachineBlock extends BaseEntityBlock {
+public abstract class MachineBlock extends BaseEntityBlock implements IToolable {
     protected MachineBlock(final Properties properties) {
         super(properties);
     }
@@ -34,11 +36,27 @@ public abstract class MachineBlock extends BaseEntityBlock {
             return InteractionResult.SUCCESS;
         }
         final BlockEntity blockEntity = level.getBlockEntity(pos);
+        if (blockEntity instanceof final MachineBlockEntity machine && machine.tryRepairInteraction(player, player.getItemInHand(hand))) {
+            return InteractionResult.CONSUME;
+        }
         if (!(blockEntity instanceof final MenuProvider menuProvider) || !(player instanceof final ServerPlayer serverPlayer)) {
             return InteractionResult.PASS;
         }
         NetworkHooks.openScreen(serverPlayer, menuProvider, pos);
         return InteractionResult.CONSUME;
+    }
+
+    @Override
+    public boolean onScrew(final Level level, final Player player, final BlockPos pos, final Direction side,
+                           final BlockHitResult hitResult, final ToolType tool) {
+        if (tool != ToolType.TORCH) {
+            return false;
+        }
+        final BlockEntity blockEntity = level.getBlockEntity(pos);
+        if (!(blockEntity instanceof final MachineBlockEntity machine)) {
+            return false;
+        }
+        return machine.tryRepairFromPlayer(player);
     }
 
     @Override

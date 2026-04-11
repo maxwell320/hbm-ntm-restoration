@@ -1,10 +1,12 @@
 package com.hbm.ntm.common.menu;
 
 import com.hbm.ntm.common.block.entity.ShredderBlockEntity;
+import com.hbm.ntm.common.config.ShredderMachineConfig;
 import com.hbm.ntm.common.item.BatteryItem;
 import com.hbm.ntm.common.item.ShredderBladesItem;
 import com.hbm.ntm.common.registration.HbmMenuTypes;
 import java.util.List;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ContainerData;
@@ -23,6 +25,12 @@ public class ShredderMenu extends MachineMenuBase<ShredderBlockEntity> {
     private static final int DATA_COUNT = 5;
 
     private final ContainerData data;
+    private int clientProgress;
+    private int clientEnergy;
+    private int clientMaxEnergy;
+    private int clientGearLeft;
+    private int clientGearRight;
+    private int clientProcessingSpeed;
 
     public ShredderMenu(final int containerId, final Inventory inventory, final FriendlyByteBuf buffer) {
         this(containerId,
@@ -92,22 +100,39 @@ public class ShredderMenu extends MachineMenuBase<ShredderBlockEntity> {
     }
 
     public int progress() {
-        return this.data.get(DATA_PROGRESS);
+        return this.clientProgress > 0 ? this.clientProgress : this.data.get(DATA_PROGRESS);
     }
 
     public int energy() {
-        return this.data.get(DATA_ENERGY);
+        return this.clientEnergy > 0 ? this.clientEnergy : this.data.get(DATA_ENERGY);
     }
 
     public int maxEnergy() {
-        return this.data.get(DATA_MAX_ENERGY);
+        return this.clientMaxEnergy > 0 ? this.clientMaxEnergy : this.data.get(DATA_MAX_ENERGY);
     }
 
     public int gearLeft() {
-        return this.data.get(DATA_GEAR_LEFT);
+        return this.clientGearLeft > 0 ? this.clientGearLeft : this.data.get(DATA_GEAR_LEFT);
     }
 
     public int gearRight() {
-        return this.data.get(DATA_GEAR_RIGHT);
+        return this.clientGearRight > 0 ? this.clientGearRight : this.data.get(DATA_GEAR_RIGHT);
+    }
+
+    public int processingSpeed() {
+        if (this.clientProcessingSpeed > 0) {
+            return this.clientProcessingSpeed;
+        }
+        return this.machine == null ? ShredderMachineConfig.INSTANCE.processingSpeed() : this.machine.configuredProcessingSpeed();
+    }
+
+    @Override
+    protected void readMachineStateSync(final CompoundTag data) {
+        this.clientProgress = Math.max(0, data.getInt("progress"));
+        this.clientEnergy = Math.max(0, data.getInt("energy"));
+        this.clientMaxEnergy = Math.max(0, data.getInt("maxEnergy"));
+        this.clientGearLeft = Math.max(0, data.getInt("gearLeft"));
+        this.clientGearRight = Math.max(0, data.getInt("gearRight"));
+        this.clientProcessingSpeed = Math.max(1, data.getInt("processingSpeed"));
     }
 }

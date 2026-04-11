@@ -54,7 +54,6 @@ public class NetherOreBlock extends Block {
         };
     }
 
-    @Override
     public int getExpDrop(final BlockState state, final net.minecraft.world.level.LevelAccessor level, final RandomSource random, final BlockPos pos, final int fortuneLevel, final int silkTouchLevel) {
         if (silkTouchLevel > 0) {
             return 0;

@@ -1,10 +1,12 @@
 package com.hbm.ntm.common.menu;
 
 import com.hbm.ntm.common.block.entity.PressBlockEntity;
+import com.hbm.ntm.common.config.PressMachineConfig;
 import com.hbm.ntm.common.item.StampBookItem;
 import com.hbm.ntm.common.item.StampItem;
 import com.hbm.ntm.common.registration.HbmMenuTypes;
 import com.hbm.ntm.common.menu.OutputSlotItemHandler;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -20,6 +22,8 @@ import org.jetbrains.annotations.NotNull;
 @SuppressWarnings("null")
 public class PressMenu extends MachineMenuBase<PressBlockEntity> {
     private final ContainerData data;
+    private int clientMaxSpeed;
+    private int clientMaxPress;
 
     public PressMenu(final int containerId, final Inventory inventory, final FriendlyByteBuf buffer) {
         this(containerId,
@@ -81,10 +85,25 @@ public class PressMenu extends MachineMenuBase<PressBlockEntity> {
     }
 
     public int maxSpeed() {
-        return PressBlockEntity.MAX_SPEED;
+        if (this.clientMaxSpeed > 0) {
+            return this.clientMaxSpeed;
+        }
+        return this.machine == null ? PressMachineConfig.INSTANCE.maxSpeed() : this.machine.configuredMaxSpeed();
     }
 
     public int maxPressTicks() {
-        return PressBlockEntity.MAX_PRESS;
+        if (this.clientMaxPress > 0) {
+            return this.clientMaxPress;
+        }
+        return this.machine == null ? PressMachineConfig.INSTANCE.maxPress() : this.machine.configuredMaxPress();
+    }
+
+    @Override
+    protected void readMachineStateSync(final CompoundTag data) {
+        this.machine.setClientSpeed(Math.max(0, data.getInt("speed")));
+        this.machine.setClientBurnTime(Math.max(0, data.getInt("burnTime")));
+        this.machine.setClientPressTicks(Math.max(0, data.getInt("pressTicks")));
+        this.clientMaxSpeed = Math.max(1, data.getInt("maxSpeed"));
+        this.clientMaxPress = Math.max(1, data.getInt("maxPress"));
     }
 }

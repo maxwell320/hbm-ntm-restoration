@@ -4,6 +4,7 @@
     "hbmntm:powder_starmetal",
     "hbmntm:crystal_starmetal",
     "hbmntm:wire_dense_starmetal",
-    "hbmntm:plate_cast_starmetal"
+    "hbmntm:plate_cast_starmetal",
+    "hbmntm:block_starmetal"
   ]
 }

@@ -93,10 +93,10 @@ public class NtmAnvilMenu extends AbstractContainerMenu {
         return this.constructionRecipes;
     }
 
-    public int countPlayerItem(final ItemStack target) {
+    public int countPlayerItems(final net.minecraft.world.item.crafting.Ingredient ingredient) {
         int count = 0;
         for (final ItemStack stack : this.playerInventory.items) {
-            if (ItemStack.isSameItemSameTags(stack, target)) {
+            if (ingredient.test(stack)) {
                 count += stack.getCount();
             }
         }
@@ -121,7 +121,8 @@ public class NtmAnvilMenu extends AbstractContainerMenu {
         final int maxCrafts = craftAll ? Math.max(1, outputStack.getMaxStackSize() / Math.max(1, outputStack.getCount())) : 1;
         int crafted = 0;
 
-        while (crafted < maxCrafts && consumePlayerItem(player, recipe.inputStack())) {
+        while (crafted < maxCrafts && canCraftConstruction(player, recipe)) {
+            consumeConstructionIngredients(player, recipe);
             player.getInventory().placeItemBackInInventory(outputStack.copy());
             crafted++;
         }
@@ -209,13 +210,28 @@ public class NtmAnvilMenu extends AbstractContainerMenu {
         updateSmithingResult();
     }
 
-    private boolean consumePlayerItem(final Player player, final ItemStack target) {
-        if (countPlayerItem(target) < target.getCount()) {
+    private boolean canCraftConstruction(final Player player, final HbmAnvilRecipes.ConstructionRecipe recipe) {
+        for (final HbmAnvilRecipes.ConstructionIngredient ingredient : recipe.ingredients()) {
+            if (this.countPlayerItems(ingredient.ingredient()) < ingredient.count()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void consumeConstructionIngredients(final Player player, final HbmAnvilRecipes.ConstructionRecipe recipe) {
+        for (final HbmAnvilRecipes.ConstructionIngredient ingredient : recipe.ingredients()) {
+            consumePlayerIngredient(player, ingredient.ingredient(), ingredient.count());
+        }
+    }
+
+    private boolean consumePlayerIngredient(final Player player, final net.minecraft.world.item.crafting.Ingredient ingredient, final int count) {
+        if (this.countPlayerItems(ingredient) < count) {
             return false;
         }
-        int remaining = target.getCount();
+        int remaining = count;
         for (final ItemStack stack : player.getInventory().items) {
-            if (!ItemStack.isSameItemSameTags(stack, target)) {
+            if (!ingredient.test(stack)) {
                 continue;
             }
             final int removed = Math.min(remaining, stack.getCount());

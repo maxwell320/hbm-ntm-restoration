@@ -3,6 +3,7 @@
     "hbmntm:ingot_magnetized_tungsten",
     "hbmntm:powder_magnetized_tungsten",
     "hbmntm:wire_magnetized_tungsten",
-    "hbmntm:coil_magnetized_tungsten"
+    "hbmntm:coil_magnetized_tungsten",
+    "hbmntm:block_magnetized_tungsten"
   ]
 }

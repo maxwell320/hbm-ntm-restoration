@@ -3,6 +3,7 @@
     "hbmntm:ingot_schrabidate",
     "hbmntm:powder_schrabidate",
     "hbmntm:wire_dense_schrabidate",
-    "hbmntm:plate_cast_schrabidate"
+    "hbmntm:plate_cast_schrabidate",
+    "hbmntm:block_schrabidate"
   ]
 }

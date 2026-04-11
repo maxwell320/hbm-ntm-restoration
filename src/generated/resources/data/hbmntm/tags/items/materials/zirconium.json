@@ -7,6 +7,7 @@
     "hbmntm:billet_zirconium",
     "hbmntm:powder_zirconium",
     "hbmntm:plate_cast_zirconium",
-    "hbmntm:plate_welded_zirconium"
+    "hbmntm:plate_welded_zirconium",
+    "hbmntm:block_zirconium"
   ]
 }

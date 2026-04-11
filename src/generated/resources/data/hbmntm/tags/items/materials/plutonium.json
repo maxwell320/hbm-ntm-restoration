@@ -4,6 +4,7 @@
     "hbmntm:nugget_plutonium",
     "hbmntm:billet_plutonium",
     "hbmntm:powder_plutonium",
-    "hbmntm:crystal_plutonium"
+    "hbmntm:crystal_plutonium",
+    "hbmntm:block_plutonium"
   ]
 }

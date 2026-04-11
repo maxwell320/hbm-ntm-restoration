@@ -1,12 +1,16 @@
 package com.hbm.ntm.data;
 
+import com.hbm.ntm.common.assembly.AssemblyMachinePart;
+import com.hbm.ntm.common.block.AssemblyMachineBlock;
 import com.hbm.ntm.common.block.PressBlock;
+import com.hbm.ntm.common.block.SolderingStationBlock;
 import com.hbm.ntm.common.block.BasaltBlockType;
 import com.hbm.ntm.common.block.BasaltOreType;
 import com.hbm.ntm.common.block.MaterialBlockType;
 import com.hbm.ntm.common.block.NetherOreType;
 import com.hbm.ntm.common.block.OverworldOreType;
 import com.hbm.ntm.common.press.PressPart;
+import com.hbm.ntm.common.soldering.SolderingStationPart;
 import com.hbm.ntm.common.block.SellafieldOreType;
 import com.hbm.ntm.common.block.StoneResourceType;
 import com.hbm.ntm.common.material.HbmMaterialShape;
@@ -71,6 +75,10 @@ public class HbmBlockLootProvider extends BlockLootSubProvider {
         add(HbmBlocks.FALLOUT.get(), createSingleItemTable(HbmItems.FALLOUT.get()));
         dropSelf(HbmBlocks.GEIGER.get());
         add(HbmBlocks.MACHINE_PRESS.get(), createPressTable());
+        add(HbmBlocks.MACHINE_ASSEMBLY_MACHINE.get(), createAssemblyMachineTable());
+        add(HbmBlocks.MACHINE_SOLDERING_STATION.get(), createSolderingStationTable());
+        dropSelf(HbmBlocks.MACHINE_CENTRIFUGE.get());
+        dropSelf(HbmBlocks.MACHINE_GAS_CENTRIFUGE.get());
         dropSelf(HbmBlocks.PRESS_PREHEATER.get());
         dropSelf(HbmBlocks.BARREL_PLASTIC.get());
         dropSelf(HbmBlocks.BARREL_CORRODED.get());
@@ -149,5 +157,21 @@ public class HbmBlockLootProvider extends BlockLootSubProvider {
             .add(applyExplosionDecay(HbmBlocks.MACHINE_PRESS.get(), LootItem.lootTableItem(HbmBlocks.MACHINE_PRESS.get())
                 .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(HbmBlocks.MACHINE_PRESS.get())
                     .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(PressBlock.PART, PressPart.CORE))))));
+    }
+
+    private LootTable.Builder createAssemblyMachineTable() {
+        return LootTable.lootTable().withPool(LootPool.lootPool()
+            .setRolls(ConstantValue.exactly(1.0F))
+            .add(applyExplosionDecay(HbmBlocks.MACHINE_ASSEMBLY_MACHINE.get(), LootItem.lootTableItem(HbmBlocks.MACHINE_ASSEMBLY_MACHINE.get())
+                .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(HbmBlocks.MACHINE_ASSEMBLY_MACHINE.get())
+                    .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(AssemblyMachineBlock.PART, AssemblyMachinePart.CORE))))));
+    }
+
+    private LootTable.Builder createSolderingStationTable() {
+        return LootTable.lootTable().withPool(LootPool.lootPool()
+            .setRolls(ConstantValue.exactly(1.0F))
+            .add(applyExplosionDecay(HbmBlocks.MACHINE_SOLDERING_STATION.get(), LootItem.lootTableItem(HbmBlocks.MACHINE_SOLDERING_STATION.get())
+                .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(HbmBlocks.MACHINE_SOLDERING_STATION.get())
+                    .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(SolderingStationBlock.PART, SolderingStationPart.CORE))))));
     }
 }

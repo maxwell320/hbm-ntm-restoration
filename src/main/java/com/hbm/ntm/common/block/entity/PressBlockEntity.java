@@ -1,5 +1,6 @@
 package com.hbm.ntm.common.block.entity;
 
+import com.hbm.ntm.common.config.PressMachineConfig;
 import com.hbm.ntm.common.menu.PressMenu;
 import com.hbm.ntm.common.multiblock.MultiblockCoreBE;
 import com.hbm.ntm.common.multiblock.MultiblockStructure;
@@ -9,10 +10,12 @@ import com.hbm.ntm.common.press.HbmPressRecipes;
 import com.hbm.ntm.common.press.PressStructure;
 import com.hbm.ntm.common.registration.HbmBlockEntityTypes;
 import com.hbm.ntm.common.registration.HbmBlocks;
+import com.hbm.ntm.common.registration.HbmSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -56,11 +59,13 @@ public class PressBlockEntity extends MultiblockCoreBE {
         boolean dirty = false;
         final boolean preheated = press.isPreheated();
         final boolean canProcess = press.canProcess();
+        final int burnPerOperation = press.burnPerOperation();
+        final int maxSpeed = press.maxSpeed();
 
-        if ((canProcess || press.retracting) && press.burnTime >= BURN_PER_OPERATION) {
+        if ((canProcess || press.retracting) && press.burnTime >= burnPerOperation) {
             final int increase = preheated ? 4 : 1;
-            if (press.speed < MAX_SPEED) {
-                press.speed = Math.min(MAX_SPEED, press.speed + increase);
+            if (press.speed < maxSpeed) {
+                press.speed = Math.min(maxSpeed, press.speed + increase);
                 dirty = true;
             }
         } else if (press.speed > 0) {
@@ -69,7 +74,7 @@ public class PressBlockEntity extends MultiblockCoreBE {
         }
 
         if (press.delay <= 0) {
-            final int stampSpeed = press.speed * PROGRESS_AT_MAX / MAX_SPEED;
+            final int stampSpeed = press.speed * press.progressAtMax() / maxSpeed;
             if (press.retracting) {
                 if (press.pressTicks > 0) {
                     press.pressTicks -= stampSpeed;
@@ -84,7 +89,7 @@ public class PressBlockEntity extends MultiblockCoreBE {
             } else if (canProcess) {
                 press.pressTicks += stampSpeed;
                 dirty = true;
-                if (press.pressTicks >= MAX_PRESS) {
+                if (press.pressTicks >= press.maxPress()) {
                     press.finishOperation();
                     dirty = true;
                 }
@@ -102,9 +107,9 @@ public class PressBlockEntity extends MultiblockCoreBE {
         }
 
         if (dirty) {
-            press.setChanged();
-            press.syncToClient();
+            press.markChangedAndSync();
         }
+        press.tickMachineStateSync();
     }
 
     @Override
@@ -181,7 +186,7 @@ public class PressBlockEntity extends MultiblockCoreBE {
 
     private boolean tryConsumeFuel() {
         final ItemStack fuelStack = this.getInternalItemHandler().getStackInSlot(SLOT_FUEL);
-        if (fuelStack.isEmpty() || this.burnTime >= BURN_PER_OPERATION) {
+        if (fuelStack.isEmpty() || this.burnTime >= this.burnPerOperation()) {
             return false;
         }
         final int fuelValue = ForgeHooks.getBurnTime(fuelStack, RecipeType.SMELTING);
@@ -203,7 +208,7 @@ public class PressBlockEntity extends MultiblockCoreBE {
     }
 
     private boolean canProcess() {
-        if (this.burnTime < BURN_PER_OPERATION) {
+        if (this.burnTime < this.burnPerOperation()) {
             return false;
         }
         final ItemStack stampStack = this.getInternalItemHandler().getStackInSlot(SLOT_STAMP);
@@ -243,11 +248,38 @@ public class PressBlockEntity extends MultiblockCoreBE {
         final ItemStack reducedInput = inputStack.copy();
         reducedInput.shrink(1);
         this.getInternalItemHandler().setStackInSlot(SLOT_INPUT, reducedInput);
+        if (this.level != null) {
+            this.level.playSound(null, this.worldPosition, HbmSoundEvents.BLOCK_PRESS_OPERATE.get(), SoundSource.BLOCKS, 1.5F, 1.0F);
+        }
         this.damageStamp();
         this.retracting = true;
         this.delay = 5;
-        this.burnTime -= BURN_PER_OPERATION;
-        this.pressTicks = MAX_PRESS;
+        this.burnTime -= this.burnPerOperation();
+        this.pressTicks = this.maxPress();
+    }
+
+    public int configuredMaxSpeed() {
+        return this.maxSpeed();
+    }
+
+    public int configuredMaxPress() {
+        return this.maxPress();
+    }
+
+    private int maxSpeed() {
+        return Math.max(1, PressMachineConfig.INSTANCE.maxSpeed());
+    }
+
+    private int progressAtMax() {
+        return Math.max(1, PressMachineConfig.INSTANCE.progressAtMax());
+    }
+
+    private int maxPress() {
+        return Math.max(1, PressMachineConfig.INSTANCE.maxPress());
+    }
+
+    private int burnPerOperation() {
+        return Math.max(1, PressMachineConfig.INSTANCE.burnPerOperation());
     }
 
     private void damageStamp() {
@@ -280,5 +312,25 @@ public class PressBlockEntity extends MultiblockCoreBE {
         this.pressTicks = tag.getInt("pressTicks");
         this.retracting = tag.getBoolean("retracting");
         this.delay = tag.getInt("delay");
+    }
+
+    @Override
+    protected void writeAdditionalMachineStateSync(final CompoundTag tag) {
+        tag.putInt("speed", this.speed);
+        tag.putInt("burnTime", this.burnTime);
+        tag.putInt("pressTicks", this.pressTicks);
+        tag.putBoolean("retracting", this.retracting);
+        tag.putInt("delay", this.delay);
+        tag.putInt("maxSpeed", this.maxSpeed());
+        tag.putInt("maxPress", this.maxPress());
+    }
+
+    @Override
+    protected void readMachineStateSync(final CompoundTag tag) {
+        this.speed = Math.max(0, tag.getInt("speed"));
+        this.burnTime = Math.max(0, tag.getInt("burnTime"));
+        this.pressTicks = Math.max(0, tag.getInt("pressTicks"));
+        this.retracting = tag.getBoolean("retracting");
+        this.delay = Math.max(0, tag.getInt("delay"));
     }
 }

@@ -70,5 +70,23 @@
         "stream": false
       }
     ]
+  },
+  "block.press_operate": {
+    "category": "block",
+    "sounds": [
+      {
+        "name": "hbmntm:block/pressOperate",
+        "stream": false
+      }
+    ]
+  },
+  "block.centrifuge_operate": {
+    "category": "block",
+    "sounds": [
+      {
+        "name": "hbmntm:block/centrifugeOperate",
+        "stream": false
+      }
+    ]
   }
 }

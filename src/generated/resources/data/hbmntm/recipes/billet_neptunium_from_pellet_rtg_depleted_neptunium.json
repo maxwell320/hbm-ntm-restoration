@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "hbmntm:pellet_rtg_depleted_neptunium"
+    }
+  ],
+  "result": {
+    "count": 3,
+    "item": "hbmntm:billet_neptunium"
+  }
+}

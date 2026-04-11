@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "hbmntm:billet_ra226"
+    },
+    {
+      "item": "hbmntm:billet_ra226"
+    },
+    {
+      "item": "hbmntm:billet_ra226"
+    },
+    {
+      "item": "hbmntm:plate_cast_iron"
+    }
+  ],
+  "result": {
+    "item": "hbmntm:pellet_rtg_radium"
+  }
+}

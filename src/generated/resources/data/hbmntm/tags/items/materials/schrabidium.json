@@ -8,6 +8,7 @@
     "hbmntm:crystal_schrabidium",
     "hbmntm:wire_dense_schrabidium",
     "hbmntm:plate_schrabidium",
-    "hbmntm:plate_cast_schrabidium"
+    "hbmntm:plate_cast_schrabidium",
+    "hbmntm:block_schrabidium"
   ]
 }

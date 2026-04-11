@@ -2,10 +2,14 @@ package com.hbm.ntm.common.registration;
 
 import com.hbm.ntm.HbmNtmMod;
 import com.hbm.ntm.common.anvil.NtmAnvilMenu;
+import com.hbm.ntm.common.menu.AssemblyMachineMenu;
 import com.hbm.ntm.common.menu.BarrelMenu;
+import com.hbm.ntm.common.menu.CentrifugeMenu;
 import com.hbm.ntm.common.menu.FluidIdentifierMenu;
+import com.hbm.ntm.common.menu.GasCentrifugeMenu;
 import com.hbm.ntm.common.menu.PressMenu;
 import com.hbm.ntm.common.menu.ShredderMenu;
+import com.hbm.ntm.common.menu.SolderingStationMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraftforge.common.extensions.IForgeMenuType;
 import net.minecraftforge.registries.DeferredRegister;
@@ -18,7 +22,11 @@ public final class HbmMenuTypes {
     public static final RegistryObject<MenuType<NtmAnvilMenu>> NTM_ANVIL = MENU_TYPES.register("ntm_anvil", () -> IForgeMenuType.create(NtmAnvilMenu::new));
     public static final RegistryObject<MenuType<FluidIdentifierMenu>> FLUID_IDENTIFIER = MENU_TYPES.register("fluid_identifier", () -> IForgeMenuType.create(FluidIdentifierMenu::new));
     public static final RegistryObject<MenuType<PressMenu>> MACHINE_PRESS = MENU_TYPES.register("machine_press", () -> IForgeMenuType.create(PressMenu::new));
+    public static final RegistryObject<MenuType<AssemblyMachineMenu>> MACHINE_ASSEMBLY_MACHINE = MENU_TYPES.register("machine_assembly_machine", () -> IForgeMenuType.create(AssemblyMachineMenu::new));
+    public static final RegistryObject<MenuType<SolderingStationMenu>> MACHINE_SOLDERING_STATION = MENU_TYPES.register("machine_soldering_station", () -> IForgeMenuType.create(SolderingStationMenu::new));
     public static final RegistryObject<MenuType<ShredderMenu>> MACHINE_SHREDDER = MENU_TYPES.register("machine_shredder", () -> IForgeMenuType.create(ShredderMenu::new));
+    public static final RegistryObject<MenuType<CentrifugeMenu>> MACHINE_CENTRIFUGE = MENU_TYPES.register("machine_centrifuge", () -> IForgeMenuType.create(CentrifugeMenu::new));
+    public static final RegistryObject<MenuType<GasCentrifugeMenu>> MACHINE_GAS_CENTRIFUGE = MENU_TYPES.register("machine_gascent", () -> IForgeMenuType.create(GasCentrifugeMenu::new));
 
     private HbmMenuTypes() {
     }

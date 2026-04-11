@@ -1,6 +1,12 @@
 package com.hbm.ntm.common.menu;
 
 import com.hbm.ntm.common.block.entity.MachineBlockEntity;
+import java.util.ArrayList;
+import java.util.List;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -15,6 +21,9 @@ public abstract class MachineMenuBase<T extends MachineBlockEntity> extends Abst
     protected final T machine;
     protected final Inventory playerInventory;
     protected final int machineSlotCount;
+    private boolean maintenanceBlocked;
+    private int maintenanceLevel;
+    private List<ItemStack> repairMaterials = List.of();
 
     protected MachineMenuBase(final MenuType<?> menuType, final int containerId, final Inventory playerInventory, final T machine, final int machineSlotCount) {
         super(menuType, containerId);
@@ -72,5 +81,56 @@ public abstract class MachineMenuBase<T extends MachineBlockEntity> extends Abst
 
     public T machine() {
         return this.machine;
+    }
+
+    public final boolean applyMachineStateSync(final BlockPos pos, final CompoundTag data) {
+        if (this.machine == null || !this.machine.getBlockPos().equals(pos)) {
+            return false;
+        }
+        this.readSharedMachineStateSync(data);
+        this.readMachineStateSync(data);
+        return true;
+    }
+
+    private void readSharedMachineStateSync(final CompoundTag data) {
+        this.maintenanceBlocked = data.getBoolean("maintenanceBlocked");
+        if (data.contains("maintenanceLevel", Tag.TAG_INT)) {
+            this.maintenanceLevel = data.getInt("maintenanceLevel");
+        }
+
+        if (!data.contains("repairMaterials", Tag.TAG_LIST)) {
+            this.repairMaterials = List.of();
+            return;
+        }
+
+        final ListTag listTag = data.getList("repairMaterials", Tag.TAG_COMPOUND);
+        if (listTag.isEmpty()) {
+            this.repairMaterials = List.of();
+            return;
+        }
+
+        final List<ItemStack> synced = new ArrayList<>(listTag.size());
+        for (int i = 0; i < listTag.size(); i++) {
+            final ItemStack stack = ItemStack.of(listTag.getCompound(i));
+            if (!stack.isEmpty()) {
+                synced.add(stack);
+            }
+        }
+        this.repairMaterials = List.copyOf(synced);
+    }
+
+    public boolean isMaintenanceBlocked() {
+        return this.maintenanceBlocked;
+    }
+
+    public int maintenanceLevel() {
+        return this.maintenanceLevel;
+    }
+
+    public List<ItemStack> repairMaterials() {
+        return this.repairMaterials;
+    }
+
+    protected void readMachineStateSync(final CompoundTag data) {
     }
 }

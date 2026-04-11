@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "hbmntm:pellet_rtg_depleted_mercury"
+    }
+  ],
+  "result": {
+    "count": 2,
+    "item": "hbmntm:nugget_mercury"
+  }
+}

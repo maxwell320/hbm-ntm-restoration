@@ -4,6 +4,7 @@
     "hbmntm:lithium",
     "hbmntm:powder_lithium_tiny",
     "hbmntm:powder_lithium",
-    "hbmntm:crystal_lithium"
+    "hbmntm:crystal_lithium",
+    "hbmntm:block_lithium"
   ]
 }

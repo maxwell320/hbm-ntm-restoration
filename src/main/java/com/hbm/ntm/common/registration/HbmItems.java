@@ -11,8 +11,10 @@ import com.hbm.ntm.common.block.SellafieldOreType;
 import com.hbm.ntm.common.block.StoneResourceType;
 import com.hbm.ntm.common.item.BarrelBlockItem;
 import com.hbm.ntm.common.item.BriquetteItemType;
+import com.hbm.ntm.common.item.BlowtorchItem;
 import com.hbm.ntm.common.item.BatteryBlockItem;
 import com.hbm.ntm.common.item.BatteryItem;
+import com.hbm.ntm.common.item.BlueprintItem;
 import com.hbm.ntm.common.item.CasingItemType;
 import com.hbm.ntm.common.item.CanisterItem;
 import com.hbm.ntm.common.item.CokeItemType;
@@ -28,6 +30,8 @@ import com.hbm.ntm.common.item.MachineUpgradeItem;
 import com.hbm.ntm.common.item.PageItem;
 import com.hbm.ntm.common.item.RadXItem;
 import com.hbm.ntm.common.item.RadawayItem;
+import com.hbm.ntm.common.item.RtgDepletedPelletItem;
+import com.hbm.ntm.common.item.RtgPelletItem;
 import com.hbm.ntm.common.item.SellafieldBlockItem;
 import com.hbm.ntm.common.item.ShredderBladesItem;
 import com.hbm.ntm.common.item.StampBookItem;
@@ -70,6 +74,8 @@ public final class HbmItems {
     public static final RegistryObject<Item> BIOMASS_COMPRESSED = registerSimpleItem("biomass_compressed", SIMPLE_ITEMS);
     public static final RegistryObject<Item> SCRAP = registerSimpleItem("scrap", SIMPLE_ITEMS);
     public static final RegistryObject<Item> SCRAP_NUCLEAR = registerSimpleItem("scrap_nuclear", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> SCRAP_OIL = registerSimpleItem("scrap_oil", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> SCRAP_PLASTIC = registerSimpleItem("scrap_plastic", SIMPLE_ITEMS);
     public static final RegistryObject<Item> DUCTTAPE = registerSimpleItem("ducttape", SIMPLE_ITEMS);
     public static final RegistryObject<Item> FUSE = registerSimpleItem("fuse", SIMPLE_ITEMS);
     public static final RegistryObject<Item> SAFETY_FUSE = registerSimpleItem("safety_fuse", SIMPLE_ITEMS);
@@ -92,10 +98,37 @@ public final class HbmItems {
     public static final RegistryObject<Item> FLUID_PACK_FULL = registerItem("fluid_pack_full", () -> new FluidTankItem(true, false, 32_000, HbmItems::fluidPackEmptyItem, HbmItems::fluidPackFullItem, new Item.Properties().stacksTo(1)), SIMPLE_ITEMS);
     public static final RegistryObject<Item> COIL_ADVANCED_TORUS = registerSimpleItem("coil_advanced_torus", SIMPLE_ITEMS);
     public static final RegistryObject<Item> COIL_GOLD_TORUS = registerSimpleItem("coil_gold_torus", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> INGOT_CFT = registerSimpleItem("ingot_cft", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> CENTRIFUGE_ELEMENT = registerSimpleItem("centrifuge_element", SIMPLE_ITEMS);
     public static final RegistryObject<Item> PHOTO_PANEL = registerSimpleItem("photo_panel", SIMPLE_ITEMS);
     public static final RegistryObject<Item> PIN = registerSimpleItem("pin", SIMPLE_ITEMS);
     public static final RegistryObject<Item> CATALYST_CLAY = registerSimpleItem("catalyst_clay", SIMPLE_ITEMS);
     public static final RegistryObject<Item> DEUTERIUM_FILTER = registerSimpleItem("deuterium_filter", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> HAZMAT_CLOTH = registerSimpleItem("hazmat_cloth", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> ASBESTOS_CLOTH = registerSimpleItem("asbestos_cloth", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> FILTER_COAL = registerSimpleItem("filter_coal", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> REACTOR_CORE = registerSimpleItem("reactor_core", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> THERMO_ELEMENT = registerSimpleItem("thermo_element", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> RTG_UNIT = registerSimpleItem("rtg_unit", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> MAGNETRON = registerSimpleItem("magnetron", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> DRILL_TITANIUM = registerSimpleItem("drill_titanium", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> ENTANGLEMENT_KIT = registerSimpleItem("entanglement_kit", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> DRILLBIT_STEEL = registerSimpleItem("drillbit_steel", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> DRILLBIT_STEEL_DIAMOND = registerSimpleItem("drillbit_steel_diamond", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> DRILLBIT_HSS = registerSimpleItem("drillbit_hss", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> DRILLBIT_HSS_DIAMOND = registerSimpleItem("drillbit_hss_diamond", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> DRILLBIT_DESH = registerSimpleItem("drillbit_desh", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> DRILLBIT_DESH_DIAMOND = registerSimpleItem("drillbit_desh_diamond", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> DRILLBIT_TCALLOY = registerSimpleItem("drillbit_tcalloy", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> DRILLBIT_TCALLOY_DIAMOND = registerSimpleItem("drillbit_tcalloy_diamond", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> DRILLBIT_FERRO = registerSimpleItem("drillbit_ferro", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> DRILLBIT_FERRO_DIAMOND = registerSimpleItem("drillbit_ferro_diamond", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> PART_LITHIUM = registerSimpleItem("part_lithium", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> PART_BERYLLIUM = registerSimpleItem("part_beryllium", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> PART_CARBON = registerSimpleItem("part_carbon", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> PART_COPPER = registerSimpleItem("part_copper", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> PART_PLUTONIUM = registerSimpleItem("part_plutonium", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> BLUEPRINTS = registerItem("blueprints", BlueprintItem::new, HIDDEN_ITEMS);
     public static final RegistryObject<Item> TEMPLATE_FOLDER = registerItem("template_folder", TemplateFolderItem::new, SIMPLE_ITEMS);
     public static final RegistryObject<Item> FINS_FLAT = registerSimpleItem("fins_flat", SIMPLE_ITEMS);
     public static final RegistryObject<Item> SPHERE_STEEL = registerSimpleItem("sphere_steel", SIMPLE_ITEMS);
@@ -113,8 +146,18 @@ public final class HbmItems {
     public static final RegistryObject<Item> NUGGET_MERCURY = registerSimpleItem("nugget_mercury", SIMPLE_ITEMS);
     public static final RegistryObject<Item> INGOT_MERCURY = NUGGET_MERCURY;
     public static final RegistryObject<Item> BOTTLE_MERCURY = registerItem("bottle_mercury", () -> new Item(new Item.Properties().craftRemainder(Items.GLASS_BOTTLE)), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> NUCLEAR_WASTE_TINY = registerSimpleItem("nuclear_waste_tiny", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> DEBRIS_CONCRETE = registerSimpleItem("debris_concrete", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> DEBRIS_SHRAPNEL = registerSimpleItem("debris_shrapnel", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> DEBRIS_EXCHANGER = registerSimpleItem("debris_exchanger", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> DEBRIS_ELEMENT = registerSimpleItem("debris_element", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> DEBRIS_METAL = registerSimpleItem("debris_metal", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> DEBRIS_GRAPHITE = registerSimpleItem("debris_graphite", SIMPLE_ITEMS);
     public static final RegistryObject<Item> FALLOUT = registerSimpleItem("fallout", SIMPLE_ITEMS);
     public static final RegistryObject<Item> POWDER_SAWDUST = registerSimpleItem("powder_sawdust", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> POWDER_ICE = registerSimpleItem("powder_ice", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> POWDER_MAGIC = registerSimpleItem("powder_magic", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> POWDER_POISON = registerSimpleItem("powder_poison", SIMPLE_ITEMS);
     public static final RegistryObject<Item> UPGRADE_MUFFLER = registerSimpleItem("upgrade_muffler", SIMPLE_ITEMS);
     public static final RegistryObject<Item> UPGRADE_TEMPLATE = registerSimpleItem("upgrade_template", SIMPLE_ITEMS);
     public static final RegistryObject<Item> BLADES_STEEL = registerItem("blades_steel", () -> new ShredderBladesItem(200), SIMPLE_ITEMS);
@@ -149,6 +192,32 @@ public final class HbmItems {
     public static final RegistryObject<Item> UPGRADE_SCREM = registerItem("upgrade_screm", () -> new MachineUpgradeItem(MachineUpgradeItem.UpgradeType.SCREM, 0), SIMPLE_ITEMS);
     public static final RegistryObject<Item> UPGRADE_GC_SPEED = registerItem("upgrade_gc_speed", () -> new MachineUpgradeItem(MachineUpgradeItem.UpgradeType.GC_SPEED, 0), SIMPLE_ITEMS);
     public static final RegistryObject<Item> UPGRADE_5G = registerItem("upgrade_5g", () -> new MachineUpgradeItem(MachineUpgradeItem.UpgradeType.SPECIAL, 0), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> PELLET_RTG_DEPLETED_BISMUTH = registerItem("pellet_rtg_depleted_bismuth", () -> new RtgDepletedPelletItem(() -> Objects.requireNonNull(getMaterialPart(HbmMaterials.IRON, HbmMaterialShape.PLATE).get())), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> PELLET_RTG_DEPLETED_MERCURY = registerItem("pellet_rtg_depleted_mercury", () -> new RtgDepletedPelletItem(() -> Objects.requireNonNull(getMaterialPart(HbmMaterials.IRON, HbmMaterialShape.PLATE).get())), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> PELLET_RTG_DEPLETED_NEPTUNIUM = registerItem("pellet_rtg_depleted_neptunium", () -> new RtgDepletedPelletItem(() -> Objects.requireNonNull(getMaterialPart(HbmMaterials.IRON, HbmMaterialShape.PLATE).get())), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> PELLET_RTG_DEPLETED_LEAD = registerItem("pellet_rtg_depleted_lead", () -> new RtgDepletedPelletItem(() -> Objects.requireNonNull(getMaterialPart(HbmMaterials.IRON, HbmMaterialShape.PLATE).get())), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> PELLET_RTG_DEPLETED_ZIRCONIUM = registerItem("pellet_rtg_depleted_zirconium", () -> new RtgDepletedPelletItem(() -> Objects.requireNonNull(getMaterialPart(HbmMaterials.IRON, HbmMaterialShape.PLATE).get())), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> PELLET_RTG_DEPLETED_NICKEL = registerItem("pellet_rtg_depleted_nickel", () -> new RtgDepletedPelletItem(() -> Objects.requireNonNull(getMaterialPart(HbmMaterials.IRON, HbmMaterialShape.PLATE).get())), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> PELLET_RTG_RADIUM = registerItem("pellet_rtg_radium", () -> new RtgPelletItem(3, false)
+        .setDecays(PELLET_RTG_DEPLETED_LEAD::get, rtgLifespan(16.0F, RtgPelletItem.HalfLifeType.LONG)), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> PELLET_RTG_WEAK = registerItem("pellet_rtg_weak", () -> new RtgPelletItem(5, false)
+        .setDecays(PELLET_RTG_DEPLETED_LEAD::get, rtgLifespan(1.0F, RtgPelletItem.HalfLifeType.LONG)), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> PELLET_RTG = registerItem("pellet_rtg", () -> new RtgPelletItem(10, true)
+        .setDecays(PELLET_RTG_DEPLETED_LEAD::get, rtgLifespan(87.7F, RtgPelletItem.HalfLifeType.MEDIUM)), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> PELLET_RTG_STRONTIUM = registerItem("pellet_rtg_strontium", () -> new RtgPelletItem(15, false)
+        .setDecays(PELLET_RTG_DEPLETED_ZIRCONIUM::get, rtgLifespan(29.0F, RtgPelletItem.HalfLifeType.MEDIUM)), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> PELLET_RTG_COBALT = registerItem("pellet_rtg_cobalt", () -> new RtgPelletItem(15, false)
+        .setDecays(PELLET_RTG_DEPLETED_NICKEL::get, rtgLifespan(5.3F, RtgPelletItem.HalfLifeType.MEDIUM)), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> PELLET_RTG_ACTINIUM = registerItem("pellet_rtg_actinium", () -> new RtgPelletItem(20, false)
+        .setDecays(PELLET_RTG_DEPLETED_LEAD::get, rtgLifespan(21.8F, RtgPelletItem.HalfLifeType.MEDIUM)), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> PELLET_RTG_AMERICIUM = registerItem("pellet_rtg_americium", () -> new RtgPelletItem(20, false)
+        .setDecays(PELLET_RTG_DEPLETED_NEPTUNIUM::get, rtgLifespan(4.7F, RtgPelletItem.HalfLifeType.LONG)), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> PELLET_RTG_POLONIUM = registerItem("pellet_rtg_polonium", () -> new RtgPelletItem(50, false)
+        .setDecays(PELLET_RTG_DEPLETED_LEAD::get, rtgLifespan(138.0F, RtgPelletItem.HalfLifeType.SHORT)), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> PELLET_RTG_GOLD = registerItem("pellet_rtg_gold", () -> new RtgPelletItem(200, false)
+        .setDecays(PELLET_RTG_DEPLETED_MERCURY::get, rtgLifespan(2.7F, RtgPelletItem.HalfLifeType.SHORT)), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> PELLET_RTG_LEAD = registerItem("pellet_rtg_lead", () -> new RtgPelletItem(600, false)
+        .setDecays(PELLET_RTG_DEPLETED_BISMUTH::get, rtgLifespan(0.3F, RtgPelletItem.HalfLifeType.SHORT)), SIMPLE_ITEMS);
     public static final RegistryObject<Item> UNDEFINED = registerItem("undefined", UndefinedItem::new, SIMPLE_ITEMS);
     public static final RegistryObject<Item> FALLOUT_LAYER = registerBlockItem("fallout_layer", HbmBlocks.FALLOUT, BLOCK_ITEMS);
     public static final RegistryObject<Item> CREATIVE_ENERGY_SOURCE = registerBlockItem("creative_energy_source", HbmBlocks.CREATIVE_ENERGY_SOURCE, BLOCK_ITEMS);
@@ -158,7 +227,11 @@ public final class HbmItems {
     public static final RegistryObject<Item> FLUID_DUCT_NEO = registerBlockItem("fluid_duct_neo", HbmBlocks.FLUID_DUCT_NEO, BLOCK_ITEMS);
     public static final RegistryObject<Item> GEIGER = registerBlockItem("geiger", HbmBlocks.GEIGER, BLOCK_ITEMS);
     public static final RegistryObject<Item> MACHINE_PRESS = registerBlockItem("machine_press", HbmBlocks.MACHINE_PRESS, BLOCK_ITEMS);
+    public static final RegistryObject<Item> MACHINE_ASSEMBLY_MACHINE = registerBlockItem("machine_assembly_machine", HbmBlocks.MACHINE_ASSEMBLY_MACHINE, BLOCK_ITEMS);
+    public static final RegistryObject<Item> MACHINE_SOLDERING_STATION = registerBlockItem("machine_soldering_station", HbmBlocks.MACHINE_SOLDERING_STATION, BLOCK_ITEMS);
     public static final RegistryObject<Item> MACHINE_SHREDDER = registerBlockItem("machine_shredder", HbmBlocks.MACHINE_SHREDDER, BLOCK_ITEMS);
+    public static final RegistryObject<Item> MACHINE_CENTRIFUGE = registerBlockItem("machine_centrifuge", HbmBlocks.MACHINE_CENTRIFUGE, BLOCK_ITEMS);
+    public static final RegistryObject<Item> MACHINE_GAS_CENTRIFUGE = registerBlockItem("machine_gascent", HbmBlocks.MACHINE_GAS_CENTRIFUGE, BLOCK_ITEMS);
     public static final RegistryObject<Item> PRESS_PREHEATER = registerBlockItem("press_preheater", HbmBlocks.PRESS_PREHEATER, BLOCK_ITEMS);
     public static final RegistryObject<Item> BARREL_PLASTIC = registerItem("barrel_plastic", () -> new BarrelBlockItem(HbmBlocks.BARREL_PLASTIC.get(), BarrelType.PLASTIC, new Item.Properties()), BLOCK_ITEMS);
     public static final RegistryObject<Item> BARREL_CORRODED = registerItem("barrel_corroded", () -> new BarrelBlockItem(HbmBlocks.BARREL_CORRODED.get(), BarrelType.CORRODED, new Item.Properties()), HIDDEN_ITEMS);
@@ -169,10 +242,13 @@ public final class HbmItems {
     public static final RegistryObject<Item> SELLAFIELD = registerItem("sellafield", () -> new SellafieldBlockItem(HbmBlocks.SELLAFIELD.get(), new Item.Properties()), BLOCK_ITEMS);
     public static final RegistryObject<Item> GEIGER_COUNTER = registerItem("geiger_counter", () -> new GeigerCounterItem(new Item.Properties()), SIMPLE_ITEMS);
     public static final RegistryObject<Item> GEM_RAD = registerSimpleItem("gem_rad", SIMPLE_ITEMS);
+    public static final RegistryObject<Item> GEM_ALEXANDRITE = registerSimpleItem("gem_alexandrite", SIMPLE_ITEMS);
     public static final RegistryObject<Item> IV_EMPTY = registerSimpleItem("iv_empty", SIMPLE_ITEMS);
     public static final RegistryObject<Item> CRT_DISPLAY = registerSimpleItem("crt_display", SIMPLE_ITEMS);
     public static final RegistryObject<Item> DOSIMETER = registerItem("dosimeter", () -> new DosimeterItem(new Item.Properties()), SIMPLE_ITEMS);
     public static final RegistryObject<Item> FLUID_IDENTIFIER_MULTI = registerItem("fluid_identifier_multi", () -> new FluidIdentifierItem(new Item.Properties()), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> BLOWTORCH = registerItem("blowtorch", () -> new BlowtorchItem(BlowtorchItem.FuelProfile.BLOWTORCH), SIMPLE_ITEMS);
+    public static final RegistryObject<Item> ACETYLENE_TORCH = registerItem("acetylene_torch", () -> new BlowtorchItem(BlowtorchItem.FuelProfile.ACETYLENE), SIMPLE_ITEMS);
     public static final RegistryObject<Item> RADAWAY = registerItem("radaway", () -> new RadawayItem(140, new Item.Properties()), SIMPLE_ITEMS);
     public static final RegistryObject<Item> RADAWAY_STRONG = registerItem("radaway_strong", () -> new RadawayItem(350, new Item.Properties()), SIMPLE_ITEMS);
     public static final RegistryObject<Item> RADAWAY_FLUSH = registerItem("radaway_flush", () -> new RadawayItem(500, new Item.Properties()), SIMPLE_ITEMS);
@@ -345,6 +421,10 @@ public final class HbmItems {
 
     private static Item fluidPackFullItem() {
         return Objects.requireNonNull(FLUID_PACK_FULL.get());
+    }
+
+    private static long rtgLifespan(final float halfLife, final RtgPelletItem.HalfLifeType type) {
+        return (long) (RtgPelletItem.getLifespanFromHalfLife(halfLife, type, false) * 1.5D);
     }
 
     private static RegistryObject<Item> registerMaterialPart(final HbmMaterialDefinition material, final HbmMaterialShape shape) {

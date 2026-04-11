@@ -50,10 +50,12 @@ public class HbmRecipeProvider extends RecipeProvider {
         buildEnergyRecipes(recipeOutput);
         buildFluidStorageRecipes(recipeOutput);
         buildMercuryRecipes(recipeOutput);
+        buildRtgPelletRecipes(recipeOutput);
         buildPressSupportRecipes(recipeOutput);
         buildStampRecipes(recipeOutput);
         buildFalloutRecipes(recipeOutput);
         buildReadoutToolRecipes(recipeOutput);
+        buildServiceToolRecipes(recipeOutput);
         buildBladeRecipes(recipeOutput);
     }
 
@@ -156,6 +158,80 @@ public class HbmRecipeProvider extends RecipeProvider {
             .requires(bottleMercury)
             .unlockedBy(getHasName(bottleMercury), has(bottleMercury))
             .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "nugget_mercury_from_bottle")));
+    }
+
+    private void buildRtgPelletRecipes(final Consumer<FinishedRecipe> recipeOutput) {
+        final ItemLike ironCastPlate = Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.IRON, HbmMaterialShape.CAST_PLATE).get());
+
+        buildRtgPelletRecipe(recipeOutput, Objects.requireNonNull(HbmItems.PELLET_RTG.get()),
+            Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.PU238, HbmMaterialShape.BILLET).get()), ironCastPlate, "pellet_rtg");
+        buildRtgPelletRecipe(recipeOutput, Objects.requireNonNull(HbmItems.PELLET_RTG_RADIUM.get()),
+            Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.RA226, HbmMaterialShape.BILLET).get()), ironCastPlate, "pellet_rtg_radium");
+        buildRtgPelletRecipe(recipeOutput, Objects.requireNonNull(HbmItems.PELLET_RTG_WEAK.get()),
+            Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.U238, HbmMaterialShape.BILLET).get()),
+            Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.U238, HbmMaterialShape.BILLET).get()),
+            Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.PU238, HbmMaterialShape.BILLET).get()), ironCastPlate, "pellet_rtg_weak");
+        buildRtgPelletRecipe(recipeOutput, Objects.requireNonNull(HbmItems.PELLET_RTG_STRONTIUM.get()),
+            Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.SR90, HbmMaterialShape.BILLET).get()), ironCastPlate, "pellet_rtg_strontium");
+        buildRtgPelletRecipe(recipeOutput, Objects.requireNonNull(HbmItems.PELLET_RTG_COBALT.get()),
+            Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.CO60, HbmMaterialShape.BILLET).get()), ironCastPlate, "pellet_rtg_cobalt");
+        buildRtgPelletRecipe(recipeOutput, Objects.requireNonNull(HbmItems.PELLET_RTG_ACTINIUM.get()),
+            Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.ACTINIUM, HbmMaterialShape.BILLET).get()), ironCastPlate, "pellet_rtg_actinium");
+        buildRtgPelletRecipe(recipeOutput, Objects.requireNonNull(HbmItems.PELLET_RTG_POLONIUM.get()),
+            Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.POLONIUM, HbmMaterialShape.BILLET).get()), ironCastPlate, "pellet_rtg_polonium");
+        buildRtgPelletRecipe(recipeOutput, Objects.requireNonNull(HbmItems.PELLET_RTG_LEAD.get()),
+            Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.PB209, HbmMaterialShape.BILLET).get()), ironCastPlate, "pellet_rtg_lead");
+        buildRtgPelletRecipe(recipeOutput, Objects.requireNonNull(HbmItems.PELLET_RTG_GOLD.get()),
+            Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.AU198, HbmMaterialShape.BILLET).get()), ironCastPlate, "pellet_rtg_gold");
+        buildRtgPelletRecipe(recipeOutput, Objects.requireNonNull(HbmItems.PELLET_RTG_AMERICIUM.get()),
+            Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.AM241, HbmMaterialShape.BILLET).get()), ironCastPlate, "pellet_rtg_americium");
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.BISMUTH, HbmMaterialShape.BILLET).get()), 3)
+            .requires(Objects.requireNonNull(HbmItems.PELLET_RTG_DEPLETED_BISMUTH.get()))
+            .unlockedBy(getHasName(HbmItems.PELLET_RTG_DEPLETED_BISMUTH.get()), has(HbmItems.PELLET_RTG_DEPLETED_BISMUTH.get()))
+            .save(recipeOutput, rl("billet_bismuth_from_pellet_rtg_depleted_bismuth"));
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.LEAD, HbmMaterialShape.INGOT).get()), 2)
+            .requires(Objects.requireNonNull(HbmItems.PELLET_RTG_DEPLETED_LEAD.get()))
+            .unlockedBy(getHasName(HbmItems.PELLET_RTG_DEPLETED_LEAD.get()), has(HbmItems.PELLET_RTG_DEPLETED_LEAD.get()))
+            .save(recipeOutput, rl("ingot_lead_from_pellet_rtg_depleted_lead"));
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.NICKEL, HbmMaterialShape.INGOT).get()), 2)
+            .requires(Objects.requireNonNull(HbmItems.PELLET_RTG_DEPLETED_NICKEL.get()))
+            .unlockedBy(getHasName(HbmItems.PELLET_RTG_DEPLETED_NICKEL.get()), has(HbmItems.PELLET_RTG_DEPLETED_NICKEL.get()))
+            .save(recipeOutput, rl("ingot_nickel_from_pellet_rtg_depleted_nickel"));
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Objects.requireNonNull(HbmItems.INGOT_MERCURY.get()), 2)
+            .requires(Objects.requireNonNull(HbmItems.PELLET_RTG_DEPLETED_MERCURY.get()))
+            .unlockedBy(getHasName(HbmItems.PELLET_RTG_DEPLETED_MERCURY.get()), has(HbmItems.PELLET_RTG_DEPLETED_MERCURY.get()))
+            .save(recipeOutput, rl("ingot_mercury_from_pellet_rtg_depleted_mercury"));
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.NEPTUNIUM, HbmMaterialShape.BILLET).get()), 3)
+            .requires(Objects.requireNonNull(HbmItems.PELLET_RTG_DEPLETED_NEPTUNIUM.get()))
+            .unlockedBy(getHasName(HbmItems.PELLET_RTG_DEPLETED_NEPTUNIUM.get()), has(HbmItems.PELLET_RTG_DEPLETED_NEPTUNIUM.get()))
+            .save(recipeOutput, rl("billet_neptunium_from_pellet_rtg_depleted_neptunium"));
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.ZIRCONIUM, HbmMaterialShape.BILLET).get()), 3)
+            .requires(Objects.requireNonNull(HbmItems.PELLET_RTG_DEPLETED_ZIRCONIUM.get()))
+            .unlockedBy(getHasName(HbmItems.PELLET_RTG_DEPLETED_ZIRCONIUM.get()), has(HbmItems.PELLET_RTG_DEPLETED_ZIRCONIUM.get()))
+            .save(recipeOutput, rl("billet_zirconium_from_pellet_rtg_depleted_zirconium"));
+    }
+
+    private void buildRtgPelletRecipe(final Consumer<FinishedRecipe> recipeOutput, final ItemLike output,
+                                      final ItemLike billet, final ItemLike plate, final String recipeName) {
+        buildRtgPelletRecipe(recipeOutput, output, billet, billet, billet, plate, recipeName);
+    }
+
+    private void buildRtgPelletRecipe(final Consumer<FinishedRecipe> recipeOutput, final ItemLike output,
+                                      final ItemLike billetA, final ItemLike billetB, final ItemLike billetC,
+                                      final ItemLike plate, final String recipeName) {
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, output)
+            .requires(billetA)
+            .requires(billetB)
+            .requires(billetC)
+            .requires(plate)
+            .unlockedBy(getHasName(plate), has(plate))
+            .save(recipeOutput, rl(recipeName));
     }
 
     private void buildEnergyRecipes(final Consumer<FinishedRecipe> recipeOutput) {
@@ -345,6 +421,7 @@ public class HbmRecipeProvider extends RecipeProvider {
         final ItemLike basicCircuit = Objects.requireNonNull(HbmItems.getCircuit(CircuitItemType.BASIC).get());
         final ItemLike crtDisplay = Objects.requireNonNull(HbmItems.CRT_DISPLAY.get());
         final ItemLike upgradeTemplate = Objects.requireNonNull(HbmItems.UPGRADE_TEMPLATE.get());
+        final ItemLike gemAlexandrite = Objects.requireNonNull(HbmItems.GEM_ALEXANDRITE.get());
         final ItemLike polymerPlate = Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.POLYMER, HbmMaterialShape.PLATE).get());
         final ItemLike polymerBar = Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.POLYMER, HbmMaterialShape.INGOT).get());
         final ItemLike bakeliteBar = Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.BAKELITE, HbmMaterialShape.INGOT).get());
@@ -916,6 +993,12 @@ public class HbmRecipeProvider extends RecipeProvider {
             .unlockedBy(getHasName(rubberBar), has(rubberBar))
             .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "upgrade_muffler")));
 
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, Objects.requireNonNull(HbmItems.UPGRADE_5G.get()))
+            .requires(upgradeTemplate)
+            .requires(gemAlexandrite)
+            .unlockedBy(getHasName(gemAlexandrite), has(gemAlexandrite))
+            .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "upgrade_5g")));
+
         ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, Objects.requireNonNull(HbmItems.FUSE.get()))
             .requires(steelPlate)
             .requires(polymerPlate)
@@ -1298,6 +1381,36 @@ public class HbmRecipeProvider extends RecipeProvider {
             .save(recipeOutput, Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "geiger_counter_from_geiger")));
     }
 
+    private void buildServiceToolRecipes(final Consumer<FinishedRecipe> recipeOutput) {
+        final ItemLike blowtorch = Objects.requireNonNull(HbmItems.BLOWTORCH.get());
+        final ItemLike acetyleneTorch = Objects.requireNonNull(HbmItems.ACETYLENE_TORCH.get());
+        final ItemLike copperPlate = Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.COPPER, HbmMaterialShape.PLATE).get());
+        final ItemLike steelPlate = Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.STEEL, HbmMaterialShape.PLATE).get());
+        final ItemLike polymerIngot = Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.POLYMER, HbmMaterialShape.INGOT).get());
+        final ItemLike bakeliteIngot = Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.BAKELITE, HbmMaterialShape.INGOT).get());
+        final ItemLike rubberIngot = Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.RUBBER, HbmMaterialShape.INGOT).get());
+        final ItemLike tankSteel = Objects.requireNonNull(HbmItems.TANK_STEEL.get());
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, blowtorch)
+            .pattern("CC ")
+            .pattern(" I ")
+            .pattern("CCC")
+            .define('C', copperPlate)
+            .define('I', Items.IRON_INGOT)
+            .unlockedBy(getHasName(copperPlate), has(copperPlate))
+            .save(recipeOutput, rl("blowtorch"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, acetyleneTorch)
+            .pattern("SS ")
+            .pattern(" PS")
+            .pattern(" T ")
+            .define('S', steelPlate)
+            .define('P', Ingredient.of(polymerIngot, bakeliteIngot, rubberIngot))
+            .define('T', tankSteel)
+            .unlockedBy(getHasName(steelPlate), has(steelPlate))
+            .save(recipeOutput, rl("acetylene_torch"));
+    }
+
     private void buildBladeRecipes(final Consumer<FinishedRecipe> recipeOutput) {
         final ItemLike steelPlate = HbmItems.getMaterialPart(HbmMaterials.STEEL, HbmMaterialShape.PLATE).get();
         final ItemLike steelIngot = HbmItems.getMaterialPart(HbmMaterials.STEEL, HbmMaterialShape.INGOT).get();
@@ -1305,6 +1418,8 @@ public class HbmRecipeProvider extends RecipeProvider {
         final ItemLike titaniumIngot = HbmItems.getMaterialPart(HbmMaterials.TITANIUM, HbmMaterialShape.INGOT).get();
         final ItemLike alloyPlate = HbmItems.getMaterialPart(HbmMaterials.ADVANCED_ALLOY, HbmMaterialShape.PLATE).get();
         final ItemLike alloyIngot = HbmItems.getMaterialPart(HbmMaterials.ADVANCED_ALLOY, HbmMaterialShape.INGOT).get();
+        final ItemLike deshPlate = HbmItems.getMaterialPart(HbmMaterials.DESH, HbmMaterialShape.CAST_PLATE).get();
+        final ItemLike deshIngot = HbmItems.getMaterialPart(HbmMaterials.DESH, HbmMaterialShape.INGOT).get();
 
         // blades_steel: " P " / "PIP" / " P "
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, HbmItems.BLADES_STEEL.get())
@@ -1327,8 +1442,12 @@ public class HbmRecipeProvider extends RecipeProvider {
             .unlockedBy(getHasName(alloyPlate), has(alloyPlate))
             .save(recipeOutput, rl("blades_advanced_alloy"));
 
-        // blades_desh: " P " / "PBP" / " P " — BLOCKED: plate_desh not yet in material system
-        // legacy uses ModItems.plate_desh which is a special non-autogen plate
+        // blades_desh: " P " / "PBP" / " P "
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, HbmItems.BLADES_DESH.get())
+            .pattern(" P ").pattern("PIP").pattern(" P ")
+            .define('P', deshPlate).define('I', deshIngot)
+            .unlockedBy(getHasName(deshPlate), has(deshPlate))
+            .save(recipeOutput, rl("blades_desh"));
     }
 
     private static ResourceLocation rl(final String path) {

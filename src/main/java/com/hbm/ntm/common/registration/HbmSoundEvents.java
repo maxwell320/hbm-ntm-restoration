@@ -17,6 +17,8 @@ public final class HbmSoundEvents {
     public static final RegistryObject<SoundEvent> ITEM_GEIGER_6 = register("item.geiger6");
     public static final RegistryObject<SoundEvent> ITEM_RADAWAY = register("item.radaway");
     public static final RegistryObject<SoundEvent> ITEM_TECH_BOOP = register("item.tech_boop");
+    public static final RegistryObject<SoundEvent> BLOCK_PRESS_OPERATE = register("block.press_operate");
+    public static final RegistryObject<SoundEvent> BLOCK_CENTRIFUGE_OPERATE = register("block.centrifuge_operate");
 
     private HbmSoundEvents() {
     }

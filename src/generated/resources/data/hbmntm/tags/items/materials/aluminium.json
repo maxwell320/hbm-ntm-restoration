@@ -9,6 +9,7 @@
     "hbmntm:plate_cast_aluminium",
     "hbmntm:plate_welded_aluminium",
     "hbmntm:shellntm_aluminium",
-    "hbmntm:pipentm_aluminium"
+    "hbmntm:pipentm_aluminium",
+    "hbmntm:block_aluminium"
   ]
 }

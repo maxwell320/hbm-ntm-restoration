@@ -4,6 +4,7 @@
     "hbmntm:powder_combine_steel",
     "hbmntm:plate_combine_steel",
     "hbmntm:plate_cast_combine_steel",
-    "hbmntm:plate_welded_combine_steel"
+    "hbmntm:plate_welded_combine_steel",
+    "hbmntm:block_combine_steel"
   ]
 }

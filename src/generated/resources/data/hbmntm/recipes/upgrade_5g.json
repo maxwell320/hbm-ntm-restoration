@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    {
+      "item": "hbmntm:upgrade_template"
+    },
+    {
+      "item": "hbmntm:gem_alexandrite"
+    }
+  ],
+  "result": {
+    "item": "hbmntm:upgrade_5g"
+  }
+}

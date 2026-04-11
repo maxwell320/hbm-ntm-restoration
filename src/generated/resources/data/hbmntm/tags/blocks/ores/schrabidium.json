@@ -1,5 +1,7 @@
 {
   "values": [
-    "hbmntm:ore_sellafield_schrabidium"
+    "hbmntm:ore_sellafield_schrabidium",
+    "hbmntm:ore_schrabidium",
+    "hbmntm:ore_nether_schrabidium"
   ]
 }

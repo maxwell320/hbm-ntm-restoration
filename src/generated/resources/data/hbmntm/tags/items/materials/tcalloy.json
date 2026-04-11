@@ -7,6 +7,7 @@
     "hbmntm:part_barrel_light_tcalloy",
     "hbmntm:part_barrel_heavy_tcalloy",
     "hbmntm:part_receiver_light_tcalloy",
-    "hbmntm:part_receiver_heavy_tcalloy"
+    "hbmntm:part_receiver_heavy_tcalloy",
+    "hbmntm:block_tcalloy"
   ]
 }

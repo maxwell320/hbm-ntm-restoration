@@ -10,6 +10,8 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 
 public final class HbmItemTags {
+    public static final TagKey<Item> MACHINE_REPAIR_TOOLS = create(HbmNtmMod.MOD_ID, "tools/machine_repair");
+
     private HbmItemTags() {
     }
 

@@ -31,7 +31,7 @@ public class ShredderScreen extends MachineScreenBase<ShredderMenu> {
             guiGraphics.blit(TEXTURE, this.leftPos + 8, this.topPos + 106 - powerHeight, 176, 160 - powerHeight, 16, powerHeight);
         }
 
-        final int progressPixels = this.menu.progress() * 34 / 60;
+        final int progressPixels = this.menu.progress() * 34 / Math.max(1, this.menu.processingSpeed());
         guiGraphics.blit(TEXTURE, this.leftPos + 63, this.topPos + 89, 176, 54, progressPixels + 1, 18);
 
         final int gearLeft = this.menu.gearLeft();

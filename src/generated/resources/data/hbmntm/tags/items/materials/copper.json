@@ -10,6 +10,7 @@
     "hbmntm:plate_cast_copper",
     "hbmntm:plate_welded_copper",
     "hbmntm:shellntm_copper",
-    "hbmntm:pipentm_copper"
+    "hbmntm:pipentm_copper",
+    "hbmntm:block_copper"
   ]
 }

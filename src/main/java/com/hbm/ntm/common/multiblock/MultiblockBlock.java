@@ -1,5 +1,6 @@
 package com.hbm.ntm.common.multiblock;
 
+import api.hbm.block.IToolable;
 import com.hbm.ntm.common.block.entity.MachineBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -22,7 +23,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("null")
-public abstract class MultiblockBlock extends BaseEntityBlock {
+public abstract class MultiblockBlock extends BaseEntityBlock implements IToolable {
     private static boolean removingStructure;
 
     protected MultiblockBlock(Properties properties) {
@@ -47,12 +48,32 @@ public abstract class MultiblockBlock extends BaseEntityBlock {
         }
 
         BlockEntity coreBE = level.getBlockEntity(corePos);
+        if (coreBE instanceof final MachineBlockEntity machine && machine.tryRepairInteraction(player, player.getItemInHand(hand))) {
+            return InteractionResult.CONSUME;
+        }
         if (!(coreBE instanceof MenuProvider menuProvider) || !(player instanceof ServerPlayer serverPlayer)) {
             return InteractionResult.PASS;
         }
 
         NetworkHooks.openScreen(serverPlayer, menuProvider, corePos);
         return InteractionResult.CONSUME;
+    }
+
+    @Override
+    public boolean onScrew(final Level level, final Player player, final BlockPos pos, final Direction side,
+                           final BlockHitResult hitResult, final ToolType tool) {
+        if (tool != ToolType.TORCH) {
+            return false;
+        }
+        final BlockPos corePos = this.findCore(level, pos);
+        if (corePos == null) {
+            return false;
+        }
+        final BlockEntity coreBE = level.getBlockEntity(corePos);
+        if (!(coreBE instanceof final MachineBlockEntity machine)) {
+            return false;
+        }
+        return machine.tryRepairFromPlayer(player);
     }
 
     @Override

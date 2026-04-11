@@ -8,6 +8,7 @@
     "hbmntm:bolt_tungsten",
     "hbmntm:coil_tungsten",
     "hbmntm:plate_cast_tungsten",
-    "hbmntm:plate_welded_tungsten"
+    "hbmntm:plate_welded_tungsten",
+    "hbmntm:block_tungsten"
   ]
 }

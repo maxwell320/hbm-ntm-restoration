@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_pellet_rtg_depleted_neptunium": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "hbmntm:pellet_rtg_depleted_neptunium"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "hbmntm:billet_neptunium_from_pellet_rtg_depleted_neptunium"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_pellet_rtg_depleted_neptunium",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "hbmntm:billet_neptunium_from_pellet_rtg_depleted_neptunium"
+    ]
+  },
+  "sends_telemetry_event": false
+}

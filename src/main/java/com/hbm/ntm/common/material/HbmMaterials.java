@@ -87,6 +87,10 @@ public final class HbmMaterials {
         .withItemDisplayName(HbmMaterialShape.INGOT, "Plutonium-240 Ingot")
         .withItemDisplayName(HbmMaterialShape.NUGGET, "Plutonium-240 Nugget")
         .withItemDisplayName(HbmMaterialShape.BILLET, "Plutonium-240 Billet");
+    public static final HbmMaterialDefinition PU_MIX = HbmMaterialDefinition.of("pu_mix", "Plutonium Mix", HbmMaterialShape.INGOT, HbmMaterialShape.NUGGET, HbmMaterialShape.BILLET)
+        .withItemId(HbmMaterialShape.INGOT, "ingot_pu_mix")
+        .withItemId(HbmMaterialShape.NUGGET, "nugget_pu_mix")
+        .withItemId(HbmMaterialShape.BILLET, "billet_pu_mix");
     public static final HbmMaterialDefinition NEPTUNIUM = HbmMaterialDefinition.of("neptunium", "Neptunium", HbmMaterialShape.INGOT, HbmMaterialShape.NUGGET, HbmMaterialShape.BILLET, HbmMaterialShape.DUST)
         .withItemId(HbmMaterialShape.DUST, "powder_neptunium");
     public static final HbmMaterialDefinition POLONIUM = HbmMaterialDefinition.of("polonium", "Polonium-210", HbmMaterialShape.FRAGMENT, HbmMaterialShape.INGOT, HbmMaterialShape.NUGGET, HbmMaterialShape.BILLET, HbmMaterialShape.DUST)
@@ -135,6 +139,13 @@ public final class HbmMaterials {
         .withItemDisplayName(HbmMaterialShape.INGOT, "Gold-198 Ingot")
         .withItemDisplayName(HbmMaterialShape.NUGGET, "Gold-198 Nugget")
         .withItemId(HbmMaterialShape.DUST, "powder_au198");
+    public static final HbmMaterialDefinition AM241 = HbmMaterialDefinition.of("am241", "Am-241", HbmMaterialShape.INGOT, HbmMaterialShape.NUGGET, HbmMaterialShape.BILLET)
+        .withItemId(HbmMaterialShape.INGOT, "ingot_am241")
+        .withItemId(HbmMaterialShape.NUGGET, "nugget_am241")
+        .withItemId(HbmMaterialShape.BILLET, "billet_am241")
+        .withItemDisplayName(HbmMaterialShape.INGOT, "Americium-241 Ingot")
+        .withItemDisplayName(HbmMaterialShape.NUGGET, "Americium-241 Nugget")
+        .withItemDisplayName(HbmMaterialShape.BILLET, "Americium-241 Billet");
     public static final HbmMaterialDefinition PB209 = HbmMaterialDefinition.of("pb209", "Lead-209", HbmMaterialShape.INGOT, HbmMaterialShape.NUGGET, HbmMaterialShape.BILLET)
         .withItemDisplayName(HbmMaterialShape.INGOT, "Lead-209 Ingot")
         .withItemDisplayName(HbmMaterialShape.NUGGET, "Lead-209 Nugget");
@@ -284,6 +295,7 @@ public final class HbmMaterials {
         .withItemId(HbmMaterialShape.DUST, "sulfur")
         .withItemDisplayName(HbmMaterialShape.DUST, "Sulfur")
         .withItemId(HbmMaterialShape.CRYSTAL, "crystal_sulfur");
+    public static final HbmMaterialDefinition NICKEL = HbmMaterialDefinition.of("nickel", "Nickel", HbmMaterialShape.INGOT);
     public static final HbmMaterialDefinition KNO = HbmMaterialDefinition.of("kno", "KNO", HbmMaterialShape.FRAGMENT, HbmMaterialShape.DUST, HbmMaterialShape.CRYSTAL)
         .withItemDisplayName(HbmMaterialShape.FRAGMENT, "Saltpeter Bedrock Ore Fragment")
         .withItemId(HbmMaterialShape.DUST, "niter")
@@ -428,6 +440,7 @@ public final class HbmMaterials {
         PU238,
         PU239,
         PU240,
+        PU_MIX,
         NEPTUNIUM,
         POLONIUM,
         TECHNETIUM,
@@ -440,6 +453,7 @@ public final class HbmMaterials {
         AT209,
         CO60,
         AU198,
+        AM241,
         PB209,
         TITANIUM,
         COPPER,
@@ -483,6 +497,7 @@ public final class HbmMaterials {
         SODIUM,
         STRONTIUM,
         SULFUR,
+        NICKEL,
         KNO,
         FLUORITE,
         RED_PHOSPHORUS,

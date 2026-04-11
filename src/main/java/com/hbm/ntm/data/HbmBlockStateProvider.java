@@ -1,16 +1,24 @@
 package com.hbm.ntm.data;
 
 import com.hbm.ntm.HbmNtmMod;
+import com.hbm.ntm.common.block.AssemblyMachineBlock;
 import com.hbm.ntm.common.block.BatteryBlock;
+import com.hbm.ntm.common.block.CentrifugeBlock;
+import com.hbm.ntm.common.block.GasCentrifugeBlock;
 import com.hbm.ntm.common.block.MaterialBlockType;
 import com.hbm.ntm.common.block.NetherOreType;
 import com.hbm.ntm.common.block.OverworldOreType;
 import com.hbm.ntm.common.block.ShredderBlock;
+import com.hbm.ntm.common.block.SolderingStationBlock;
+import com.hbm.ntm.common.soldering.SolderingStationPart;
 import com.hbm.ntm.common.registration.HbmBlocks;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.PackType;
 import net.minecraft.world.level.block.AnvilBlock;
 import net.minecraft.world.level.block.Block;
+import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.loaders.ObjModelBuilder;
@@ -18,14 +26,21 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 
 @SuppressWarnings("null")
 public class HbmBlockStateProvider extends BlockStateProvider {
+    private final ExistingFileHelper existingFileHelper;
+
     public HbmBlockStateProvider(final PackOutput output, final ExistingFileHelper existingFileHelper) {
         super(output, HbmNtmMod.MOD_ID, existingFileHelper);
+        this.existingFileHelper = existingFileHelper;
     }
 
     @Override
     protected void registerStatesAndModels() {
         batteryBlock(HbmBlocks.MACHINE_BATTERY.get(), "machine_battery", "battery_front_alt", "battery_side_alt", "battery_top");
         simpleCubeBlock(HbmBlocks.MACHINE_PRESS.get(), "machine_press", "machine_press");
+        assemblyMachineBlock(HbmBlocks.MACHINE_ASSEMBLY_MACHINE.get(), "machine_assembly_machine");
+        solderingStationBlock(HbmBlocks.MACHINE_SOLDERING_STATION.get(), "machine_soldering_station");
+        centrifugeBlock(HbmBlocks.MACHINE_CENTRIFUGE.get(), "machine_centrifuge");
+        gasCentrifugeBlock(HbmBlocks.MACHINE_GAS_CENTRIFUGE.get(), "machine_gascent");
         barrelBlock(HbmBlocks.BARREL_PLASTIC.get(), "barrel_plastic", "barrel_plastic");
         barrelBlock(HbmBlocks.BARREL_CORRODED.get(), "barrel_corroded", "barrel_corroded");
         barrelBlock(HbmBlocks.BARREL_IRON.get(), "barrel_iron", "barrel_iron");
@@ -131,9 +146,108 @@ public class HbmBlockStateProvider extends BlockStateProvider {
         simpleBlockItem(block, model);
     }
 
+    private void centrifugeBlock(final Block block, final String modelName) {
+        final ModelFile model = models().withExistingParent(modelName, mcLoc("block/orientable_with_bottom"))
+            .texture("particle", modLoc("block/machine_centrifuge"))
+            .texture("front", modLoc("block/machine_centrifuge"))
+            .texture("side", modLoc("block/machine_centrifuge"))
+            .texture("top", modLoc("block/machine_centrifuge"))
+            .texture("bottom", modLoc("block/machine_centrifuge"));
+
+        getVariantBuilder(block).forAllStates(state -> ConfiguredModel.builder()
+            .modelFile(model)
+            .rotationY(switch (state.getValue(CentrifugeBlock.FACING)) {
+                case EAST -> 90;
+                case SOUTH -> 180;
+                case WEST -> 270;
+                default -> 0;
+            })
+            .build());
+
+        simpleBlockItem(block, model);
+    }
+
+    private void gasCentrifugeBlock(final Block block, final String modelName) {
+        final ModelFile model = models().withExistingParent(modelName, mcLoc("block/orientable_with_bottom"))
+            .texture("particle", modLoc("block/machine_gascent"))
+            .texture("front", modLoc("block/machine_gascent"))
+            .texture("side", modLoc("block/machine_gascent"))
+            .texture("top", modLoc("block/machine_gascent"))
+            .texture("bottom", modLoc("block/machine_gascent"));
+
+        getVariantBuilder(block).forAllStates(state -> ConfiguredModel.builder()
+            .modelFile(model)
+            .rotationY(switch (state.getValue(GasCentrifugeBlock.FACING)) {
+                case EAST -> 90;
+                case SOUTH -> 180;
+                case WEST -> 270;
+                default -> 0;
+            })
+            .build());
+
+        simpleBlockItem(block, model);
+    }
+
+    private void assemblyMachineBlock(final Block block, final String modelName) {
+        final ModelFile model = models().withExistingParent(modelName, mcLoc("block/orientable_with_bottom"))
+            .texture("particle", modLoc("block/block_steel"))
+            .texture("front", modLoc("block/block_steel"))
+            .texture("side", modLoc("block/block_steel"))
+            .texture("top", modLoc("block/block_steel"))
+            .texture("bottom", modLoc("block/block_steel"));
+
+        getVariantBuilder(block).forAllStates(state -> ConfiguredModel.builder()
+            .modelFile(model)
+            .rotationY(switch (state.getValue(AssemblyMachineBlock.FACING)) {
+                case EAST -> 90;
+                case SOUTH -> 180;
+                case WEST -> 270;
+                default -> 0;
+            })
+            .build());
+
+        simpleBlockItem(block, model);
+    }
+
+    private void solderingStationBlock(final Block block, final String modelName) {
+        final ModelFile model = models().withExistingParent(modelName, mcLoc("block/orientable_with_bottom"))
+            .texture("particle", modLoc("block/block_steel"))
+            .texture("front", modLoc("block/block_steel"))
+            .texture("side", modLoc("block/block_steel"))
+            .texture("top", modLoc("block/block_steel"))
+            .texture("bottom", modLoc("block/block_steel"));
+
+        getVariantBuilder(block).forAllStates(state -> ConfiguredModel.builder()
+            .modelFile(model)
+            .rotationY(switch (state.getValue(SolderingStationBlock.FACING)) {
+                case EAST -> 90;
+                case SOUTH -> 180;
+                case WEST -> 270;
+                default -> 0;
+            })
+            .build());
+
+        // All parts share a single inventory model; drops are filtered by loot table to core only.
+        for (final SolderingStationPart ignored : SolderingStationPart.values()) {
+            // no-op, keeps parity intent explicit for future per-part models
+        }
+        simpleBlockItem(block, model);
+    }
+
     private void simpleCubeBlock(final Block block, final String modelName, final String textureName) {
-        final ModelFile model = models().cubeAll(modelName, modLoc("block/" + textureName));
+        final ModelFile model = models().cubeAll(modelName, preferredBlockTexture(textureName));
         simpleBlock(block, model);
         simpleBlockItem(block, model);
+    }
+
+    private ResourceLocation preferredBlockTexture(final String textureName) {
+        final ResourceLocation modTexture = modLoc("block/" + textureName);
+        if (existingFileHelper.exists(modTexture, PackType.CLIENT_RESOURCES, ".png", "textures")) {
+            return modTexture;
+        }
+        if (textureName.startsWith("ore_nether_")) {
+            return mcLoc("block/netherrack");
+        }
+        return mcLoc("block/stone");
     }
 }

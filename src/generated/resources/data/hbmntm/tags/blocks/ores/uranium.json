@@ -1,5 +1,9 @@
 {
   "values": [
-    "hbmntm:ore_sellafield_uranium_scorched"
+    "hbmntm:ore_sellafield_uranium_scorched",
+    "hbmntm:ore_uranium",
+    "hbmntm:ore_uranium_scorched",
+    "hbmntm:ore_nether_uranium",
+    "hbmntm:ore_nether_uranium_scorched"
   ]
 }

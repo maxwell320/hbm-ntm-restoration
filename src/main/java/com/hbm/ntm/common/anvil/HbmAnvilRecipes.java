@@ -1,6 +1,7 @@
 package com.hbm.ntm.common.anvil;
 
 import com.hbm.ntm.common.block.NtmAnvilBlock;
+import com.hbm.ntm.common.item.CircuitItemType;
 import com.hbm.ntm.common.item.StampItemType;
 import com.hbm.ntm.common.material.HbmMaterialShape;
 import com.hbm.ntm.common.material.HbmMaterials;
@@ -41,7 +42,15 @@ public final class HbmAnvilRecipes {
         construction(StampItemType.OBSIDIAN_FLAT, StampItemType.OBSIDIAN_CIRCUIT, NtmAnvilBlock.TIER_STEEL),
         construction(StampItemType.DESH_FLAT, StampItemType.DESH_PLATE, NtmAnvilBlock.TIER_DESH),
         construction(StampItemType.DESH_FLAT, StampItemType.DESH_WIRE, NtmAnvilBlock.TIER_DESH),
-        construction(StampItemType.DESH_FLAT, StampItemType.DESH_CIRCUIT, NtmAnvilBlock.TIER_DESH)
+        construction(StampItemType.DESH_FLAT, StampItemType.DESH_CIRCUIT, NtmAnvilBlock.TIER_DESH),
+        construction(HbmBlocks.MACHINE_SOLDERING_STATION,
+            List.of(
+                ingredient(Ingredient.of(Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.STEEL, HbmMaterialShape.CAST_PLATE).get())), 2),
+                ingredient(Ingredient.of(Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.COPPER, HbmMaterialShape.DENSE_WIRE).get())), 4),
+                ingredient(Ingredient.of(Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.TUNGSTEN, HbmMaterialShape.BOLT).get())), 4),
+                ingredient(Ingredient.of(Objects.requireNonNull(HbmItems.getCircuit(CircuitItemType.VACUUM_TUBE).get())), 2)
+            ),
+            NtmAnvilBlock.TIER_STEEL)
     );
 
     public static final List<SmithingRecipe> SMITHING_RECIPES = List.of(
@@ -109,7 +118,17 @@ public final class HbmAnvilRecipes {
     }
 
     private static ConstructionRecipe construction(final StampItemType input, final StampItemType output, final int tier) {
-        return new ConstructionRecipe(stamp(input), stamp(output), tier);
+        return construction(stamp(output), List.of(ingredient(Ingredient.of(stamp(input).get()), 1)), tier);
+    }
+
+    private static ConstructionRecipe construction(final Supplier<? extends ItemLike> output,
+                                                   final List<ConstructionIngredient> ingredients,
+                                                   final int tier) {
+        return new ConstructionRecipe(() -> Objects.requireNonNull(output.get()).asItem(), List.copyOf(ingredients), tier);
+    }
+
+    private static ConstructionIngredient ingredient(final Ingredient ingredient, final int count) {
+        return new ConstructionIngredient(ingredient, count);
     }
 
     private static SmithingRecipe smithing(final int tier, final Supplier<? extends ItemLike> output, final Ingredient left, final int leftCount,
@@ -172,21 +191,31 @@ public final class HbmAnvilRecipes {
         return result;
     }
 
-    public record ConstructionRecipe(Supplier<Item> input, Supplier<Item> output, int tier) {
-        public Item inputItem() {
-            return Objects.requireNonNull(this.input.get());
-        }
-
+    public record ConstructionRecipe(Supplier<Item> output, List<ConstructionIngredient> ingredients, int tier) {
         public Item outputItem() {
             return Objects.requireNonNull(this.output.get());
         }
 
-        public ItemStack inputStack() {
-            return new ItemStack(inputItem());
-        }
-
         public ItemStack outputStack() {
             return new ItemStack(outputItem());
+        }
+    }
+
+    public record ConstructionIngredient(Ingredient ingredient, int count) {
+        public ConstructionIngredient {
+            if (count <= 0) {
+                throw new IllegalArgumentException("Construction ingredient count must be > 0");
+            }
+        }
+
+        public ItemStack displayStack() {
+            final ItemStack[] stacks = this.ingredient.getItems();
+            if (stacks.length <= 0) {
+                return ItemStack.EMPTY;
+            }
+            final ItemStack display = stacks[0].copy();
+            display.setCount(this.count);
+            return display;
         }
     }
 

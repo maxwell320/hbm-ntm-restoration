@@ -14,12 +14,16 @@ import com.hbm.ntm.common.fluid.IFluidNetworkProvider;
 import com.hbm.ntm.common.fluid.IFluidNetworkReceiver;
 import com.hbm.ntm.common.fluid.MachineFluidHandler;
 import com.hbm.ntm.common.fluid.SidedFluidHandler;
+import com.hbm.ntm.common.item.MachineRepairToolItem;
 import com.hbm.ntm.common.item.MachineUpgradeItem;
 import com.hbm.ntm.common.machine.IConditionalInventoryAccess;
+import com.hbm.ntm.common.machine.IMachineStateSyncReceiver;
 import com.hbm.ntm.common.machine.IRepairableMachine;
 import com.hbm.ntm.common.machine.IUpgradeInfoProvider;
 import com.hbm.ntm.common.machine.IMachineControlReceiver;
 import com.hbm.ntm.common.machine.MachineUpgradeManager;
+import com.hbm.ntm.common.network.HbmPacketHandler;
+import com.hbm.ntm.common.tag.HbmItemTags;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +36,7 @@ import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Player;
@@ -50,7 +55,7 @@ import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("null")
 public abstract class MachineBlockEntity extends BlockEntity implements MenuProvider, IMachineControlReceiver, IEnergyUser, IEnergyGenerator,
-    IConditionalInventoryAccess, IRepairableMachine, IUpgradeInfoProvider, IEnergyNetworkProvider, IEnergyNetworkReceiver,
+    IConditionalInventoryAccess, IRepairableMachine, IMachineStateSyncReceiver, IUpgradeInfoProvider, IEnergyNetworkProvider, IEnergyNetworkReceiver,
     IFluidNetworkProvider, IFluidNetworkReceiver {
     private final ItemStackHandler items;
     private final MachineUpgradeManager upgradeManager;
@@ -68,6 +73,7 @@ public abstract class MachineBlockEntity extends BlockEntity implements MenuProv
     private @Nullable MachineFluidHandler fluidHandler;
     private int maintenanceLevel = -1;
     private boolean maintenanceBlocked;
+    private @Nullable CompoundTag lastSyncedMachineState;
 
     protected MachineBlockEntity(final BlockEntityType<?> type, final BlockPos pos, final BlockState state, final int slotCount) {
         super(type, pos, state);
@@ -215,6 +221,17 @@ public abstract class MachineBlockEntity extends BlockEntity implements MenuProv
         this.markChangedAndSync();
     }
 
+    @Override
+    public void receiveControl(final Player player, final CompoundTag data) {
+        if (data.getBoolean("repair")) {
+            if (this.tryRepairFromPlayer(player)) {
+                this.markChangedAndSync();
+            }
+            return;
+        }
+        this.receiveControl(data);
+    }
+
     public ItemStackHandler getInternalItemHandler() {
         return this.items;
     }
@@ -245,6 +262,27 @@ public abstract class MachineBlockEntity extends BlockEntity implements MenuProv
     public void markChangedAndSync() {
         this.setChanged();
         this.syncToClient();
+        this.syncMachineStatePacket(false);
+    }
+
+    public void forceMachineStateSync() {
+        this.syncMachineStatePacket(true);
+    }
+
+    public void syncMachineStateToPlayer(final ServerPlayer player, final boolean force) {
+        if (this.level == null || this.level.isClientSide()) {
+            return;
+        }
+        final CompoundTag payload = this.writeMachineStateSync();
+        if (!force && !this.shouldSyncMachineState(payload)) {
+            return;
+        }
+        HbmPacketHandler.syncMachineStateToPlayer(this, payload, player);
+        this.lastSyncedMachineState = payload.copy();
+    }
+
+    public void tickMachineStateSync() {
+        this.syncMachineStatePacket(false);
     }
 
     public void dropContents() {
@@ -547,6 +585,62 @@ public abstract class MachineBlockEntity extends BlockEntity implements MenuProv
         return List.of();
     }
 
+    public boolean tryRepairFromPlayer(final Player player) {
+        if (!this.isDamaged()) {
+            return false;
+        }
+
+        final List<net.minecraft.world.item.ItemStack> requirements = this.getRepairMaterials();
+        if (requirements == null || requirements.isEmpty()) {
+            this.repairMachine();
+            return true;
+        }
+
+        if (!this.playerHasRepairMaterials(player, requirements)) {
+            return false;
+        }
+
+        this.consumePlayerRepairMaterials(player, requirements);
+        this.repairMachine();
+        return true;
+    }
+
+    public boolean tryRepairInteraction(final Player player, final net.minecraft.world.item.ItemStack heldStack) {
+        if (!this.isDamaged() || heldStack.isEmpty() || !this.canRepairWith(heldStack)) {
+            return false;
+        }
+        if (heldStack.getItem() instanceof final MachineRepairToolItem repairTool && !repairTool.canRepairMachine(heldStack, player, this)) {
+            return false;
+        }
+        if (!this.tryRepairFromPlayer(player)) {
+            return false;
+        }
+        this.onRepairToolUsed(player, heldStack);
+        return true;
+    }
+
+    @Override
+    public boolean canRepairWith(final net.minecraft.world.item.ItemStack stack) {
+        return stack.is(HbmItemTags.MACHINE_REPAIR_TOOLS);
+    }
+
+    @Override
+    public void onRepairToolUsed(final Player player, final net.minecraft.world.item.ItemStack stack) {
+        if (stack.getItem() instanceof final MachineRepairToolItem repairTool) {
+            repairTool.onMachineRepairUsed(stack, player, this);
+        }
+    }
+
+    @Override
+    public void applyMachineStateSync(final CompoundTag data) {
+        this.muffled = data.getBoolean("muffled");
+        this.maintenanceBlocked = data.getBoolean("maintenanceBlocked");
+        if (data.contains("maintenanceLevel", Tag.TAG_INT)) {
+            this.maintenanceLevel = data.getInt("maintenanceLevel");
+        }
+        this.readMachineStateSync(data);
+    }
+
     @Override
     public void repairMachine() {
         if (this.usesMaintenanceSystem()) {
@@ -699,6 +793,104 @@ public abstract class MachineBlockEntity extends BlockEntity implements MenuProv
     }
 
     protected void applyControlData(final CompoundTag data) {
+    }
+
+    protected CompoundTag writeMachineStateSync() {
+        final CompoundTag tag = new CompoundTag();
+        tag.putBoolean("muffled", this.muffled);
+        tag.putBoolean("maintenanceBlocked", this.maintenanceBlocked);
+        tag.putInt("maintenanceLevel", this.getMaintenanceLevel());
+        this.writeRepairMaterialStateSync(tag);
+        this.writeAdditionalMachineStateSync(tag);
+        return tag;
+    }
+
+    private void writeRepairMaterialStateSync(final CompoundTag tag) {
+        if (!this.isDamaged()) {
+            return;
+        }
+        final List<net.minecraft.world.item.ItemStack> requirements = this.getRepairMaterials();
+        if (requirements == null || requirements.isEmpty()) {
+            return;
+        }
+        final ListTag list = new ListTag();
+        for (final net.minecraft.world.item.ItemStack stack : requirements) {
+            if (stack.isEmpty()) {
+                continue;
+            }
+            list.add(stack.save(new CompoundTag()));
+        }
+        if (!list.isEmpty()) {
+            tag.put("repairMaterials", list);
+        }
+    }
+
+    private void syncMachineStatePacket(final boolean force) {
+        if (this.level == null || this.level.isClientSide()) {
+            return;
+        }
+        final CompoundTag payload = this.writeMachineStateSync();
+        if (!force && !this.shouldSyncMachineState(payload)) {
+            return;
+        }
+        HbmPacketHandler.syncMachineState(this, payload);
+        this.lastSyncedMachineState = payload.copy();
+    }
+
+    private boolean shouldSyncMachineState(final CompoundTag payload) {
+        if (this.level == null) {
+            return true;
+        }
+        final boolean heartbeat = this.level.getGameTime() % 20L == 0L;
+        return this.lastSyncedMachineState == null || !this.lastSyncedMachineState.equals(payload) || heartbeat;
+    }
+
+    protected void writeAdditionalMachineStateSync(final CompoundTag tag) {
+    }
+
+    protected void readMachineStateSync(final CompoundTag tag) {
+    }
+
+    private boolean playerHasRepairMaterials(final Player player, final List<net.minecraft.world.item.ItemStack> requirements) {
+        final net.minecraft.world.entity.player.Inventory inventory = player.getInventory();
+        for (final net.minecraft.world.item.ItemStack requirement : requirements) {
+            if (requirement.isEmpty()) {
+                continue;
+            }
+            int remaining = requirement.getCount();
+            for (int slot = 0; slot < inventory.getContainerSize() && remaining > 0; slot++) {
+                final net.minecraft.world.item.ItemStack stack = inventory.getItem(slot);
+                if (net.minecraft.world.item.ItemStack.isSameItemSameTags(stack, requirement)) {
+                    remaining -= stack.getCount();
+                }
+            }
+            if (remaining > 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void consumePlayerRepairMaterials(final Player player, final List<net.minecraft.world.item.ItemStack> requirements) {
+        final net.minecraft.world.entity.player.Inventory inventory = player.getInventory();
+        for (final net.minecraft.world.item.ItemStack requirement : requirements) {
+            if (requirement.isEmpty()) {
+                continue;
+            }
+            int remaining = requirement.getCount();
+            for (int slot = 0; slot < inventory.getContainerSize() && remaining > 0; slot++) {
+                final net.minecraft.world.item.ItemStack stack = inventory.getItem(slot);
+                if (!net.minecraft.world.item.ItemStack.isSameItemSameTags(stack, requirement)) {
+                    continue;
+                }
+                final int consume = Math.min(remaining, stack.getCount());
+                stack.shrink(consume);
+                if (stack.isEmpty()) {
+                    inventory.setItem(slot, net.minecraft.world.item.ItemStack.EMPTY);
+                }
+                remaining -= consume;
+            }
+        }
     }
 
     @Override

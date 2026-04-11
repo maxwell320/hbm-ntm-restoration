@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "hbmntm:pellet_rtg_depleted_nickel"
+    }
+  ],
+  "result": {
+    "count": 2,
+    "item": "hbmntm:ingot_nickel"
+  }
+}

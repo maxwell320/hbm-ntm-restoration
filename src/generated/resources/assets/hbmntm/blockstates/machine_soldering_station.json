@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "facing=east,part=core": {
+      "model": "hbmntm:block/machine_soldering_station",
+      "y": 90
+    },
+    "facing=east,part=proxy": {
+      "model": "hbmntm:block/machine_soldering_station",
+      "y": 90
+    },
+    "facing=north,part=core": {
+      "model": "hbmntm:block/machine_soldering_station"
+    },
+    "facing=north,part=proxy": {
+      "model": "hbmntm:block/machine_soldering_station"
+    },
+    "facing=south,part=core": {
+      "model": "hbmntm:block/machine_soldering_station",
+      "y": 180
+    },
+    "facing=south,part=proxy": {
+      "model": "hbmntm:block/machine_soldering_station",
+      "y": 180
+    },
+    "facing=west,part=core": {
+      "model": "hbmntm:block/machine_soldering_station",
+      "y": 270
+    },
+    "facing=west,part=proxy": {
+      "model": "hbmntm:block/machine_soldering_station",
+      "y": 270
+    }
+  }
+}

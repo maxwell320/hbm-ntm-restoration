@@ -74,7 +74,7 @@ public class OverworldOreBlock extends Block {
             }
             case ALEXANDRITE -> {
                 final int count = 1 + fortune + builder.getLevel().getRandom().nextInt(fortune + 2);
-                yield List.of(new ItemStack(Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.SULFUR, HbmMaterialShape.CRYSTAL).get()), count));
+                yield List.of(new ItemStack(Objects.requireNonNull(HbmItems.GEM_ALEXANDRITE.get()), count));
             }
             case ASBESTOS -> {
                 final int count = 1 + fortune + builder.getLevel().getRandom().nextInt(fortune + 1);
@@ -84,7 +84,6 @@ public class OverworldOreBlock extends Block {
         };
     }
 
-    @Override
     public int getExpDrop(final BlockState state, final net.minecraft.world.level.LevelAccessor level, final RandomSource random, final BlockPos pos, final int fortuneLevel, final int silkTouchLevel) {
         if (silkTouchLevel > 0) {
             return 0;

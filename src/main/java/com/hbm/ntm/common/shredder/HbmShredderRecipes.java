@@ -1,7 +1,12 @@
 package com.hbm.ntm.common.shredder;
 
 import com.hbm.ntm.common.block.MaterialBlockType;
+import com.hbm.ntm.common.block.BasaltOreType;
+import com.hbm.ntm.common.block.NetherOreType;
+import com.hbm.ntm.common.block.OverworldOreType;
+import com.hbm.ntm.common.block.SellafieldOreType;
 import com.hbm.ntm.common.block.StoneResourceType;
+import com.hbm.ntm.common.item.ChunkOreItemType;
 import com.hbm.ntm.common.item.SellafieldBlockItem;
 import com.hbm.ntm.common.material.HbmMaterialDefinition;
 import com.hbm.ntm.common.material.HbmMaterialShape;
@@ -143,8 +148,6 @@ public final class HbmShredderRecipes {
         }
 
         registerLegacySpecialRecipes();
-
-        // TODO: poison powder, magic powder, enchanted book, fermented spider eye
     }
 
     private static void registerLegacySpecialRecipes() {
@@ -164,6 +167,8 @@ public final class HbmShredderRecipes {
             setRecipe(HbmBlocks.getStoneResource(StoneResourceType.LIMESTONE).get().asItem(), new ItemStack(limestoneDust, 4));
         }
 
+        registerLegacyOreRecipes();
+
         setRecipe(HbmBlocks.SELLAFIELD_SLAKED.get().asItem(), new ItemStack(Items.GRAVEL, 1));
 
         for (final Item skull : new Item[] {
@@ -181,6 +186,91 @@ public final class HbmShredderRecipes {
         registerLegacyFragmentRecipes();
         registerLegacyCrystalRecipes();
         registerLegacyRecyclingRecipes();
+        registerLegacyByproductRecipes();
+    }
+
+    private static void registerLegacyByproductRecipes() {
+        setRecipe(Blocks.PACKED_ICE.asItem(), new ItemStack(HbmItems.POWDER_ICE.get(), 1));
+        setRecipe(Items.ENCHANTED_BOOK, new ItemStack(HbmItems.POWDER_MAGIC.get(), 1));
+        setRecipe(Items.FERMENTED_SPIDER_EYE, new ItemStack(HbmItems.POWDER_POISON.get(), 3));
+        setRecipe(Items.POISONOUS_POTATO, new ItemStack(HbmItems.POWDER_POISON.get(), 1));
+
+        final @Nullable Item aluminiumDust = getShapeItem(HbmMaterials.ALUMINIUM, HbmMaterialShape.DUST);
+        if (aluminiumDust != null) {
+            setRecipe(HbmItems.CANISTER_EMPTY.get(), new ItemStack(aluminiumDust, 2));
+        }
+
+        setRecipe(HbmItems.DEBRIS_CONCRETE.get(), new ItemStack(HbmItems.SCRAP_NUCLEAR.get(), 2));
+        setRecipe(HbmItems.DEBRIS_ELEMENT.get(), new ItemStack(HbmItems.SCRAP_NUCLEAR.get(), 4));
+
+        final @Nullable Item steelTinyDust = getShapeItem(HbmMaterials.STEEL, HbmMaterialShape.DUST_TINY);
+        if (steelTinyDust != null) {
+            setRecipe(HbmItems.DEBRIS_SHRAPNEL.get(), new ItemStack(steelTinyDust, 5));
+            setRecipe(HbmItems.DEBRIS_METAL.get(), new ItemStack(steelTinyDust, 3));
+        }
+
+        final @Nullable Item steelDust = getShapeItem(HbmMaterials.STEEL, HbmMaterialShape.DUST);
+        if (steelDust != null) {
+            setRecipe(HbmItems.DEBRIS_EXCHANGER.get(), new ItemStack(steelDust, 3));
+        }
+
+        final @Nullable Item coalDust = getShapeItem(HbmMaterials.COAL, HbmMaterialShape.DUST);
+        if (coalDust != null) {
+            setRecipe(HbmItems.DEBRIS_GRAPHITE.get(), new ItemStack(coalDust, 1));
+        }
+    }
+
+    private static void registerLegacyOreRecipes() {
+        // Legacy explicit mapping: aluminium ore shreds into cryolite chunks instead of aluminium dust.
+        setRecipe(HbmBlocks.getOverworldOre(OverworldOreType.ALUMINIUM).get().asItem(),
+            new ItemStack(HbmItems.getChunkOre(ChunkOreItemType.CRYOLITE).get(), 2));
+
+        // Legacy explicit mapping: nether phosphorus ore yields a large red-phosphorus output.
+        final @Nullable Item redPhosphorusDust = getShapeItem(HbmMaterials.RED_PHOSPHORUS, HbmMaterialShape.DUST);
+        if (redPhosphorusDust != null) {
+            setRecipe(HbmBlocks.getNetherOre(NetherOreType.FIRE).get().asItem(), new ItemStack(redPhosphorusDust, 6));
+        }
+
+        setOreRecipe(HbmBlocks.getOverworldOre(OverworldOreType.URANIUM).get().asItem(), HbmMaterials.URANIUM, 2);
+        setOreRecipe(HbmBlocks.getOverworldOre(OverworldOreType.URANIUM_SCORCHED).get().asItem(), HbmMaterials.URANIUM, 2);
+        setOreRecipe(HbmBlocks.getOverworldOre(OverworldOreType.TITANIUM).get().asItem(), HbmMaterials.TITANIUM, 2);
+        setOreRecipe(HbmBlocks.getOverworldOre(OverworldOreType.THORIUM).get().asItem(), HbmMaterials.TH232, 2);
+        setOreRecipe(HbmBlocks.getOverworldOre(OverworldOreType.NITER).get().asItem(), HbmMaterials.KNO, 2);
+        setOreRecipe(HbmBlocks.getOverworldOre(OverworldOreType.COPPER).get().asItem(), HbmMaterials.COPPER, 2);
+        setOreRecipe(HbmBlocks.getOverworldOre(OverworldOreType.TUNGSTEN).get().asItem(), HbmMaterials.TUNGSTEN, 2);
+        setOreRecipe(HbmBlocks.getOverworldOre(OverworldOreType.LEAD).get().asItem(), HbmMaterials.LEAD, 2);
+        setOreRecipe(HbmBlocks.getOverworldOre(OverworldOreType.SCHRABIDIUM).get().asItem(), HbmMaterials.SCHRABIDIUM, 2);
+        setOreRecipe(HbmBlocks.getOverworldOre(OverworldOreType.BERYLLIUM).get().asItem(), HbmMaterials.BERYLLIUM, 2);
+        setOreRecipe(HbmBlocks.getOverworldOre(OverworldOreType.AUSTRALIUM).get().asItem(), HbmMaterials.AUSTRALIUM, 2);
+        setOreRecipe(HbmBlocks.getOverworldOre(OverworldOreType.COBALT).get().asItem(), HbmMaterials.COBALT, 2);
+        setOreRecipe(HbmBlocks.getOverworldOre(OverworldOreType.COLTAN).get().asItem(), HbmMaterials.COLTAN, 2);
+        setOreRecipe(HbmBlocks.getOverworldOre(OverworldOreType.LIGNITE).get().asItem(), HbmMaterials.LIGNITE, 2);
+        setOreRecipe(HbmBlocks.getOverworldOre(OverworldOreType.ASBESTOS).get().asItem(), HbmMaterials.ASBESTOS, 2);
+        setOreRecipe(HbmBlocks.getOverworldOre(OverworldOreType.FLUORITE).get().asItem(), HbmMaterials.FLUORITE, 2);
+
+        setOreRecipe(HbmBlocks.getNetherOre(NetherOreType.COAL).get().asItem(), HbmMaterials.COAL, 2);
+        setOreRecipe(HbmBlocks.getNetherOre(NetherOreType.URANIUM).get().asItem(), HbmMaterials.URANIUM, 2);
+        setOreRecipe(HbmBlocks.getNetherOre(NetherOreType.URANIUM_SCORCHED).get().asItem(), HbmMaterials.URANIUM, 2);
+        setOreRecipe(HbmBlocks.getNetherOre(NetherOreType.PLUTONIUM).get().asItem(), HbmMaterials.PLUTONIUM, 2);
+        setOreRecipe(HbmBlocks.getNetherOre(NetherOreType.TUNGSTEN).get().asItem(), HbmMaterials.TUNGSTEN, 2);
+        setOreRecipe(HbmBlocks.getNetherOre(NetherOreType.SULFUR).get().asItem(), HbmMaterials.SULFUR, 2);
+        setOreRecipe(HbmBlocks.getNetherOre(NetherOreType.COBALT).get().asItem(), HbmMaterials.COBALT, 2);
+        setOreRecipe(HbmBlocks.getNetherOre(NetherOreType.SCHRABIDIUM).get().asItem(), HbmMaterials.SCHRABIDIUM, 2);
+
+        setOreRecipe(HbmBlocks.getSellafieldOre(SellafieldOreType.URANIUM_SCORCHED).get().asItem(), HbmMaterials.URANIUM, 2);
+        setOreRecipe(HbmBlocks.getSellafieldOre(SellafieldOreType.SCHRABIDIUM).get().asItem(), HbmMaterials.SCHRABIDIUM, 2);
+
+        setOreRecipe(HbmBlocks.getBasaltOre(BasaltOreType.SULFUR).get().asItem(), HbmMaterials.SULFUR, 2);
+        setOreRecipe(HbmBlocks.getBasaltOre(BasaltOreType.FLUORITE).get().asItem(), HbmMaterials.FLUORITE, 2);
+        setOreRecipe(HbmBlocks.getBasaltOre(BasaltOreType.ASBESTOS).get().asItem(), HbmMaterials.ASBESTOS, 2);
+        setOreRecipe(HbmBlocks.getBasaltOre(BasaltOreType.MOLYSITE).get().asItem(), HbmMaterials.MOLYSITE, 2);
+    }
+
+    private static void setOreRecipe(final Item inputOre, final HbmMaterialDefinition outputMaterial, final int count) {
+        final @Nullable Item outputDust = getShapeItem(outputMaterial, HbmMaterialShape.DUST);
+        if (outputDust != null) {
+            setRecipe(inputOre, new ItemStack(outputDust, count));
+        }
     }
 
     private static void registerLegacyFragmentRecipes() {

@@ -3,6 +3,7 @@
     "hbmntm:ingot_dineutronium",
     "hbmntm:nugget_dineutronium",
     "hbmntm:powder_dineutronium",
-    "hbmntm:wire_dense_dineutronium"
+    "hbmntm:wire_dense_dineutronium",
+    "hbmntm:block_dineutronium"
   ]
 }

@@ -4,6 +4,7 @@
     "hbmntm:powder_polymer",
     "hbmntm:plate_polymer",
     "hbmntm:part_stock_polymer",
-    "hbmntm:part_grip_polymer"
+    "hbmntm:part_grip_polymer",
+    "hbmntm:block_polymer"
   ]
 }

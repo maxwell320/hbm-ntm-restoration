@@ -22,6 +22,22 @@ public class MachineDataSlots implements ContainerData {
         return new MachineDataSlots(List.of(getter), List.of(setter));
     }
 
+    public static IntSupplier lowWord(final IntSupplier getter) {
+        return () -> getter.getAsInt() & 0xFFFF;
+    }
+
+    public static IntSupplier highWord(final IntSupplier getter) {
+        return () -> (getter.getAsInt() >>> 16) & 0xFFFF;
+    }
+
+    public static int withLowWord(final int value, final int lowWord) {
+        return (value & 0xFFFF0000) | (lowWord & 0xFFFF);
+    }
+
+    public static int withHighWord(final int value, final int highWord) {
+        return (value & 0x0000FFFF) | ((highWord & 0xFFFF) << 16);
+    }
+
     @Override
     public int get(final int index) {
         return this.getters.get(index).getAsInt();

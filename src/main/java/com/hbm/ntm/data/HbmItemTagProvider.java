@@ -29,6 +29,10 @@ public class HbmItemTagProvider extends ItemTagsProvider {
     @Override
     @SuppressWarnings("null")
     protected void addTags(final @NotNull HolderLookup.Provider provider) {
+        tag(Objects.requireNonNull(HbmItemTags.MACHINE_REPAIR_TOOLS))
+            .add(Objects.requireNonNull(HbmItems.BLOWTORCH.get()))
+            .add(Objects.requireNonNull(HbmItems.ACETYLENE_TORCH.get()));
+
         for (final HbmMaterialShape shape : HbmMaterialShape.values()) {
             tag(Objects.requireNonNull(HbmItemTags.shape(shape)));
         }

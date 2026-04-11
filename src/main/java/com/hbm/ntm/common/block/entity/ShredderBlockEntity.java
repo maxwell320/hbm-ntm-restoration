@@ -1,5 +1,6 @@
 package com.hbm.ntm.common.block.entity;
 
+import com.hbm.ntm.common.config.ShredderMachineConfig;
 import com.hbm.ntm.common.energy.EnergyConnectionMode;
 import com.hbm.ntm.common.energy.HbmEnergyStorage;
 import com.hbm.ntm.common.item.BatteryItem;
@@ -51,7 +52,8 @@ public class ShredderBlockEntity extends MachineBlockEntity {
 
     @Override
     protected @Nullable HbmEnergyStorage createEnergyStorage() {
-        return this.createSimpleEnergyStorage(MAX_POWER, MAX_POWER, 0);
+        final int capacity = this.maxPower();
+        return this.createSimpleEnergyStorage(capacity, capacity, 0);
     }
 
     @Override
@@ -67,7 +69,9 @@ public class ShredderBlockEntity extends MachineBlockEntity {
             dirty = true;
         }
 
-        final boolean hasPower = shredder.getStoredEnergy() >= POWER_PER_TICK;
+        final int powerPerTick = shredder.powerPerTick();
+        final int processingSpeed = shredder.processingSpeed();
+        final boolean hasPower = shredder.getStoredEnergy() >= powerPerTick;
         final boolean canProcess = hasPower && shredder.canProcess();
 
         if (shredder.progress == 0) {
@@ -76,10 +80,10 @@ public class ShredderBlockEntity extends MachineBlockEntity {
 
         if (canProcess) {
             shredder.progress++;
-            shredder.consumeEnergy(POWER_PER_TICK);
+            shredder.consumeEnergy(powerPerTick);
             dirty = true;
 
-            if (shredder.progress >= PROCESSING_SPEED) {
+            if (shredder.progress >= processingSpeed) {
                 shredder.damageBlades();
                 shredder.processAllInputSlots();
                 shredder.progress = 0;
@@ -104,6 +108,7 @@ public class ShredderBlockEntity extends MachineBlockEntity {
         if (dirty) {
             shredder.markChangedAndSync();
         }
+        shredder.tickMachineStateSync();
     }
 
     private boolean canProcess() {
@@ -316,6 +321,10 @@ public class ShredderBlockEntity extends MachineBlockEntity {
         this.progress = progress;
     }
 
+    public int configuredProcessingSpeed() {
+        return this.processingSpeed();
+    }
+
     @Override
     public @NotNull Component getDisplayName() {
         return Component.translatable(HbmBlocks.MACHINE_SHREDDER.get().getDescriptionId());
@@ -334,5 +343,32 @@ public class ShredderBlockEntity extends MachineBlockEntity {
     @Override
     protected void loadMachineData(final @NotNull CompoundTag tag) {
         this.progress = tag.getInt("progress");
+    }
+
+    @Override
+    protected void writeAdditionalMachineStateSync(final CompoundTag tag) {
+        tag.putInt("progress", this.progress);
+        tag.putInt("energy", this.getStoredEnergy());
+        tag.putInt("maxEnergy", this.getMaxStoredEnergy());
+        tag.putInt("gearLeft", this.getGearLeft());
+        tag.putInt("gearRight", this.getGearRight());
+        tag.putInt("processingSpeed", this.processingSpeed());
+    }
+
+    @Override
+    protected void readMachineStateSync(final CompoundTag tag) {
+        this.progress = Math.max(0, tag.getInt("progress"));
+    }
+
+    private int maxPower() {
+        return Math.max(1, ShredderMachineConfig.INSTANCE.maxPower());
+    }
+
+    private int processingSpeed() {
+        return Math.max(1, ShredderMachineConfig.INSTANCE.processingSpeed());
+    }
+
+    private int powerPerTick() {
+        return Math.max(1, ShredderMachineConfig.INSTANCE.powerPerTick());
     }
 }

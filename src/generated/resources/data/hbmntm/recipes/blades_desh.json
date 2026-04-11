@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "item": "hbmntm:ingot_desh"
+    },
+    "P": {
+      "item": "hbmntm:plate_desh"
+    }
+  },
+  "pattern": [
+    " P ",
+    "PIP",
+    " P "
+  ],
+  "result": {
+    "item": "hbmntm:blades_desh"
+  },
+  "show_notification": true
+}

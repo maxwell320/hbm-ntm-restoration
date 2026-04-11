@@ -1,0 +1,26 @@
+{
+  "values": [
+    "hbmntm:ore_uranium",
+    "hbmntm:ore_uranium_scorched",
+    "hbmntm:ore_titanium",
+    "hbmntm:ore_thorium",
+    "hbmntm:ore_tungsten",
+    "hbmntm:ore_lead",
+    "hbmntm:ore_beryllium",
+    "hbmntm:ore_australium",
+    "hbmntm:ore_rare",
+    "hbmntm:ore_cobalt",
+    "hbmntm:ore_coltan",
+    "hbmntm:ore_alexandrite",
+    "hbmntm:ore_nether_coal",
+    "hbmntm:ore_nether_smoldering",
+    "hbmntm:ore_nether_uranium",
+    "hbmntm:ore_nether_uranium_scorched",
+    "hbmntm:ore_nether_plutonium",
+    "hbmntm:ore_nether_tungsten",
+    "hbmntm:ore_nether_sulfur",
+    "hbmntm:ore_nether_fire",
+    "hbmntm:ore_nether_cobalt",
+    "hbmntm:ore_nether_schrabidium"
+  ]
+}

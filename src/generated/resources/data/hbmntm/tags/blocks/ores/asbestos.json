@@ -1,6 +1,9 @@
 {
   "values": [
     "hbmntm:ore_basalt_asbestos",
-    "hbmntm:stone_resource_asbestos"
+    "hbmntm:stone_resource_asbestos",
+    "hbmntm:ore_basalt_asbestos",
+    "hbmntm:stone_resource_asbestos",
+    "hbmntm:ore_asbestos"
   ]
 }
