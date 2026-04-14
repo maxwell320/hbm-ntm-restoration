@@ -8,6 +8,7 @@ import com.hbm.ntm.common.energy.IEnergyNetworkProvider;
 import com.hbm.ntm.common.energy.IEnergyNetworkReceiver;
 import com.hbm.ntm.common.energy.IEnergyUser;
 import com.hbm.ntm.common.energy.SidedEnergyStorage;
+import com.hbm.ntm.common.fluid.CombustibleFuelRegistry;
 import com.hbm.ntm.common.fluid.FluidNetworkPriority;
 import com.hbm.ntm.common.fluid.HbmFluidTank;
 import com.hbm.ntm.common.fluid.IFluidNetworkProvider;
@@ -23,10 +24,13 @@ import com.hbm.ntm.common.machine.IUpgradeInfoProvider;
 import com.hbm.ntm.common.machine.IMachineControlReceiver;
 import com.hbm.ntm.common.machine.MachineUpgradeManager;
 import com.hbm.ntm.common.network.HbmPacketHandler;
+import com.hbm.ntm.common.pollution.PollutionSavedData;
+import com.hbm.ntm.common.pollution.PollutionType;
 import com.hbm.ntm.common.tag.HbmItemTags;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -40,6 +44,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -47,6 +52,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.IEnergyStorage;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
@@ -57,6 +63,8 @@ import org.jetbrains.annotations.Nullable;
 public abstract class MachineBlockEntity extends BlockEntity implements MenuProvider, IMachineControlReceiver, IEnergyUser, IEnergyGenerator,
     IConditionalInventoryAccess, IRepairableMachine, IMachineStateSyncReceiver, IUpgradeInfoProvider, IEnergyNetworkProvider, IEnergyNetworkReceiver,
     IFluidNetworkProvider, IFluidNetworkReceiver {
+    protected static final float MACHINE_SOOT_PER_SECOND = 1.0F / 25.0F;
+
     private final ItemStackHandler items;
     private final MachineUpgradeManager upgradeManager;
     private final Map<Direction, LazyOptional<IItemHandler>> sidedItemCapabilities = new EnumMap<>(Direction.class);
@@ -216,7 +224,50 @@ public abstract class MachineBlockEntity extends BlockEntity implements MenuProv
     }
 
     @Override
+    public boolean isControlDataAllowed(final Player player, final CompoundTag data) {
+        if (data == null || data.isEmpty()) {
+            return false;
+        }
+
+        final Set<String> keys = data.getAllKeys();
+        if (keys.isEmpty() || keys.size() > 4) {
+            return false;
+        }
+
+        final boolean hasPatternSlot = keys.contains("patternSlot");
+        final boolean hasPatternStack = keys.contains("patternStack");
+        final boolean hasLegacySlot = keys.contains("slot");
+        final boolean hasLegacyStack = keys.contains("stack");
+        if (hasPatternSlot != hasPatternStack) {
+            return false;
+        }
+        if (hasLegacySlot != hasLegacyStack) {
+            return false;
+        }
+        if ((hasPatternSlot || hasPatternStack) && (hasLegacySlot || hasLegacyStack)) {
+            return false;
+        }
+
+        final Set<String> allowed = this.allowedControlKeys();
+        if (allowed == null || allowed.isEmpty()) {
+            return false;
+        }
+
+        for (final String key : keys) {
+            if (key == null || key.isBlank() || key.length() > 32 || !allowed.contains(key)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    @Override
     public void receiveControl(final CompoundTag data) {
+        if (this.applyPatternSlotControl(data)) {
+            this.markChangedAndSync();
+            return;
+        }
         this.applyControlData(data);
         this.markChangedAndSync();
     }
@@ -251,6 +302,154 @@ public abstract class MachineBlockEntity extends BlockEntity implements MenuProv
 
     public float getVolume(final float baseVolume) {
         return this.muffled ? baseVolume * 0.1F : baseVolume;
+    }
+
+    protected final void emitPeriodicPollution(final PollutionType type, final float amountPerSecond) {
+        if (this.level == null || this.level.isClientSide() || amountPerSecond == 0.0F || this.level.getGameTime() % 20L != 0L) {
+            return;
+        }
+        PollutionSavedData.incrementPollution(this.level, this.worldPosition.getX(), this.worldPosition.getY(), this.worldPosition.getZ(), type, amountPerSecond);
+    }
+
+    protected final void emitFuelBurnPollution(final @Nullable Fluid fluid, final float burnedMillibuckets) {
+        if (this.level == null || this.level.isClientSide() || fluid == null || burnedMillibuckets <= 0.0F) {
+            return;
+        }
+
+        final CombustibleFuelRegistry.BurnPollution pollution = CombustibleFuelRegistry.burnPollutionFor(fluid);
+        if (pollution.isEmpty()) {
+            return;
+        }
+
+        final int x = this.worldPosition.getX();
+        final int y = this.worldPosition.getY();
+        final int z = this.worldPosition.getZ();
+
+        if (pollution.soot() > 0.0F) {
+            PollutionSavedData.incrementPollution(this.level, x, y, z, PollutionType.SOOT, pollution.soot() * burnedMillibuckets);
+        }
+        if (pollution.heavyMetal() > 0.0F) {
+            PollutionSavedData.incrementPollution(this.level, x, y, z, PollutionType.HEAVY_METAL, pollution.heavyMetal() * burnedMillibuckets);
+        }
+        if (pollution.poison() > 0.0F) {
+            PollutionSavedData.incrementPollution(this.level, x, y, z, PollutionType.POISON, pollution.poison() * burnedMillibuckets);
+        }
+    }
+
+    protected final int bufferPollution(final int currentBuffer,
+                                        final int bufferCapacity,
+                                        final PollutionType type,
+                                        final float amount) {
+        if (amount <= 0.0F || bufferCapacity <= 0) {
+            return Math.max(0, Math.min(bufferCapacity, currentBuffer));
+        }
+
+        final int fluidAmount = (int) Math.ceil(amount * 100.0F);
+        if (fluidAmount <= 0) {
+            return Math.max(0, Math.min(bufferCapacity, currentBuffer));
+        }
+
+        int next = currentBuffer + fluidAmount;
+        if (next > bufferCapacity) {
+            final int overflow = next - bufferCapacity;
+            next = bufferCapacity;
+            if (this.level != null && !this.level.isClientSide()) {
+                PollutionSavedData.incrementPollution(
+                    this.level,
+                    this.worldPosition.getX(),
+                    this.worldPosition.getY(),
+                    this.worldPosition.getZ(),
+                    type,
+                    overflow / 100.0F);
+            }
+        }
+
+        return Math.max(0, Math.min(bufferCapacity, next));
+    }
+
+    protected final void bufferPollutionIntoSmokeTank(final int smokeTankIndex,
+                                                      final PollutionType type,
+                                                      final Fluid smokeFluid,
+                                                      final float amount) {
+        if (amount <= 0.0F || smokeFluid == null || this.level == null || this.level.isClientSide()) {
+            return;
+        }
+
+        final HbmFluidTank tank = this.getFluidTank(smokeTankIndex);
+        if (tank == null) {
+            return;
+        }
+
+        final int fluidAmount = (int) Math.ceil(amount * 100.0F);
+        if (fluidAmount <= 0) {
+            return;
+        }
+
+        final int accepted = tank.fill(new FluidStack(smokeFluid, fluidAmount), IFluidHandler.FluidAction.EXECUTE);
+        final int overflow = fluidAmount - accepted;
+        if (overflow > 0) {
+            PollutionSavedData.incrementPollution(
+                this.level,
+                this.worldPosition.getX(),
+                this.worldPosition.getY(),
+                this.worldPosition.getZ(),
+                type,
+                overflow / 100.0F);
+        }
+    }
+
+    protected final boolean exportTankToNeighbors(final int tankIndex) {
+        return this.exportTankToNeighbors(tankIndex, Integer.MAX_VALUE);
+    }
+
+    protected final boolean exportTankToNeighbors(final int tankIndex, final int maxTransferPerNeighbor) {
+        if (this.level == null || this.level.isClientSide()) {
+            return false;
+        }
+
+        final HbmFluidTank tank = this.getFluidTank(tankIndex);
+        if (tank == null || tank.isEmpty()) {
+            return false;
+        }
+
+        final int transferLimit = maxTransferPerNeighbor <= 0 ? Integer.MAX_VALUE : maxTransferPerNeighbor;
+        boolean moved = false;
+
+        for (final Direction direction : Direction.values()) {
+            if (tank.isEmpty()) {
+                break;
+            }
+
+            final BlockEntity neighbor = this.level.getBlockEntity(this.worldPosition.relative(direction));
+            if (neighbor == null) {
+                continue;
+            }
+
+            final IFluidHandler neighborHandler = neighbor.getCapability(ForgeCapabilities.FLUID_HANDLER, direction.getOpposite()).orElse(null);
+            if (neighborHandler == null) {
+                continue;
+            }
+
+            final FluidStack stored = tank.getFluid();
+            if (stored.isEmpty()) {
+                continue;
+            }
+
+            final int offerAmount = transferLimit == Integer.MAX_VALUE ? stored.getAmount() : Math.min(transferLimit, stored.getAmount());
+            if (offerAmount <= 0) {
+                continue;
+            }
+
+            final int accepted = neighborHandler.fill(new FluidStack(stored, offerAmount), IFluidHandler.FluidAction.EXECUTE);
+            if (accepted <= 0) {
+                continue;
+            }
+
+            tank.drain(accepted, IFluidHandler.FluidAction.EXECUTE);
+            moved = true;
+        }
+
+        return moved;
     }
 
     public void syncToClient() {
@@ -793,6 +992,60 @@ public abstract class MachineBlockEntity extends BlockEntity implements MenuProv
     }
 
     protected void applyControlData(final CompoundTag data) {
+    }
+
+    protected Set<String> allowedControlKeys() {
+        if (!this.allowedPatternSlots().isEmpty()) {
+            return Set.of("repair", "patternSlot", "patternStack", "slot", "stack");
+        }
+        return Set.of("repair");
+    }
+
+    protected Set<Integer> allowedPatternSlots() {
+        return Set.of();
+    }
+
+    private boolean applyPatternSlotControl(final CompoundTag data) {
+        if (data == null) {
+            return false;
+        }
+
+        final String slotKey;
+        final String stackKey;
+        if (data.contains("patternSlot", Tag.TAG_INT) && data.contains("patternStack", Tag.TAG_COMPOUND)) {
+            slotKey = "patternSlot";
+            stackKey = "patternStack";
+        } else if (data.contains("slot", Tag.TAG_INT) && data.contains("stack", Tag.TAG_COMPOUND)) {
+            slotKey = "slot";
+            stackKey = "stack";
+        } else {
+            return false;
+        }
+
+        final Set<Integer> allowedPatternSlots = this.allowedPatternSlots();
+        if (allowedPatternSlots == null || allowedPatternSlots.isEmpty()) {
+            return false;
+        }
+
+        final int slot = data.getInt(slotKey);
+        if (!allowedPatternSlots.contains(slot) || slot < 0 || slot >= this.items.getSlots()) {
+            return false;
+        }
+
+        final net.minecraft.world.item.ItemStack stack = net.minecraft.world.item.ItemStack.of(data.getCompound(stackKey));
+        if (stack.isEmpty()) {
+            this.items.setStackInSlot(slot, net.minecraft.world.item.ItemStack.EMPTY);
+            return true;
+        }
+
+        final net.minecraft.world.item.ItemStack copied = stack.copy();
+        copied.setCount(Math.max(1, Math.min(copied.getCount(), copied.getMaxStackSize())));
+        if (!this.isItemValid(slot, copied)) {
+            return false;
+        }
+
+        this.items.setStackInSlot(slot, copied);
+        return true;
     }
 
     protected CompoundTag writeMachineStateSync() {
