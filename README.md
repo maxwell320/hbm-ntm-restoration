@@ -1,60 +1,84 @@
 # HBM Nuclear Tech Modern Port (Forge 1.20.1)
 
-This repository is an active restoration port of HBM Nuclear Tech to modern Forge.
+Port of HBM Nuclear Tech from 1.7.10 to modern Forge. Work in progress.
 
-The goal is not to drag 1.7.10 code forward line-for-line. The goal is to preserve gameplay behavior while rebuilding systems in a maintainable 1.20.1 codebase.
+Not a 1:1 line-for-line port. Legacy gameplay is the spec; the systems
+are rebuilt against 1.20.1 instead of dragged forward.
 
-## Current status
+## Stack
 
-The project is in active subsystem parity work.
+- Minecraft 1.20.1
+- Forge 47.4.18
+- Java 17
+- Mod id: `hbmntm`
+- Package root: `com.hbm.ntm`
 
-Recent completed slices include:
-- major shared barrel family coverage with runtime behavior
-- explosive and waste barrel variants
-- first pass of disperser/glyphid fluid container restoration
+## Status
 
-Still in progress:
-- broader machine families
-- full fluid logistics parity
-- missile, weapon, and worldgen parity layers
+Parity is mid-port. Expect missing machines, missing weapons, empty
+worldgen, and an unfinished GUI pass.
 
-## Baseline
+Landed:
+- shared barrel family, including explosive and waste variants
+- fluid container restoration (disperser, glyphid)
+- full furnace family (iron, steel, brick, combination, rotary multiblock)
+- heat-source bridge so heat-pulling furnaces run
+- combination recipe layer
+- core machine base, sync, menu, and slot parity
 
-- Minecraft: 1.20.1
-- Forge: 47.4.18
-- Java: 17
-- Mod ID: hbmntm
-- Package root: com.hbm.ntm
+Open:
+- remaining machine families (chem plant, crystallizer, compressor, mixer)
+- cable, duct, and fluid network parity
+- reactors beyond the current baseline
+- weapons, projectiles, missiles, turrets
+- worldgen (ores, structures, biomes)
+- explosion and fallout systems
+- vehicles, mobs, other entities
 
-## Official releases
+## Build
 
-This project now has official distribution channels on Modrinth and CurseForge.
+From the repo root:
 
-If a jar is posted outside the official project pages, treat it as an unofficial mirror unless explicitly linked by the maintainer.
+    gradlew.bat compileJava
+    gradlew.bat runData
+    gradlew.bat runClient
+    gradlew.bat runServer
 
-## Build and run
+CI runs `compileJava` and `runData`. Both should pass before opening a PR.
 
-From the repository root:
+## Releases
 
-- gradlew.bat compileJava
-- gradlew.bat runData
-- gradlew.bat runClient
-- gradlew.bat runServer
+Official builds are on Modrinth and CurseForge. Only jars linked from this
+repo or from the maintainer's project pages are official. Anything else is
+a third-party upload. See `NOTICE.md`.
 
-## Licensing and attribution
+## License
 
-Code in this repository is GPL-3.0-or-later.
+GPL-3.0-or-later. See `LICENSE` and `LICENSE.txt`.
 
-Read these files before redistributing:
-- LICENSE
-- LICENSE.txt
-- NOTICE.md
-- CREDITS.txt
+Before you fork, mirror, repackage, or redistribute, read `NOTICE.md`. It
+covers what has to be kept (LICENSE, NOTICE, the required attribution
+block, maintainer and contributor credits) and what is not allowed
+(stripping credits, publishing under the project name, implying
+endorsement). Clause form, unambiguous.
 
-In short: you can fork and modify under GPL terms, but you must keep attribution and license notices intact. Project branding and implied endorsement are handled separately in NOTICE.md.
+## Credits
 
-## Attribution
+Original HBM Nuclear Tech: HbMinecraft and the original HBM contributors.
+This repo is an independent restoration. It is not the original 1.7.10
+code and is not maintained by the original HBM authors.
 
-Original HBM Nuclear Tech was created by HbMinecraft and contributors.
+Contributor list: `CREDITS.txt`.
 
-This repository is an independent modern port effort and is not the original 1.7.10 codebase.
+## Issues
+
+Bug reports and parity regressions go on GitHub issues. Include:
+- machine or system name
+- repro steps
+- observed behavior
+- expected (legacy) behavior
+- log snippet if relevant
+
+Feature requests for anything not in legacy HBM: no by default. Scope is
+legacy restoration. Post-parity feature work happens after the port is
+complete.
