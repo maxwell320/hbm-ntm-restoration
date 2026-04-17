@@ -29,6 +29,8 @@ forge*changelog.txt
 
 # Internal notes and docs
 *.md
+!README.md
+!NOTICE.md
 docs/
 README.txt
 LICENSE.txt
