@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "B": {
+      "item": "minecraft:stone"
+    },
+    "I": {
+      "item": "minecraft:brick"
+    }
+  },
+  "pattern": [
+    "III",
+    "I I",
+    "BBB"
+  ],
+  "result": {
+    "item": "hbmntm:machine_furnace_brick"
+  },
+  "show_notification": true
+}

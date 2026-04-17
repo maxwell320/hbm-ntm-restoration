@@ -58,17 +58,17 @@ public class PurexMenu extends MachineMenuBase<PurexBlockEntity> {
 
         this.addSlot(new FilteredSlotItemHandler(handler, PurexBlockEntity.SLOT_INPUT_1, 8, 90,
             (slot, stack) -> this.machine == null || this.machine.isItemValid(slot, stack)));
-        this.addSlot(new FilteredSlotItemHandler(handler, PurexBlockEntity.SLOT_INPUT_2, 8, 108,
+        this.addSlot(new FilteredSlotItemHandler(handler, PurexBlockEntity.SLOT_INPUT_2, 26, 90,
             (slot, stack) -> this.machine == null || this.machine.isItemValid(slot, stack)));
-        this.addSlot(new FilteredSlotItemHandler(handler, PurexBlockEntity.SLOT_INPUT_3, 8, 126,
+        this.addSlot(new FilteredSlotItemHandler(handler, PurexBlockEntity.SLOT_INPUT_3, 44, 90,
             (slot, stack) -> this.machine == null || this.machine.isItemValid(slot, stack)));
 
         this.addSlot(new OutputSlotItemHandler(handler, PurexBlockEntity.SLOT_OUTPUT_1, 80, 36));
         this.addSlot(new OutputSlotItemHandler(handler, PurexBlockEntity.SLOT_OUTPUT_2, 98, 36));
-        this.addSlot(new OutputSlotItemHandler(handler, PurexBlockEntity.SLOT_OUTPUT_3, 116, 36));
-        this.addSlot(new OutputSlotItemHandler(handler, PurexBlockEntity.SLOT_OUTPUT_4, 80, 54));
-        this.addSlot(new OutputSlotItemHandler(handler, PurexBlockEntity.SLOT_OUTPUT_5, 98, 54));
-        this.addSlot(new OutputSlotItemHandler(handler, PurexBlockEntity.SLOT_OUTPUT_6, 116, 54));
+        this.addSlot(new OutputSlotItemHandler(handler, PurexBlockEntity.SLOT_OUTPUT_3, 80, 54));
+        this.addSlot(new OutputSlotItemHandler(handler, PurexBlockEntity.SLOT_OUTPUT_4, 98, 54));
+        this.addSlot(new OutputSlotItemHandler(handler, PurexBlockEntity.SLOT_OUTPUT_5, 80, 72));
+        this.addSlot(new OutputSlotItemHandler(handler, PurexBlockEntity.SLOT_OUTPUT_6, 98, 72));
 
         this.addPlayerInventory(inventory, 8, 174);
 

@@ -313,6 +313,15 @@ public class ShredderBlockEntity extends MachineBlockEntity {
         return false;
     }
 
+    @Override
+    public int[] getAccessibleSlots(final @Nullable Direction side) {
+        final int[] slots = new int[SLOT_COUNT];
+        for (int slot = 0; slot < SLOT_COUNT; slot++) {
+            slots[slot] = slot;
+        }
+        return slots;
+    }
+
     public int getProgress() {
         return this.progress;
     }

@@ -279,6 +279,14 @@ public class AssemblyMachineBlockEntity extends MultiblockCoreBE {
         tag.putInt("energy", this.getStoredEnergy());
         tag.putInt("maxEnergy", this.getMaxStoredEnergy());
 
+        final Optional<HbmAssemblyRecipes.AssemblyRecipe> selected = this.getSelectedRecipe();
+        final boolean hasRecipe = selected.isPresent();
+        final boolean hasPower = selected.map(recipe -> this.getStoredEnergy() >= recipe.consumption()).orElse(false);
+        final boolean canProcess = selected.map(this::canProcess).orElse(false);
+        tag.putBoolean("hasRecipe", hasRecipe);
+        tag.putBoolean("hasPower", hasPower);
+        tag.putBoolean("canProcess", canProcess);
+
         final HbmFluidTank inputTank = this.getInputTank();
         tag.putInt("inputAmount", inputTank == null ? 0 : inputTank.getFluidAmount());
         tag.putInt("inputCapacity", inputTank == null ? 0 : inputTank.getCapacity());

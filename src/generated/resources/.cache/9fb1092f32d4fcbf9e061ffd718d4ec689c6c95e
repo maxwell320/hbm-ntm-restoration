@@ -1,4 +1,4 @@
-// 1.20.1	2026-04-15T15:53:02.6657977	Recipes
+// 1.20.1	2026-04-16T17:05:12.4997942	Recipes
 0dcc29c27c7f05a67e31a3b9af41056474bccd0a data/hbmntm/advancements/recipes/building_blocks/basalt_brick.json
 2fc361c5703bab1e8e99c830fe03e06cd13255e4 data/hbmntm/advancements/recipes/building_blocks/basalt_polished.json
 9670c4ae5a0f1020f3b46f71142a1cee1a5b86a5 data/hbmntm/advancements/recipes/building_blocks/basalt_smooth_from_smelting.json
@@ -423,9 +423,11 @@ dd2ae1929bc046d03039251842bba09e466b2bec data/hbmntm/advancements/recipes/redsto
 869764e4ad56e4e38d23f6718477bacd1a3c31ee data/hbmntm/advancements/recipes/redstone/deuterium_filter.json
 693ee745ad24854eebdcf5f25061f8dbddc0d497 data/hbmntm/advancements/recipes/redstone/fluid_duct_neo.json
 be28058912eb53b728800c6908fa68b8cc5c8c6c data/hbmntm/advancements/recipes/redstone/fluid_identifier_multi.json
+e40086c05f537376eb6de855df9c01226c9f4d7c data/hbmntm/advancements/recipes/redstone/furnace_iron.json
 eaa6872871f82c61256d941aa306756019220731 data/hbmntm/advancements/recipes/redstone/fuse.json
 d7b79c25eb22d8d67a0dbcc907791af9c22e762d data/hbmntm/advancements/recipes/redstone/geiger_from_geiger_counter.json
 65498874de80a47a939cc5798368fdb078037e37 data/hbmntm/advancements/recipes/redstone/machine_difurnace_extension.json
+fa5cbb47bc740d731068f762e4f1b7d1a493e367 data/hbmntm/advancements/recipes/redstone/machine_furnace_brick.json
 4b147462dcb16243f70b3790fc54d1432333103b data/hbmntm/advancements/recipes/redstone/machine_minirtg.json
 4ec80b380b3d9623bd82de2561b39d29e620d253 data/hbmntm/advancements/recipes/redstone/machine_powerrtg.json
 724d8ea464d041f44e5a5d09e21086f204fcdfab data/hbmntm/advancements/recipes/redstone/machine_press.json
@@ -647,6 +649,7 @@ ef6821ade8df7c92c5c639b3618517024fce81a3 data/hbmntm/recipes/fins_tri_steel.json
 3de3e867906d91fd689a185acf24a8870770ab93 data/hbmntm/recipes/fluid_tank_empty.json
 7cd8e1faa0ab636a1c1c2f7d579223b8f93a5118 data/hbmntm/recipes/fluid_tank_lead_empty.json
 0395ff6924eba1e0799bf8ca01c0b14596462a3b data/hbmntm/recipes/flywheel_beryllium.json
+2f08ce1e5eb563b1968300e9d0123371b8c2fe83 data/hbmntm/recipes/furnace_iron.json
 8f65ec1259a3da6523beb5a01503a1d08ee446ae data/hbmntm/recipes/fuse.json
 32855f23fc3e7fc506df08943510dfca5764edf5 data/hbmntm/recipes/gas_empty.json
 582337048459773e18463c3785ae0d3a6bc3a6ec data/hbmntm/recipes/geiger_counter_from_geiger.json
@@ -767,6 +770,7 @@ b201a8bef6e949f177b03243db96d86020f037c0 data/hbmntm/recipes/ingot_zirconium_fro
 8f938f5c9a15af5587252033959063cc1ffa1845 data/hbmntm/recipes/ingot_zirconium_from_nugget_zirconium.json
 c3f1028f690f27d99f0804b349c74f1526dfc5bf data/hbmntm/recipes/lithium_from_block_lithium.json
 65ab78fa113c759a480e6fd43c7dbdb610600541 data/hbmntm/recipes/machine_difurnace_extension.json
+46acae2f9df9db2c42159e928db1bc70973b044c data/hbmntm/recipes/machine_furnace_brick.json
 0d374d5096f43eb3eb9c4395f68344c8b8c5533f data/hbmntm/recipes/machine_minirtg.json
 0d123ca67bb1a1a24b91c4dbe003686370ae01d6 data/hbmntm/recipes/machine_powerrtg.json
 24497cb09973e6432aec357d243d43563ceb193c data/hbmntm/recipes/machine_press.json

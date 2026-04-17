@@ -11,6 +11,6 @@
   },
   "textures": {
     "particle": "hbmntm:block/barrel_tcalloy",
-    "texture0": "hbmntm:block/barrel_tcalloy"
-  }
+    "texture0": "hbmntm:block/barrel_tcalloy",
+    "Default_OBJ": "hbmntm:block/barrel_tcalloy"}
 }

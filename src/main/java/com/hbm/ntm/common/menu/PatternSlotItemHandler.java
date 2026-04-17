@@ -8,6 +8,7 @@ import net.minecraftforge.items.SlotItemHandler;
 @SuppressWarnings("null")
 public class PatternSlotItemHandler extends SlotItemHandler {
     private final boolean allowStackSize;
+    private final int handlerSlots;
     private boolean highlightable = true;
 
     public PatternSlotItemHandler(final IItemHandler itemHandler,
@@ -24,6 +25,15 @@ public class PatternSlotItemHandler extends SlotItemHandler {
                                   final boolean allowStackSize) {
         super(itemHandler, index, xPosition, yPosition);
         this.allowStackSize = allowStackSize;
+        this.handlerSlots = itemHandler.getSlots();
+        if (index < 0 || index >= this.handlerSlots) {
+            throw new IllegalArgumentException("Pattern slot index out of bounds: " + index + " / " + this.handlerSlots);
+        }
+    }
+
+    private boolean isValidIndex() {
+        final int slot = this.getSlotIndex();
+        return slot >= 0 && slot < this.handlerSlots;
     }
 
     @Override
@@ -43,6 +53,10 @@ public class PatternSlotItemHandler extends SlotItemHandler {
 
     @Override
     public void set(final ItemStack stack) {
+        if (!this.isValidIndex()) {
+            return;
+        }
+
         if (stack == null || stack.isEmpty()) {
             super.set(ItemStack.EMPTY);
             return;

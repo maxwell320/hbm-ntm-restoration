@@ -11,6 +11,6 @@
   },
   "textures": {
     "particle": "hbmntm:block/barrel_pink",
-    "texture0": "hbmntm:block/barrel_pink"
-  }
+    "texture0": "hbmntm:block/barrel_pink",
+    "Default_OBJ": "hbmntm:block/barrel_pink"}
 }

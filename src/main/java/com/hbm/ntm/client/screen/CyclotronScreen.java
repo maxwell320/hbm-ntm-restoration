@@ -3,7 +3,6 @@ package com.hbm.ntm.client.screen;
 import com.hbm.ntm.HbmNtmMod;
 import com.hbm.ntm.common.menu.CyclotronMenu;
 import java.util.List;
-import java.util.Optional;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -11,10 +10,11 @@ import net.minecraft.world.entity.player.Inventory;
 
 @SuppressWarnings("null")
 public class CyclotronScreen extends MachineScreenBase<CyclotronMenu> {
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "textures/gui/processing/gui_cyclotron.png");
+    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "textures/gui/machine/gui_cyclotron.png");
 
     public CyclotronScreen(final CyclotronMenu menu, final Inventory inventory, final Component title) {
         super(menu, inventory, title, 190, 215);
+        this.inventoryLabelX = 15;
     }
 
     @Override
@@ -93,21 +93,13 @@ public class CyclotronScreen extends MachineScreenBase<CyclotronMenu> {
             this.menu.fluidAmount(2),
             this.menu.fluidCapacity(2));
 
-        if (this.inside(mouseX, mouseY, this.leftPos + 48, this.topPos + 27, 34, 34)) {
-            guiGraphics.renderTooltip(this.font,
-                List.of(
-                    Component.literal("Consumption: " + this.menu.consumption() + " HE/t"),
-                    Component.literal("Coolant: " + this.menu.coolantUse() + " mB/t")),
-                Optional.empty(),
-                mouseX,
-                mouseY);
-        }
-
-        this.renderUpgradeInfoTooltip(guiGraphics, mouseX, mouseY,
-            this.leftPos + 49, this.topPos + 85, 8, 8);
-
-        this.renderUpgradeInfoTooltip(guiGraphics, mouseX, mouseY,
-            this.leftPos + 60, this.topPos + 81, 36, 18);
+        this.renderLegacyInfoPanelTooltip(guiGraphics, mouseX, mouseY,
+            this.leftPos + 49, this.topPos + 85, 8,
+            List.of(
+                Component.translatable("desc.gui.upgrade"),
+                Component.translatable("desc.gui.upgrade.speed"),
+                Component.translatable("desc.gui.upgrade.effectiveness"),
+                Component.translatable("desc.gui.upgrade.power")));
     }
 
     @Override

@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
@@ -37,7 +36,6 @@ import org.joml.Matrix4f;
 
 @SuppressWarnings("null")
 public abstract class MachineScreenBase<T extends MachineMenuBase<?>> extends AbstractContainerScreen<T> {
-    private static final int REPAIR_ICON_SIZE = 8;
     private static final ResourceLocation GUI_UTILITY_TEXTURE = ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "textures/gui/gui_utility.png");
 
     protected MachineScreenBase(final T menu, final Inventory inventory, final Component title, final int imageWidth, final int imageHeight) {
@@ -57,7 +55,6 @@ public abstract class MachineScreenBase<T extends MachineMenuBase<?>> extends Ab
         this.renderBackground(guiGraphics);
         super.render(guiGraphics, mouseX, mouseY, partialTick);
         this.renderTooltip(guiGraphics, mouseX, mouseY);
-        this.renderRepairTooltip(guiGraphics, mouseX, mouseY);
     }
 
     @Override
@@ -65,14 +62,46 @@ public abstract class MachineScreenBase<T extends MachineMenuBase<?>> extends Ab
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         guiGraphics.blit(this.texture(), this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
         this.renderMachineContents(guiGraphics, partialTick, mouseX, mouseY);
-        this.renderRepairIcon(guiGraphics);
     }
 
     @Override
     protected void renderLabels(final @NotNull GuiGraphics guiGraphics, final int mouseX, final int mouseY) {
-        guiGraphics.drawString(this.font, this.title, 8, 6, 0x404040, false);
-        guiGraphics.drawString(this.font, this.playerInventoryTitle, 8, this.imageHeight - 94, 0x404040, false);
+        if (this.shouldRenderTitle()) {
+            guiGraphics.drawString(this.font, this.title, this.titleLabelX(), this.titleLabelY(), this.titleLabelColor(), false);
+        }
+        guiGraphics.drawString(this.font, this.playerInventoryTitle, this.inventoryLabelX(), this.inventoryLabelY(), this.inventoryLabelColor(), false);
         this.renderMachineLabels(guiGraphics, mouseX, mouseY);
+    }
+
+    protected boolean shouldRenderTitle() {
+        return true;
+    }
+
+    protected int titleLabelX() {
+        if (this.titleLabelX != 8) {
+            return this.titleLabelX;
+        }
+        return Math.max(8, (this.imageWidth - this.font.width(this.title)) / 2);
+    }
+
+    protected int titleLabelY() {
+        return this.titleLabelY;
+    }
+
+    protected int titleLabelColor() {
+        return 0x404040;
+    }
+
+    protected int inventoryLabelX() {
+        return this.inventoryLabelX;
+    }
+
+    protected int inventoryLabelY() {
+        return this.inventoryLabelY;
+    }
+
+    protected int inventoryLabelColor() {
+        return 0x404040;
     }
 
     protected void renderMachineContents(final GuiGraphics guiGraphics, final float partialTick, final int mouseX, final int mouseY) {
@@ -173,46 +202,6 @@ public abstract class MachineScreenBase<T extends MachineMenuBase<?>> extends Ab
 
     protected final boolean inside(final double mouseX, final double mouseY, final int x, final int y, final int width, final int height) {
         return mouseX >= x && mouseX < x + width && mouseY >= y && mouseY < y + height;
-    }
-
-    private void renderRepairIcon(final GuiGraphics guiGraphics) {
-        if (!this.menu.isMaintenanceBlocked()) {
-            return;
-        }
-        final int x = this.repairIconX();
-        final int y = this.repairIconY();
-        guiGraphics.fill(x, y, x + REPAIR_ICON_SIZE, y + REPAIR_ICON_SIZE, 0xFFC02020);
-        guiGraphics.drawString(this.font, "!", x + 2, y, 0xFFFFFFFF, false);
-    }
-
-    private void renderRepairTooltip(final GuiGraphics guiGraphics, final int mouseX, final int mouseY) {
-        if (!this.menu.isMaintenanceBlocked()) {
-            return;
-        }
-        final int x = this.repairIconX();
-        final int y = this.repairIconY();
-        if (!this.inside(mouseX, mouseY, x, y, REPAIR_ICON_SIZE, REPAIR_ICON_SIZE)) {
-            return;
-        }
-        final List<Component> tooltip = new java.util.ArrayList<>();
-        tooltip.add(Component.literal("Machine damaged").withStyle(ChatFormatting.RED));
-        tooltip.add(Component.literal("Use a blowtorch to repair."));
-        final List<net.minecraft.world.item.ItemStack> materials = this.menu.repairMaterials();
-        if (!materials.isEmpty()) {
-            tooltip.add(Component.literal("Required materials:").withStyle(ChatFormatting.GOLD));
-            for (final net.minecraft.world.item.ItemStack stack : materials) {
-                tooltip.add(Component.literal("- " + stack.getHoverName().getString() + " x" + stack.getCount()));
-            }
-        }
-        guiGraphics.renderTooltip(this.font, tooltip, Optional.empty(), mouseX, mouseY);
-    }
-
-    private int repairIconX() {
-        return this.leftPos + this.imageWidth - 11;
-    }
-
-    private int repairIconY() {
-        return this.topPos + 6;
     }
 
     protected final void renderVerticalEnergyBar(final GuiGraphics guiGraphics,
@@ -442,23 +431,20 @@ public abstract class MachineScreenBase<T extends MachineMenuBase<?>> extends Ab
     }
 
     protected final String formatShortNumber(final long value) {
-        if (value >= 1_000_000_000_000_000_000L) {
-            return this.scaledShortNumber(value, 1_000_000_000_000_000_000D, "E");
-        }
         if (value >= 1_000_000_000_000_000L) {
-            return this.scaledShortNumber(value, 1_000_000_000_000_000D, "P");
+            return this.scaledShortNumber(value, 1_000_000_000_000_000D, "Q");
         }
         if (value >= 1_000_000_000_000L) {
             return this.scaledShortNumber(value, 1_000_000_000_000D, "T");
         }
         if (value >= 1_000_000_000L) {
-            return this.scaledShortNumber(value, 1_000_000_000D, "G");
+            return this.scaledShortNumber(value, 1_000_000_000D, "B");
         }
         if (value >= 1_000_000L) {
             return this.scaledShortNumber(value, 1_000_000D, "M");
         }
         if (value >= 1_000L) {
-            return this.scaledShortNumber(value, 1_000D, "k");
+            return this.scaledShortNumber(value, 1_000D, "K");
         }
         return Long.toString(value);
     }

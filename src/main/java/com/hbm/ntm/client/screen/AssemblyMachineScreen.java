@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Optional;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.Button;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -23,23 +22,6 @@ public class AssemblyMachineScreen extends MachineScreenBase<AssemblyMachineMenu
     public AssemblyMachineScreen(final AssemblyMachineMenu menu, final Inventory inventory, final Component title) {
         super(menu, inventory, title, 176, 256);
         this.inventoryLabelY = this.imageHeight - 94;
-    }
-
-    @Override
-    protected void init() {
-        super.init();
-        this.addRenderableWidget(Button.builder(Component.literal("<"), button -> {
-                this.playButtonClick();
-                this.cycleRecipe(-1);
-            })
-            .bounds(this.leftPos + 26, this.topPos + 125, 16, 16)
-            .build());
-        this.addRenderableWidget(Button.builder(Component.literal(">"), button -> {
-                this.playButtonClick();
-                this.cycleRecipe(1);
-            })
-            .bounds(this.leftPos + 44, this.topPos + 125, 16, 16)
-            .build());
     }
 
     private void cycleRecipe(final int delta) {
@@ -56,7 +38,19 @@ public class AssemblyMachineScreen extends MachineScreenBase<AssemblyMachineMenu
             this.menu.energy(), this.menu.maxEnergy());
         final int progressWidth = machine.getSelectedRecipe().map(recipe -> this.menu.progress() * 70 / recipe.duration()).orElse(0);
         if (progressWidth > 0) {
-            guiGraphics.fill(this.leftPos + 62, this.topPos + 126, this.leftPos + 62 + progressWidth, this.topPos + 142, 0xFFB08020);
+            guiGraphics.blit(TEXTURE, this.leftPos + 62, this.topPos + 126, 176, 61, progressWidth, 16);
+        }
+
+        if (this.menu.canProcess()) {
+            guiGraphics.blit(TEXTURE, this.leftPos + 51, this.topPos + 121, 195, 0, 3, 6);
+        } else if (this.menu.hasRecipe()) {
+            guiGraphics.blit(TEXTURE, this.leftPos + 51, this.topPos + 121, 192, 0, 3, 6);
+        }
+
+        if (this.menu.canProcess()) {
+            guiGraphics.blit(TEXTURE, this.leftPos + 56, this.topPos + 121, 195, 0, 3, 6);
+        } else if (this.menu.hasRecipe() && this.menu.hasPower()) {
+            guiGraphics.blit(TEXTURE, this.leftPos + 56, this.topPos + 121, 192, 0, 3, 6);
         }
         this.renderHorizontalFluidBar(guiGraphics, this.leftPos + 8, this.topPos + 115, 52, 16,
             this.menu.inputAmount(), this.menu.inputCapacity(), 0xFF2050C0);
@@ -80,17 +74,28 @@ public class AssemblyMachineScreen extends MachineScreenBase<AssemblyMachineMenu
             return;
         }
         final Optional<HbmAssemblyRecipes.AssemblyRecipe> selectedRecipe = machine.getSelectedRecipe();
-        final int recipeIndex = this.menu.recipeIndex();
-        final int recipeCount = this.menu.recipeCount();
-        guiGraphics.drawString(this.font, recipeCount <= 0 ? "0/0" : (recipeIndex + 1) + "/" + recipeCount, 62, 131, 0x404040, false);
         this.renderEnergyTooltip(guiGraphics, mouseX, mouseY, this.leftPos + 152, this.topPos + 18, 16, 61,
             this.menu.energy(), this.menu.maxEnergy());
-        this.renderFluidTooltip(guiGraphics, mouseX, mouseY, this.leftPos + 8, this.topPos + 115, 52, 16,
-            "Input Tank", this.menu.inputFluid(), this.menu.inputAmount(), this.menu.inputCapacity());
-        this.renderFluidTooltip(guiGraphics, mouseX, mouseY, this.leftPos + 80, this.topPos + 115, 52, 16,
-            "Output Tank", this.menu.outputFluid(), this.menu.outputAmount(), this.menu.outputCapacity());
-        this.renderUpgradeInfoTooltip(guiGraphics, mouseX, mouseY,
-            this.leftPos + 152, this.topPos + 108, 36, 18);
+        if (this.inside(mouseX, mouseY, this.leftPos + 8, this.topPos + 99, 52, 16)) {
+            final List<Component> tooltip = new ArrayList<>();
+            if (this.menu.inputAmount() <= 0) {
+                tooltip.add(Component.literal("Empty"));
+            } else {
+                tooltip.add(Component.literal(this.menu.inputFluid()));
+                tooltip.add(Component.literal(this.menu.inputAmount() + " / " + this.menu.inputCapacity() + " mB"));
+            }
+            guiGraphics.renderTooltip(this.font, tooltip, Optional.empty(), mouseX, mouseY);
+        }
+        if (this.inside(mouseX, mouseY, this.leftPos + 80, this.topPos + 99, 52, 16)) {
+            final List<Component> tooltip = new ArrayList<>();
+            if (this.menu.outputAmount() <= 0) {
+                tooltip.add(Component.literal("Empty"));
+            } else {
+                tooltip.add(Component.literal(this.menu.outputFluid()));
+                tooltip.add(Component.literal(this.menu.outputAmount() + " / " + this.menu.outputCapacity() + " mB"));
+            }
+            guiGraphics.renderTooltip(this.font, tooltip, Optional.empty(), mouseX, mouseY);
+        }
         if (this.inside(mouseX, mouseY, this.leftPos + 7, this.topPos + 125, 18, 18)) {
             if (selectedRecipe.isPresent()) {
                 guiGraphics.renderTooltip(this.font, this.recipeTooltip(selectedRecipe.get()), Optional.empty(), mouseX, mouseY);
@@ -127,9 +132,19 @@ public class AssemblyMachineScreen extends MachineScreenBase<AssemblyMachineMenu
 
     @Override
     protected void renderLabels(final GuiGraphics guiGraphics, final int mouseX, final int mouseY) {
-        guiGraphics.drawString(this.font, this.title, this.imageWidth / 2 - this.font.width(this.title) / 2, 6, 0x404040, false);
+        guiGraphics.drawString(this.font, this.title, 70 - this.font.width(this.title) / 2, 6, 0x404040, false);
         guiGraphics.drawString(this.font, this.playerInventoryTitle, 8, this.imageHeight - 94, 0x404040, false);
         this.renderMachineLabels(guiGraphics, mouseX, mouseY);
+    }
+
+    @Override
+    public boolean mouseClicked(final double mouseX, final double mouseY, final int button) {
+        if (button == 1 && this.inside(mouseX, mouseY, this.leftPos + 7, this.topPos + 125, 18, 18)) {
+            this.playButtonClick();
+            this.cycleRecipe(1);
+            return true;
+        }
+        return super.mouseClicked(mouseX, mouseY, button);
     }
 
     @Override

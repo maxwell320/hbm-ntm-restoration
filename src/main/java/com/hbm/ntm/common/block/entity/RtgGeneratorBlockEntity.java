@@ -1,5 +1,6 @@
 package com.hbm.ntm.common.block.entity;
 
+import api.hbm.tile.IHeatSource;
 import com.hbm.ntm.common.energy.EnergyConnectionMode;
 import com.hbm.ntm.common.energy.EnergyNetworkDistributor;
 import com.hbm.ntm.common.energy.HbmEnergyStorage;
@@ -21,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("null")
-public class RtgGeneratorBlockEntity extends MachineBlockEntity {
+public class RtgGeneratorBlockEntity extends MachineBlockEntity implements IHeatSource {
     public static final int SLOT_COUNT = 15;
     public static final int HEAT_CAPACITY = 600;
     private static final int POWER_CAPACITY = 100_000;
@@ -105,12 +106,33 @@ public class RtgGeneratorBlockEntity extends MachineBlockEntity {
     }
 
     @Override
+    public boolean canPlayerControl(final Player player) {
+        return !this.isRemoved()
+            && this.level != null
+            && this.level.getBlockEntity(this.worldPosition) == this
+            && player.distanceToSqr(this.worldPosition.getX() + 0.5D, this.worldPosition.getY() + 0.5D, this.worldPosition.getZ() + 0.5D) <= 64.0D;
+    }
+
+    @Override
     public AbstractContainerMenu createMenu(final int containerId, final @NotNull Inventory inventory, final @NotNull Player player) {
         return new RtgGeneratorMenu(containerId, inventory, this);
     }
 
     public int getHeat() {
         return this.heat;
+    }
+
+    @Override
+    public int getHeatStored() {
+        return this.heat;
+    }
+
+    @Override
+    public void useUpHeat(final int heat) {
+        if (heat <= 0) {
+            return;
+        }
+        this.heat = Math.max(0, this.heat - heat);
     }
 
     @Override

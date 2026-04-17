@@ -215,10 +215,15 @@ public class HbmLanguageProvider extends LanguageProvider {
         add(Objects.requireNonNull(HbmBlocks.MACHINE_DI_FURNACE_EXTENSION.get()), "Dual Furnace Extension");
         add(Objects.requireNonNull(HbmBlocks.MACHINE_DI_FURNACE_RTG.get()), "RTG Dual Furnace");
         add(Objects.requireNonNull(HbmBlocks.MACHINE_ELECTRIC_FURNACE.get()), "Electric Furnace");
+        add(Objects.requireNonNull(HbmBlocks.FURNACE_IRON.get()), "Iron Furnace");
+        add(Objects.requireNonNull(HbmBlocks.FURNACE_STEEL.get()), "Steel Furnace");
+        add(Objects.requireNonNull(HbmBlocks.FURNACE_COMBINATION.get()), "Combination Oven");
+        add(Objects.requireNonNull(HbmBlocks.MACHINE_ROTARY_FURNACE.get()), "Rotary Furnace");
         add(Objects.requireNonNull(HbmBlocks.MACHINE_RTG_FURNACE.get()), "RTG Furnace");
         add(Objects.requireNonNull(HbmBlocks.MACHINE_RTG_GREY.get()), "RT Generator");
         add(Objects.requireNonNull(HbmBlocks.MACHINE_DIESEL_GENERATOR.get()), "Diesel Generator");
         add(Objects.requireNonNull(HbmBlocks.MACHINE_COMBUSTION_ENGINE.get()), "Industrial Combustion Engine");
+        add(Objects.requireNonNull(HbmBlocks.MACHINE_FURNACE_BRICK.get()), "Bricked Furnace");
         add(Objects.requireNonNull(HbmBlocks.MACHINE_ASHPIT.get()), "Ashpit");
         add(Objects.requireNonNull(HbmBlocks.CHIMNEY_BRICK.get()), "Brick Chimney");
         add(Objects.requireNonNull(HbmBlocks.CHIMNEY_INDUSTRIAL.get()), "Industrial Chimney");
@@ -463,6 +468,7 @@ public class HbmLanguageProvider extends LanguageProvider {
         add(Objects.requireNonNull(HbmItems.BLADES_DESH.get()), "Desh Shredder Blades");
         add(Objects.requireNonNull(HbmBlocks.MACHINE_SHREDDER.get()), "Shredder");
         add("screen.hbmntm.machine_gascent.warning", "WARNING! THIS MACHINE OUTPUTS RADIATION");
+        add("screen.hbmntm.machine_rotary_furnace.no_output", "No crucible acceptor found near the output spout.");
         add("hbmpseudofluid.none", "Empty");
         add("hbmpseudofluid.heuf6", "Highly Enriched UF6");
         add("hbmpseudofluid.meuf6", "Medium Enriched UF6");

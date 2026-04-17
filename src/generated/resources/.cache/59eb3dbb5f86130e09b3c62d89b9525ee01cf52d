@@ -1,4 +1,4 @@
-// 1.20.1	2026-04-15T15:53:02.6637893	Loot Tables
+// 1.20.1	2026-04-17T20:15:01.8401411	Loot Tables
 761932d7de8bb82a916daf8141885c374f4dc866 data/hbmntm/loot_tables/blocks/anvil_arsenic_bronze.json
 bd80baf7df56acdba9ed8c6d066c4e45b80d430b data/hbmntm/loot_tables/blocks/anvil_bismuth_bronze.json
 2d39a7e294d885b47f2ec965a87c5916bbd05817 data/hbmntm/loot_tables/blocks/anvil_desh.json
@@ -71,6 +71,9 @@ b9946b7065d4b95916a06a3ccbc9568b5823caa1 data/hbmntm/loot_tables/blocks/block_zi
 e6e11a6b38fb11ec07399206fbcaf6df5faf5135 data/hbmntm/loot_tables/blocks/creative_energy_source.json
 246fbb5c5ee079ab9370855b9d952e3eeae723c1 data/hbmntm/loot_tables/blocks/fallout.json
 cf26dd5262e1a6fc13448c641dd9e90f9a06e087 data/hbmntm/loot_tables/blocks/fluid_duct_neo.json
+0fef549bdc718024ddb8271efdfc4500e53078b9 data/hbmntm/loot_tables/blocks/furnace_combination.json
+9bdba09b601a099b46c015859277bcc4f85c9cd4 data/hbmntm/loot_tables/blocks/furnace_iron.json
+d3b6690f30d6b0add3d3692b9e805ba6a9b3cf73 data/hbmntm/loot_tables/blocks/furnace_steel.json
 cc2908ae17c8f55fc8eb5951a03dff9f37923d88 data/hbmntm/loot_tables/blocks/gas_asbestos.json
 d44da6ac965104789d021e0c30f313a254f09cb3 data/hbmntm/loot_tables/blocks/geiger.json
 aa761b7871f84b0f35b8ed1694762894058dff00 data/hbmntm/loot_tables/blocks/glass_boron.json
@@ -85,6 +88,7 @@ c5d3f631eea169a874323b0948199a951b9f5644 data/hbmntm/loot_tables/blocks/machine_
 ff39444fcce03c025b924a300c46aa04d75e885b data/hbmntm/loot_tables/blocks/machine_difurnace_extension.json
 638b1393e1860642bdeb74f099ccb2d4139342e2 data/hbmntm/loot_tables/blocks/machine_difurnace_rtg.json
 a73cc5a4f422ef8ac46183298b6e30a4aef0319a data/hbmntm/loot_tables/blocks/machine_electric_furnace.json
+ae1aca9f14f01c494f64a625c47b6eb58a564118 data/hbmntm/loot_tables/blocks/machine_furnace_brick.json
 49b58672e512cd9c78615ad971d23d7130311a5c data/hbmntm/loot_tables/blocks/machine_gascent.json
 2c5c0c5a129f84f69820113fc06a0505a6adda8e data/hbmntm/loot_tables/blocks/machine_icf.json
 65fc7e4e90c28b099cb28195f014a3c90172f3e5 data/hbmntm/loot_tables/blocks/machine_icf_controller.json
@@ -94,6 +98,7 @@ b1547dd55eb4b0b06b367412229d46ee83b76537 data/hbmntm/loot_tables/blocks/machine_
 537bbdb90da7c30693cdfa3f5811adf7c140f8b8 data/hbmntm/loot_tables/blocks/machine_powerrtg.json
 9805ebed67e1a8624a5e8d3514ceeff9c63fd3f3 data/hbmntm/loot_tables/blocks/machine_press.json
 606d4c9dfefa0903bb9e3f485284be6fdd385746 data/hbmntm/loot_tables/blocks/machine_purex.json
+9933b81bf76b2ff251f94f588186749c862be2f7 data/hbmntm/loot_tables/blocks/machine_rotary_furnace.json
 c02a59d0f41488fc0f7834bb36af9bb38163514c data/hbmntm/loot_tables/blocks/machine_rtg_furnace.json
 2437d2ca5eb0c74fc501983030144c29822fb4ee data/hbmntm/loot_tables/blocks/machine_rtg_grey.json
 ba509cde92054a0c635fa350fa9ea038f5cce716 data/hbmntm/loot_tables/blocks/machine_shredder.json

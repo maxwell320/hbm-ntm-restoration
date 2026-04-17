@@ -9,7 +9,7 @@ import net.minecraft.world.entity.player.Inventory;
 
 @SuppressWarnings("null")
 public class PressScreen extends MachineScreenBase<PressMenu> {
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "textures/gui/machine/gui_press.png");
+    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "textures/gui/gui_press.png");
 
     public PressScreen(final PressMenu menu, final Inventory inventory, final Component title) {
         super(menu, inventory, title, 176, 202);

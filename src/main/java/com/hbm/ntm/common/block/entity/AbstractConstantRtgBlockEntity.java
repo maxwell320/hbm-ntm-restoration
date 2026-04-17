@@ -1,5 +1,6 @@
 package com.hbm.ntm.common.block.entity;
 
+import api.hbm.tile.IHeatSource;
 import com.hbm.ntm.common.energy.EnergyConnectionMode;
 import com.hbm.ntm.common.energy.EnergyNetworkDistributor;
 import com.hbm.ntm.common.energy.HbmEnergyStorage;
@@ -22,7 +23,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("null")
-public abstract class AbstractConstantRtgBlockEntity extends BlockEntity implements IEnergyUser, IEnergyGenerator, IEnergyNetworkProvider {
+public abstract class AbstractConstantRtgBlockEntity extends BlockEntity implements IEnergyUser, IEnergyGenerator, IEnergyNetworkProvider, IHeatSource {
     private final int outputPerTick;
     private final HbmEnergyStorage energyStorage;
     private LazyOptional<IEnergyStorage> energyCapability = LazyOptional.empty();
@@ -114,6 +115,19 @@ public abstract class AbstractConstantRtgBlockEntity extends BlockEntity impleme
 
     public int getOutputPerTick() {
         return this.outputPerTick;
+    }
+
+    @Override
+    public int getHeatStored() {
+        return Math.max(0, this.energyStorage.getEnergyStored() / 5);
+    }
+
+    @Override
+    public void useUpHeat(final int heat) {
+        if (heat <= 0) {
+            return;
+        }
+        this.energyStorage.extractEnergy(Math.min(Integer.MAX_VALUE, heat * 5), false);
     }
 
     @Override

@@ -18,6 +18,8 @@ import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("null")
 public class BarrelMenu extends AbstractContainerMenu {
+    private static final int MACHINE_SLOT_COUNT = 6;
+
     private final BarrelBlockEntity barrel;
     private final ContainerLevelAccess access;
 
@@ -55,18 +57,24 @@ public class BarrelMenu extends AbstractContainerMenu {
 
     @Override
     public @NotNull ItemStack quickMoveStack(final @NotNull Player player, final int index) {
-        final net.minecraft.world.inventory.Slot slot = this.slots.get(index);
-        if (!slot.hasItem()) {
+        if (index < 0 || index >= this.slots.size()) {
             return ItemStack.EMPTY;
         }
+
+        final int playerStart = this.barrel == null ? 0 : Math.max(0, Math.min(MACHINE_SLOT_COUNT, this.slots.size()));
+
+        final net.minecraft.world.inventory.Slot slot = this.slots.get(index);
+        if (!slot.hasItem() || !slot.mayPickup(player)) {
+            return ItemStack.EMPTY;
+        }
+
         final ItemStack original = slot.getItem();
         final ItemStack copy = original.copy();
-        final int barrelSlots = 6;
-        if (index < barrelSlots) {
-            if (!this.moveItemStackTo(original, barrelSlots, this.slots.size(), true)) {
+        if (index < playerStart) {
+            if (!this.moveItemStackTo(original, playerStart, this.slots.size(), true)) {
                 return ItemStack.EMPTY;
             }
-        } else if (!this.moveItemStackTo(original, 0, barrelSlots, false)) {
+        } else if (playerStart <= 0 || !this.moveItemStackTo(original, 0, playerStart, false)) {
             return ItemStack.EMPTY;
         }
         if (original.isEmpty()) {
@@ -74,6 +82,12 @@ public class BarrelMenu extends AbstractContainerMenu {
         } else {
             slot.setChanged();
         }
+
+        if (original.getCount() == copy.getCount()) {
+            return ItemStack.EMPTY;
+        }
+
+        slot.onTake(player, original);
         return copy;
     }
 

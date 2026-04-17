@@ -17,6 +17,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.nbt.Tag;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -33,6 +34,7 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import java.util.Set;
 
 @SuppressWarnings("null")
 public class DiFurnaceBlockEntity extends MachineBlockEntity {
@@ -52,6 +54,9 @@ public class DiFurnaceBlockEntity extends MachineBlockEntity {
 
     private int progress;
     private int fuel;
+    private Direction sideFuel = Direction.UP;
+    private Direction sideUpper = Direction.UP;
+    private Direction sideLower = Direction.UP;
 
     public DiFurnaceBlockEntity(final BlockPos pos, final BlockState state) {
         super(HbmBlockEntityTypes.MACHINE_DI_FURNACE.get(), pos, state, SLOT_COUNT);
@@ -330,7 +335,22 @@ public class DiFurnaceBlockEntity extends MachineBlockEntity {
 
     @Override
     public boolean canInsertIntoSlot(final int slot, final @NotNull ItemStack stack, final @Nullable Direction side) {
-        return this.isItemValid(slot, stack);
+        if (!this.isItemValid(slot, stack)) {
+            return false;
+        }
+        if (side == null) {
+            return true;
+        }
+        if (slot == SLOT_INPUT_LEFT) {
+            return side == this.sideUpper;
+        }
+        if (slot == SLOT_INPUT_RIGHT) {
+            return side == this.sideLower;
+        }
+        if (slot == SLOT_FUEL) {
+            return side == this.sideFuel;
+        }
+        return false;
     }
 
     @Override
@@ -373,12 +393,25 @@ public class DiFurnaceBlockEntity extends MachineBlockEntity {
     protected void saveMachineData(final @NotNull CompoundTag tag) {
         tag.putInt("progress", this.progress);
         tag.putInt("fuel", this.fuel);
+        tag.putByteArray("modes", new byte[] {
+            (byte) this.sideFuel.get3DDataValue(),
+            (byte) this.sideUpper.get3DDataValue(),
+            (byte) this.sideLower.get3DDataValue()
+        });
     }
 
     @Override
     protected void loadMachineData(final @NotNull CompoundTag tag) {
         this.progress = Math.max(0, tag.getInt("progress"));
         this.fuel = Math.max(0, Math.min(MAX_FUEL, tag.getInt("fuel")));
+        if (tag.contains("modes", Tag.TAG_BYTE_ARRAY)) {
+            final byte[] modes = tag.getByteArray("modes");
+            if (modes.length >= 3) {
+                this.sideFuel = Direction.from3DDataValue(Byte.toUnsignedInt(modes[0]) % Direction.values().length);
+                this.sideUpper = Direction.from3DDataValue(Byte.toUnsignedInt(modes[1]) % Direction.values().length);
+                this.sideLower = Direction.from3DDataValue(Byte.toUnsignedInt(modes[2]) % Direction.values().length);
+            }
+        }
     }
 
     @Override
@@ -387,11 +420,56 @@ public class DiFurnaceBlockEntity extends MachineBlockEntity {
         tag.putInt("fuel", this.fuel);
         tag.putInt("maxFuel", MAX_FUEL);
         tag.putInt("processingSpeed", PROCESSING_SPEED);
+        tag.putInt("sideFuel", this.sideFuel.get3DDataValue());
+        tag.putInt("sideUpper", this.sideUpper.get3DDataValue());
+        tag.putInt("sideLower", this.sideLower.get3DDataValue());
     }
 
     @Override
     protected void readMachineStateSync(final CompoundTag tag) {
         this.progress = Math.max(0, tag.getInt("progress"));
         this.fuel = Math.max(0, Math.min(MAX_FUEL, tag.getInt("fuel")));
+        this.sideFuel = Direction.from3DDataValue(Math.floorMod(tag.getInt("sideFuel"), Direction.values().length));
+        this.sideUpper = Direction.from3DDataValue(Math.floorMod(tag.getInt("sideUpper"), Direction.values().length));
+        this.sideLower = Direction.from3DDataValue(Math.floorMod(tag.getInt("sideLower"), Direction.values().length));
+    }
+
+    @Override
+    protected void applyControlData(final CompoundTag data) {
+        if (data.getBoolean("cycleFuel")) {
+            this.sideFuel = Direction.from3DDataValue((this.sideFuel.get3DDataValue() + 1) % Direction.values().length);
+        }
+        if (data.getBoolean("cycleUpper")) {
+            this.sideUpper = Direction.from3DDataValue((this.sideUpper.get3DDataValue() + 1) % Direction.values().length);
+        }
+        if (data.getBoolean("cycleLower")) {
+            this.sideLower = Direction.from3DDataValue((this.sideLower.get3DDataValue() + 1) % Direction.values().length);
+        }
+    }
+
+    @Override
+    protected Set<String> allowedControlKeys() {
+        return Set.of("repair", "cycleUpper", "cycleLower", "cycleFuel");
+    }
+
+    @Override
+    public void receiveControl(final Player player, final CompoundTag data) {
+        final boolean cycleUpper = data.getBoolean("cycleUpper");
+        final boolean cycleLower = data.getBoolean("cycleLower");
+        final boolean cycleFuel = data.getBoolean("cycleFuel");
+        final boolean cycleRequest = cycleUpper || cycleLower || cycleFuel;
+
+        if (cycleRequest) {
+            if (!player.containerMenu.getCarried().isEmpty()) {
+                return;
+            }
+            if ((cycleUpper && !this.getInternalItemHandler().getStackInSlot(SLOT_INPUT_LEFT).isEmpty())
+                || (cycleLower && !this.getInternalItemHandler().getStackInSlot(SLOT_INPUT_RIGHT).isEmpty())
+                || (cycleFuel && !this.getInternalItemHandler().getStackInSlot(SLOT_FUEL).isEmpty())) {
+                return;
+            }
+        }
+
+        super.receiveControl(player, data);
     }
 }

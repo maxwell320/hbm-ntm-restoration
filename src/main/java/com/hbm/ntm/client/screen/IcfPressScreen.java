@@ -35,17 +35,26 @@ public class IcfPressScreen extends MachineScreenBase<IcfPressMenu> {
 
     @Override
     protected void renderMachineLabels(final GuiGraphics guiGraphics, final int mouseX, final int mouseY) {
-        this.renderFluidTooltip(guiGraphics, mouseX, mouseY,
-            this.leftPos + 44, this.topPos + 18, 16, 52,
-            "Fuel Tank A", this.menu.fluidName(0), this.menu.fluidAmount(0), this.menu.fluidCapacity(0));
-        this.renderFluidTooltip(guiGraphics, mouseX, mouseY,
-            this.leftPos + 152, this.topPos + 18, 16, 52,
-            "Fuel Tank B", this.menu.fluidName(1), this.menu.fluidAmount(1), this.menu.fluidCapacity(1));
+        if (this.inside(mouseX, mouseY, this.leftPos + 44, this.topPos + 18, 16, 52)) {
+            final List<Component> tooltip = new java.util.ArrayList<>();
+            if (this.menu.fluidAmount(0) <= 0) {
+                tooltip.add(Component.literal("Empty"));
+            } else {
+                tooltip.add(Component.literal(this.menu.fluidName(0)));
+                tooltip.add(Component.literal(this.menu.fluidAmount(0) + " / " + this.menu.fluidCapacity(0) + " mB"));
+            }
+            guiGraphics.renderTooltip(this.font, tooltip, Optional.empty(), mouseX, mouseY);
+        }
 
-        if (this.inside(mouseX, mouseY, this.leftPos + 28, this.topPos + 18, 4, 52)) {
-            guiGraphics.renderTooltip(this.font,
-                List.of(Component.literal("Muon charge: " + this.menu.muon() + " / " + this.menu.maxMuon())),
-                Optional.empty(), mouseX, mouseY);
+        if (this.inside(mouseX, mouseY, this.leftPos + 152, this.topPos + 18, 16, 52)) {
+            final List<Component> tooltip = new java.util.ArrayList<>();
+            if (this.menu.fluidAmount(1) <= 0) {
+                tooltip.add(Component.literal("Empty"));
+            } else {
+                tooltip.add(Component.literal(this.menu.fluidName(1)));
+                tooltip.add(Component.literal(this.menu.fluidAmount(1) + " / " + this.menu.fluidCapacity(1) + " mB"));
+            }
+            guiGraphics.renderTooltip(this.font, tooltip, Optional.empty(), mouseX, mouseY);
         }
 
         if (this.hoveredSlot != null && !this.hoveredSlot.hasItem()) {

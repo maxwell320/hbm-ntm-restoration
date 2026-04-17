@@ -81,10 +81,15 @@ public class HbmItemModelProvider extends ItemModelProvider {
         withExistingParent("machine_difurnace_extension", modLoc("block/machine_difurnace_extension"));
         withExistingParent("machine_difurnace_rtg", modLoc("block/machine_difurnace_rtg_off"));
         withExistingParent("machine_electric_furnace", modLoc("block/machine_electric_furnace_off"));
+        withExistingParent("furnace_iron", modLoc("block/furnace_iron_off"));
+        withExistingParent("furnace_steel", modLoc("block/furnace_steel_off"));
+        withExistingParent("furnace_combination", modLoc("block/furnace_combination"));
+        withExistingParent("machine_rotary_furnace", modLoc("block/machine_rotary_furnace"));
         withExistingParent("machine_rtg_furnace", modLoc("block/machine_rtg_furnace_off"));
         withExistingParent("machine_rtg_grey", modLoc("block/machine_rtg_grey"));
         withExistingParent("machine_diesel", modLoc("block/machine_diesel_off"));
         withExistingParent("machine_combustion", modLoc("block/machine_combustion_off"));
+        withExistingParent("machine_furnace_brick", modLoc("block/machine_furnace_brick_off"));
         withExistingParent("machine_ashpit", modLoc("block/machine_ashpit"));
         withExistingParent("chimney_brick", modLoc("block/chimney_brick"));
         withExistingParent("chimney_industrial", modLoc("block/chimney_industrial"));

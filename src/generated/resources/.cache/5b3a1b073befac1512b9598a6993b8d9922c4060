@@ -1,4 +1,4 @@
-// 1.20.1	2026-04-15T15:53:02.6542974	Item Models: hbmntm
+// 1.20.1	2026-04-17T20:15:01.782708	Item Models: hbmntm
 dcc04e25f14e64a3e399478e0fb2c6712ff67180 assets/hbmntm/models/item/acetylene_torch.json
 52fb062addf509d750be0513021c77dcab08aa62 assets/hbmntm/models/item/asbestos_cloth.json
 863bf180da18fb08cd18fd883d2876403e499196 assets/hbmntm/models/item/ball_resin.json
@@ -241,6 +241,9 @@ ad37079052ed6c05987736ed1cd3bae7cc36f2cc assets/hbmntm/models/item/fragment_colt
 19afeb6b6836162d9b59d1e5904d0f30beae65c4 assets/hbmntm/models/item/fragment_meteorite.json
 2f899703420670b8d0b7d0eb5f2832170ff5ea2a assets/hbmntm/models/item/fragment_neodymium.json
 4bbee060e6c38a1615406a97b0b36ace4ff45fe6 assets/hbmntm/models/item/fragment_niobium.json
+0a1b6d7f0a7b226d0922f1668cadd4b40cb1ed5a assets/hbmntm/models/item/furnace_combination.json
+d8f20ab805697b07785729f1fbba087fb480ebcb assets/hbmntm/models/item/furnace_iron.json
+3ffcd9efb217781fa008e71b06cd4b59924ee71d assets/hbmntm/models/item/furnace_steel.json
 351076b2bbde11f0696e57607e5bf00d9f707eee assets/hbmntm/models/item/fuse.json
 c1f96f827d36167debcec8eb71516478b5c52495 assets/hbmntm/models/item/gas_empty.json
 b784cd8aacf43cfdb45f8188de9e0a6a7e842cf6 assets/hbmntm/models/item/gas_full.json
@@ -355,6 +358,7 @@ ec7aca56ea86cace66694cb3c9918a2304a4e73b assets/hbmntm/models/item/machine_difur
 b26187761d70e562655bbbf6522dd08fac72af4b assets/hbmntm/models/item/machine_difurnace_extension.json
 3bcf966ed7936b2b8e527640740f489d5fafb116 assets/hbmntm/models/item/machine_difurnace_rtg.json
 83021573fdb3ee18ea2fa82484e6fba0f45a71bd assets/hbmntm/models/item/machine_electric_furnace.json
+4405790dda35a49b50066c9dfb877b4aee59b217 assets/hbmntm/models/item/machine_furnace_brick.json
 9c7bb6023b89824de6e8631c6f3ee1917b662f97 assets/hbmntm/models/item/machine_gascent.json
 b2fee83e0cca73513abf0f16f180d4752d82bd58 assets/hbmntm/models/item/machine_icf.json
 3a205b6e2ef6b18b5ef61bd2eb419634d3b4edbc assets/hbmntm/models/item/machine_icf_controller.json
@@ -364,6 +368,7 @@ da6608c1bc1d3642be20e77e75af94b37347cf98 assets/hbmntm/models/item/machine_icf_l
 ff191337db7b6244f15b57b6277354e74c9a8083 assets/hbmntm/models/item/machine_powerrtg.json
 5e62c89820c054ba593c5b3885ded645238ce009 assets/hbmntm/models/item/machine_press.json
 8a000a969989412b326ecf574ee768fac9c0e5d1 assets/hbmntm/models/item/machine_purex.json
+114628a978befe31212c2566f7dbf01be592000b assets/hbmntm/models/item/machine_rotary_furnace.json
 21c61f4a2d70890bbe6893b63a62d7d71207c4fd assets/hbmntm/models/item/machine_rtg_furnace.json
 49aae1fcd0a4b7ef64465ec384f11ad76485bb8f assets/hbmntm/models/item/machine_rtg_grey.json
 43cd67311b9f85b3b159d83e1bd9c3ee45add286 assets/hbmntm/models/item/machine_soldering_station.json

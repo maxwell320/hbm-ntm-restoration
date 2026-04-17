@@ -47,7 +47,7 @@ public class BatteryItem extends Item {
 
     public int getStoredEnergy(final ItemStack stack) {
         if (!stack.hasTag()) {
-            return this.capacity;
+            return 0;
         }
         return Mth.clamp(stack.getOrCreateTag().getInt(ENERGY_TAG), 0, this.capacity);
     }

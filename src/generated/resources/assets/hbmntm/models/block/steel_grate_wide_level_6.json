@@ -1,0 +1,42 @@
+{
+  "elements": [
+    {
+      "faces": {
+        "down": {
+          "texture": "#bottom"
+        },
+        "east": {
+          "texture": "#side"
+        },
+        "north": {
+          "texture": "#side"
+        },
+        "south": {
+          "texture": "#side"
+        },
+        "up": {
+          "texture": "#top"
+        },
+        "west": {
+          "texture": "#side"
+        }
+      },
+      "from": [
+        0,
+        12,
+        0
+      ],
+      "to": [
+        16,
+        13.984,
+        16
+      ]
+    }
+  ],
+  "textures": {
+    "bottom": "hbmntm:block/grate_wide_top",
+    "particle": "hbmntm:block/grate_side",
+    "side": "hbmntm:block/grate_side",
+    "top": "hbmntm:block/grate_wide_top"
+  }
+}

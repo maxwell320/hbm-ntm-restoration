@@ -2,8 +2,6 @@ package com.hbm.ntm.client.screen;
 
 import com.hbm.ntm.HbmNtmMod;
 import com.hbm.ntm.common.menu.CentrifugeMenu;
-import java.util.List;
-import java.util.Optional;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -15,6 +13,11 @@ public class CentrifugeScreen extends MachineScreenBase<CentrifugeMenu> {
 
     public CentrifugeScreen(final CentrifugeMenu menu, final Inventory inventory, final Component title) {
         super(menu, inventory, title, 176, 186);
+    }
+
+    @Override
+    protected boolean shouldRenderTitle() {
+        return false;
     }
 
     @Override
@@ -56,20 +59,9 @@ public class CentrifugeScreen extends MachineScreenBase<CentrifugeMenu> {
             this.leftPos + 9,
             this.topPos + 13,
             16,
-            35,
+            34,
             this.menu.energy(),
             this.menu.maxEnergy());
-
-        if (this.inside(mouseX, mouseY, this.leftPos + 152, this.topPos + 17, 16, 36)) {
-            guiGraphics.renderTooltip(this.font,
-                List.of(Component.literal("Consumption: " + this.menu.consumption() + " HE/t")),
-                Optional.empty(),
-                mouseX,
-                mouseY);
-        }
-
-        this.renderUpgradeInfoTooltip(guiGraphics, mouseX, mouseY,
-            this.leftPos + 149, this.topPos + 22, 18, 36);
     }
 
     @Override

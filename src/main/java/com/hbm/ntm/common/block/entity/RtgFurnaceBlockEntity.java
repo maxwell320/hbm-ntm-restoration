@@ -217,6 +217,14 @@ public class RtgFurnaceBlockEntity extends MachineBlockEntity {
     }
 
     @Override
+    public boolean canPlayerControl(final Player player) {
+        return !this.isRemoved()
+            && this.level != null
+            && this.level.getBlockEntity(this.worldPosition) == this
+            && player.distanceToSqr(this.worldPosition.getX() + 0.5D, this.worldPosition.getY() + 0.5D, this.worldPosition.getZ() + 0.5D) <= 64.0D;
+    }
+
+    @Override
     public AbstractContainerMenu createMenu(final int containerId, final @NotNull Inventory inventory, final @NotNull Player player) {
         return new RtgFurnaceMenu(containerId, inventory, this);
     }

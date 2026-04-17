@@ -43,3 +43,16 @@ src/test/
 * - Copy.*
 * (copy).*
 * (1).*
+
+# Local debug/audit artifacts (never commit)
+captures/
+.tmp_*
+*.tmp
+*.tmp.*
+*-scratch.*
+scratch/
+
+# Local shell scripts stay outside the repo
+*.ps1
+*.bat.local
+tools/

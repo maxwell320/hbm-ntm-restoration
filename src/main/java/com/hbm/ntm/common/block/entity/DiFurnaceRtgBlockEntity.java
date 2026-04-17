@@ -9,6 +9,7 @@ import com.hbm.ntm.common.registration.HbmBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -19,6 +20,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import java.util.Set;
 
 @SuppressWarnings("null")
 public class DiFurnaceRtgBlockEntity extends MachineBlockEntity {
@@ -41,6 +43,8 @@ public class DiFurnaceRtgBlockEntity extends MachineBlockEntity {
     private int progress;
     private int power;
     private int decayTimer;
+    private Direction sideUpper = Direction.UP;
+    private Direction sideLower = Direction.UP;
 
     public DiFurnaceRtgBlockEntity(final BlockPos pos, final BlockState state) {
         super(HbmBlockEntityTypes.MACHINE_DI_FURNACE_RTG.get(), pos, state, SLOT_COUNT);
@@ -191,7 +195,19 @@ public class DiFurnaceRtgBlockEntity extends MachineBlockEntity {
 
     @Override
     public boolean canInsertIntoSlot(final int slot, final @NotNull ItemStack stack, final @Nullable Direction side) {
-        return this.isItemValid(slot, stack);
+        if (!this.isItemValid(slot, stack)) {
+            return false;
+        }
+        if (side == null) {
+            return true;
+        }
+        if (slot == SLOT_INPUT_LEFT) {
+            return side == this.sideUpper;
+        }
+        if (slot == SLOT_INPUT_RIGHT) {
+            return side == this.sideLower;
+        }
+        return true;
     }
 
     @Override
@@ -242,6 +258,10 @@ public class DiFurnaceRtgBlockEntity extends MachineBlockEntity {
         tag.putInt("progress", this.progress);
         tag.putInt("power", this.power);
         tag.putInt("decayTimer", this.decayTimer);
+        tag.putByteArray("modes", new byte[] {
+            (byte) this.sideUpper.get3DDataValue(),
+            (byte) this.sideLower.get3DDataValue()
+        });
     }
 
     @Override
@@ -249,6 +269,13 @@ public class DiFurnaceRtgBlockEntity extends MachineBlockEntity {
         this.progress = Math.max(0, tag.getInt("progress"));
         this.power = Math.max(0, tag.getInt("power"));
         this.decayTimer = Math.max(0, tag.getInt("decayTimer"));
+        if (tag.contains("modes", Tag.TAG_BYTE_ARRAY)) {
+            final byte[] modes = tag.getByteArray("modes");
+            if (modes.length >= 2) {
+                this.sideUpper = Direction.from3DDataValue(Byte.toUnsignedInt(modes[0]) % Direction.values().length);
+                this.sideLower = Direction.from3DDataValue(Byte.toUnsignedInt(modes[1]) % Direction.values().length);
+            }
+        }
     }
 
     @Override
@@ -257,11 +284,49 @@ public class DiFurnaceRtgBlockEntity extends MachineBlockEntity {
         tag.putInt("power", this.power);
         tag.putInt("powerThreshold", POWER_THRESHOLD);
         tag.putInt("processingTime", PROCESSING_TIME);
+        tag.putInt("sideUpper", this.sideUpper.get3DDataValue());
+        tag.putInt("sideLower", this.sideLower.get3DDataValue());
     }
 
     @Override
     protected void readMachineStateSync(final CompoundTag tag) {
         this.progress = Math.max(0, tag.getInt("progress"));
         this.power = Math.max(0, tag.getInt("power"));
+        this.sideUpper = Direction.from3DDataValue(Math.floorMod(tag.getInt("sideUpper"), Direction.values().length));
+        this.sideLower = Direction.from3DDataValue(Math.floorMod(tag.getInt("sideLower"), Direction.values().length));
+    }
+
+    @Override
+    protected void applyControlData(final CompoundTag data) {
+        if (data.getBoolean("cycleUpper")) {
+            this.sideUpper = Direction.from3DDataValue((this.sideUpper.get3DDataValue() + 1) % Direction.values().length);
+        }
+        if (data.getBoolean("cycleLower")) {
+            this.sideLower = Direction.from3DDataValue((this.sideLower.get3DDataValue() + 1) % Direction.values().length);
+        }
+    }
+
+    @Override
+    protected Set<String> allowedControlKeys() {
+        return Set.of("repair", "cycleUpper", "cycleLower");
+    }
+
+    @Override
+    public void receiveControl(final Player player, final CompoundTag data) {
+        final boolean cycleUpper = data.getBoolean("cycleUpper");
+        final boolean cycleLower = data.getBoolean("cycleLower");
+        final boolean cycleRequest = cycleUpper || cycleLower;
+
+        if (cycleRequest) {
+            if (!player.containerMenu.getCarried().isEmpty()) {
+                return;
+            }
+            if ((cycleUpper && !this.getInternalItemHandler().getStackInSlot(SLOT_INPUT_LEFT).isEmpty())
+                || (cycleLower && !this.getInternalItemHandler().getStackInSlot(SLOT_INPUT_RIGHT).isEmpty())) {
+                return;
+            }
+        }
+
+        super.receiveControl(player, data);
     }
 }

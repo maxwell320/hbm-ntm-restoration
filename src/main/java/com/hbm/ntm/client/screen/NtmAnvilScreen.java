@@ -69,6 +69,11 @@ public class NtmAnvilScreen extends AbstractContainerScreen<NtmAnvilMenu> {
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         guiGraphics.blit(TEXTURE, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
 
+        final int extensionCount = this.infoPanelExtensionCount();
+        for (int mul = 0; mul < extensionCount; mul++) {
+            guiGraphics.blit(TEXTURE, this.leftPos + 125 + 51 * mul, this.topPos + 17, 125, 17, 54, 108);
+        }
+
         if (this.searchBox != null && this.searchBox.isFocused()) {
             guiGraphics.blit(TEXTURE, this.leftPos + 8, this.topPos + 108, 168, 222, 88, 16);
         }
@@ -93,6 +98,7 @@ public class NtmAnvilScreen extends AbstractContainerScreen<NtmAnvilMenu> {
             final int relative = i - start;
             final int x = this.leftPos + 16 + 18 * (relative / 2);
             final int y = this.topPos + 71 + 18 * (relative % 2);
+            guiGraphics.blit(TEXTURE, x, y, 18, 222, 18, 18);
             guiGraphics.renderItem(recipe.outputStack(), x + 1, y + 1);
             if (recipeIndex == this.selectedRecipe) {
                 guiGraphics.blit(TEXTURE, x, y, 0, 222, 18, 18);
@@ -114,17 +120,18 @@ public class NtmAnvilScreen extends AbstractContainerScreen<NtmAnvilMenu> {
             guiGraphics.pose().scale(0.5F, 0.5F, 0.5F);
             guiGraphics.drawString(this.font, Component.literal("Inputs:").withStyle(ChatFormatting.YELLOW), 260, 50, 0xFFFFFF, false);
             int lineY = 59;
+            final long tick = this.minecraft == null ? 0L : this.minecraft.level == null ? 0L : this.minecraft.level.getGameTime();
             for (final HbmAnvilRecipes.ConstructionIngredient ingredient : recipe.ingredients()) {
                 final int available = this.menu.countPlayerItems(ingredient.ingredient());
                 final boolean hasInput = available >= ingredient.count();
-                final var display = ingredient.displayStack();
+                final var display = this.cyclingDisplayStack(ingredient, tick + lineY);
                 final String name = display.isEmpty() ? "Unknown" : display.getHoverName().getString();
                 guiGraphics.drawString(this.font,
                     Component.literal(">" + ingredient.count() + "x " + name).withStyle(hasInput ? ChatFormatting.WHITE : ChatFormatting.RED),
                     260, lineY, 0xFFFFFF, false);
                 lineY += 9;
             }
-            guiGraphics.drawString(this.font, Component.literal("Output:").withStyle(ChatFormatting.YELLOW), 260, 77, 0xFFFFFF, false);
+            guiGraphics.drawString(this.font, Component.literal("Outputs:").withStyle(ChatFormatting.YELLOW), 260, 77, 0xFFFFFF, false);
             guiGraphics.drawString(this.font, Component.literal(">1x " + recipe.outputStack().getHoverName().getString()), 260, 86, 0xFFFFFF, false);
             guiGraphics.pose().popPose();
         }
@@ -272,6 +279,31 @@ public class NtmAnvilScreen extends AbstractContainerScreen<NtmAnvilMenu> {
 
     private static boolean inside(final double mouseX, final double mouseY, final int x, final int y, final int width, final int height) {
         return mouseX >= x && mouseX < x + width && mouseY >= y && mouseY < y + height;
+    }
+
+    private int infoPanelExtensionCount() {
+        if (this.selectedRecipe < 0 || this.selectedRecipe >= this.menu.constructionRecipes().size()) {
+            return 0;
+        }
+        final HbmAnvilRecipes.ConstructionRecipe recipe = this.menu.constructionRecipes().get(this.selectedRecipe);
+        final int lineCount = recipe.ingredients().size() + 2;
+        final int lastSize = 42 + lineCount * 9;
+        int count = 0;
+        while (lastSize - 42 >= 51 * (count + 1)) {
+            count++;
+        }
+        return count;
+    }
+
+    private net.minecraft.world.item.ItemStack cyclingDisplayStack(final HbmAnvilRecipes.ConstructionIngredient ingredient, final long tickSeed) {
+        final net.minecraft.world.item.ItemStack[] options = ingredient.ingredient().getItems();
+        if (options.length <= 0) {
+            return net.minecraft.world.item.ItemStack.EMPTY;
+        }
+        final int index = (int) Math.floorMod(tickSeed / 20L, options.length);
+        final net.minecraft.world.item.ItemStack display = options[index].copy();
+        display.setCount(Math.max(1, ingredient.count()));
+        return display;
     }
 
     private void playButtonClick() {

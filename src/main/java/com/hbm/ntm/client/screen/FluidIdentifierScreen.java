@@ -4,6 +4,7 @@ import com.hbm.ntm.HbmNtmMod;
 import com.hbm.ntm.common.fluid.HbmFluidType;
 import com.hbm.ntm.common.item.FluidIdentifierItem;
 import com.hbm.ntm.common.menu.FluidIdentifierMenu;
+import com.mojang.blaze3d.systems.RenderSystem;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -61,7 +62,14 @@ public class FluidIdentifierScreen extends AbstractContainerScreen<FluidIdentifi
 
         for (int i = 0; i < Math.min(9, this.matches.size()); i++) {
             final ResourceLocation fluidId = this.matches.get(i);
-            guiGraphics.fill(this.leftPos + 12 + i * 18, this.topPos + 31, this.leftPos + 20 + i * 18, this.topPos + 45, fluidColor(fluidId));
+                final int color = fluidColor(fluidId);
+                RenderSystem.setShaderColor(
+                    ((color >> 16) & 0xFF) / 255.0F,
+                    ((color >> 8) & 0xFF) / 255.0F,
+                    (color & 0xFF) / 255.0F,
+                    ((color >> 24) & 0xFF) / 255.0F);
+                guiGraphics.blit(TEXTURE, this.leftPos + 12 + i * 18, this.topPos + 31, 12 + i * 18, 56, 8, 14);
+                RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
             if (fluidId.equals(primary) && fluidId.equals(secondary)) {
                 guiGraphics.blit(TEXTURE, this.leftPos + 7 + i * 18, this.topPos + 29, 176, 36, 18, 18);
             } else if (fluidId.equals(primary)) {

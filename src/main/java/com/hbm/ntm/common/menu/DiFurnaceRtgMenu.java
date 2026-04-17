@@ -25,6 +25,8 @@ public class DiFurnaceRtgMenu extends MachineMenuBase<DiFurnaceRtgBlockEntity> {
     private int clientPower;
     private int clientPowerThreshold;
     private int clientProcessingTime;
+    private int clientSideUpper = net.minecraft.core.Direction.UP.get3DDataValue();
+    private int clientSideLower = net.minecraft.core.Direction.UP.get3DDataValue();
 
     public DiFurnaceRtgMenu(final int containerId, final Inventory inventory, final FriendlyByteBuf buffer) {
         this(containerId,
@@ -42,7 +44,7 @@ public class DiFurnaceRtgMenu extends MachineMenuBase<DiFurnaceRtgBlockEntity> {
             (slot, stack) -> this.machine == null || this.machine.isItemValid(slot, stack)));
         this.addSlot(new OutputSlotItemHandler(handler, DiFurnaceRtgBlockEntity.SLOT_OUTPUT, 134, 36));
 
-        this.addFilteredGridSlots(handler, DiFurnaceRtgBlockEntity.SLOT_RTG_START, 26, 18, 2, 3, 18,
+        this.addFilteredGridSlots(handler, DiFurnaceRtgBlockEntity.SLOT_RTG_START, 22, 18, 3, 2, 18,
             (slot, stack) -> stack.getItem() instanceof RtgPelletItem);
 
         this.addPlayerInventory(inventory, 8, 84);
@@ -100,11 +102,21 @@ public class DiFurnaceRtgMenu extends MachineMenuBase<DiFurnaceRtgBlockEntity> {
         return Math.max(1, this.data.get(DATA_PROCESSING_TIME));
     }
 
+    public int sideUpper() {
+        return this.clientSideUpper;
+    }
+
+    public int sideLower() {
+        return this.clientSideLower;
+    }
+
     @Override
     protected void readMachineStateSync(final CompoundTag data) {
         this.clientProgress = Math.max(0, data.getInt("progress"));
         this.clientPower = Math.max(0, data.getInt("power"));
         this.clientPowerThreshold = Math.max(1, data.getInt("powerThreshold"));
         this.clientProcessingTime = Math.max(1, data.getInt("processingTime"));
+        this.clientSideUpper = Math.floorMod(data.getInt("sideUpper"), net.minecraft.core.Direction.values().length);
+        this.clientSideLower = Math.floorMod(data.getInt("sideLower"), net.minecraft.core.Direction.values().length);
     }
 }

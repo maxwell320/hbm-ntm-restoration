@@ -23,8 +23,12 @@ public final class HbmPacketHandler {
     public static final SimpleChannel CHANNEL = NetworkRegistry.ChannelBuilder
         .named(ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "main"))
         .networkProtocolVersion(() -> PROTOCOL_VERSION)
-        .clientAcceptedVersions(PROTOCOL_VERSION::equals)
-        .serverAcceptedVersions(PROTOCOL_VERSION::equals)
+        .clientAcceptedVersions(version -> PROTOCOL_VERSION.equals(version)
+            || NetworkRegistry.ACCEPTVANILLA.equals(version)
+            || NetworkRegistry.ABSENT.equals(version))
+        .serverAcceptedVersions(version -> PROTOCOL_VERSION.equals(version)
+            || NetworkRegistry.ACCEPTVANILLA.equals(version)
+            || NetworkRegistry.ABSENT.equals(version))
         .simpleChannel();
     private static boolean registered;
     private static int nextId;

@@ -51,6 +51,8 @@ public class HbmRecipeProvider extends RecipeProvider {
         buildCircuitRecipes(recipeOutput);
         buildEnergyRecipes(recipeOutput);
         buildSteelStructureRecipes(recipeOutput);
+        buildFurnaceRecipes(recipeOutput);
+        buildBrickFurnaceRecipes(recipeOutput);
         buildRtgGeneratorRecipes(recipeOutput);
         buildFluidStorageRecipes(recipeOutput);
         buildMercuryRecipes(recipeOutput);
@@ -372,6 +374,33 @@ public class HbmRecipeProvider extends RecipeProvider {
             .define('G', steelGrate)
             .unlockedBy(getHasName(steelGrate), has(steelGrate))
             .save(recipeOutput, rl("machine_difurnace_extension"));
+    }
+
+    private void buildFurnaceRecipes(final Consumer<FinishedRecipe> recipeOutput) {
+        final ItemLike furnaceIron = Objects.requireNonNull(HbmBlocks.FURNACE_IRON.get());
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, furnaceIron)
+            .pattern("III")
+            .pattern("IFI")
+            .pattern("BBB")
+            .define('I', Tags.Items.INGOTS_IRON)
+            .define('F', Blocks.FURNACE)
+            .define('B', Blocks.STONE_BRICKS)
+            .unlockedBy(getHasName(Blocks.FURNACE), has(Blocks.FURNACE))
+            .save(recipeOutput, rl("furnace_iron"));
+    }
+
+    private void buildBrickFurnaceRecipes(final Consumer<FinishedRecipe> recipeOutput) {
+        final ItemLike furnaceBrick = Objects.requireNonNull(HbmBlocks.MACHINE_FURNACE_BRICK.get());
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, furnaceBrick)
+            .pattern("III")
+            .pattern("I I")
+            .pattern("BBB")
+            .define('I', Items.BRICK)
+            .define('B', Blocks.STONE)
+            .unlockedBy(getHasName(Items.BRICK), has(Items.BRICK))
+            .save(recipeOutput, rl("machine_furnace_brick"));
     }
 
     private void buildRtgGeneratorRecipes(final Consumer<FinishedRecipe> recipeOutput) {

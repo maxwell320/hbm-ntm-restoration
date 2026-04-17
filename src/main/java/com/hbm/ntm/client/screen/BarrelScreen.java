@@ -42,9 +42,6 @@ public class BarrelScreen extends AbstractContainerScreen<BarrelMenu> {
         final String titleString = this.title.getString();
         guiGraphics.drawString(this.font, titleString, this.imageWidth / 2 - this.font.width(titleString) / 2, 6, 0x404040, false);
         guiGraphics.drawString(this.font, this.playerInventoryTitle, 8, this.imageHeight - 96 + 2, 0x404040, false);
-        guiGraphics.drawString(this.font, this.menu.fluidName(), 50, 20, 0x404040, false);
-        guiGraphics.drawString(this.font, this.menu.fluidAmount() + "/" + this.menu.capacity() + "mB", 50, 32, 0x404040, false);
-        guiGraphics.drawString(this.font, this.menu.modeName(), 50, 44, 0x404040, false);
     }
 
     @Override
@@ -56,15 +53,14 @@ public class BarrelScreen extends AbstractContainerScreen<BarrelMenu> {
             guiGraphics.renderTooltip(this.font,
                 java.util.List.of(
                     Component.literal(this.menu.fluidName()),
-                    Component.literal(this.menu.fluidAmount() + "/" + this.menu.capacity() + "mB"),
-                    Component.literal(this.menu.modeName())),
+                    Component.literal(this.menu.fluidAmount() + "/" + this.menu.capacity() + "mB")),
                 java.util.Optional.empty(), mouseX, mouseY);
         }
     }
 
     @Override
     public boolean mouseClicked(final double mouseX, final double mouseY, final int button) {
-        if (mouseX >= this.leftPos + 151 && mouseX < this.leftPos + 169 && mouseY >= this.topPos + 34 && mouseY < this.topPos + 52) {
+        if (mouseX >= this.leftPos + 151 && mouseX < this.leftPos + 169 && mouseY > this.topPos + 35 && mouseY <= this.topPos + 53) {
             if (this.minecraft == null || this.minecraft.gameMode == null) {
                 return true;
             }

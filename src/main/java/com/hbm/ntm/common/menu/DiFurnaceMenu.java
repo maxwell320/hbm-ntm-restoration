@@ -24,6 +24,9 @@ public class DiFurnaceMenu extends MachineMenuBase<DiFurnaceBlockEntity> {
     private int clientFuel;
     private int clientMaxFuel;
     private int clientProcessingSpeed;
+    private int clientSideUpper = net.minecraft.core.Direction.UP.get3DDataValue();
+    private int clientSideLower = net.minecraft.core.Direction.UP.get3DDataValue();
+    private int clientSideFuel = net.minecraft.core.Direction.UP.get3DDataValue();
 
     public DiFurnaceMenu(final int containerId, final Inventory inventory, final FriendlyByteBuf buffer) {
         this(containerId,
@@ -98,11 +101,26 @@ public class DiFurnaceMenu extends MachineMenuBase<DiFurnaceBlockEntity> {
         return Math.max(1, this.data.get(DATA_PROCESSING_SPEED));
     }
 
+    public int sideUpper() {
+        return this.clientSideUpper;
+    }
+
+    public int sideLower() {
+        return this.clientSideLower;
+    }
+
+    public int sideFuel() {
+        return this.clientSideFuel;
+    }
+
     @Override
     protected void readMachineStateSync(final CompoundTag data) {
         this.clientProgress = Math.max(0, data.getInt("progress"));
         this.clientFuel = Math.max(0, data.getInt("fuel"));
         this.clientMaxFuel = Math.max(1, data.getInt("maxFuel"));
         this.clientProcessingSpeed = Math.max(1, data.getInt("processingSpeed"));
+        this.clientSideUpper = Math.floorMod(data.getInt("sideUpper"), net.minecraft.core.Direction.values().length);
+        this.clientSideLower = Math.floorMod(data.getInt("sideLower"), net.minecraft.core.Direction.values().length);
+        this.clientSideFuel = Math.floorMod(data.getInt("sideFuel"), net.minecraft.core.Direction.values().length);
     }
 }

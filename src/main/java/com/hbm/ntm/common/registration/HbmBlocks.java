@@ -9,6 +9,7 @@ import com.hbm.ntm.common.block.BatteryBlock;
 import com.hbm.ntm.common.block.BasaltBlockType;
 import com.hbm.ntm.common.block.BasaltOreBlock;
 import com.hbm.ntm.common.block.BasaltOreType;
+import com.hbm.ntm.common.block.BrickFurnaceBlock;
 import com.hbm.ntm.common.block.CableBlock;
 import com.hbm.ntm.common.block.CentrifugeBlock;
 import com.hbm.ntm.common.block.ChimneyBrickBlock;
@@ -25,6 +26,9 @@ import com.hbm.ntm.common.block.ElectricFurnaceBlock;
 import com.hbm.ntm.common.block.ExplosiveBarrelBlock;
 import com.hbm.ntm.common.block.FalloutBlock;
 import com.hbm.ntm.common.block.FluidDuctBlock;
+import com.hbm.ntm.common.block.FurnaceIronBlock;
+import com.hbm.ntm.common.block.FurnaceCombinationBlock;
+import com.hbm.ntm.common.block.FurnaceSteelBlock;
 import com.hbm.ntm.common.block.GasCentrifugeBlock;
 import com.hbm.ntm.common.block.GasAsbestosBlock;
 import com.hbm.ntm.common.block.GeigerCounterBlock;
@@ -40,6 +44,7 @@ import com.hbm.ntm.common.block.OverworldOreBlock;
 import com.hbm.ntm.common.block.OverworldOreType;
 import com.hbm.ntm.common.block.PressBlock;
 import com.hbm.ntm.common.block.PurexBlock;
+import com.hbm.ntm.common.block.RotaryFurnaceBlock;
 import com.hbm.ntm.common.block.RtgGeneratorBlock;
 import com.hbm.ntm.common.block.RtgFurnaceBlock;
 import com.hbm.ntm.common.block.SellafieldBlock;
@@ -112,6 +117,14 @@ public final class HbmBlocks {
         () -> new DiFurnaceRtgBlock(Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(5.0F, 10.0F).requiresCorrectToolForDrops())));
     public static final RegistryObject<Block> MACHINE_ELECTRIC_FURNACE = BLOCKS.register("machine_electric_furnace",
         () -> new ElectricFurnaceBlock(Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(5.0F, 10.0F).requiresCorrectToolForDrops())));
+    public static final RegistryObject<Block> FURNACE_IRON = BLOCKS.register("furnace_iron",
+        () -> new FurnaceIronBlock(Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(5.0F, 10.0F).requiresCorrectToolForDrops())));
+    public static final RegistryObject<Block> FURNACE_STEEL = BLOCKS.register("furnace_steel",
+        () -> new FurnaceSteelBlock(Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(5.0F, 10.0F).requiresCorrectToolForDrops())));
+    public static final RegistryObject<Block> FURNACE_COMBINATION = BLOCKS.register("furnace_combination",
+        () -> new FurnaceCombinationBlock(Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(5.0F, 10.0F).requiresCorrectToolForDrops())));
+    public static final RegistryObject<Block> MACHINE_ROTARY_FURNACE = BLOCKS.register("machine_rotary_furnace",
+        () -> new RotaryFurnaceBlock(Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(5.0F, 10.0F).requiresCorrectToolForDrops())));
     public static final RegistryObject<Block> MACHINE_RTG_FURNACE = BLOCKS.register("machine_rtg_furnace",
         () -> new RtgFurnaceBlock(Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(5.0F, 10.0F).requiresCorrectToolForDrops())));
     public static final RegistryObject<Block> MACHINE_RTG_GREY = BLOCKS.register("machine_rtg_grey",
@@ -120,6 +133,8 @@ public final class HbmBlocks {
         () -> new DieselGeneratorBlock(Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(5.0F, 10.0F).requiresCorrectToolForDrops())));
     public static final RegistryObject<Block> MACHINE_COMBUSTION_ENGINE = BLOCKS.register("machine_combustion",
         () -> new CombustionEngineBlock(Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(5.0F, 10.0F).requiresCorrectToolForDrops())));
+    public static final RegistryObject<Block> MACHINE_FURNACE_BRICK = BLOCKS.register("machine_furnace_brick",
+        () -> new BrickFurnaceBlock(Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(5.0F, 10.0F).requiresCorrectToolForDrops())));
     public static final RegistryObject<Block> MACHINE_ASHPIT = BLOCKS.register("machine_ashpit",
         () -> new AshpitBlock(Objects.requireNonNull(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(5.0F, 10.0F).requiresCorrectToolForDrops())));
     public static final RegistryObject<Block> CHIMNEY_BRICK = BLOCKS.register("chimney_brick",

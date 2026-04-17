@@ -11,6 +11,6 @@
   },
   "textures": {
     "particle": "hbmntm:block/barrel_corroded",
-    "texture0": "hbmntm:block/barrel_corroded"
-  }
+    "texture0": "hbmntm:block/barrel_corroded",
+    "Default_OBJ": "hbmntm:block/barrel_corroded"}
 }

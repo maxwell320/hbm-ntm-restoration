@@ -277,10 +277,15 @@ public final class HbmItems {
     public static final RegistryObject<Item> MACHINE_DI_FURNACE_EXTENSION = registerBlockItem("machine_difurnace_extension", HbmBlocks.MACHINE_DI_FURNACE_EXTENSION, BLOCK_ITEMS);
     public static final RegistryObject<Item> MACHINE_DI_FURNACE_RTG = registerBlockItem("machine_difurnace_rtg", HbmBlocks.MACHINE_DI_FURNACE_RTG, BLOCK_ITEMS);
     public static final RegistryObject<Item> MACHINE_ELECTRIC_FURNACE = registerBlockItem("machine_electric_furnace", HbmBlocks.MACHINE_ELECTRIC_FURNACE, BLOCK_ITEMS);
+    public static final RegistryObject<Item> FURNACE_IRON = registerBlockItem("furnace_iron", HbmBlocks.FURNACE_IRON, BLOCK_ITEMS);
+    public static final RegistryObject<Item> FURNACE_STEEL = registerBlockItem("furnace_steel", HbmBlocks.FURNACE_STEEL, BLOCK_ITEMS);
+    public static final RegistryObject<Item> FURNACE_COMBINATION = registerBlockItem("furnace_combination", HbmBlocks.FURNACE_COMBINATION, BLOCK_ITEMS);
+    public static final RegistryObject<Item> MACHINE_ROTARY_FURNACE = registerBlockItem("machine_rotary_furnace", HbmBlocks.MACHINE_ROTARY_FURNACE, BLOCK_ITEMS);
     public static final RegistryObject<Item> MACHINE_RTG_FURNACE = registerBlockItem("machine_rtg_furnace", HbmBlocks.MACHINE_RTG_FURNACE, BLOCK_ITEMS);
     public static final RegistryObject<Item> MACHINE_RTG_GREY = registerBlockItem("machine_rtg_grey", HbmBlocks.MACHINE_RTG_GREY, BLOCK_ITEMS);
     public static final RegistryObject<Item> MACHINE_DIESEL_GENERATOR = registerBlockItem("machine_diesel", HbmBlocks.MACHINE_DIESEL_GENERATOR, BLOCK_ITEMS);
     public static final RegistryObject<Item> MACHINE_COMBUSTION_ENGINE = registerBlockItem("machine_combustion", HbmBlocks.MACHINE_COMBUSTION_ENGINE, BLOCK_ITEMS);
+    public static final RegistryObject<Item> MACHINE_FURNACE_BRICK = registerBlockItem("machine_furnace_brick", HbmBlocks.MACHINE_FURNACE_BRICK, BLOCK_ITEMS);
     public static final RegistryObject<Item> MACHINE_ASHPIT = registerBlockItem("machine_ashpit", HbmBlocks.MACHINE_ASHPIT, BLOCK_ITEMS);
     public static final RegistryObject<Item> CHIMNEY_BRICK = registerBlockItem("chimney_brick", HbmBlocks.CHIMNEY_BRICK, BLOCK_ITEMS);
     public static final RegistryObject<Item> CHIMNEY_INDUSTRIAL = registerBlockItem("chimney_industrial", HbmBlocks.CHIMNEY_INDUSTRIAL, BLOCK_ITEMS);

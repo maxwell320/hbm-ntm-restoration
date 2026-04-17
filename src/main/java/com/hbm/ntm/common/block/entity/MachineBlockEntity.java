@@ -99,6 +99,7 @@ public abstract class MachineBlockEntity extends BlockEntity implements MenuProv
     public void onLoad() {
         super.onLoad();
         this.loaded = true;
+        this.lastSyncedMachineState = null;
         this.ensureRuntimeInitialized();
         this.createCapabilities();
     }
@@ -107,6 +108,7 @@ public abstract class MachineBlockEntity extends BlockEntity implements MenuProv
     public void onChunkUnloaded() {
         super.onChunkUnloaded();
         this.loaded = false;
+        this.lastSyncedMachineState = null;
     }
 
     @Override
@@ -221,7 +223,10 @@ public abstract class MachineBlockEntity extends BlockEntity implements MenuProv
 
     @Override
     public boolean canPlayerControl(final Player player) {
-        return !this.isRemoved() && player.distanceToSqr(this.worldPosition.getX() + 0.5D, this.worldPosition.getY() + 0.5D, this.worldPosition.getZ() + 0.5D) <= 64.0D;
+        return !this.isRemoved()
+            && this.level != null
+            && this.level.getBlockEntity(this.worldPosition) == this
+            && player.distanceToSqr(this.worldPosition.getX() + 0.5D, this.worldPosition.getY() + 0.5D, this.worldPosition.getZ() + 0.5D) <= 128.0D;
     }
 
     @Override
@@ -490,8 +495,15 @@ public abstract class MachineBlockEntity extends BlockEntity implements MenuProv
             return;
         }
         for (int slot = 0; slot < this.items.getSlots(); slot++) {
-            Containers.dropItemStack(this.level, this.worldPosition.getX(), this.worldPosition.getY(), this.worldPosition.getZ(), this.items.getStackInSlot(slot));
+            final net.minecraft.world.item.ItemStack stack = this.items.getStackInSlot(slot);
+            if (stack.isEmpty()) {
+                continue;
+            }
+
+            Containers.dropItemStack(this.level, this.worldPosition.getX(), this.worldPosition.getY(), this.worldPosition.getZ(), stack.copy());
+            this.items.setStackInSlot(slot, net.minecraft.world.item.ItemStack.EMPTY);
         }
+        this.setChanged();
     }
 
     public int getComparatorOutput() {
@@ -515,15 +527,29 @@ public abstract class MachineBlockEntity extends BlockEntity implements MenuProv
         return slot >= 0 && slot < this.items.getSlots();
     }
 
+    protected final boolean isSlotAccessibleFromSide(final int slot, final @Nullable Direction side) {
+        if (!this.isValidSlotIndex(slot) || side == null) {
+            return this.isValidSlotIndex(slot);
+        }
+
+        final int[] accessibleSlots = this.getAccessibleSlots(side);
+        for (final int accessibleSlot : accessibleSlots) {
+            if (accessibleSlot == slot) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean canInsertIntoSlot(final int slot, final net.minecraft.world.item.ItemStack stack, final @Nullable Direction side) {
-        if (!this.isValidSlotIndex(slot) || stack.isEmpty()) {
+        if (!this.isSlotAccessibleFromSide(slot, side) || stack == null || stack.isEmpty()) {
             return false;
         }
         return this.isItemValid(slot, stack);
     }
 
     public boolean canExtractFromSlot(final int slot, final @Nullable Direction side) {
-        return this.isValidSlotIndex(slot);
+        return this.isSlotAccessibleFromSide(slot, side);
     }
 
     @Override
@@ -533,16 +559,15 @@ public abstract class MachineBlockEntity extends BlockEntity implements MenuProv
 
     @Override
     public boolean canExtractItem(final int slot, final net.minecraft.world.item.ItemStack stack, final @Nullable Direction side) {
+        if (stack.isEmpty()) {
+            return false;
+        }
         return this.canExtractFromSlot(slot, side);
     }
 
     @Override
     public int[] getAccessibleSlots(final @Nullable Direction side) {
-        final int[] slots = new int[this.items.getSlots()];
-        for (int i = 0; i < this.items.getSlots(); i++) {
-            slots[i] = i;
-        }
-        return slots;
+        return new int[0];
     }
 
     public boolean isItemValid(final int slot, final net.minecraft.world.item.ItemStack stack) {

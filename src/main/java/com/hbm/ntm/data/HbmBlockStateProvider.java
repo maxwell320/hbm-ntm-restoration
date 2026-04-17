@@ -4,6 +4,7 @@ import com.hbm.ntm.HbmNtmMod;
 import com.hbm.ntm.common.assembly.AssemblyMachinePart;
 import com.hbm.ntm.common.block.AssemblyMachineBlock;
 import com.hbm.ntm.common.block.BatteryBlock;
+import com.hbm.ntm.common.block.BrickFurnaceBlock;
 import com.hbm.ntm.common.block.CentrifugeBlock;
 import com.hbm.ntm.common.block.CombustionEngineBlock;
 import com.hbm.ntm.common.block.CyclotronBlock;
@@ -11,6 +12,9 @@ import com.hbm.ntm.common.block.DiFurnaceBlock;
 import com.hbm.ntm.common.block.DiFurnaceRtgBlock;
 import com.hbm.ntm.common.block.DieselGeneratorBlock;
 import com.hbm.ntm.common.block.ElectricFurnaceBlock;
+import com.hbm.ntm.common.block.FurnaceCombinationBlock;
+import com.hbm.ntm.common.block.FurnaceIronBlock;
+import com.hbm.ntm.common.block.FurnaceSteelBlock;
 import com.hbm.ntm.common.block.GasCentrifugeBlock;
 import com.hbm.ntm.common.block.IcfBlock;
 import com.hbm.ntm.common.block.IcfControllerBlock;
@@ -20,10 +24,13 @@ import com.hbm.ntm.common.block.NetherOreType;
 import com.hbm.ntm.common.block.OverworldOreType;
 import com.hbm.ntm.common.block.PressBlock;
 import com.hbm.ntm.common.block.PurexBlock;
+import com.hbm.ntm.common.block.RotaryFurnaceBlock;
 import com.hbm.ntm.common.block.RtgFurnaceBlock;
 import com.hbm.ntm.common.block.ShredderBlock;
 import com.hbm.ntm.common.block.SolderingStationBlock;
+import com.hbm.ntm.common.block.SteelGrateBlock;
 import com.hbm.ntm.common.press.PressPart;
+import com.hbm.ntm.common.rotary.RotaryFurnacePart;
 import com.hbm.ntm.common.soldering.SolderingStationPart;
 import com.hbm.ntm.common.registration.HbmBlocks;
 import net.minecraft.core.Direction;
@@ -56,11 +63,16 @@ public class HbmBlockStateProvider extends BlockStateProvider {
         diFurnaceExtensionBlock(HbmBlocks.MACHINE_DI_FURNACE_EXTENSION.get(), "machine_difurnace_extension");
         diFurnaceRtgBlock(HbmBlocks.MACHINE_DI_FURNACE_RTG.get(), "machine_difurnace_rtg");
         electricFurnaceBlock(HbmBlocks.MACHINE_ELECTRIC_FURNACE.get(), "machine_electric_furnace");
+        furnaceIronBlock(HbmBlocks.FURNACE_IRON.get(), "furnace_iron");
+        furnaceSteelBlock(HbmBlocks.FURNACE_STEEL.get(), "furnace_steel");
+        furnaceCombinationBlock(HbmBlocks.FURNACE_COMBINATION.get(), "furnace_combination");
+        rotaryFurnaceBlock(HbmBlocks.MACHINE_ROTARY_FURNACE.get(), "machine_rotary_furnace");
         rtgFurnaceBlock(HbmBlocks.MACHINE_RTG_FURNACE.get(), "machine_rtg_furnace");
         simpleCubeBlock(HbmBlocks.MACHINE_RTG_GREY.get(), "machine_rtg_grey", "rtg");
         dieselGeneratorBlock(HbmBlocks.MACHINE_DIESEL_GENERATOR.get(), "machine_diesel");
         combustionEngineBlock(HbmBlocks.MACHINE_COMBUSTION_ENGINE.get(), "machine_combustion");
-        simpleCubeBlock(HbmBlocks.MACHINE_ASHPIT.get(), "machine_ashpit", "ashpit");
+        brickFurnaceBlock(HbmBlocks.MACHINE_FURNACE_BRICK.get(), "machine_furnace_brick");
+        existingModelBlock(HbmBlocks.MACHINE_ASHPIT.get(), "machine_ashpit");
         existingModelBlock(HbmBlocks.CHIMNEY_BRICK.get(), "chimney_brick");
         existingModelBlock(HbmBlocks.CHIMNEY_INDUSTRIAL.get(), "chimney_industrial");
         simpleCubeBlock(HbmBlocks.MACHINE_MINI_RTG.get(), "machine_minirtg", "rtg_cell");
@@ -86,7 +98,7 @@ public class HbmBlockStateProvider extends BlockStateProvider {
         barrelBlock(HbmBlocks.BARREL_YELLOW.get(), "barrel_yellow", "barrel_yellow");
         barrelBlock(HbmBlocks.BARREL_VITRIFIED.get(), "barrel_vitrified", "barrel_vitrified");
         simpleCubeBlock(HbmBlocks.GLASS_BORON.get(), "glass_boron", "glass_boron");
-        simpleCubeBlock(HbmBlocks.STEEL_BEAM.get(), "steel_beam", "steel_beam");
+        existingModelBlock(HbmBlocks.STEEL_BEAM.get(), "steel_beam");
         grateBlock(HbmBlocks.STEEL_GRATE.get(), "steel_grate", "grate_top");
         grateBlock(HbmBlocks.STEEL_GRATE_WIDE.get(), "steel_grate_wide", "grate_wide_top");
         anvilBlock(HbmBlocks.ANVIL_IRON.get(), "anvil_iron", "anvil_iron");
@@ -273,6 +285,98 @@ public class HbmBlockStateProvider extends BlockStateProvider {
         simpleBlockItem(block, offModel);
     }
 
+    private void furnaceIronBlock(final Block block, final String modelName) {
+        final ModelFile offModel = models().withExistingParent(modelName + "_off", mcLoc("block/orientable_with_bottom"))
+            .texture("particle", modLoc("block/machine_electric_furnace_side"))
+            .texture("front", modLoc("block/machine_electric_furnace_front_off"))
+            .texture("side", modLoc("block/machine_electric_furnace_side"))
+            .texture("top", modLoc("block/machine_electric_furnace_top"))
+            .texture("bottom", modLoc("block/machine_electric_furnace_bottom"));
+        final ModelFile onModel = models().withExistingParent(modelName + "_on", mcLoc("block/orientable_with_bottom"))
+            .texture("particle", modLoc("block/machine_electric_furnace_side"))
+            .texture("front", modLoc("block/machine_electric_furnace_front_on"))
+            .texture("side", modLoc("block/machine_electric_furnace_side"))
+            .texture("top", modLoc("block/machine_electric_furnace_top"))
+            .texture("bottom", modLoc("block/machine_electric_furnace_bottom"));
+
+        getVariantBuilder(block).forAllStates(state -> ConfiguredModel.builder()
+            .modelFile(state.getValue(FurnaceIronBlock.LIT) ? onModel : offModel)
+            .rotationY(switch (state.getValue(FurnaceIronBlock.FACING)) {
+                case EAST -> 90;
+                case SOUTH -> 180;
+                case WEST -> 270;
+                default -> 0;
+            })
+            .build());
+
+        simpleBlockItem(block, offModel);
+    }
+
+    private void furnaceSteelBlock(final Block block, final String modelName) {
+        final ModelFile offModel = models().withExistingParent(modelName + "_off", mcLoc("block/orientable_with_bottom"))
+            .texture("particle", modLoc("block/machine_rtg_furnace_side_alt"))
+            .texture("front", modLoc("block/machine_rtg_furnace_off_alt"))
+            .texture("side", modLoc("block/machine_rtg_furnace_side_alt"))
+            .texture("top", modLoc("block/machine_rtg_furnace_base_alt"))
+            .texture("bottom", modLoc("block/machine_rtg_furnace_base_alt"));
+        final ModelFile onModel = models().withExistingParent(modelName + "_on", mcLoc("block/orientable_with_bottom"))
+            .texture("particle", modLoc("block/machine_rtg_furnace_side_alt"))
+            .texture("front", modLoc("block/machine_rtg_furnace_on_alt"))
+            .texture("side", modLoc("block/machine_rtg_furnace_side_alt"))
+            .texture("top", modLoc("block/machine_rtg_furnace_base_alt"))
+            .texture("bottom", modLoc("block/machine_rtg_furnace_base_alt"));
+
+        getVariantBuilder(block).forAllStates(state -> ConfiguredModel.builder()
+            .modelFile(state.getValue(FurnaceSteelBlock.LIT) ? onModel : offModel)
+            .rotationY(switch (state.getValue(FurnaceSteelBlock.FACING)) {
+                case EAST -> 90;
+                case SOUTH -> 180;
+                case WEST -> 270;
+                default -> 0;
+            })
+            .build());
+
+        simpleBlockItem(block, offModel);
+    }
+
+    private void furnaceCombinationBlock(final Block block, final String modelName) {
+        final ModelFile model = models().withExistingParent(modelName, mcLoc("block/orientable_with_bottom"))
+            .texture("particle", modLoc("block/furnace_combination"))
+            .texture("front", modLoc("block/furnace_combination"))
+            .texture("side", modLoc("block/furnace_combination"))
+            .texture("top", modLoc("block/furnace_combination"))
+            .texture("bottom", modLoc("block/furnace_combination"));
+
+        getVariantBuilder(block).forAllStates(state -> ConfiguredModel.builder()
+            .modelFile(model)
+            .rotationY(switch (state.getValue(FurnaceCombinationBlock.FACING)) {
+                case EAST -> 90;
+                case SOUTH -> 180;
+                case WEST -> 270;
+                default -> 0;
+            })
+            .build());
+
+        simpleBlockItem(block, model);
+    }
+
+    private void rotaryFurnaceBlock(final Block block, final String modelName) {
+        final ModelFile coreModel = new ModelFile.ExistingModelFile(modLoc("block/" + modelName), existingFileHelper);
+        final ModelFile invisibleModel = new ModelFile.UncheckedModelFile(modLoc("block/invisible"));
+
+        getVariantBuilder(block).forAllStates(state -> ConfiguredModel.builder()
+            .modelFile(state.getValue(RotaryFurnaceBlock.PART) == RotaryFurnacePart.CORE ? coreModel : invisibleModel)
+            .rotationY(switch (state.getValue(RotaryFurnaceBlock.FACING)) {
+                case EAST -> 90;
+                case SOUTH -> 180;
+                case WEST -> 270;
+                default -> 0;
+            })
+            .build());
+
+        simpleBlockItem(block, coreModel);
+    }
+
     private void rtgFurnaceBlock(final Block block, final String modelName) {
         final ModelFile offModel = models().withExistingParent(modelName + "_off", mcLoc("block/orientable_with_bottom"))
             .texture("particle", modLoc("block/machine_rtg_furnace_side_alt"))
@@ -354,6 +458,33 @@ public class HbmBlockStateProvider extends BlockStateProvider {
         simpleBlockItem(block, offModel);
     }
 
+    private void brickFurnaceBlock(final Block block, final String modelName) {
+        final ModelFile offModel = models().withExistingParent(modelName + "_off", mcLoc("block/orientable_with_bottom"))
+            .texture("particle", modLoc("block/machine_furnace_brick_side"))
+            .texture("front", modLoc("block/machine_furnace_brick_front_off"))
+            .texture("side", modLoc("block/machine_furnace_brick_side"))
+            .texture("top", modLoc("block/machine_furnace_brick_top"))
+            .texture("bottom", modLoc("block/machine_furnace_brick_bottom"));
+        final ModelFile onModel = models().withExistingParent(modelName + "_on", mcLoc("block/orientable_with_bottom"))
+            .texture("particle", modLoc("block/machine_furnace_brick_side"))
+            .texture("front", modLoc("block/machine_furnace_brick_front_on"))
+            .texture("side", modLoc("block/machine_furnace_brick_side"))
+            .texture("top", modLoc("block/machine_furnace_brick_top"))
+            .texture("bottom", modLoc("block/machine_furnace_brick_bottom"));
+
+        getVariantBuilder(block).forAllStates(state -> ConfiguredModel.builder()
+            .modelFile(state.getValue(BrickFurnaceBlock.LIT) ? onModel : offModel)
+            .rotationY(switch (state.getValue(BrickFurnaceBlock.FACING)) {
+                case EAST -> 90;
+                case SOUTH -> 180;
+                case WEST -> 270;
+                default -> 0;
+            })
+            .build());
+
+        simpleBlockItem(block, offModel);
+    }
+
     private void pressBlock(final Block block, final String modelName, final String textureName) {
         final ModelFile coreModel = models().cubeAll(modelName, preferredBlockTexture(textureName));
         final ModelFile invisibleModel = new ModelFile.UncheckedModelFile(modLoc("block/invisible"));
@@ -393,12 +524,7 @@ public class HbmBlockStateProvider extends BlockStateProvider {
     }
 
     private void gasCentrifugeBlock(final Block block, final String modelName) {
-        final ModelFile model = models().withExistingParent(modelName, mcLoc("block/orientable_with_bottom"))
-            .texture("particle", modLoc("block/machine_gascent"))
-            .texture("front", modLoc("block/machine_gascent"))
-            .texture("side", modLoc("block/machine_gascent"))
-            .texture("top", modLoc("block/machine_gascent"))
-            .texture("bottom", modLoc("block/machine_gascent"));
+        final ModelFile model = new ModelFile.ExistingModelFile(modLoc("block/" + modelName), existingFileHelper);
 
         getVariantBuilder(block).forAllStates(state -> ConfiguredModel.builder()
             .modelFile(model)
@@ -583,17 +709,38 @@ public class HbmBlockStateProvider extends BlockStateProvider {
     }
 
     private void grateBlock(final Block block, final String modelName, final String topTexture) {
-        final ModelFile model = models().withExistingParent(modelName, mcLoc("block/cube_bottom_top"))
-            .texture("particle", modLoc("block/grate_side"))
-            .texture("side", modLoc("block/grate_side"))
-            .texture("top", modLoc("block/" + topTexture))
-            .texture("bottom", modLoc("block/" + topTexture));
+        final boolean wide = modelName.contains("wide");
+        final float thickness = wide ? 1.984F : 2.0F;
+        final ModelFile[] levelModels = new ModelFile[10];
+
+        for (int level = 0; level < levelModels.length; level++) {
+            final float minY = level == 9 ? -2.0F : level * 2.0F;
+            final float maxY = minY + thickness;
+
+            levelModels[level] = models().getBuilder(modelName + "_level_" + level)
+                .texture("particle", modLoc("block/grate_side"))
+                .texture("side", modLoc("block/grate_side"))
+                .texture("top", modLoc("block/" + topTexture))
+                .texture("bottom", modLoc("block/" + topTexture))
+                .element()
+                .from(0.0F, minY, 0.0F)
+                .to(16.0F, maxY, 16.0F)
+                .face(Direction.DOWN).texture("#bottom").end()
+                .face(Direction.UP).texture("#top").end()
+                .face(Direction.NORTH).texture("#side").end()
+                .face(Direction.SOUTH).texture("#side").end()
+                .face(Direction.WEST).texture("#side").end()
+                .face(Direction.EAST).texture("#side").end()
+                .end();
+        }
+
+        final ModelFile baseModel = models().withExistingParent(modelName, modLoc("block/" + modelName + "_level_0"));
 
         getVariantBuilder(block).forAllStates(state -> ConfiguredModel.builder()
-            .modelFile(model)
+            .modelFile(levelModels[state.getValue(SteelGrateBlock.LEVEL)])
             .build());
 
-        simpleBlockItem(block, model);
+        simpleBlockItem(block, baseModel);
     }
 
     private void simpleCubeBlock(final Block block, final String modelName, final String textureName) {

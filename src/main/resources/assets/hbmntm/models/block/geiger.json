@@ -11,6 +11,7 @@
   },
   "textures": {
     "texture0": "hbmntm:block/geiger",
+    "Texture": "hbmntm:block/geiger",
     "particle": "hbmntm:block/geiger"
   }
 }

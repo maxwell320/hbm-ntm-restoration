@@ -1,9 +1,9 @@
 package com.hbm.ntm.client.screen;
 
 import com.hbm.ntm.HbmNtmMod;
+import com.hbm.ntm.common.block.ElectricFurnaceBlock;
 import com.hbm.ntm.common.menu.ElectricFurnaceMenu;
 import java.util.List;
-import java.util.Optional;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -30,7 +30,9 @@ public class ElectricFurnaceScreen extends MachineScreenBase<ElectricFurnaceMenu
             this.menu.energy(),
             this.menu.maxEnergy());
 
-        if (this.menu.hasPower()) {
+        if (this.menu.machine() != null
+            && this.menu.machine().getBlockState().hasProperty(ElectricFurnaceBlock.LIT)
+            && this.menu.machine().getBlockState().getValue(ElectricFurnaceBlock.LIT)) {
             guiGraphics.blit(TEXTURE, this.leftPos + 56, this.topPos + 35, 176, 0, 16, 16);
         }
 
@@ -38,7 +40,7 @@ public class ElectricFurnaceScreen extends MachineScreenBase<ElectricFurnaceMenu
         final int maxProgress = this.menu.maxProgress();
         if (progress > 0 && maxProgress > 0) {
             final int arrowWidth = Math.max(1, Math.min(24, progress * 24 / maxProgress));
-            guiGraphics.blit(TEXTURE, this.leftPos + 79, this.topPos + 34, 176, 17, arrowWidth, 17);
+            guiGraphics.blit(TEXTURE, this.leftPos + 79, this.topPos + 34, 176, 17, arrowWidth + 1, 17);
         }
 
         this.renderLegacyInfoPanel(guiGraphics, this.leftPos + 151, this.topPos + 19, 8);
@@ -63,20 +65,10 @@ public class ElectricFurnaceScreen extends MachineScreenBase<ElectricFurnaceMenu
             this.topPos + 19,
             8,
             List.of(
-                Component.literal("Upgrades"),
-                Component.literal("Speed"),
-                Component.literal("Power")
+                Component.translatable("desc.gui.upgrade"),
+                Component.translatable("desc.gui.upgrade.speed"),
+                Component.translatable("desc.gui.upgrade.power")
             ));
-
-        this.renderUpgradeInfoTooltip(guiGraphics, mouseX, mouseY, this.leftPos + 151, this.topPos + 19, 8, 8);
-
-        if (this.inside(mouseX, mouseY, this.leftPos + 56, this.topPos + 35, 16, 16)) {
-            guiGraphics.renderTooltip(this.font,
-                List.of(Component.literal("Consumption: " + this.menu.consumption() + " HE/t")),
-                Optional.empty(),
-                mouseX,
-                mouseY);
-        }
     }
 
     @Override

@@ -81,10 +81,15 @@ public class HbmBlockLootProvider extends BlockLootSubProvider {
         dropSelf(HbmBlocks.MACHINE_DI_FURNACE_EXTENSION.get());
         dropSelf(HbmBlocks.MACHINE_DI_FURNACE_RTG.get());
         dropSelf(HbmBlocks.MACHINE_ELECTRIC_FURNACE.get());
+        dropSelf(HbmBlocks.FURNACE_IRON.get());
+        dropSelf(HbmBlocks.FURNACE_STEEL.get());
+        dropSelf(HbmBlocks.FURNACE_COMBINATION.get());
+        dropSelf(HbmBlocks.MACHINE_ROTARY_FURNACE.get());
         dropSelf(HbmBlocks.MACHINE_RTG_FURNACE.get());
         dropSelf(HbmBlocks.MACHINE_RTG_GREY.get());
         dropSelf(HbmBlocks.MACHINE_DIESEL_GENERATOR.get());
         dropSelf(HbmBlocks.MACHINE_COMBUSTION_ENGINE.get());
+        dropSelf(HbmBlocks.MACHINE_FURNACE_BRICK.get());
         dropSelf(HbmBlocks.MACHINE_ASHPIT.get());
         dropSelf(HbmBlocks.CHIMNEY_BRICK.get());
         dropSelf(HbmBlocks.CHIMNEY_INDUSTRIAL.get());

@@ -50,6 +50,14 @@ public final class HbmAnvilRecipes {
                 ingredient(Ingredient.of(Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.TUNGSTEN, HbmMaterialShape.BOLT).get())), 4),
                 ingredient(Ingredient.of(Objects.requireNonNull(HbmItems.getCircuit(CircuitItemType.VACUUM_TUBE).get())), 2)
             ),
+            NtmAnvilBlock.TIER_STEEL),
+        construction(HbmBlocks.MACHINE_ROTARY_FURNACE,
+            List.of(
+                ingredient(Ingredient.of(Items.STONE_BRICKS), 8),
+                ingredient(Ingredient.of(Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.FIREBRICK, HbmMaterialShape.INGOT).get())), 16),
+                ingredient(Ingredient.of(Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.IRON, HbmMaterialShape.INGOT).get())), 4),
+                ingredient(Ingredient.of(Objects.requireNonNull(HbmItems.getMaterialPart(HbmMaterials.COPPER, HbmMaterialShape.PLATE).get())), 8)
+            ),
             NtmAnvilBlock.TIER_STEEL)
     );
 

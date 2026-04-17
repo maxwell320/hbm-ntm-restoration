@@ -34,6 +34,9 @@ public class AssemblyMachineMenu extends MachineMenuBase<AssemblyMachineBlockEnt
     private int clientOutputAmount;
     private int clientOutputCapacity;
     private String clientOutputFluid = "";
+    private boolean clientHasRecipe;
+    private boolean clientHasPower;
+    private boolean clientCanProcess;
 
     public AssemblyMachineMenu(final int containerId, final Inventory inventory, final FriendlyByteBuf buffer) {
         this(containerId,
@@ -50,7 +53,7 @@ public class AssemblyMachineMenu extends MachineMenuBase<AssemblyMachineBlockEnt
             (slot, stack) -> stack.getItem() instanceof BlueprintItem));
         this.addUpgradeSlot(handler, AssemblyMachineBlockEntity.SLOT_UPGRADE_1, 152, 108);
         this.addUpgradeSlot(handler, AssemblyMachineBlockEntity.SLOT_UPGRADE_2, 170, 108);
-        this.addFilteredGridSlots(handler, AssemblyMachineBlockEntity.SLOT_INPUT_START, 8, 18, 3, 4,
+        this.addFilteredGridSlots(handler, AssemblyMachineBlockEntity.SLOT_INPUT_START, 8, 18, 4, 3,
             (slot, stack) -> machine == null || machine.isItemValid(slot, stack));
         this.addSlot(new OutputSlotItemHandler(handler, AssemblyMachineBlockEntity.SLOT_OUTPUT, 98, 45));
         this.addPlayerInventory(inventory, 8, 174);
@@ -132,6 +135,18 @@ public class AssemblyMachineMenu extends MachineMenuBase<AssemblyMachineBlockEnt
         return this.clientOutputFluid;
     }
 
+    public boolean hasRecipe() {
+        return this.clientHasRecipe;
+    }
+
+    public boolean hasPower() {
+        return this.clientHasPower;
+    }
+
+    public boolean canProcess() {
+        return this.clientCanProcess;
+    }
+
     @Override
     protected void readMachineStateSync(final CompoundTag data) {
         this.clientProgress = Math.max(0, data.getInt("progress"));
@@ -145,6 +160,9 @@ public class AssemblyMachineMenu extends MachineMenuBase<AssemblyMachineBlockEnt
         this.clientOutputAmount = Math.max(0, data.getInt("outputAmount"));
         this.clientOutputCapacity = Math.max(0, data.getInt("outputCapacity"));
         this.clientOutputFluid = data.getString("outputFluid");
+        this.clientHasRecipe = data.getBoolean("hasRecipe");
+        this.clientHasPower = data.getBoolean("hasPower");
+        this.clientCanProcess = data.getBoolean("canProcess");
     }
 
     private void setClientProgress(final int value) {

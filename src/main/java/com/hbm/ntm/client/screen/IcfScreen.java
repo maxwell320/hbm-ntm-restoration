@@ -20,6 +20,13 @@ public class IcfScreen extends MachineScreenBase<IcfMenu> {
     }
 
     @Override
+    protected void renderBg(final GuiGraphics guiGraphics, final float partialTick, final int mouseX, final int mouseY) {
+        guiGraphics.blit(TEXTURE, this.leftPos, this.topPos, 0, 0, 248, 114);
+        guiGraphics.blit(TEXTURE, this.leftPos + 72, this.topPos + 122, 72, 122, 176, 108);
+        this.renderMachineContents(guiGraphics, partialTick, mouseX, mouseY);
+    }
+
+    @Override
     protected void renderMachineContents(final GuiGraphics guiGraphics, final float partialTick, final int mouseX, final int mouseY) {
         final long maxLaser = this.menu.maxLaser();
         if (maxLaser > 0L && this.menu.laser() > 0L) {
@@ -69,21 +76,15 @@ public class IcfScreen extends MachineScreenBase<IcfMenu> {
             if (maxLaser <= 0L || this.menu.laser() <= 0L) {
                 tooltip.add(Component.literal("OFFLINE").withStyle(net.minecraft.ChatFormatting.RED));
             } else {
-                final double percent = this.menu.laser() * 100.0D / maxLaser;
-                tooltip.add(Component.literal(formatShortNumber(this.menu.laser()) + " TU/t - " + String.format(Locale.ROOT, "%.1f", percent) + "%"));
+                final double percent = this.menu.laser() * 1000.0D / maxLaser / 10.0D;
+                tooltip.add(Component.literal(formatShortNumber(this.menu.laser()) + "tu/t - " + String.format(Locale.ROOT, "%.1f", percent) + "%"));
             }
             guiGraphics.renderTooltip(this.font, tooltip, Optional.empty(), mouseX, mouseY);
         }
 
         if (this.inside(mouseX, mouseY, this.leftPos + 187, this.topPos + 89, 18, 18)) {
             final List<Component> tooltip = new ArrayList<>();
-            tooltip.add(Component.literal(formatShortNumber(this.menu.heat()) + " / " + formatShortNumber(this.menu.maxHeat()) + " TU"));
-            if (this.menu.consumption() > 0 || this.menu.output() > 0) {
-                tooltip.add(Component.literal("Coolant: " + this.menu.consumption() + " mB/t -> " + this.menu.output() + " mB/t"));
-            }
-            if (this.menu.heatup() > 0L) {
-                tooltip.add(Component.literal("Fusion heating: +" + formatShortNumber(this.menu.heatup()) + " TU/t"));
-            }
+            tooltip.add(Component.literal(formatShortNumber(this.menu.heat()) + " / " + formatShortNumber(this.menu.maxHeat()) + "TU"));
             guiGraphics.renderTooltip(this.font, tooltip, Optional.empty(), mouseX, mouseY);
         }
     }

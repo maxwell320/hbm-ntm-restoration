@@ -5,6 +5,7 @@ import com.hbm.ntm.common.block.entity.AssemblyMachineBlockEntity;
 import com.hbm.ntm.common.block.entity.AssemblyMachineProxyBlockEntity;
 import com.hbm.ntm.common.block.entity.AshpitBlockEntity;
 import com.hbm.ntm.common.block.entity.BatteryBlockEntity;
+import com.hbm.ntm.common.block.entity.BrickFurnaceBlockEntity;
 import com.hbm.ntm.common.block.entity.BarrelBlockEntity;
 import com.hbm.ntm.common.block.entity.CableBlockEntity;
 import com.hbm.ntm.common.block.entity.CentrifugeBlockEntity;
@@ -18,6 +19,9 @@ import com.hbm.ntm.common.block.entity.DieselGeneratorBlockEntity;
 import com.hbm.ntm.common.block.entity.CombustionEngineBlockEntity;
 import com.hbm.ntm.common.block.entity.ElectricFurnaceBlockEntity;
 import com.hbm.ntm.common.block.entity.FluidDuctBlockEntity;
+import com.hbm.ntm.common.block.entity.FurnaceIronBlockEntity;
+import com.hbm.ntm.common.block.entity.FurnaceCombinationBlockEntity;
+import com.hbm.ntm.common.block.entity.FurnaceSteelBlockEntity;
 import com.hbm.ntm.common.block.entity.GasCentrifugeBlockEntity;
 import com.hbm.ntm.common.block.entity.GeigerCounterBlockEntity;
 import com.hbm.ntm.common.block.entity.IcfBlockEntity;
@@ -29,6 +33,8 @@ import com.hbm.ntm.common.block.entity.PowerRtgBlockEntity;
 import com.hbm.ntm.common.block.entity.PressBlockEntity;
 import com.hbm.ntm.common.block.entity.PressProxyBlockEntity;
 import com.hbm.ntm.common.block.entity.PurexBlockEntity;
+import com.hbm.ntm.common.block.entity.RotaryFurnaceBlockEntity;
+import com.hbm.ntm.common.block.entity.RotaryFurnaceProxyBlockEntity;
 import com.hbm.ntm.common.block.entity.RtgGeneratorBlockEntity;
 import com.hbm.ntm.common.block.entity.RtgFurnaceBlockEntity;
 import com.hbm.ntm.common.block.entity.ShredderBlockEntity;
@@ -75,6 +81,16 @@ public final class HbmBlockEntityTypes {
         HbmBlocks.MACHINE_DI_FURNACE_RTG);
     public static final RegistryObject<BlockEntityType<ElectricFurnaceBlockEntity>> MACHINE_ELECTRIC_FURNACE = register("machine_electric_furnace", ElectricFurnaceBlockEntity::new,
         HbmBlocks.MACHINE_ELECTRIC_FURNACE);
+    public static final RegistryObject<BlockEntityType<FurnaceIronBlockEntity>> FURNACE_IRON = register("furnace_iron", FurnaceIronBlockEntity::new,
+        HbmBlocks.FURNACE_IRON);
+    public static final RegistryObject<BlockEntityType<FurnaceSteelBlockEntity>> FURNACE_STEEL = register("furnace_steel", FurnaceSteelBlockEntity::new,
+        HbmBlocks.FURNACE_STEEL);
+    public static final RegistryObject<BlockEntityType<FurnaceCombinationBlockEntity>> FURNACE_COMBINATION = register("furnace_combination", FurnaceCombinationBlockEntity::new,
+        HbmBlocks.FURNACE_COMBINATION);
+    public static final RegistryObject<BlockEntityType<RotaryFurnaceBlockEntity>> MACHINE_ROTARY_FURNACE = register("machine_rotary_furnace", RotaryFurnaceBlockEntity::new,
+        HbmBlocks.MACHINE_ROTARY_FURNACE);
+    public static final RegistryObject<BlockEntityType<RotaryFurnaceProxyBlockEntity>> MACHINE_ROTARY_FURNACE_PROXY = register("machine_rotary_furnace_proxy", RotaryFurnaceProxyBlockEntity::new,
+        HbmBlocks.MACHINE_ROTARY_FURNACE);
     public static final RegistryObject<BlockEntityType<RtgFurnaceBlockEntity>> MACHINE_RTG_FURNACE = register("machine_rtg_furnace", RtgFurnaceBlockEntity::new,
         HbmBlocks.MACHINE_RTG_FURNACE);
     public static final RegistryObject<BlockEntityType<RtgGeneratorBlockEntity>> MACHINE_RTG_GREY = register("machine_rtg_grey", RtgGeneratorBlockEntity::new,
@@ -83,6 +99,8 @@ public final class HbmBlockEntityTypes {
         HbmBlocks.MACHINE_DIESEL_GENERATOR);
     public static final RegistryObject<BlockEntityType<CombustionEngineBlockEntity>> MACHINE_COMBUSTION_ENGINE = register("machine_combustion", CombustionEngineBlockEntity::new,
         HbmBlocks.MACHINE_COMBUSTION_ENGINE);
+    public static final RegistryObject<BlockEntityType<BrickFurnaceBlockEntity>> MACHINE_FURNACE_BRICK = register("machine_furnace_brick", BrickFurnaceBlockEntity::new,
+        HbmBlocks.MACHINE_FURNACE_BRICK);
     public static final RegistryObject<BlockEntityType<AshpitBlockEntity>> MACHINE_ASHPIT = register("machine_ashpit", AshpitBlockEntity::new,
         HbmBlocks.MACHINE_ASHPIT);
     public static final RegistryObject<BlockEntityType<ChimneyBrickBlockEntity>> CHIMNEY_BRICK = register("chimney_brick", ChimneyBrickBlockEntity::new,

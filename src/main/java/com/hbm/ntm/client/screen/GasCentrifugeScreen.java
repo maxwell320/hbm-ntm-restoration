@@ -19,6 +19,11 @@ public class GasCentrifugeScreen extends MachineScreenBase<GasCentrifugeMenu> {
     }
 
     @Override
+    protected boolean shouldRenderTitle() {
+        return false;
+    }
+
+    @Override
     protected void renderMachineContents(final GuiGraphics guiGraphics, final float partialTick, final int mouseX, final int mouseY) {
         this.renderVerticalEnergyBar(guiGraphics, TEXTURE,
             this.leftPos + 182,
@@ -84,15 +89,6 @@ public class GasCentrifugeScreen extends MachineScreenBase<GasCentrifugeMenu> {
                 mouseY);
         }
 
-        if (this.menu.inputNeedsSpeedUpgrade() && !this.menu.hasSpeedUpgrade()) {
-            guiGraphics.drawString(this.font,
-                Component.translatable("screen.hbmntm.machine_gascent.warning"),
-                8,
-                6,
-                0xAA3030,
-                false);
-        }
-
         this.renderLegacyInfoPanelTooltip(guiGraphics, mouseX, mouseY, this.leftPos - 12, this.topPos + 16, 3,
             List.of(
                 Component.literal("Enrichment").withStyle(ChatFormatting.GREEN),
@@ -105,9 +101,6 @@ public class GasCentrifugeScreen extends MachineScreenBase<GasCentrifugeMenu> {
                 Component.literal("Fluid Transfer").withStyle(ChatFormatting.GOLD),
                 Component.literal("Output fluid can be piped into"),
                 Component.literal("another centrifuge for further processing.")));
-
-        this.renderUpgradeInfoTooltip(guiGraphics, mouseX, mouseY,
-            this.leftPos + 69, this.topPos + 15, 18, 18);
     }
 
     @Override

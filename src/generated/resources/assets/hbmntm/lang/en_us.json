@@ -71,6 +71,9 @@
   "block.hbmntm.creative_energy_source": "Creative Energy Source",
   "block.hbmntm.fallout": "Fallout",
   "block.hbmntm.fluid_duct_neo": "Universal Fluid Duct",
+  "block.hbmntm.furnace_combination": "Combination Oven",
+  "block.hbmntm.furnace_iron": "Iron Furnace",
+  "block.hbmntm.furnace_steel": "Steel Furnace",
   "block.hbmntm.gas_asbestos": "Airborne Asbestos Particles",
   "block.hbmntm.geiger": "Geiger Counter",
   "block.hbmntm.glass_boron": "Boron Glass",
@@ -85,6 +88,7 @@
   "block.hbmntm.machine_difurnace_extension": "Dual Furnace Extension",
   "block.hbmntm.machine_difurnace_rtg": "RTG Dual Furnace",
   "block.hbmntm.machine_electric_furnace": "Electric Furnace",
+  "block.hbmntm.machine_furnace_brick": "Bricked Furnace",
   "block.hbmntm.machine_gascent": "Gas Centrifuge",
   "block.hbmntm.machine_icf": "Inertial Confinement Fusion Reactor",
   "block.hbmntm.machine_icf_controller": "ICF Laser Controller",
@@ -94,6 +98,7 @@
   "block.hbmntm.machine_powerrtg": "PT Isotope Cell",
   "block.hbmntm.machine_press": "Burner Press",
   "block.hbmntm.machine_purex": "PUREX",
+  "block.hbmntm.machine_rotary_furnace": "Rotary Furnace",
   "block.hbmntm.machine_rtg_furnace": "RTG Furnace",
   "block.hbmntm.machine_rtg_grey": "RT Generator",
   "block.hbmntm.machine_shredder": "Shredder",
@@ -1125,5 +1130,6 @@
   "item.hbmntm.wire_tungsten": "Tungsten Wire",
   "item.hbmntm.wire_zirconium": "Zirconium Wire",
   "itemGroup.hbmntm.main": "HBM Nuclear Tech",
-  "screen.hbmntm.machine_gascent.warning": "WARNING! THIS MACHINE OUTPUTS RADIATION"
+  "screen.hbmntm.machine_gascent.warning": "WARNING! THIS MACHINE OUTPUTS RADIATION",
+  "screen.hbmntm.machine_rotary_furnace.no_output": "No crucible acceptor found near the output spout."
 }

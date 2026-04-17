@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Optional;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.Button;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -25,19 +24,6 @@ public class PurexScreen extends MachineScreenBase<PurexMenu> {
     public PurexScreen(final PurexMenu menu, final Inventory inventory, final Component title) {
         super(menu, inventory, title, 176, 256);
         this.inventoryLabelY = this.imageHeight - 94;
-    }
-
-    @Override
-    protected void init() {
-        super.init();
-        this.addRenderableWidget(Button.builder(Component.literal("<"), button -> {
-            this.playButtonClick();
-            this.cycleRecipe(-1);
-        }).bounds(this.leftPos + 26, this.topPos + 125, 16, 16).build());
-        this.addRenderableWidget(Button.builder(Component.literal(">"), button -> {
-            this.playButtonClick();
-            this.cycleRecipe(1);
-        }).bounds(this.leftPos + 44, this.topPos + 125, 16, 16).build());
     }
 
     private void cycleRecipe(final int delta) {
@@ -105,31 +91,10 @@ public class PurexScreen extends MachineScreenBase<PurexMenu> {
             this.menu.energy(),
             this.menu.maxEnergy());
 
-        this.renderFluidTooltip(guiGraphics, mouseX, mouseY,
-            this.leftPos + 8, this.topPos + 18, 16, 52,
-            "Input Tank A", this.menu.fluidName(0), this.menu.fluidAmount(0), this.menu.fluidCapacity(0));
-        this.renderFluidTooltip(guiGraphics, mouseX, mouseY,
-            this.leftPos + 26, this.topPos + 18, 16, 52,
-            "Input Tank B", this.menu.fluidName(1), this.menu.fluidAmount(1), this.menu.fluidCapacity(1));
-        this.renderFluidTooltip(guiGraphics, mouseX, mouseY,
-            this.leftPos + 44, this.topPos + 18, 16, 52,
-            "Input Tank C", this.menu.fluidName(2), this.menu.fluidAmount(2), this.menu.fluidCapacity(2));
-        this.renderFluidTooltip(guiGraphics, mouseX, mouseY,
-            this.leftPos + 116, this.topPos + 36, 16, 52,
-            "Output Tank", this.menu.fluidName(3), this.menu.fluidAmount(3), this.menu.fluidCapacity(3));
-
-        final int recipeCount = this.menu.recipeCount();
-        final int recipeIndex = this.menu.recipeIndex();
-        final String recipeCounter = recipeCount <= 0 ? "0/0" : (Math.max(0, recipeIndex) + 1) + "/" + recipeCount;
-        guiGraphics.drawString(this.font, recipeCounter, 62, 131, 0x404040, false);
-
-        if (this.inside(mouseX, mouseY, this.leftPos + 62, this.topPos + 126, 70, 16)) {
-            guiGraphics.renderTooltip(this.font,
-                List.of(Component.literal("Consumption: " + this.menu.consumption() + " HE/t")),
-                Optional.empty(),
-                mouseX,
-                mouseY);
-        }
+        this.renderTankInfo(guiGraphics, mouseX, mouseY, this.leftPos + 8, this.topPos + 18, 16, 52, 0);
+        this.renderTankInfo(guiGraphics, mouseX, mouseY, this.leftPos + 26, this.topPos + 18, 16, 52, 1);
+        this.renderTankInfo(guiGraphics, mouseX, mouseY, this.leftPos + 44, this.topPos + 18, 16, 52, 2);
+        this.renderTankInfo(guiGraphics, mouseX, mouseY, this.leftPos + 116, this.topPos + 36, 16, 52, 3);
 
         if (this.inside(mouseX, mouseY, this.leftPos + 7, this.topPos + 125, 18, 18)) {
             final Optional<PurexRecipe> recipe = this.resolveGhostRecipe();
@@ -146,6 +111,42 @@ public class PurexScreen extends MachineScreenBase<PurexMenu> {
 
         this.renderUpgradeInfoTooltip(guiGraphics, mouseX, mouseY,
             this.leftPos + 152, this.topPos + 108, 36, 18);
+    }
+
+    private void renderTankInfo(final GuiGraphics guiGraphics,
+                                final int mouseX,
+                                final int mouseY,
+                                final int x,
+                                final int y,
+                                final int width,
+                                final int height,
+                                final int tank) {
+        if (!this.inside(mouseX, mouseY, x, y, width, height)) {
+            return;
+        }
+        final List<Component> tooltip = new java.util.ArrayList<>();
+        if (this.menu.fluidAmount(tank) <= 0) {
+            tooltip.add(Component.literal("Empty"));
+        } else {
+            tooltip.add(Component.literal(this.menu.fluidName(tank)));
+            tooltip.add(Component.literal(this.menu.fluidAmount(tank) + " / " + this.menu.fluidCapacity(tank) + " mB"));
+        }
+        guiGraphics.renderTooltip(this.font, tooltip, Optional.empty(), mouseX, mouseY);
+    }
+
+    @Override
+    protected int titleLabelX() {
+        return 70 - this.font.width(this.title) / 2;
+    }
+
+    @Override
+    public boolean mouseClicked(final double mouseX, final double mouseY, final int button) {
+        if (button == 1 && this.inside(mouseX, mouseY, this.leftPos + 7, this.topPos + 125, 18, 18)) {
+            this.playButtonClick();
+            this.cycleRecipe(1);
+            return true;
+        }
+        return super.mouseClicked(mouseX, mouseY, button);
     }
 
     @Override

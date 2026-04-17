@@ -44,6 +44,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
@@ -57,6 +58,7 @@ public class BarrelBlockEntity extends BlockEntity implements MenuProvider {
     private static final int SLOT_LOAD_OUT = 3;
     private static final int SLOT_UNLOAD_IN = 4;
     private static final int SLOT_UNLOAD_OUT = 5;
+    private static final int[] SIDED_ITEM_SLOTS = new int[]{SLOT_LOAD_IN, SLOT_LOAD_OUT, SLOT_UNLOAD_IN, SLOT_UNLOAD_OUT};
     private final com.hbm.ntm.common.fluid.HbmFluidTank tank;
     private final ItemStackHandler items = new ItemStackHandler(6) {
         @Override
@@ -235,12 +237,22 @@ public class BarrelBlockEntity extends BlockEntity implements MenuProvider {
             return;
         }
         for (int i = 0; i < this.items.getSlots(); i++) {
-            net.minecraft.world.Containers.dropItemStack(this.level, this.worldPosition.getX(), this.worldPosition.getY(), this.worldPosition.getZ(), this.items.getStackInSlot(i));
+            final ItemStack stack = this.items.getStackInSlot(i);
+            if (stack.isEmpty()) {
+                continue;
+            }
+
+            net.minecraft.world.Containers.dropItemStack(this.level, this.worldPosition.getX(), this.worldPosition.getY(), this.worldPosition.getZ(), stack.copy());
+            this.items.setStackInSlot(i, ItemStack.EMPTY);
         }
+        this.setChanged();
     }
 
     public boolean stillUsableByPlayer(final Player player) {
-        return !this.isRemoved() && player.distanceToSqr(this.worldPosition.getX() + 0.5D, this.worldPosition.getY() + 0.5D, this.worldPosition.getZ() + 0.5D) <= 64.0D;
+        return !this.isRemoved()
+            && this.level != null
+            && this.level.getBlockEntity(this.worldPosition) == this
+            && player.distanceToSqr(this.worldPosition.getX() + 0.5D, this.worldPosition.getY() + 0.5D, this.worldPosition.getZ() + 0.5D) <= 128.0D;
     }
 
     public void setConfiguredFluidId(@Nullable final ResourceLocation configuredFluidId, final boolean resetTank) {
@@ -346,6 +358,50 @@ public class BarrelBlockEntity extends BlockEntity implements MenuProvider {
         return this.configuredFluidId == null || this.configuredFluidId.equals(fluidId);
     }
 
+    private boolean canInsertAutomationItem(final int internalSlot, final ItemStack stack) {
+        if (stack.isEmpty()) {
+            return false;
+        }
+
+        if (internalSlot == SLOT_LOAD_IN) {
+            final FluidStack contained = FluidUtil.getFluidContained(stack).orElse(FluidStack.EMPTY);
+            return !contained.isEmpty() && contained.getAmount() <= this.capacity() && this.isFluidValidForBarrel(contained);
+        }
+        if (internalSlot == SLOT_UNLOAD_IN) {
+            return this.canFillContainerFromBarrelType(stack);
+        }
+
+        return false;
+    }
+
+    private boolean canFillContainerFromBarrelType(final ItemStack stack) {
+        final IFluidHandlerItem itemHandler = FluidUtil.getFluidHandler(stack.copyWithCount(1)).orElse(null);
+        if (itemHandler == null) {
+            return false;
+        }
+
+        FluidStack reference = this.tank.getFluid();
+        if (reference.isEmpty()) {
+            if (this.configuredFluidId == null) {
+                return false;
+            }
+            final Fluid configuredFluid = net.minecraftforge.registries.ForgeRegistries.FLUIDS.getValue(this.configuredFluidId);
+            if (configuredFluid == null || configuredFluid == Fluids.EMPTY) {
+                return false;
+            }
+            reference = new FluidStack(configuredFluid, FluidType.BUCKET_VOLUME);
+        } else {
+            final int testAmount = Math.max(1, Math.min(reference.getAmount(), FluidType.BUCKET_VOLUME));
+            reference = new FluidStack(reference.getFluid(), testAmount);
+        }
+
+        return itemHandler.fill(reference, IFluidHandler.FluidAction.SIMULATE) > 0;
+    }
+
+    private boolean canExtractAutomationItem(final int internalSlot) {
+        return internalSlot == SLOT_LOAD_OUT || internalSlot == SLOT_UNLOAD_OUT;
+    }
+
     private void onContentsChanged() {
         this.setChanged();
         if (this.level != null) {
@@ -448,7 +504,57 @@ public class BarrelBlockEntity extends BlockEntity implements MenuProvider {
         this.sidedItemCapabilities.clear();
         for (final Direction direction : Direction.values()) {
             this.sidedFluidCapabilities.put(direction, LazyOptional.of(() -> new com.hbm.ntm.common.fluid.SidedFluidHandler(this.tank, this.mode == 0 || this.mode == 1, this.mode == 1 || this.mode == 2)));
-            this.sidedItemCapabilities.put(direction, LazyOptional.of(() -> this.items));
+            this.sidedItemCapabilities.put(direction, LazyOptional.of(BarrelSidedItemHandler::new));
+        }
+    }
+
+    private final class BarrelSidedItemHandler implements IItemHandler {
+        private int toInternalSlot(final int slot) {
+            if (slot < 0 || slot >= SIDED_ITEM_SLOTS.length) {
+                return -1;
+            }
+            return SIDED_ITEM_SLOTS[slot];
+        }
+
+        @Override
+        public int getSlots() {
+            return SIDED_ITEM_SLOTS.length;
+        }
+
+        @Override
+        public @NotNull ItemStack getStackInSlot(final int slot) {
+            final int internal = this.toInternalSlot(slot);
+            return internal < 0 ? ItemStack.EMPTY : BarrelBlockEntity.this.items.getStackInSlot(internal);
+        }
+
+        @Override
+        public @NotNull ItemStack insertItem(final int slot, final @NotNull ItemStack stack, final boolean simulate) {
+            final int internal = this.toInternalSlot(slot);
+            if (internal < 0 || !BarrelBlockEntity.this.canInsertAutomationItem(internal, stack)) {
+                return stack;
+            }
+            return BarrelBlockEntity.this.items.insertItem(internal, stack, simulate);
+        }
+
+        @Override
+        public @NotNull ItemStack extractItem(final int slot, final int amount, final boolean simulate) {
+            final int internal = this.toInternalSlot(slot);
+            if (internal < 0 || amount <= 0 || !BarrelBlockEntity.this.canExtractAutomationItem(internal)) {
+                return ItemStack.EMPTY;
+            }
+            return BarrelBlockEntity.this.items.extractItem(internal, amount, simulate);
+        }
+
+        @Override
+        public int getSlotLimit(final int slot) {
+            final int internal = this.toInternalSlot(slot);
+            return internal < 0 ? 0 : BarrelBlockEntity.this.items.getSlotLimit(internal);
+        }
+
+        @Override
+        public boolean isItemValid(final int slot, final @NotNull ItemStack stack) {
+            final int internal = this.toInternalSlot(slot);
+            return internal >= 0 && BarrelBlockEntity.this.canInsertAutomationItem(internal, stack);
         }
     }
 }

@@ -10,7 +10,7 @@ import net.minecraft.world.entity.player.Inventory;
 
 @SuppressWarnings("null")
 public class DieselGeneratorScreen extends MachineScreenBase<DieselGeneratorMenu> {
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "textures/gui/gui_diesel.png");
+    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "textures/gui/GUIDiesel.png");
 
     public DieselGeneratorScreen(final DieselGeneratorMenu menu, final Inventory inventory, final Component title) {
         super(menu, inventory, title, 176, 166);
@@ -38,10 +38,14 @@ public class DieselGeneratorScreen extends MachineScreenBase<DieselGeneratorMenu
             this.menu.energy(),
             this.menu.maxEnergy());
 
-        this.renderLegacyInfoPanel(guiGraphics, this.leftPos - 12, this.topPos + 26, 2);
+        this.renderLegacyInfoPanel(guiGraphics, this.leftPos - 16, this.topPos + 36, 2);
 
-        if (this.menu.fuel() > 0 && !this.menu.acceptableFuel()) {
-            this.renderLegacyInfoPanel(guiGraphics, this.leftPos + 30, this.topPos + 45, 6);
+        if (this.menu.fuel() > 0 && this.menu.acceptableFuel()) {
+            guiGraphics.blit(TEXTURE, this.leftPos + 115, this.topPos + 34, 208, 0, 18, 18);
+        }
+
+        if (!this.menu.acceptableFuel()) {
+            this.renderLegacyInfoPanel(guiGraphics, this.leftPos - 16, this.topPos + 68, 6);
         }
     }
 
@@ -72,22 +76,25 @@ public class DieselGeneratorScreen extends MachineScreenBase<DieselGeneratorMenu
         this.renderLegacyInfoPanelTooltip(guiGraphics,
             mouseX,
             mouseY,
-            this.leftPos - 12,
-            this.topPos + 26,
+            this.leftPos - 16,
+            this.topPos + 36,
             2,
             List.of(
-                Component.literal("Consumption: 1 mB/t"),
-                Component.literal("Output: " + this.menu.hePerMb() + " HE/mB"),
-                Component.literal("Requires medium, high or aero fuels")));
+                Component.literal("Fuel consumption rate:"),
+                Component.literal("  1 mB/t"),
+                Component.literal("  20 mB/s"),
+                Component.literal("(Consumption rate is constant)")));
 
-        if (this.menu.fuel() > 0 && !this.menu.acceptableFuel()) {
+        if (!this.menu.acceptableFuel()) {
             this.renderLegacyInfoPanelTooltip(guiGraphics,
                 mouseX,
                 mouseY,
-                this.leftPos + 30,
-                this.topPos + 45,
+                this.leftPos - 16,
+                this.topPos + 68,
                 6,
-                List.of(Component.literal("Selected fuel is not valid for diesel generation")));
+                List.of(
+                    Component.literal("Error: The currently set fuel type"),
+                    Component.literal("is not supported by this engine!")));
         }
     }
 

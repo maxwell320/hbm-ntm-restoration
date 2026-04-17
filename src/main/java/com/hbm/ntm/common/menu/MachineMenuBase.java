@@ -3,7 +3,6 @@ package com.hbm.ntm.common.menu;
 import com.hbm.ntm.common.block.entity.MachineBlockEntity;
 import com.hbm.ntm.common.item.MachineUpgradeItem;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
@@ -224,6 +223,11 @@ public abstract class MachineMenuBase<T extends MachineBlockEntity> extends Abst
             return ItemStack.EMPTY;
         }
 
+        final int machineSlotEnd = this.machineSlotEnd();
+        if (machineSlotEnd <= 0) {
+            return ItemStack.EMPTY;
+        }
+
         final Slot slot = this.slots.get(index);
         if (!slot.hasItem() || !slot.mayPickup(player)) {
             return ItemStack.EMPTY;
@@ -231,8 +235,8 @@ public abstract class MachineMenuBase<T extends MachineBlockEntity> extends Abst
 
         final ItemStack original = slot.getItem();
         final ItemStack copy = original.copy();
-        if (index < this.machineSlotCount) {
-            if (!this.moveItemStackTo(original, this.machineSlotCount, this.slots.size(), true)) {
+        if (index < machineSlotEnd) {
+            if (!this.moveItemStackTo(original, machineSlotEnd, this.slots.size(), true)) {
                 return ItemStack.EMPTY;
             }
         } else if (!this.moveToMachineSlots(original)) {
@@ -252,15 +256,21 @@ public abstract class MachineMenuBase<T extends MachineBlockEntity> extends Abst
         return copy;
     }
 
+    protected final int machineSlotEnd() {
+        return Math.max(0, Math.min(this.machineSlotCount, this.slots.size()));
+    }
+
+    protected final boolean isValidMachineRange(final int startInclusive, final int endExclusive) {
+        final int machineSlotEnd = this.machineSlotEnd();
+        return startInclusive >= 0 && endExclusive > startInclusive && endExclusive <= machineSlotEnd;
+    }
+
     protected boolean moveToMachineSlots(final ItemStack stack) {
-        if (this.machineSlotCount <= 0 || this.machineSlotCount > this.slots.size()) {
-            return false;
-        }
-        return this.moveItemStackTo(stack, 0, this.machineSlotCount, false);
+        return false;
     }
 
     protected final boolean moveToMachineRange(final ItemStack stack, final int startInclusive, final int endExclusive) {
-        if (startInclusive < 0 || endExclusive <= startInclusive || endExclusive > this.slots.size()) {
+        if (stack.isEmpty() || !this.isValidMachineRange(startInclusive, endExclusive)) {
             return false;
         }
         return this.moveItemStackTo(stack, startInclusive, endExclusive, false);
@@ -274,7 +284,14 @@ public abstract class MachineMenuBase<T extends MachineBlockEntity> extends Abst
             return true;
         }
         final EnumSet<MachineUpgradeItem.UpgradeType> allowedSet = EnumSet.noneOf(MachineUpgradeItem.UpgradeType.class);
-        allowedSet.addAll(Arrays.asList(allowed));
+        for (final MachineUpgradeItem.UpgradeType type : allowed) {
+            if (type != null) {
+                allowedSet.add(type);
+            }
+        }
+        if (allowedSet.isEmpty()) {
+            return true;
+        }
         return allowedSet.contains(upgrade.type());
     }
 

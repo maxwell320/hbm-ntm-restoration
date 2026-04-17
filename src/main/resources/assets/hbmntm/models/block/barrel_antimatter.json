@@ -11,6 +11,6 @@
   },
   "textures": {
     "particle": "hbmntm:block/barrel_antimatter",
-    "texture0": "hbmntm:block/barrel_antimatter"
-  }
+    "texture0": "hbmntm:block/barrel_antimatter",
+    "Default_OBJ": "hbmntm:block/barrel_antimatter"}
 }

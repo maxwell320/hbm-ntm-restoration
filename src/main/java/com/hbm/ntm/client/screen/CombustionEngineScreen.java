@@ -3,6 +3,8 @@ package com.hbm.ntm.client.screen;
 import com.hbm.ntm.HbmNtmMod;
 import com.hbm.ntm.common.menu.CombustionEngineMenu;
 import java.util.List;
+import java.util.Locale;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -17,6 +19,11 @@ public class CombustionEngineScreen extends MachineScreenBase<CombustionEngineMe
 
     public CombustionEngineScreen(final CombustionEngineMenu menu, final Inventory inventory, final Component title) {
         super(menu, inventory, title, 176, 203);
+    }
+
+    @Override
+    protected boolean shouldRenderTitle() {
+        return false;
     }
 
     @Override
@@ -77,27 +84,27 @@ public class CombustionEngineScreen extends MachineScreenBase<CombustionEngineMe
             this.menu.energy(),
             this.menu.maxEnergy());
 
-        if (this.inside(mouseX, mouseY, this.leftPos + 79, this.topPos + 13, 35, 15)) {
+        if (this.inside(mouseX, mouseY, this.leftPos + 89, this.topPos + 13, 16, 14)) {
             guiGraphics.renderTooltip(this.font,
-                List.of(Component.literal(this.menu.engineOn() ? "Ignition: ON" : "Ignition: OFF"),
-                    Component.literal("Click to toggle")),
+                List.of(Component.literal("Ignition")),
                 java.util.Optional.empty(),
                 mouseX,
                 mouseY);
         }
 
-        if (this.inside(mouseX, mouseY, this.leftPos + 79, this.topPos + 35, 36, 12)) {
+        if (this.inside(mouseX, mouseY, this.leftPos + 79, this.topPos + 38, 36, 8)) {
             guiGraphics.renderTooltip(this.font,
-                List.of(Component.literal("Throttle: " + this.menu.setting() + " / 30"),
-                    Component.literal(String.format(java.util.Locale.ROOT, "Fuel usage: %.1f mB/t", this.menu.setting() * 0.2F))),
+                List.of(Component.literal(String.format(Locale.ROOT, "%.1fmB/t", this.menu.setting() * 0.2D))),
                 java.util.Optional.empty(),
                 mouseX,
                 mouseY);
         }
 
-        if (this.inside(mouseX, mouseY, this.leftPos + 79, this.topPos + 51, 35, 12)) {
+        if (this.inside(mouseX, mouseY, this.leftPos + 79, this.topPos + 50, 35, 14)) {
             guiGraphics.renderTooltip(this.font,
-                List.of(Component.literal("Generation: " + this.menu.generation() + " HE/t")),
+                List.of(
+                    Component.literal(String.format(Locale.ROOT, "%d HE/t", this.menu.generation())).withStyle(ChatFormatting.YELLOW),
+                    Component.literal(String.format(Locale.ROOT, "%d HE/s", this.menu.generation() * 20)).withStyle(ChatFormatting.YELLOW)),
                 java.util.Optional.empty(),
                 mouseX,
                 mouseY);
@@ -106,10 +113,10 @@ public class CombustionEngineScreen extends MachineScreenBase<CombustionEngineMe
 
     @Override
     public boolean mouseClicked(final double mouseX, final double mouseY, final int button) {
-        if (button == 0 && this.handleToggleControlClick(mouseX, mouseY, this.leftPos + 79, this.topPos + 13, 35, 15, "turnOn")) {
+        if (button == 0 && this.handleToggleControlClick(mouseX, mouseY, this.leftPos + 89, this.topPos + 13, 16, 14, "turnOn")) {
             return true;
         }
-        if (button == 0 && this.inside(mouseX, mouseY, this.leftPos + 79, this.topPos + 35, 36, 12)) {
+        if (button == 0 && this.inside(mouseX, mouseY, this.leftPos + 79, this.topPos + 38, 36, 8)) {
             this.draggingSetting = true;
             this.updateSettingFromMouse(mouseX);
             return true;
@@ -133,7 +140,7 @@ public class CombustionEngineScreen extends MachineScreenBase<CombustionEngineMe
     }
 
     private void updateSettingFromMouse(final double mouseX) {
-        final int relative = Mth.clamp((int) Math.round(mouseX - (this.leftPos + 79)), 0, 32);
+        final int relative = Mth.clamp((int) Math.round(mouseX - (this.leftPos + 81)), 0, 32);
         final int value = Mth.clamp(relative * 30 / 32, 0, 30);
         if (value != this.menu.setting()) {
             this.sendIntControl("setting", value);

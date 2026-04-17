@@ -11,7 +11,7 @@ import net.minecraft.world.entity.player.Inventory;
 @SuppressWarnings("null")
 public class ShredderScreen extends MachineScreenBase<ShredderMenu> {
 
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "textures/gui/machine/gui_shredder.png");
+    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(HbmNtmMod.MOD_ID, "textures/gui/gui_shredder.png");
     private static final int WARNING_X = -16;
     private static final int WARNING_Y = 36;
 
