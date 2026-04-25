@@ -1,4 +1,5 @@
 {
+  "parent": "minecraft:block/block",
   "loader": "forge:obj",
   "flip_v": true,
   "model": "hbmntm:models/block/chimney_brick.obj",
@@ -7,7 +8,8 @@
       0.5,
       0.0,
       0.5
-    ]
+    ],
+    "scale": 0.0625
   },
   "textures": {
     "particle": "hbmntm:block/chimney_brick",

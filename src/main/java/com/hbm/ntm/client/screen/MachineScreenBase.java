@@ -43,6 +43,7 @@ public abstract class MachineScreenBase<T extends MachineMenuBase<?>> extends Ab
         super(menu, inventory, title);
         this.imageWidth = imageWidth;
         this.imageHeight = imageHeight;
+        this.inventoryLabelY = imageHeight - 94;
     }
 
     @Override

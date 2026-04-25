@@ -17,6 +17,7 @@ import com.hbm.ntm.common.material.HbmMaterials;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
@@ -91,8 +92,22 @@ public class HbmItemModelProvider extends ItemModelProvider {
         withExistingParent("machine_combustion", modLoc("block/machine_combustion_off"));
         withExistingParent("machine_furnace_brick", modLoc("block/machine_furnace_brick_off"));
         withExistingParent("machine_ashpit", modLoc("block/machine_ashpit"));
-        withExistingParent("chimney_brick", modLoc("block/chimney_brick"));
-        withExistingParent("chimney_industrial", modLoc("block/chimney_industrial"));
+        withExistingParent("chimney_brick", modLoc("block/chimney_brick"))
+            .transforms()
+            .transform(ItemDisplayContext.GUI).rotation(30.0F, 45.0F, 0.0F).translation(0.0F, -8.0F, 0.5F).scale(0.06F).end()
+            .transform(ItemDisplayContext.GROUND).rotation(0.0F, 0.0F, 0.0F).translation(0.0F, 3.0F, 0.0F).scale(0.03F).end()
+            .transform(ItemDisplayContext.FIXED).rotation(0.0F, 0.0F, 0.0F).translation(0.0F, 0.0F, 0.0F).scale(0.05F).end()
+            .transform(ItemDisplayContext.THIRD_PERSON_RIGHT_HAND).rotation(75.0F, 45.0F, 0.0F).translation(0.0F, 2.5F, 0.0F).scale(0.04F).end()
+            .transform(ItemDisplayContext.FIRST_PERSON_RIGHT_HAND).rotation(0.0F, 45.0F, 0.0F).translation(1.0F, -1.0F, 0.0F).scale(0.04F).end()
+            .end();
+        withExistingParent("chimney_industrial", modLoc("block/chimney_industrial"))
+            .transforms()
+            .transform(ItemDisplayContext.GUI).rotation(30.0F, 45.0F, 0.0F).translation(0.0F, -11.0F, 0.5F).scale(0.04F).end()
+            .transform(ItemDisplayContext.GROUND).rotation(0.0F, 0.0F, 0.0F).translation(0.0F, 3.0F, 0.0F).scale(0.02F).end()
+            .transform(ItemDisplayContext.FIXED).rotation(0.0F, 0.0F, 0.0F).translation(0.0F, 0.0F, 0.0F).scale(0.035F).end()
+            .transform(ItemDisplayContext.THIRD_PERSON_RIGHT_HAND).rotation(75.0F, 45.0F, 0.0F).translation(0.0F, 2.5F, 0.0F).scale(0.03F).end()
+            .transform(ItemDisplayContext.FIRST_PERSON_RIGHT_HAND).rotation(0.0F, 45.0F, 0.0F).translation(1.0F, -1.0F, 0.0F).scale(0.03F).end()
+            .end();
         withExistingParent("steel_beam", modLoc("block/steel_beam"));
         withExistingParent("steel_grate", modLoc("block/steel_grate"));
         withExistingParent("steel_grate_wide", modLoc("block/steel_grate_wide"));

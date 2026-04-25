@@ -1,3 +1,75 @@
 {
-  "parent": "hbmntm:block/chimney_industrial"
+  "parent": "hbmntm:block/chimney_industrial",
+  "display": {
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        45,
+        0
+      ],
+      "scale": [
+        0.03,
+        0.03,
+        0.03
+      ],
+      "translation": [
+        1,
+        -1,
+        0
+      ]
+    },
+    "fixed": {
+      "scale": [
+        0.035,
+        0.035,
+        0.035
+      ]
+    },
+    "ground": {
+      "scale": [
+        0.02,
+        0.02,
+        0.02
+      ],
+      "translation": [
+        0,
+        3,
+        0
+      ]
+    },
+    "gui": {
+      "rotation": [
+        30,
+        45,
+        0
+      ],
+      "scale": [
+        0.04,
+        0.04,
+        0.04
+      ],
+      "translation": [
+        0,
+        -11,
+        0.5
+      ]
+    },
+    "thirdperson_righthand": {
+      "rotation": [
+        75,
+        45,
+        0
+      ],
+      "scale": [
+        0.03,
+        0.03,
+        0.03
+      ],
+      "translation": [
+        0,
+        2.5,
+        0
+      ]
+    }
+  }
 }

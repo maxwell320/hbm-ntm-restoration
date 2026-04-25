@@ -698,11 +698,14 @@ public class HbmBlockStateProvider extends BlockStateProvider {
         final float thickness = wide ? 1.984F : 2.0F;
         final ModelFile[] levelModels = new ModelFile[10];
 
+        final ModelFile displayParent = models().getExistingFile(mcLoc("block/block"));
+
         for (int level = 0; level < levelModels.length; level++) {
             final float minY = level == 9 ? -2.0F : level * 2.0F;
             final float maxY = minY + thickness;
 
             levelModels[level] = models().getBuilder(modelName + "_level_" + level)
+            .parent(displayParent)
                 .texture("particle", modLoc("block/grate_side"))
                 .texture("side", modLoc("block/grate_side"))
                 .texture("top", modLoc("block/" + topTexture))

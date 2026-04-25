@@ -1,4 +1,4 @@
-// 1.20.1	2026-04-20T18:40:29.8871769	Item Models: hbmntm
+// 1.20.1	2026-04-21T10:39:55.7328194	Item Models: hbmntm
 dcc04e25f14e64a3e399478e0fb2c6712ff67180 assets/hbmntm/models/item/acetylene_torch.json
 52fb062addf509d750be0513021c77dcab08aa62 assets/hbmntm/models/item/asbestos_cloth.json
 863bf180da18fb08cd18fd883d2876403e499196 assets/hbmntm/models/item/ball_resin.json
@@ -124,8 +124,8 @@ f32ab57ec8f7a4d800f0390ce15c645548ffce5a assets/hbmntm/models/item/casing_small.
 7595d5ba672c9a72094ba2570357635ebc3ab5cc assets/hbmntm/models/item/casing_small_steel.json
 5533bc7a6908ab9f448aedf36fe60a39ee8e144c assets/hbmntm/models/item/catalyst_clay.json
 87ed2df5745c4c5f224bb6f072a798ae900c7d7e assets/hbmntm/models/item/centrifuge_element.json
-43a74d36b2449ec3fa61cc5c6b76bff00f9c819d assets/hbmntm/models/item/chimney_brick.json
-805937e3c8335e47c7a032eecc661824423882ac assets/hbmntm/models/item/chimney_industrial.json
+afc76a42a5521e036072fbbd5f161b2da7d22d53 assets/hbmntm/models/item/chimney_brick.json
+88674a49f0c93ad31e92068712db5f3113fe9873 assets/hbmntm/models/item/chimney_industrial.json
 ccc86a6572669993b1b018c62b20c2eeedc32633 assets/hbmntm/models/item/chunk_ore_cryolite.json
 e7eb8c26e5a22a9870b463f8502a628f8966a372 assets/hbmntm/models/item/chunk_ore_malachite.json
 c38d7e52ee84503ba0bc23a055857dbfd0f94c2c assets/hbmntm/models/item/chunk_ore_moonstone.json
